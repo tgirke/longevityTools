@@ -45,7 +45,7 @@ suppressPackageStartupMessages({
 })
 ```
 
-Note: the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.
+Note: the GitHub repository of this package is [here](https://github.com/tgirke/longevityTools) and most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.
 
 # Introduction
 text text text text text text text text text text text text
