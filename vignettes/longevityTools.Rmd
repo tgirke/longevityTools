@@ -40,15 +40,11 @@ knitr::opts_chunk$set(
 
 ```{r setup, echo=FALSE, messages=FALSE, warnings=FALSE}
 suppressPackageStartupMessages({
-    library(longevityTools)
-    library(ggplot2)
-})
-```
+    library(longevityTools) library(ggplot2) }) ```
 
-Note: the GitHub repository of this package is [here](https://github.com/tgirke/longevityTools) and most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.
+Note: the GitHub repository of this package is [here](https://github.com/tgirke/longevityTools) and teh most recent version of this tutorial can be found [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html).
 
-# Introduction
-text text text text text text text text text text text text
+# Introduction text text text text text text text text text text text text
 text text text text text text text text text text text text
 text text text text text text text text text text text text
 text text text text text text text text text text text text

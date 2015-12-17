@@ -7,9 +7,25 @@ knitr::opts_chunk$set(
 
 ## ----setup, echo=FALSE, messages=FALSE, warnings=FALSE-------------------
 suppressPackageStartupMessages({
-    library(longevityTools)
-    library(ggplot2)
-})
+    library(longevityTools) library(ggplot2) }) ```
+
+Note: the GitHub repository of this package is [here](https://github.com/tgirke/longevityTools) and teh most recent version of this tutorial can be found [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html).
+
+# Introduction text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+some citation [@Li2013-oy; @Li2009-oc]
+
+<div align="right">[Back to Table of Contents]()</div>
+
+
+# Getting Started
+
+## Installation
+
+The R software for running [_`longevityTools`_](https://github.com/tgirke/longevityTools) can be downloaded from [_CRAN_](http://cran.at.r-project.org/). The _`longevityTools`_ package can be installed from the R console using the following _`biocLite`_ install command. 
+
 
 ## ----install, eval=FALSE-------------------------------------------------
 ## source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script
