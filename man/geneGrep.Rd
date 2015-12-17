@@ -3,9 +3,9 @@
 \title{Gene ID query
 }
 \description{
-The \code{geneGrep} function takes GTEx results and gene list as arguments, 
-returns GTEx eSNP results for genes in gene lists. Genes without significant 
-eSNPs are removed from results. 
+The \code{geneGrep} function subsets an eQTL data set (\code{data.frame}) from GTEx 
+with a vector of gene IDs as arguments. Genes without significant eSNPs are removed 
+from results. 
 }
 \usage{
 geneGrep(dat, genes)
