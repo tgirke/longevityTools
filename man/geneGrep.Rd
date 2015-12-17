@@ -28,6 +28,10 @@ Daniel Evans
 \seealso{
 }
 \examples{
+library(longevityTools)
+samplepath <- system.file("extdata", "Whole_Blood_Analysis.snpgenes.head100", package="longevityTools") 
+read.delim(samplepath)
+
 \dontrun{
 dat <- read.table("~/Documents/longevity/GTEx/data/Whole_Blood_Analysis.snpgenes.head100", header=TRUE, sep="\t", stringsAsFactors=FALSE)
 myGenes<- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
