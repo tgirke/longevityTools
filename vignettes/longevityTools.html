@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: analysis tools for longevity research</h1>
 <h4 class="author"><em>Author: Thomas Girke (<a href="mailto:thomas.girke@ucr.edu">thomas.girke@ucr.edu</a>)</em></h4>
-<h4 class="date"><em>Last update: 16 December, 2015</em></h4>
+<h4 class="date"><em>Last update: 17 December, 2015</em></h4>
 </div>
 
 <h1>Contents</h1>
@@ -60,7 +60,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#getting-started"><span class="toc-section-number">2</span> Getting Started</a><ul>
 <li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
-<li><a href="#utilities"><span class="toc-section-number">2.3</span> Utilities</a></li>
+<li><a href="#sample-data-from-gtex"><span class="toc-section-number">2.3</span> Sample data from GTEx</a></li>
+<li><a href="#utilities"><span class="toc-section-number">2.4</span> Utilities</a></li>
 </ul></li>
 <li><a href="#version-information"><span class="toc-section-number">3</span> Version information</a></li>
 <li><a href="#references">References</a></li>
@@ -70,9 +71,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <!--
 %% \VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{Overview Vignette}
-%% \VignetteDepends{rjson, ggplot2, limma, edgeR, DESeq2, GOstats, GO.db, annotate, pheatmap}
+%% \VignetteDepends{methods}
 %% \VignetteKeywords{compute cluster, pipeline, reports}
-%% \VignettePackage{systemPipeR}
+%% \VignettePackage{longevityTools}
 -->
 <!---
 - Compile from command-line
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
       links[i].target = '_blank';
 });
 </script>
-<p>Note: the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/systemPipeR/blob/master/vignettes/systemPipeR.html">here</a> and a short overview slide show <a href="https://htmlpreview.github.io/?https://github.com/tgirke/systemPipeR/master/inst/extdata/slides/systemPipeRslides.html">here</a>.</p>
+<p>Note: the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.</p>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p>text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text some citation <span class="citation">(Heng Li 2013; H Li and Durbin 2009)</span></p>
@@ -125,13 +126,24 @@ vignette(&quot;longevityTools&quot;) # Opens vignette</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
+<div id="sample-data-from-gtex" class="section level2">
+<h2><span class="header-section-number">2.3</span> Sample data from GTEx</h2>
+<p>The eQTL data used in this vignette can be downloaded from the <a href="http://www.gtexportal.org/home/datasets">GTEx site</a>. Note, the following downloads a 1.3GB file, which will take some time.</p>
+<pre class="r"><code>download.file(&quot;http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz&quot;, &quot;./GTEx_Analysis_V6_eQTLs.tar.gz&quot;)
+untar(&quot;GTEx_Analysis_V6_eQTLs.tar.gz&quot;)</code></pre>
+</div>
 <div id="utilities" class="section level2">
-<h2><span class="header-section-number">2.3</span> Utilities</h2>
-<p>The <em><code>geneGrep</code></em> function takes GTEx results and gene list as arguments, returns GTEx eSNP results for genes in gene list. Genes without significant eSNPs are removed from results. Input data: GTEx_Analysis_V6_eQTLs.tar.gz</p>
+<h2><span class="header-section-number">2.4</span> Utilities</h2>
+<p>The <em><code>geneGrep</code></em> function takes GTEx results and gene list as arguments, returns GTEx eSNP results for genes in gene list. Genes without significant eSNPs are removed from results. The following sample file <em>Whole_Blood_Analysis.snpgenes</em> has been subsetted to the first 100 rows.</p>
 <pre class="r"><code>library(longevityTools)
-dat &lt;- read.table(&quot;~/Documents/longevity/GTEx/data/Whole_Blood_Analysis.snpgenes.head100&quot;, header=TRUE, sep=&quot;\t&quot;, stringsAsFactors=FALSE)
-myGenes&lt;- c(&quot;RP11-693J15.4&quot;, &quot;RP11-809N8.4&quot;, &quot;junkNoMatch&quot;)
-result &lt;- geneGrep(dat, myGenes)</code></pre>
+samplepath &lt;- system.file(&quot;extdata&quot;, &quot;Whole_Blood_Analysis.snpgenes.head100&quot;, package=&quot;longevityTools&quot;) 
+dat &lt;- read.delim(samplepath)
+myGenes &lt;- c(&quot;RP11-693J15.4&quot;, &quot;RP11-809N8.4&quot;, &quot;junkNoMatch&quot;)
+result &lt;- geneGrep(dat, myGenes)
+result</code></pre>
+<pre><code>##                     snp      beta      p_value ref alt     gene_name
+## 1   12_92859287_A_G_b37 0.1835177 9.059607e-06   A   G RP11-693J15.4
+## 3 11_73244611_CCA_C_b37 0.2377053 1.036340e-06 CCA   C  RP11-809N8.4</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -154,22 +166,27 @@ result &lt;- geneGrep(dat, myGenes)</code></pre>
 ## [1] stats     graphics  utils     datasets  grDevices methods   base     
 ## 
 ## other attached packages:
-## [1] BiocStyle_1.8.0
+## [1] ggplot2_1.0.1        longevityTools_1.0.0 BiocStyle_1.8.0     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] magrittr_1.5    formatR_1.2.1   tools_3.2.2     htmltools_0.2.6 yaml_2.1.13     stringi_1.0-1  
-##  [7] rmarkdown_0.8.1 knitr_1.11      stringr_1.0.0   digest_0.6.8    evaluate_0.8</code></pre>
+##  [1] Rcpp_0.12.2      codetools_0.2-14 digest_0.6.8     MASS_7.3-45      grid_3.2.2      
+##  [6] plyr_1.8.3       gtable_0.1.2     formatR_1.2.1    magrittr_1.5     scales_0.3.0    
+## [11] evaluate_0.8     stringi_1.0-1    reshape2_1.4.1   rmarkdown_0.8.1  proto_0.3-10    
+## [16] tools_3.2.2      stringr_1.0.0    munsell_0.4.2    yaml_2.1.13      colorspace_1.2-6
+## [21] htmltools_0.2.6  knitr_1.11</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
-<div id="references" class="section level1 references unnumbered">
+<div id="references" class="section level1 unnumbered">
 <h1>References</h1>
+<div id="refs" class="references">
 <div id="ref-Li2009-oc">
-<p>Li, H, and R Durbin. 2009. “Fast and Accurate Short Read Alignment with Burrows-Wheeler Transform.” <em>Bioinformatics</em> 25 (14): 1754–60. <a href="http://doi.org/10.1093/bioinformatics/btp324">doi:10.1093/bioinformatics/btp324</a>.</p>
+<p>Li, H, and R Durbin. 2009. “Fast and Accurate Short Read Alignment with Burrows-Wheeler Transform.” <em>Bioinformatics</em> 25 (14): 1754–60. doi:<a href="http://doi.org/10.1093/bioinformatics/btp324">10.1093/bioinformatics/btp324</a>.</p>
 </div>
 <div id="ref-Li2013-oy">
 <p>Li, Heng. 2013. “Aligning Sequence Reads, Clone Sequences and Assembly Contigs with BWA-MEM.” <em>ArXiv [Q-Bio.GN]</em>. <a href="http://arxiv.org/abs/1303.3997" class="uri">http://arxiv.org/abs/1303.3997</a>.</p>
+</div>
 </div>
 </div>
 

@@ -20,11 +20,17 @@ suppressPackageStartupMessages({
 ## library(help="longevityTools") # Lists package info
 ## vignette("longevityTools") # Opens vignette
 
-## ----genRna_workflow, eval=FALSE-----------------------------------------
-## library(longevityTools)
-## dat <- read.table("~/Documents/longevity/GTEx/data/Whole_Blood_Analysis.snpgenes.head100", header=TRUE, sep="\t", stringsAsFactors=FALSE)
-## myGenes<- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
-## result <- geneGrep(dat, myGenes)
+## ----eQTL_download, eval=FALSE-------------------------------------------
+## download.file("http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz", "./GTEx_Analysis_V6_eQTLs.tar.gz")
+## untar("GTEx_Analysis_V6_eQTLs.tar.gz")
+
+## ----geneGrep, eval=TRUE-------------------------------------------------
+library(longevityTools)
+samplepath <- system.file("extdata", "Whole_Blood_Analysis.snpgenes.head100", package="longevityTools") 
+dat <- read.delim(samplepath)
+myGenes <- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
+result <- geneGrep(dat, myGenes)
+result
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
