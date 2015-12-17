@@ -14,7 +14,7 @@ bibliography: bibtex.bib
 <!--
 %% \VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{Overview Vignette}
-%% \VignetteDepends{ggplot2}
+%% \VignetteDepends{methods}
 %% \VignetteKeywords{compute cluster, pipeline, reports}
 %% \VignettePackage{longevityTools}
 -->
