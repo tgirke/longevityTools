@@ -14,9 +14,9 @@ bibliography: bibtex.bib
 <!--
 %% \VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{Overview Vignette}
-%% \VignetteDepends{rjson, ggplot2, limma, edgeR, DESeq2, GOstats, GO.db, annotate, pheatmap}
+%% \VignetteDepends{ggplot2}
 %% \VignetteKeywords{compute cluster, pipeline, reports}
-%% \VignettePackage{systemPipeR}
+%% \VignettePackage{longevityTools}
 -->
 
 <!---
