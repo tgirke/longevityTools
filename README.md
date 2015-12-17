@@ -1,5 +1,5 @@
 # longevityTools
-Analysis tools for longevity research. The vignette can be found [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html).
+Analysis tools for longevity research. The HTML vignette can be viewed [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html).
 
 #### Installation 
 
