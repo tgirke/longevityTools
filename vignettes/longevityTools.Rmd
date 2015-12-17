@@ -1,6 +1,6 @@
 ---
 title: "_longevityTools_: analysis tools for longevity research" 
-author: "Author: Thomas Girke (thomas.girke@ucr.edu)"
+author: "Authors: Thomas Girke, Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Tyler Backman, Nik Schork, Dan Evans"
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 output:
   BiocStyle::html_document:

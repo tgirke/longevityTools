@@ -3,7 +3,7 @@ Type: Package
 Title: Analysis tools for longevity research
 Version: 1.0.0
 Date: 2015-12-16
-Author: Thomas Girke
+Author: Thomas Girke, Tyler Backman, Daniel Evans
 Maintainer: Thomas Girke <thomas.girke@ucr.edu>
 Description: More about what it does (maybe more than one line)
 Depends: methods

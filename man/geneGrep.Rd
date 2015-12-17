@@ -22,7 +22,7 @@ Gene IDs stored in \code{character} vector.
 Object of class \code{data.frame}.
 }
 \author{
-Daniel Evans
+Dan Evans
 }
 
 \seealso{
