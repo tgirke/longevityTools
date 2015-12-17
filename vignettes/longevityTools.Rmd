@@ -78,11 +78,16 @@ vignette("longevityTools") # Opens vignette
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
-## Load sample data and workflow templates
+## Utilities
+The _`geneGrep`_ function takes GTEx results and gene list as arguments,
+returns GTEx eSNP results for genes in gene list. Genes without significant
+eSNPs are removed from results. Input data: GTEx_Analysis_V6_eQTLs.tar.gz 
+
 ```{r genRna_workflow, eval=FALSE}
-library(systemPipeRdata)
-genWorkenvir(workflow="rnaseq")
-setwd("rnaseq")
+library(longevityTools)
+dat <- read.table("~/Documents/longevity/GTEx/data/Whole_Blood_Analysis.snpgenes.head100", header=TRUE, sep="\t", stringsAsFactors=FALSE)
+myGenes<- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
+result <- geneGrep(dat, myGenes)
 ```
 
 <div align="right">[Back to Table of Contents]()</div>

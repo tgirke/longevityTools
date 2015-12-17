@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#getting-started"><span class="toc-section-number">2</span> Getting Started</a><ul>
 <li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
-<li><a href="#load-sample-data-and-workflow-templates"><span class="toc-section-number">2.3</span> Load sample data and workflow templates</a></li>
+<li><a href="#utilities"><span class="toc-section-number">2.3</span> Utilities</a></li>
 </ul></li>
 <li><a href="#version-information"><span class="toc-section-number">3</span> Version information</a></li>
 <li><a href="#references">References</a></li>
@@ -125,11 +125,13 @@ vignette(&quot;longevityTools&quot;) # Opens vignette</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
-<div id="load-sample-data-and-workflow-templates" class="section level2">
-<h2><span class="header-section-number">2.3</span> Load sample data and workflow templates</h2>
-<pre class="r"><code>library(systemPipeRdata)
-genWorkenvir(workflow=&quot;rnaseq&quot;)
-setwd(&quot;rnaseq&quot;)</code></pre>
+<div id="utilities" class="section level2">
+<h2><span class="header-section-number">2.3</span> Utilities</h2>
+<p>The <em><code>geneGrep</code></em> function takes GTEx results and gene list as arguments, returns GTEx eSNP results for genes in gene list. Genes without significant eSNPs are removed from results. Input data: GTEx_Analysis_V6_eQTLs.tar.gz</p>
+<pre class="r"><code>library(longevityTools)
+dat &lt;- read.table(&quot;~/Documents/longevity/GTEx/data/Whole_Blood_Analysis.snpgenes.head100&quot;, header=TRUE, sep=&quot;\t&quot;, stringsAsFactors=FALSE)
+myGenes&lt;- c(&quot;RP11-693J15.4&quot;, &quot;RP11-809N8.4&quot;, &quot;junkNoMatch&quot;)
+result &lt;- geneGrep(dat, myGenes)</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>

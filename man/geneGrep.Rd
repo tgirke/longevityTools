@@ -1,64 +1,37 @@
 \name{geneGrep}
 \alias{geneGrep}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Gene ID query
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+The \code{geneGrep} function takes GTEx results and gene list as arguments, 
+returns GTEx eSNP results for genes in gene lists. Genes without significant 
+eSNPs are removed from results. 
 }
 \usage{
 geneGrep(dat, genes)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+Object of class \code{data.frame}.
 }
   \item{genes}{
-%%     ~~Describe \code{genes} here~~
+Gene IDs stored in \code{character} vector.
 }
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
+Object of class \code{data.frame}.
 }
 \author{
-%%  ~~who you are~~
+Daniel Evans
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (dat, genes) 
-{
-    myRows <- match(genes, dat$gene_name)
-    myRows <- myRows[!is.na(myRows)]
-    dat2 <- dat[myRows, c("snp", "beta", "p_value", "ref", "alt", 
-        "gene_name")]
-    return(dat2)
-  }
+\dontrun{
+dat <- read.table("~/Documents/longevity/GTEx/data/Whole_Blood_Analysis.snpgenes.head100", header=TRUE, sep="\t", stringsAsFactors=FALSE)
+myGenes<- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
+result <- geneGrep(dat, myGenes)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}
+\keyword{ utilities }

@@ -21,9 +21,10 @@ suppressPackageStartupMessages({
 ## vignette("longevityTools") # Opens vignette
 
 ## ----genRna_workflow, eval=FALSE-----------------------------------------
-## library(systemPipeRdata)
-## genWorkenvir(workflow="rnaseq")
-## setwd("rnaseq")
+## library(longevityTools)
+## dat <- read.table("~/Documents/longevity/GTEx/data/Whole_Blood_Analysis.snpgenes.head100", header=TRUE, sep="\t", stringsAsFactors=FALSE)
+## myGenes<- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
+## result <- geneGrep(dat, myGenes)
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
