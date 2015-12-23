@@ -2,7 +2,7 @@
 ## parse GTEx results
 ## GTEx_Analysis_V6_eQTLs.tar.gz
 ## head -n100 Whole_Blood_Analysis.snpgenes > Whole_Blood_Analysis.snpgenes.head100
-## ...
+
 
 geneGrep <- function(dat,genes){
     myRows <- match(genes, dat$gene_name)
