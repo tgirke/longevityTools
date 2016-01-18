@@ -17,19 +17,15 @@ suppressPackageStartupMessages({
 ## ----documentation, eval=FALSE-------------------------------------------
 ## library("longevityTools") # Loads the package
 ## library(help="longevityTools") # Lists package info
-## vignette("longevityTools") # Opens vignette
+## vignette("longevityTools_CMAP", package="longevityTools") # Opens vignette
 
 ## ----source_fct, eval=TRUE-----------------------------------------------
 fctpath <- system.file("extdata", "analysis_Fct.R", package="longevityTools")
 source(fctpath)
 
-## ----geneGrep, eval=TRUE-------------------------------------------------
-library(longevityTools)
-samplepath <- system.file("extdata", "Whole_Blood_Analysis.snpgenes.head100", package="longevityTools") 
-dat <- read.delim(samplepath)
-myGenes <- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
-result <- geneGrep(dat, myGenes)
-result
+## ----download_cmap, eval=TRUE--------------------------------------------
+getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
+getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
