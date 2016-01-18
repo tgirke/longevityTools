@@ -1,0 +1,113 @@
+---
+title: "_longevityTools_: Connnecting Gene Expression Signatures Related to Aging with Small Molecules" 
+author: "Authors: Thomas Girke, Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Tyler Backman, Nik Schork, Dan Evans"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
+output:
+  BiocStyle::html_document:
+    toc: true
+    toc_depth: 3
+    fig_caption: yes
+
+fontsize: 14pt
+bibliography: bibtex.bib
+---
+<!--
+%% \VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Overview Vignette}
+%% \VignetteDepends{methods}
+%% \VignetteKeywords{compute cluster, pipeline, reports}
+%% \VignettePackage{longevityTools}
+-->
+
+<!---
+- Compile from command-line
+echo "rmarkdown::render('longevityTools_CMAP.Rmd')" | R -slave; R CMD Stangle longevityTools_CMAP.Rmd
+
+- Commit to github
+git commit -am "some edits"; git push -u origin master
+
+- To customize font size and other style features, add this line to output section in preamble:  
+    css: style.css
+-->
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+options(width=100, max.print=1000)
+knitr::opts_chunk$set(
+    eval=as.logical(Sys.getenv("KNITR_EVAL", "TRUE")),
+    cache=as.logical(Sys.getenv("KNITR_CACHE", "TRUE")))
+```
+
+```{r setup, echo=FALSE, messages=FALSE, warnings=FALSE}
+suppressPackageStartupMessages({
+    library(longevityTools) 
+    library(ggplot2) }) 
+```
+
+Note: the GitHub repository of this package is <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.
+
+# Introduction 
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+some citation [@Li2013-oy; @Li2009-oc]
+
+<div align="right">[Back to Table of Contents]()</div>
+
+
+# Getting Started
+
+## Installation
+
+The R software for running [_`longevityTools`_](https://github.com/tgirke/longevityTools) can be downloaded from [_CRAN_](http://cran.at.r-project.org/). The _`longevityTools`_ package can be installed from the R console using the following _`biocLite`_ install command. 
+
+```{r install, eval=FALSE}
+source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
+biocLite("tgirke/longevityTools", build_vignettes=TRUE, dependencies=TRUE) # Installs package from GitHub
+```
+<div align="right">[Back to Table of Contents]()</div>
+
+## Loading package and documentation
+
+```{r documentation, eval=FALSE}
+library("longevityTools") # Loads the package
+library(help="longevityTools") # Lists package info
+vignette("longevityTools") # Opens vignette
+```
+<div align="right">[Back to Table of Contents]()</div>
+
+## Sample data from GTEx
+The eQTL data used in this vignette can be downloaded from the [GTEx site](http://www.gtexportal.org/home/datasets).
+Note, the following downloads a 1.3GB file, which will take some time.
+
+```{r source_fct, eval=TRUE}
+fctpath <- system.file("extdata", "analysis_Fct.R", package="longevityTools")
+source(fctpath)
+```
+
+## Utilities
+The _`geneGrep`_ function takes GTEx results and gene list as arguments,
+returns GTEx eSNP results for genes in gene list. Genes without significant
+eSNPs are removed from results. The following sample file _Whole\_Blood\_Analysis.snpgenes_ 
+has been subsetted to the first 100 rows.
+```{r geneGrep, eval=TRUE}
+library(longevityTools)
+samplepath <- system.file("extdata", "Whole_Blood_Analysis.snpgenes.head100", package="longevityTools") 
+dat <- read.delim(samplepath)
+myGenes <- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
+result <- geneGrep(dat, myGenes)
+result
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
+
+# Version information
+
+```{r sessionInfo}
+sessionInfo()
+```
+<div align="right">[Back to Table of Contents]()</div>
+
+# References
