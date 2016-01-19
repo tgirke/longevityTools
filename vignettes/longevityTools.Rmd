@@ -82,12 +82,6 @@ To be added later...
 
 <div align="right">[Back to Table of Contents]()</div>
 
-# Version information
-
-```{r sessionInfo}
-sessionInfo()
-```
-<div align="right">[Back to Table of Contents]()</div>
 
 # Funding
 This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).
@@ -96,6 +90,9 @@ This project is funded by NIH grant U24AG051129 awarded by the National Intitute
 
 # Version information
 
+```{r sessionInfo}
+sessionInfo()
+```
 <div align="right">[Back to Table of Contents]()</div>
 
 # References
