@@ -52,7 +52,7 @@ Its development is part of the [Longevity Genomics](http://www.longevitygenomics
 The analysis workflows used by this project are documented in its companion vignettes. Currently, 
 this includes the [longevityTools_eQTL](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html) and
 [longevityTools_CMAP](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html) 
-vignettes [@Li2013-oy; @Li2009-oc].
+vignettes [@Lamb2006-uv; @Peters2015-fc; @Sood2015-pb].
 
 <div align="right">[Back to Table of Contents]()</div>
 
