@@ -49,7 +49,7 @@ Note: the GitHub repository of this package is <a href="https://github.com/tgirk
 # Introduction 
 This vignette provides general information about the `longevityTools` package.
 Its development is part of the [Longevity Genomics](http://www.longevitygenomics.org/) project. 
-The analysis workflows used by this project are documented in companion vignettes. Currently, 
+The analysis workflows used by this project are documented in its companion vignettes. Currently, 
 this includes the [longevityTools_eQTL](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html) and
 [longevityTools_CMAP](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html) 
 vignettes [@Li2013-oy; @Li2009-oc].
