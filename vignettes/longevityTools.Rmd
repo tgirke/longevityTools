@@ -1,5 +1,5 @@
 ---
-title: "_longevityTools_: analysis tools for longevity research" 
+title: "_longevityTools_: eQTL, eSNP and GWAS Analysis" 
 author: "Authors: Thomas Girke, Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Tyler Backman, Nik Schork, Dan Evans"
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 output:
