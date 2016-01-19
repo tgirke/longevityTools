@@ -41,6 +41,27 @@ source(fctpath)
 ## chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
 ## combineResults(chiptype_dir, rerun=FALSE)
 
+## ----cleanup1, eval=FALSE------------------------------------------------
+## # for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
+## # unlink("data/CEL/") # Deletes downloaded CEL files
+
+## ----cel_file_list, eval=FALSE-------------------------------------------
+## cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) # Note: cmap_instances_02.xls converted to txt with LibreOffice
+## # comp_list <- sampleList(cmap, myby="CMP")
+## comp_list <- sampleList(cmap, myby="CMP_CELL")
+
+## ----deg_limma, eval=FALSE-----------------------------------------------
+## degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
+
+## ----load_mas5_data, eval=FALSE------------------------------------------
+## chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
+## df1 <- readRDS(paste0("data/", chiptype_dir[1], "/", "all_mas5exprs.rds"))
+## df2 <- readRDS(paste0("data/", chiptype_dir[2], "/", "all_mas5exprs.rds"))
+## df3 <- readRDS(paste0("data/", chiptype_dir[3], "/", "all_mas5exprs.rds"))
+## affyid <- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid <- affyid[affyid %in% rownames(df3)]
+## df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
+
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
 
