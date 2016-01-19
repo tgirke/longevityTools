@@ -78,7 +78,8 @@ vignette("longevityTools") # Opens vignette
 ```
 
 ## Overview of object clases, methods and functions
-To be added later...
+
+To be continued...
 
 <div align="right">[Back to Table of Contents]()</div>
 
