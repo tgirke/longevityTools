@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#getting-started"><span class="toc-section-number">2</span> Getting Started</a><ul>
 <li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
-<li><a href="#sample-data-from-gtex"><span class="toc-section-number">2.3</span> Sample data from GTEx</a></li>
+<li><a href="#import-custom-functions"><span class="toc-section-number">2.3</span> Import custom functions</a></li>
 <li><a href="#download-data-from-connectivity-map-project-site"><span class="toc-section-number">2.4</span> Download data from Connectivity Map project site</a></li>
 </ul></li>
 <li><a href="#version-information"><span class="toc-section-number">3</span> Version information</a></li>
@@ -130,9 +130,9 @@ vignette(&quot;longevityTools_CMAP&quot;, package=&quot;longevityTools&quot;) # 
 <a href>Back to Table of Contents</a>
 </div>
 </div>
-<div id="sample-data-from-gtex" class="section level2">
-<h2><span class="header-section-number">2.3</span> Sample data from GTEx</h2>
-<p>The eQTL data used in this vignette can be downloaded from the <a href="http://www.gtexportal.org/home/datasets">GTEx site</a>. Note, the following downloads a 1.3GB file, which will take some time.</p>
+<div id="import-custom-functions" class="section level2">
+<h2><span class="header-section-number">2.3</span> Import custom functions</h2>
+<p>Preliminary functions that are still in the developement stage or not fully documented can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
 <pre class="r"><code>fctpath &lt;- system.file(&quot;extdata&quot;, &quot;analysis_Fct.R&quot;, package=&quot;longevityTools&quot;)
 source(fctpath)</code></pre>
 </div>
