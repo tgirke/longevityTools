@@ -1,6 +1,6 @@
 ---
 title: "_longevityTools_: Connecting Drug and Age related Gene Expression Signatures" 
-author: "Authors: Thomas Girke, Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Tyler Backman, Nik Schork, Dan Evans"
+author: "Authors: Tyler Backman, Dan Evans, Thomas Girke"
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 output:
   BiocStyle::html_document:
