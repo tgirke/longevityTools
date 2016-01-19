@@ -99,6 +99,10 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 
 <div align="right">[Back to Table of Contents]()</div>
 
+# Funding
+This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).
+
+<div align="right">[Back to Table of Contents]()</div>
 
 # Version information
 
@@ -108,4 +112,3 @@ sessionInfo()
 <div align="right">[Back to Table of Contents]()</div>
 
 # References
-_eQTLo
