@@ -51,7 +51,7 @@ This vignette provides general information about the `longevityTools` package.
 This includes an introduction into the objects, data structures, methods and
 functions defined by `longevityTools`. The development of `longevityTools` is part of the 
 [Longevity Genomics](http://www.longevitygenomics.org/) project. 
-The analysis workflows used by this project are documented in its companion vignettes listed below [@Lamb2006-uv; @Peters2015-fc; @Sood2015-pb].
+The analysis workflows used by this project are documented in its companion vignettes listed below.
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -76,9 +76,11 @@ library(help="longevityTools") # Lists package info
 vignette("longevityTools") # Opens vignette
 ```
 
+<div align="right">[Back to Table of Contents]()</div>
+
 # Overview of object clases, methods and functions
 
-To be continued...
+To be continued... [@Lamb2006-uv; @Peters2015-fc; @Sood2015-pb].
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -90,6 +92,8 @@ Currently, this package includes the following analysis workflow vignettes:
 * [longevityDrugs_eQTL](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html): eQTL, eSNP and GWAS analysis
 * [longevityDrugs_CMAP](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html): connecting drug- and age-related gene expression signatures
 * longevityTools_Drugs: coming soon
+
+<div align="right">[Back to Table of Contents]()</div>
 
 # Funding
 This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).
