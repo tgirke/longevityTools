@@ -1,6 +1,6 @@
 ---
-title: "_longevityTools_: Analysis Tools for Longevity Research" 
-author: "Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans"
+title: "_longevityTools_: eQTL, eSNP and GWAS Analysis" 
+author: "Authors: Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans"
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 output:
   BiocStyle::html_document:
@@ -21,7 +21,7 @@ bibliography: bibtex.bib
 
 <!---
 - Compile from command-line
-echo "rmarkdown::render('longevityTools.Rmd')" | R -slave; R CMD Stangle longevityTools.Rmd
+echo "rmarkdown::render('longevityTools_eQTL.Rmd')" | R -slave; R CMD Stangle longevityTools_eQTL.Rmd
 
 - Commit to github
 git commit -am "some edits"; git push -u origin master
@@ -47,12 +47,11 @@ suppressPackageStartupMessages({
 Note: the GitHub repository of this package is <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.
 
 # Introduction 
-This vignette provides general information about the `longevityTools` package. The analysis tools
-provided by this package are part of the NIH/NIH funded [Longevity Genomics](http://www.longevitygenomics.org/) project.
-The analysis workflows used by the project are documented in separate vignette of this package. Currently, this includes
-following vignettes:
-[longevityTools_eQTL](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html) and
-[longevityTools_CMAP](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html) [@Li2013-oy; @Li2009-oc].
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+some citation [@Li2013-oy; @Li2009-oc]
 
 <div align="right">[Back to Table of Contents]()</div>
 
