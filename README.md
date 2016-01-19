@@ -3,7 +3,7 @@ R package defining the analysis routines used by the [Longevity Genomics](http:/
 
 * [longevityDrugs](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html): overview vignette
 * [longevityDrugs_eQTL](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html): eQTL, eSNP and GWAS analysis
-* [longevityDrugs_CMAP](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html): Connecting Drug- and Age-related Gene Expression Signatures
+* [longevityDrugs_CMAP](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html): connecting drug- and age-related gene expression signatures
 
 #### Installation 
 
