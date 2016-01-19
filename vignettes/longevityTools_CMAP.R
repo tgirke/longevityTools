@@ -63,17 +63,19 @@ source(fctpath)
 ## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
 ## saveRDS(degMA, "./results/degMA.rds")
 
-## ----affyid_annotations, eval=TRUE, message=FALSE------------------------
-library(hgu133a.db)
-myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
-                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
-                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
-                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
-                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
-                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+## ----affyid_annotations, eval=FALSE, message=FALSE-----------------------
+## library(hgu133a.db)
+## myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "),
+##                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "),
+##                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "),
+##                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "),
+##                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "),
+##                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+## saveRDS(myAnnot, "./results/myAnnot.rds")
 
 ## ----deg_overlaps, eval=TRUE---------------------------------------------
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
+myAnnot <- readRDS("./results/myAnnot.rds") 
 affyid <- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$"NEW.Entrez.ID",])
 # degMA <- read.delim("./results/degMA.xls", row.names=1, check.names=FALSE)
 degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
@@ -83,7 +85,10 @@ c <- colSums(degMAsub==1) # Common in both (c)
 a <- colSums(degMAsub==0) # Only in query (a)
 b <- colSums(degMA==1) - c # Only in cmap (b)
 j <- c/(c+a+b) # Jaccard similarity 
-sort(j, decreasing=TRUE)[1:10]
+r <- sort(j, decreasing=TRUE)
+degOL <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+write.table(degOL, file="./results/degOL.xls", quote=FALSE, sep="\t", col.names = NA) 
+degOL[1:20,]
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()

@@ -248,11 +248,13 @@ myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=
                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=&quot;, &quot;), 
                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=&quot;, &quot;), 
                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=&quot;, &quot;), 
-                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))</code></pre>
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))
+saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
 </div>
 <div id="identify-deg-overlaps-with-peters-et-al--peters2015-fc" class="section level2">
 <h2><span class="header-section-number">6.5</span> Identify DEG overlaps with Peters et al <span class="citation">(2015)</span></h2>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
+myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
 affyid &lt;- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$&quot;NEW.Entrez.ID&quot;,])
 # degMA &lt;- read.delim(&quot;./results/degMA.xls&quot;, row.names=1, check.names=FALSE)
 degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
@@ -262,13 +264,31 @@ c &lt;- colSums(degMAsub==1) # Common in both (c)
 a &lt;- colSums(degMAsub==0) # Only in query (a)
 b &lt;- colSums(degMA==1) - c # Only in cmap (b)
 j &lt;- c/(c+a+b) # Jaccard similarity 
-sort(j, decreasing=TRUE)[1:10]</code></pre>
-<pre><code>##       anisomycin_HL60        pergolide_HL60      alprostadil_HL60         lycorine_HL60 
-##            0.10581448            0.10348299            0.10213891            0.10194778 
-##     tanespimycin_HL60          emetine_HL60       vorinostat_HL60    trichostatin A_PC3 
-##            0.09935438            0.09638932            0.09631122            0.09492953 
-##      mebendazole_HL60 (-)-isoprenaline_HL60 
-##            0.09412955            0.09163464</code></pre>
+r &lt;- sort(j, decreasing=TRUE)
+degOL &lt;- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+write.table(degOL, file=&quot;./results/degOL.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+degOL[1:20,]</code></pre>
+<pre><code>##                            CMP Jaccard_Index
+## 1              anisomycin_HL60    0.10581448
+## 2               pergolide_HL60    0.10348299
+## 3             alprostadil_HL60    0.10213891
+## 4                lycorine_HL60    0.10194778
+## 5            tanespimycin_HL60    0.09935438
+## 6                 emetine_HL60    0.09638932
+## 7              vorinostat_HL60    0.09631122
+## 8           trichostatin A_PC3    0.09492953
+## 9             mebendazole_HL60    0.09412955
+## 10       (-)-isoprenaline_HL60    0.09163464
+## 11             vorinostat_MCF7    0.09122108
+## 12 co-dergocrine mesilate_HL60    0.09107612
+## 13            midecamycin_HL60    0.09038592
+## 14           tanespimycin_MCF7    0.09027778
+## 15             cephaeline_MCF7    0.08966813
+## 16           8-azaguanine_HL60    0.08924279
+## 17          Prestwick-983_HL60    0.08851541
+## 18               baclofen_HL60    0.08798351
+## 19           camptothecin_MCF7    0.08797251
+## 20          helveticoside_HL60    0.08634280</code></pre>
 </div>
 </div>
 <div id="funding" class="section level1">
