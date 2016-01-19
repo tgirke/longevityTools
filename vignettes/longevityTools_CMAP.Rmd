@@ -169,6 +169,13 @@ cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) # Note: cm
 comp_list <- sampleList(cmap, myby="CMP_CELL")
 ```
 
+## DEG analysis with Limma
+
+```{r deg_limma, eval=FALSE}
+degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
+```
+
 <div align="right">[Back to Table of Contents]()</div>
 
 ## Load normalized expression data 
