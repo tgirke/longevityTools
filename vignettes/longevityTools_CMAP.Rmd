@@ -126,9 +126,10 @@ saveRDS(chiptype, "./data/chiptype.rds")
 
 ## Normalization of CEL files
 
-The follwoing processes each chip type separately using the MAS5 normalization algorithm. 
-To save time, the processing is parallelized with `BiocParallel` to run on a computer cluster
-with a scheduler (_e.g._ Torque).
+The follwoing processes the CEL files from each chip type separately using the
+MAS5 normalization algorithm. To save time, the processing is parallelized
+with `BiocParallel` to run on 100 CPU cores of a computer cluster with a scheduler (_e.g._
+Torque).
 
 ```{r normalize_chips, eval=TRUE}
 library(BiocParallel); library(BatchJobs); library(affy)
