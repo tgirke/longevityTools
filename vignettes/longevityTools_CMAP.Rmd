@@ -201,8 +201,7 @@ saveRDS(degMA, "./results/degMA.rds")
 <div align="right">[Back to Table of Contents]()</div>
 
 ## Obtain annotation information
-The following generate annotation information for the Affymetirx probe set identifiers.
-
+The following generates annotation information for the Affymetirx probe set identifiers.
 Note, the three different Affymetrix chip types used by CMAP share most probe
 set ids (>95%), meaning it is possible to combine the data after normalization
 and use the same annotation package for all of them. The number of CEL files
@@ -222,7 +221,13 @@ myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", 
 saveRDS(myAnnot, "./results/myAnnot.rds")
 ```
 
-## Identify DEG overlaps with Peters et al [-@Peters2015-fc]
+## Identify DEG overlaps with Peters et al. [-@Peters2015-fc]
+
+Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression signatures. 
+The following intersects computes their intersects with each of the 3,318 drug-responsive 
+DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric
+and used to sort the results. The 20 top scoring results are given below and the full
+data set is written to a file named [`degOL.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL.xls).
 
 ```{r deg_overlaps, eval=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
