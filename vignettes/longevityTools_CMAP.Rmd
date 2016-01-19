@@ -88,6 +88,7 @@ can be imported with the `source` command from the `inst/extdata` directory of t
 fctpath <- system.file("extdata", "analysis_Fct.R", package="longevityTools")
 source(fctpath)
 ```
+<div align="right">[Back to Table of Contents]()</div>
 
 ## Download data from Connectivity Map project site
 The drug-related expression data are downloaded from the CMAP web site
@@ -136,6 +137,8 @@ library(BiocParallel); library(BatchJobs); library(affy)
 chiptype_list <- split(names(chiptype), as.character(chiptype))
 normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R
 ```
+
+<div align="right">[Back to Table of Contents]()</div>
 
 ## Combine results from same chip type in single data frame
 
