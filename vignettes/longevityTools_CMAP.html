@@ -231,7 +231,7 @@ write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;
 <h2><span class="header-section-number">3.10</span> Annotation information for Affy chips</h2>
 <p>The following generate annotation information for the Affymetirx probe set identifiers.</p>
 <p>Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. The annotation libraries for the two first ones are <code>hgu133a.db</code>and <code>hthgu133a.db</code>. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
-<pre class="r"><code>suppressMessages(library(hgu133a.db))
+<pre class="r"><code>library(hgu133a.db)
 myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 
                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=&quot;, &quot;), 

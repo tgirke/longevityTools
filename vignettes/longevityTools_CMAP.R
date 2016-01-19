@@ -62,8 +62,8 @@ source(fctpath)
 ## degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
 ## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
 
-## ----affyid_annotations, eval=TRUE---------------------------------------
-suppressMessages(library(hgu133a.db))
+## ----affyid_annotations, eval=TRUE, message=FALSE------------------------
+library(hgu133a.db)
 myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
