@@ -131,7 +131,7 @@ MAS5 normalization algorithm. To save time, the processing is parallelized
 with `BiocParallel` to run on 100 CPU cores of a computer cluster with a scheduler (_e.g._
 Torque).
 
-```{r normalize_chips, eval=TRUE}
+```{r normalize_chips, eval=FALSE}
 library(BiocParallel); library(BatchJobs); library(affy)
 chiptype_list <- split(names(chiptype), as.character(chiptype))
 normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R

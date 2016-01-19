@@ -32,10 +32,10 @@ source(fctpath)
 ## chiptype <- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
 ## saveRDS(chiptype, "./data/chiptype.rds")
 
-## ----normalize_chips, eval=TRUE------------------------------------------
-library(BiocParallel); library(BatchJobs); library(affy)
-chiptype_list <- split(names(chiptype), as.character(chiptype))
-normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R
+## ----normalize_chips, eval=FALSE-----------------------------------------
+## library(BiocParallel); library(BatchJobs); library(affy)
+## chiptype_list <- split(names(chiptype), as.character(chiptype))
+## normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R
 
 ## ----comb_chip_type_data, eval=TRUE--------------------------------------
 chiptype_dir <- unique(readRDS("./data/chiptype.rds"))

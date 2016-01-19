@@ -60,12 +60,16 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#getting-started"><span class="toc-section-number">2</span> Getting Started</a><ul>
 <li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
-<li><a href="#import-custom-functions"><span class="toc-section-number">2.3</span> Import custom functions</a></li>
-<li><a href="#download-data-from-connectivity-map-project-site"><span class="toc-section-number">2.4</span> Download data from Connectivity Map project site</a></li>
-<li><a href="#determine-chip-type-from-cel-files"><span class="toc-section-number">2.5</span> Determine chip type from CEL files</a></li>
 </ul></li>
-<li><a href="#funding"><span class="toc-section-number">3</span> Funding</a></li>
-<li><a href="#version-information"><span class="toc-section-number">4</span> Version information</a></li>
+<li><a href="#analysis-workflow"><span class="toc-section-number">3</span> Analysis Workflow</a><ul>
+<li><a href="#import-custom-functions"><span class="toc-section-number">3.1</span> Import custom functions</a></li>
+<li><a href="#download-data-from-connectivity-map-project-site"><span class="toc-section-number">3.2</span> Download data from Connectivity Map project site</a></li>
+<li><a href="#determine-chip-type-from-cel-files"><span class="toc-section-number">3.3</span> Determine chip type from CEL files</a></li>
+<li><a href="#normalization-of-cel-files"><span class="toc-section-number">3.4</span> Normalization of CEL files</a></li>
+<li><a href="#combine-results-from-same-chip-type-in-single-data-frame"><span class="toc-section-number">3.5</span> Combine results from same chip type in single data frame</a></li>
+</ul></li>
+<li><a href="#funding"><span class="toc-section-number">4</span> Funding</a></li>
+<li><a href="#version-informationr-sessioninfo-sessioninfo"><span class="toc-section-number">5</span> Version information<code>{r sessionInfo} sessionInfo()</code></a></li>
 </ul>
 </div>
 
@@ -132,23 +136,27 @@ vignette(topic=&quot;longevityTools_CMAP&quot;, package=&quot;longevityTools&quo
 <a href>Back to Table of Contents</a>
 </div>
 </div>
+</div>
+<div id="analysis-workflow" class="section level1">
+<h1><span class="header-section-number">3</span> Analysis Workflow</h1>
 <div id="import-custom-functions" class="section level2">
-<h2><span class="header-section-number">2.3</span> Import custom functions</h2>
+<h2><span class="header-section-number">3.1</span> Import custom functions</h2>
 <p>Preliminary functions that are still under developement, or not fully tested and documented can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
 <pre class="r"><code>fctpath &lt;- system.file(&quot;extdata&quot;, &quot;analysis_Fct.R&quot;, package=&quot;longevityTools&quot;)
 source(fctpath)</code></pre>
 </div>
 <div id="download-data-from-connectivity-map-project-site" class="section level2">
-<h2><span class="header-section-number">2.4</span> Download data from Connectivity Map project site</h2>
+<h2><span class="header-section-number">3.2</span> Download data from Connectivity Map project site</h2>
 <p>The drug-related expression data were downloaded from the CMAP web site <a href="http://www.broadinstitute.org/cmap">here</a>. The <code>getCmap</code> function downloads the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code> downloads the corresponding 7,056 CEL files. The functions will write the downloaded files to a <code>data</code> directory within the present workding directory of the user’s R session. This <code>data</code> directory plus a <code>data/CEL</code> sub-directory needs to be created by the user prior to running the download functions. Since some of the raw data sets are large, the following will only rerun the download if the argument <code>rerun</code> is assigned <code>TRUE</code>. If the raw data are not needed then users can skip this time consuming download step and work with the preprocessed data obtained in the next section.</p>
-<pre class="r"><code>getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files</code></pre>
-<pre><code>## [1] &quot;To execute function, set 'rerun=TRUE'&quot;</code></pre>
-<pre class="r"><code>getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time</code></pre>
-<pre><code>## [1] &quot;To execute function, set 'rerun=TRUE'&quot;</code></pre>
+<pre class="r"><code>getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
+getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
 </div>
 <div id="determine-chip-type-from-cel-files" class="section level2">
-<h2><span class="header-section-number">2.5</span> Determine chip type from CEL files</h2>
-<p>The CMAP data set utilizes three different Affymetrix chip (HG-U133A, HT_HG-U133A and U133AAofAv2). The following obtains the chip type information from the CEL files and stores the result in an <code>rds</code> file with the path <code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
+<h2><span class="header-section-number">3.3</span> Determine chip type from CEL files</h2>
+<p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A, HT_HG-U133A and U133AAofAv2). The following obtains the chip type information from the CEL files and stores the result in an <code>rds</code> file with the path <code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
 <pre class="r"><code>celfiles &lt;- list.files(&quot;./data/CEL&quot;, pattern=&quot;.CEL$&quot;)
 chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0(&quot;data/CEL/&quot;, x))$chiptype)
 saveRDS(chiptype, &quot;./data/chiptype.rds&quot;)</code></pre>
@@ -156,40 +164,37 @@ saveRDS(chiptype, &quot;./data/chiptype.rds&quot;)</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
+<div id="normalization-of-cel-files" class="section level2">
+<h2><span class="header-section-number">3.4</span> Normalization of CEL files</h2>
+<p>The follwoing processes the CEL files from each chip type separately using the MAS5 normalization algorithm. To save time, the processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a computer cluster with a scheduler (<em>e.g.</em> Torque).</p>
+<pre class="r"><code>library(BiocParallel); library(BatchJobs); library(affy)
+chiptype_list &lt;- split(names(chiptype), as.character(chiptype))
+normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R</code></pre>
+</div>
+<div id="combine-results-from-same-chip-type-in-single-data-frame" class="section level2">
+<h2><span class="header-section-number">3.5</span> Combine results from same chip type in single data frame</h2>
+<pre class="r"><code>chiptype_dir &lt;- unique(readRDS(&quot;./data/chiptype.rds&quot;))
+combineResults(chiptype_dir, rerun=FALSE)</code></pre>
+<pre><code>## [1] &quot;To execute function, set 'rerun=TRUE'&quot;</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
 </div>
 <div id="funding" class="section level1">
-<h1><span class="header-section-number">3</span> Funding</h1>
+<h1><span class="header-section-number">4</span> Funding</h1>
 <p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
-<div id="version-information" class="section level1">
-<h1><span class="header-section-number">4</span> Version information</h1>
-<pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 3.2.2 (2015-08-14)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: CentOS Linux 7 (Core)
-## 
-## locale:
-## [1] C
-## 
-## attached base packages:
-## [1] stats     graphics  utils     datasets  grDevices methods   base     
-## 
-## other attached packages:
-## [1] ggplot2_2.0.0        longevityTools_1.0.0 BiocStyle_1.8.0     
-## 
-## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.3      codetools_0.2-14 digest_0.6.9     plyr_1.8.3       grid_3.2.2      
-##  [6] gtable_0.1.2     formatR_1.2.1    magrittr_1.5     evaluate_0.8     scales_0.3.0    
-## [11] stringi_1.0-1    rmarkdown_0.9.2  tools_3.2.2      stringr_1.0.0    munsell_0.4.2   
-## [16] yaml_2.1.13      colorspace_1.2-6 htmltools_0.3    knitr_1.12</code></pre>
+<div id="version-informationr-sessioninfo-sessioninfo" class="section level1">
+<h1><span class="header-section-number">5</span> Version information<code>{r sessionInfo} sessionInfo()</code></h1>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 <div class="references">
-<h1><span class="header-section-number">4</span> References</h1>
+<h1><span class="header-section-number">5</span> References</h1>
 <p>Lamb, J, E D Crawford, D Peck, J W Modell, I C Blat, M J Wrobel, J Lerner, et al. 2006. “The Connectivity Map: using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease.” <em>Science</em> 313 (5795) (September): 1929–1935. doi:<a href="http://dx.doi.org/10.1126/science.1132939">10.1126/science.1132939</a>. <a href="http://dx.doi.org/10.1126/science.1132939">http://dx.doi.org/10.1126/science.1132939</a>.</p>
 <p>Peters, Marjolein J, Roby Joehanes, Luke C Pilling, Claudia Schurmann, Karen N Conneely, Joseph Powell, Eva Reinmaa, et al. 2015. “The Transcriptional Landscape of Age in Human Peripheral Blood.” <em>Nat. Commun.</em> 6 (22~oct): 8570. doi:<a href="http://dx.doi.org/10.1038/ncomms9570">10.1038/ncomms9570</a>. <a href="http://dx.doi.org/10.1038/ncomms9570">http://dx.doi.org/10.1038/ncomms9570</a>.</p>
 <p>Sood, Sanjana, Iain Gallagher, Katie Lunnon, Eric Rullman, Aoife Keohane, Hannah Crossland, Bethan Phillips, et al. 2015. “A Novel Multi-Tissue RNA Diagnostic of Healthy Ageing Relates to Cognitive Health Status.” <em>Genome Biology</em>. doi:<a href="http://dx.doi.org/10.1186/s13059-015-0750-x">10.1186/s13059-015-0750-x</a>. <a href="http://genomebiology.com/2015/16/1/185">http://genomebiology.com/2015/16/1/185</a>.</p>
