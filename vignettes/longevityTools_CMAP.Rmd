@@ -78,9 +78,9 @@ vignette(topic="longevityTools_CMAP", package="longevityTools") # Opens vignette
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
-# Data downloads
 
-## Import custom functions 
+# Import custom functions 
+
 Preliminary functions that are still under developement, or not fully tested and documented 
 can be imported with the `source` command from the `inst/extdata` directory of the package.
 
@@ -89,6 +89,8 @@ fctpath <- system.file("extdata", "analysis_Fct.R", package="longevityTools")
 source(fctpath)
 ```
 <div align="right">[Back to Table of Contents]()</div>
+
+# Data downloads
 
 ## Download data from Connectivity Map project site
 The drug-related expression data are downloaded from the CMAP web site
