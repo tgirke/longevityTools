@@ -252,7 +252,7 @@ saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
 </div>
 <div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
 <h2><span class="header-section-number">6.5</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
-<p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The following intersects computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric and used to sort the results. The 20 top scoring results are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL.xls"><code>degOL.xls</code></a>.</p>
+<p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric and used to sort the drug table. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL.xls"><code>degOL.xls</code></a>.</p>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
 affyid &lt;- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$&quot;NEW.Entrez.ID&quot;,])

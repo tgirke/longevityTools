@@ -224,9 +224,9 @@ saveRDS(myAnnot, "./results/myAnnot.rds")
 ## Identify DEG overlaps with Peters et al. [-@Peters2015-fc]
 
 Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression signatures. 
-The following intersects computes their intersects with each of the 3,318 drug-responsive 
+The following computes their intersects with each of the 3,318 drug-responsive 
 DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric
-and used to sort the results. The 20 top scoring results are given below and the full
+and used to sort the drug table. The 20 top scoring drugs are given below and the full
 data set is written to a file named [`degOL.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL.xls).
 
 ```{r deg_overlaps, eval=TRUE}
