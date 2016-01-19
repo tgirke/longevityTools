@@ -27,6 +27,11 @@ source(fctpath)
 getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 
+## ----get_cel_type, eval=TRUE---------------------------------------------
+celfiles <- list.files("./data/CEL", pattern=".CEL$")
+chiptype <- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
+saveRDS(chiptype, "./data/chiptype.rds")
+
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
 
