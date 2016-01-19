@@ -47,11 +47,12 @@ suppressPackageStartupMessages({
 Note: the GitHub repository of this package is <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html">here</a>.
 
 # Introduction 
-text text text text text text text text text text text text
-text text text text text text text text text text text text
-text text text text text text text text text text text text
-text text text text text text text text text text text text
-some citation [@Lamb2006-uv; @Peters2015-fc; @Sood2015-pb]
+This study analyzes drug- and age-related genome-wide expression data from public microarray 
+and RNA-Seq experiments to identify drug candidates modulating the expression of longevity
+genes and pathways. For this, we compare age-related expression signatures with those from 
+drug treamtments. The age-related query signatures are from recent studies such as Peters 
+et al. [-@Peters2015-fc] and Sood et al. [-@Sood2015-pb], while the drug-related reference 
+signatures are from the Connectivity Map (CMAP) and LINCS projects [@Lamb2006-uv].
 
 <div align="right">[Back to Table of Contents]()</div>
 
