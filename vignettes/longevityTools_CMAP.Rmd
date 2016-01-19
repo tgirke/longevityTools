@@ -78,7 +78,7 @@ vignette(topic="longevityTools_CMAP", package="longevityTools") # Opens vignette
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
-# Analysis Workflow
+# Data downloads
 
 ## Import custom functions 
 Preliminary functions that are still under developement, or not fully tested and documented 
@@ -109,6 +109,8 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
+
+# Pre-processing of CEL files
 
 ## Determine chip type from CEL files 
 The CMAP data set is based on three different Affymetrix chip types (HG-U133A,
@@ -142,7 +144,6 @@ normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl
 
 ## Combine results from same chip type in single data frame
 
-
 ```{r comb_chip_type_data, eval=FALSE}
 chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
 combineResults(chiptype_dir, rerun=FALSE)
@@ -160,6 +161,8 @@ This deletes intermediate files. Before executing it, make sure that is what you
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
+
+# DEG analysis with `limma`
 
 ## Generate list of CEL names defining treatment vs. control comparisons
 
@@ -194,7 +197,7 @@ write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names 
 
 <div align="right">[Back to Table of Contents]()</div>
 
-## Annotation information for Affy chips
+## Obtain annotation information
 The following generate annotation information for the Affymetirx probe set identifiers.
 
 Note, the three different Affymetrix chip types used by CMAP share most probe
