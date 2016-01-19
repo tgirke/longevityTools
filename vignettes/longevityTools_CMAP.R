@@ -23,15 +23,21 @@ suppressPackageStartupMessages({
 fctpath <- system.file("extdata", "analysis_Fct.R", package="longevityTools")
 source(fctpath)
 
-## ----download_cmap, eval=TRUE--------------------------------------------
-getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
-getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
+## ----download_cmap, eval=FALSE-------------------------------------------
+## getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
+## getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 
-## ----get_cel_type, eval=TRUE---------------------------------------------
-celfiles <- list.files("./data/CEL", pattern=".CEL$")
-chiptype <- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
-saveRDS(chiptype, "./data/chiptype.rds")
+## ----get_cel_type, eval=FALSE--------------------------------------------
+## celfiles <- list.files("./data/CEL", pattern=".CEL$")
+## chiptype <- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
+## saveRDS(chiptype, "./data/chiptype.rds")
 
-## ----sessionInfo---------------------------------------------------------
-sessionInfo()
+## ----normalize_chips, eval=TRUE------------------------------------------
+library(BiocParallel); library(BatchJobs); library(affy)
+chiptype_list <- split(names(chiptype), as.character(chiptype))
+normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R
+
+## ----comb_chip_type_data, eval=TRUE--------------------------------------
+chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
+combineResults(chiptype_dir, rerun=FALSE)
 

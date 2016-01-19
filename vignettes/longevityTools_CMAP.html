@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
 <li><a href="#import-custom-functions"><span class="toc-section-number">2.3</span> Import custom functions</a></li>
 <li><a href="#download-data-from-connectivity-map-project-site"><span class="toc-section-number">2.4</span> Download data from Connectivity Map project site</a></li>
-<li><a href="#determine-chip-type-from-cel-files."><span class="toc-section-number">2.5</span> Determine chip type from CEL files.</a></li>
+<li><a href="#determine-chip-type-from-cel-files"><span class="toc-section-number">2.5</span> Determine chip type from CEL files</a></li>
 </ul></li>
 <li><a href="#funding"><span class="toc-section-number">3</span> Funding</a></li>
 <li><a href="#version-information"><span class="toc-section-number">4</span> Version information</a></li>
@@ -146,8 +146,8 @@ source(fctpath)</code></pre>
 <pre class="r"><code>getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time</code></pre>
 <pre><code>## [1] &quot;To execute function, set 'rerun=TRUE'&quot;</code></pre>
 </div>
-<div id="determine-chip-type-from-cel-files." class="section level2">
-<h2><span class="header-section-number">2.5</span> Determine chip type from CEL files.</h2>
+<div id="determine-chip-type-from-cel-files" class="section level2">
+<h2><span class="header-section-number">2.5</span> Determine chip type from CEL files</h2>
 <p>The CMAP data set utilizes three different Affymetrix chip (HG-U133A, HT_HG-U133A and U133AAofAv2). The following obtains the chip type information from the CEL files and stores the result in an <code>rds</code> file with the path <code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
 <pre class="r"><code>celfiles &lt;- list.files(&quot;./data/CEL&quot;, pattern=&quot;.CEL$&quot;)
 chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0(&quot;data/CEL/&quot;, x))$chiptype)

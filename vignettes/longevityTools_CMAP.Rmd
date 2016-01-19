@@ -100,22 +100,44 @@ if the argument `rerun` is assigned `TRUE`. If the raw data are not needed then 
 can skip this time consuming download step and work with the preprocessed data 
 obtained in the next section.
 
-```{r download_cmap, eval=TRUE}
+```{r download_cmap, eval=FALSE}
 getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 ```
 
-## Determine chip type from CEL files. 
+## Determine chip type from CEL files 
 The CMAP data set utilizes three different Affymetrix chip (HG-U133A,
 HT_HG-U133A and U133AAofAv2). The following obtains the chip type information
 from the CEL files and stores the result in an `rds` file with the path 
 `./data/chiptype.rds`. Users who skipped the download of the CEL files can
 download this file [here](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds).
 
-```{r get_cel_type, eval=TRUE}
+```{r get_cel_type, eval=FALSE}
 celfiles <- list.files("./data/CEL", pattern=".CEL$")
 chiptype <- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
 saveRDS(chiptype, "./data/chiptype.rds")
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
+## Normalization of CEL files
+
+The follwoing processes each chip type separately using the MAS5 normalization algorithm. 
+To save time, the processing is parallelized with `BiocParallel` to run on a computer cluster
+with a scheduler (_e.g._ Torque).
+
+```{r normalize_chips, eval=TRUE}
+library(BiocParallel); library(BatchJobs); library(affy)
+chiptype_list <- split(names(chiptype), as.character(chiptype))
+normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R
+```
+
+## Combine results from same chip type in single data frame
+
+
+```{r comb_chip_type_data, eval=TRUE}
+chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
+combineResults(chiptype_dir, rerun=FALSE)
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
@@ -125,9 +147,7 @@ This project is funded by NIH grant U24AG051129 awarded by the National Intitute
 
 <div align="right">[Back to Table of Contents]()</div>
 
-# Version information
-
-```{r sessionInfo}
+# Version information```{r sessionInfo}
 sessionInfo()
 ```
 <div align="right">[Back to Table of Contents]()</div>
