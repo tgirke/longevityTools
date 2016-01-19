@@ -41,3 +41,6 @@ source(fctpath)
 chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
 combineResults(chiptype_dir, rerun=FALSE)
 
+## ----sessionInfo---------------------------------------------------------
+sessionInfo()
+

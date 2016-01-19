@@ -152,7 +152,9 @@ This project is funded by NIH grant U24AG051129 awarded by the National Intitute
 
 <div align="right">[Back to Table of Contents]()</div>
 
-# Version information```{r sessionInfo}
+# Version information
+
+```{r sessionInfo}
 sessionInfo()
 ```
 <div align="right">[Back to Table of Contents]()</div>
