@@ -74,13 +74,13 @@ biocLite("tgirke/longevityTools", build_vignettes=TRUE, dependencies=TRUE) # Ins
 ```{r documentation, eval=FALSE}
 library("longevityTools") # Loads the package
 library(help="longevityTools") # Lists package info
-vignette("longevityTools_CMAP", package="longevityTools") # Opens vignette
+vignette(topic="longevityTools_CMAP", package="longevityTools") # Opens vignette
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
 ## Import custom functions 
-Preliminary functions that are still in the developement stage or not fully documented can be 
-imported with the `source` command from the `inst/extdata` directory of the package.
+Preliminary functions that are still under developement, or not fully tested and documented 
+can be imported with the `source` command from the `inst/extdata` directory of the package.
 
 ```{r source_fct, eval=TRUE}
 fctpath <- system.file("extdata", "analysis_Fct.R", package="longevityTools")

@@ -17,7 +17,7 @@ suppressPackageStartupMessages({
 ## ----documentation, eval=FALSE-------------------------------------------
 ## library("longevityTools") # Loads the package
 ## library(help="longevityTools") # Lists package info
-## vignette("longevityTools_CMAP", package="longevityTools") # Opens vignette
+## vignette(topic="longevityTools_CMAP", package="longevityTools") # Opens vignette
 
 ## ----source_fct, eval=TRUE-----------------------------------------------
 fctpath <- system.file("extdata", "analysis_Fct.R", package="longevityTools")
