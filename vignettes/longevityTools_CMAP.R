@@ -62,25 +62,26 @@ source(fctpath)
 ## degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
 ## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
 
-## ----affyid_annotations, eval=FALSE--------------------------------------
-## library(hgu133a.db)
-## myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "),
-##                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "),
-##                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "),
-##                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "),
-##                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "),
-##                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
-## 
-## PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
-## affyid <- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$"NEW.Entrez.ID",])
-## degMA <- read.delim("./results/degMA.xls", row.names=1, check.names=FALSE)
-## degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-## degMAsub <- degMA[affyid,]
-## c <- colSums(degMAsub==1) # Common in both (c)
-## a <- colSums(degMAsub==0) # Only in query (a)
-## b <- colSums(degMA==1) - c # Only in cmap (b)
-## j <- c/(c+a+b) # Jaccard similarity
-## sort(j, decreasing=TRUE)[1:10]
+## ----affyid_annotations, eval=TRUE---------------------------------------
+library(hgu133a.db)
+myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
+                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
+                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
+                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
+                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+
+## ----deg_overlaps, eval=TRUE---------------------------------------------
+PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
+affyid <- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$"NEW.Entrez.ID",])
+degMA <- read.delim("./results/degMA.xls", row.names=1, check.names=FALSE)
+degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+degMAsub <- degMA[affyid,]
+c <- colSums(degMAsub==1) # Common in both (c)
+a <- colSums(degMAsub==0) # Only in query (a)
+b <- colSums(degMA==1) - c # Only in cmap (b)
+j <- c/(c+a+b) # Jaccard similarity 
+sort(j, decreasing=TRUE)[1:10]
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()

@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#load-normalized-expression-data"><span class="toc-section-number">3.8</span> Load normalized expression data</a></li>
 <li><a href="#deg-analysis-with-limma"><span class="toc-section-number">3.9</span> DEG analysis with Limma</a></li>
 <li><a href="#annotation-information-for-affy-chips"><span class="toc-section-number">3.10</span> Annotation information for Affy chips</a></li>
+<li><a href="#identify-deg-overlaps-with-peters-et-al--peters2015-fc"><span class="toc-section-number">3.11</span> Identify DEG overlaps with Peters et al <span class="citation">(2015)</span></a></li>
 </ul></li>
 <li><a href="#funding"><span class="toc-section-number">4</span> Funding</a></li>
 <li><a href="#version-information"><span class="toc-section-number">5</span> Version information</a></li>
@@ -229,16 +230,49 @@ write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;
 <div id="annotation-information-for-affy-chips" class="section level2">
 <h2><span class="header-section-number">3.10</span> Annotation information for Affy chips</h2>
 <p>The following generate annotation information for the Affymetirx probe set identifiers.</p>
-<p>Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization. The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. The annotation libraries for the two first ones are <code>hgu133a.db</code>and <code>hthgu133a.db</code>. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
-<pre class="r"><code>library(hgu133a.db)
-myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
+<p>Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. The annotation libraries for the two first ones are <code>hgu133a.db</code>and <code>hthgu133a.db</code>. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
+<pre class="r"><code>library(hgu133a.db)</code></pre>
+<pre><code>## Loading required package: AnnotationDbi</code></pre>
+<pre><code>## Loading required package: stats4</code></pre>
+<pre><code>## Loading required package: BiocGenerics</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<pre><code>## 
+## Attaching package: 'BiocGenerics'</code></pre>
+<pre><code>## The following objects are masked from 'package:parallel':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ, clusterExport, clusterMap,
+##     parApply, parCapply, parLapply, parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     IQR, mad, xtabs</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     Filter, Find, Map, Position, Reduce, anyDuplicated, append, as.data.frame, as.vector,
+##     cbind, colnames, do.call, duplicated, eval, evalq, get, grep, grepl, intersect,
+##     is.unsorted, lapply, lengths, mapply, match, mget, order, paste, pmax, pmax.int,
+##     pmin, pmin.int, rank, rbind, rownames, sapply, setdiff, sort, table, tapply, union,
+##     unique, unlist, unsplit</code></pre>
+<pre><code>## Loading required package: Biobase</code></pre>
+<pre><code>## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with 'browseVignettes()'. To cite
+##     Bioconductor, see 'citation(&quot;Biobase&quot;)', and for packages 'citation(&quot;pkgname&quot;)'.</code></pre>
+<pre><code>## Loading required package: IRanges</code></pre>
+<pre><code>## Loading required package: S4Vectors</code></pre>
+<pre><code>## Loading required package: org.Hs.eg.db</code></pre>
+<pre><code>## Loading required package: DBI</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## </code></pre>
+<pre class="r"><code>myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 
                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=&quot;, &quot;), 
                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=&quot;, &quot;), 
                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=&quot;, &quot;), 
-                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))
-
-PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))</code></pre>
+</div>
+<div id="identify-deg-overlaps-with-peters-et-al--peters2015-fc" class="section level2">
+<h2><span class="header-section-number">3.11</span> Identify DEG overlaps with Peters et al <span class="citation">(2015)</span></h2>
+<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 affyid &lt;- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$&quot;NEW.Entrez.ID&quot;,])
 degMA &lt;- read.delim(&quot;./results/degMA.xls&quot;, row.names=1, check.names=FALSE)
 degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
@@ -248,6 +282,12 @@ a &lt;- colSums(degMAsub==0) # Only in query (a)
 b &lt;- colSums(degMA==1) - c # Only in cmap (b)
 j &lt;- c/(c+a+b) # Jaccard similarity 
 sort(j, decreasing=TRUE)[1:10]</code></pre>
+<pre><code>##       anisomycin_HL60        pergolide_HL60      alprostadil_HL60         lycorine_HL60 
+##            0.10581448            0.10348299            0.10213891            0.10194778 
+##     tanespimycin_HL60          emetine_HL60       vorinostat_HL60    trichostatin A_PC3 
+##            0.09935438            0.09638932            0.09631122            0.09492953 
+##      mebendazole_HL60 (-)-isoprenaline_HL60 
+##            0.09412955            0.09163464</code></pre>
 </div>
 </div>
 <div id="funding" class="section level1">
