@@ -106,7 +106,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 ```
 
 ## Determine chip type from CEL files 
-The CMAP data set utilizes three different Affymetrix chip (HG-U133A,
+The CMAP data set is based on three different Affymetrix chip types (HG-U133A,
 HT_HG-U133A and U133AAofAv2). The following obtains the chip type information
 from the CEL files and stores the result in an `rds` file with the path 
 `./data/chiptype.rds`. Users who skipped the download of the CEL files can
