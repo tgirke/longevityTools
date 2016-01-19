@@ -98,7 +98,7 @@ downloads the corresponding 7,056 CEL files. The functions will write the
 downloaded files to a `data` directory within the present workding directory of
 the user's R session. This `data` directory plus a `data/CEL` sub-directory
 need to be created by the user prior to running the download functions. Since
-some of the raw data sets are large, the following will only rerun the download
+some of the raw data sets are large, the functions will only rerun the download
 if the argument `rerun` is assigned `TRUE`. If the raw data are not needed then users
 can skip this time consuming download step and work with the preprocessed data 
 obtained in the next section.
