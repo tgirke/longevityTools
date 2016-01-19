@@ -60,10 +60,11 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#getting-started"><span class="toc-section-number">2</span> Getting Started</a><ul>
 <li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
-<li><a href="#sample-data-from-gtex"><span class="toc-section-number">2.3</span> Sample data from GTEx</a></li>
-<li><a href="#utilities"><span class="toc-section-number">2.4</span> Utilities</a></li>
+<li><a href="#overview-of-object-clases-methods-and-functions"><span class="toc-section-number">2.3</span> Overview of object clases, methods and functions</a></li>
 </ul></li>
 <li><a href="#version-information"><span class="toc-section-number">3</span> Version information</a></li>
+<li><a href="#funding"><span class="toc-section-number">4</span> Funding</a></li>
+<li><a href="#version-information-1"><span class="toc-section-number">5</span> Version information</a></li>
 </ul>
 </div>
 
@@ -105,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <p>Note: the GitHub repository of this package is <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.</p>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>This vignette provides general information about the <code>longevityTools</code> package. The analysis tools provided by this package are part of the NIH/NIH funded <a href="http://www.longevitygenomics.org/">Longevity Genomics</a> project. The analysis workflows used by the project are documented in separate vignette of this package. Currently, this includes following vignettes: <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html">longevityTools_eQTL</a> and <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html">longevityTools_CMAP</a> <span class="citation">(Heng Li 2013; H Li and Durbin 2009)</span>.</p>
+<p>This vignette provides general information about the <code>longevityTools</code> package. Its development is part of the <a href="http://www.longevitygenomics.org/">Longevity Genomics</a> project. The analysis workflows used by this project are documented in companion vignettes. Currently, this includes the <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html">longevityTools_eQTL</a> and <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html">longevityTools_CMAP</a> vignettes <span class="citation">(Heng Li 2013; H Li and Durbin 2009)</span>.</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -126,28 +127,10 @@ biocLite(&quot;tgirke/longevityTools&quot;, build_vignettes=TRUE, dependencies=T
 <pre class="r"><code>library(&quot;longevityTools&quot;) # Loads the package
 library(help=&quot;longevityTools&quot;) # Lists package info
 vignette(&quot;longevityTools&quot;) # Opens vignette</code></pre>
-<div align="right">
-<a href>Back to Table of Contents</a>
 </div>
-</div>
-<div id="sample-data-from-gtex" class="section level2">
-<h2><span class="header-section-number">2.3</span> Sample data from GTEx</h2>
-<p>The eQTL data used in this vignette can be downloaded from the <a href="http://www.gtexportal.org/home/datasets">GTEx site</a>. Note, the following downloads a 1.3GB file, which will take some time.</p>
-<pre class="r"><code>download.file(&quot;http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz&quot;, &quot;./GTEx_Analysis_V6_eQTLs.tar.gz&quot;)
-untar(&quot;GTEx_Analysis_V6_eQTLs.tar.gz&quot;)</code></pre>
-</div>
-<div id="utilities" class="section level2">
-<h2><span class="header-section-number">2.4</span> Utilities</h2>
-<p>The <em><code>geneGrep</code></em> function takes GTEx results and gene list as arguments, returns GTEx eSNP results for genes in gene list. Genes without significant eSNPs are removed from results. The following sample file <em>Whole_Blood_Analysis.snpgenes</em> has been subsetted to the first 100 rows.</p>
-<pre class="r"><code>library(longevityTools)
-samplepath &lt;- system.file(&quot;extdata&quot;, &quot;Whole_Blood_Analysis.snpgenes.head100&quot;, package=&quot;longevityTools&quot;) 
-dat &lt;- read.delim(samplepath)
-myGenes &lt;- c(&quot;RP11-693J15.4&quot;, &quot;RP11-809N8.4&quot;, &quot;junkNoMatch&quot;)
-result &lt;- geneGrep(dat, myGenes)
-result</code></pre>
-<pre><code>##                     snp      beta      p_value ref alt     gene_name
-## 1   12_92859287_A_G_b37 0.1835177 9.059607e-06   A   G RP11-693J15.4
-## 3 11_73244611_CCA_C_b37 0.2377053 1.036340e-06 CCA   C  RP11-809N8.4</code></pre>
+<div id="overview-of-object-clases-methods-and-functions" class="section level2">
+<h2><span class="header-section-number">2.3</span> Overview of object clases, methods and functions</h2>
+<p>To be added later…</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -177,8 +160,21 @@ result</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
+</div>
+<div id="funding" class="section level1">
+<h1><span class="header-section-number">4</span> Funding</h1>
+<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).</p>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="version-information-1" class="section level1">
+<h1><span class="header-section-number">5</span> Version information</h1>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
 <div class="references">
-<h1><span class="header-section-number">3</span> References</h1>
+<h1><span class="header-section-number">5</span> References</h1>
 <p>Li, H, and R Durbin. 2009. “Fast and Accurate Short Read Alignment with Burrows-Wheeler Transform.” <em>Bioinformatics</em> 25 (14) (July): 1754–1760. doi:<a href="http://dx.doi.org/10.1093/bioinformatics/btp324">10.1093/bioinformatics/btp324</a>. <a href="http://dx.doi.org/10.1093/bioinformatics/btp324">http://dx.doi.org/10.1093/bioinformatics/btp324</a>.</p>
 <p>Li, Heng. 2013. “Aligning Sequence Reads, Clone Sequences and Assembly Contigs with BWA-MEM.” <em>arXiv [Q-Bio.GN]</em>. <a href="http://arxiv.org/abs/1303.3997">http://arxiv.org/abs/1303.3997</a>.</p>
 </div>
