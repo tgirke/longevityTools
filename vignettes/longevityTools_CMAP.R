@@ -37,9 +37,9 @@ source(fctpath)
 ## chiptype_list <- split(names(chiptype), as.character(chiptype))
 ## normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R
 
-## ----comb_chip_type_data, eval=TRUE--------------------------------------
-chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
-combineResults(chiptype_dir, rerun=FALSE)
+## ----comb_chip_type_data, eval=FALSE-------------------------------------
+## chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
+## combineResults(chiptype_dir, rerun=FALSE)
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
