@@ -150,6 +150,42 @@ combineResults(chiptype_dir, rerun=FALSE)
 
 <div align="right">[Back to Table of Contents]()</div>
 
+## Clean-up of intermediate files
+
+This deletes intermediate files. Before executing it, make sure that is what you want!
+
+```{r cleanup1, eval=FALSE}
+# for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
+# unlink("data/CEL/") # Deletes downloaded CEL files
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
+## Generate list of CEL names defining treatment vs. control comparisons
+
+```{r cel_file_list, eval=FALSE}
+cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) # Note: cmap_instances_02.xls converted to txt with LibreOffice
+# comp_list <- sampleList(cmap, myby="CMP")
+comp_list <- sampleList(cmap, myby="CMP_CELL")
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
+## Load normalized expression data 
+
+The following loads the MAS5 normalized expression data into a single `data.frame`. 
+To spead up the import, `rds` files are used. 
+
+```{r load_mas5_data, eval=FALSE}
+chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
+df1 <- readRDS(paste0("data/", chiptype_dir[1], "/", "all_mas5exprs.rds"))
+df2 <- readRDS(paste0("data/", chiptype_dir[2], "/", "all_mas5exprs.rds"))
+df3 <- readRDS(paste0("data/", chiptype_dir[3], "/", "all_mas5exprs.rds"))
+affyid <- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid <- affyid[affyid %in% rownames(df3)]
+df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
+```
+
+
 # Funding
 This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).
 
