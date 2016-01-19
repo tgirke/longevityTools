@@ -231,39 +231,8 @@ write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;
 <h2><span class="header-section-number">3.10</span> Annotation information for Affy chips</h2>
 <p>The following generate annotation information for the Affymetirx probe set identifiers.</p>
 <p>Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. The annotation libraries for the two first ones are <code>hgu133a.db</code>and <code>hthgu133a.db</code>. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
-<pre class="r"><code>library(hgu133a.db)</code></pre>
-<pre><code>## Loading required package: AnnotationDbi</code></pre>
-<pre><code>## Loading required package: stats4</code></pre>
-<pre><code>## Loading required package: BiocGenerics</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
-<pre><code>## 
-## Attaching package: 'BiocGenerics'</code></pre>
-<pre><code>## The following objects are masked from 'package:parallel':
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ, clusterExport, clusterMap,
-##     parApply, parCapply, parLapply, parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     IQR, mad, xtabs</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     Filter, Find, Map, Position, Reduce, anyDuplicated, append, as.data.frame, as.vector,
-##     cbind, colnames, do.call, duplicated, eval, evalq, get, grep, grepl, intersect,
-##     is.unsorted, lapply, lengths, mapply, match, mget, order, paste, pmax, pmax.int,
-##     pmin, pmin.int, rank, rbind, rownames, sapply, setdiff, sort, table, tapply, union,
-##     unique, unlist, unsplit</code></pre>
-<pre><code>## Loading required package: Biobase</code></pre>
-<pre><code>## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with 'browseVignettes()'. To cite
-##     Bioconductor, see 'citation(&quot;Biobase&quot;)', and for packages 'citation(&quot;pkgname&quot;)'.</code></pre>
-<pre><code>## Loading required package: IRanges</code></pre>
-<pre><code>## Loading required package: S4Vectors</code></pre>
-<pre><code>## Loading required package: org.Hs.eg.db</code></pre>
-<pre><code>## Loading required package: DBI</code></pre>
-<pre><code>## </code></pre>
-<pre><code>## </code></pre>
-<pre class="r"><code>myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
+<pre class="r"><code>suppressMessages(library(hgu133a.db))
+myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 
                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=&quot;, &quot;), 
                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=&quot;, &quot;), 

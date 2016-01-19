@@ -63,7 +63,7 @@ source(fctpath)
 ## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
 
 ## ----affyid_annotations, eval=TRUE---------------------------------------
-library(hgu133a.db)
+suppressMessages(library(hgu133a.db))
 myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
