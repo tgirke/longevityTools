@@ -78,6 +78,8 @@ vignette(topic="longevityTools_CMAP", package="longevityTools") # Opens vignette
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
+# Analysis Workflow
+
 ## Import custom functions 
 Preliminary functions that are still under developement, or not fully tested and documented 
 can be imported with the `source` command from the `inst/extdata` directory of the package.
@@ -104,6 +106,8 @@ obtained in the next section.
 getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 ```
+
+<div align="right">[Back to Table of Contents]()</div>
 
 ## Determine chip type from CEL files 
 The CMAP data set is based on three different Affymetrix chip types (HG-U133A,
