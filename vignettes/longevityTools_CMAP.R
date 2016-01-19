@@ -50,10 +50,6 @@ source(fctpath)
 ## # comp_list <- sampleList(cmap, myby="CMP")
 ## comp_list <- sampleList(cmap, myby="CMP_CELL")
 
-## ----deg_limma, eval=FALSE-----------------------------------------------
-## degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
-## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
-
 ## ----load_mas5_data, eval=FALSE------------------------------------------
 ## chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
 ## df1 <- readRDS(paste0("data/", chiptype_dir[1], "/", "all_mas5exprs.rds"))
@@ -61,6 +57,10 @@ source(fctpath)
 ## df3 <- readRDS(paste0("data/", chiptype_dir[3], "/", "all_mas5exprs.rds"))
 ## affyid <- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid <- affyid[affyid %in% rownames(df3)]
 ## df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
+
+## ----deg_limma, eval=FALSE-----------------------------------------------
+## degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()

@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#combine-results-from-same-chip-type-in-single-data-frame"><span class="toc-section-number">3.5</span> Combine results from same chip type in single data frame</a></li>
 <li><a href="#clean-up-of-intermediate-files"><span class="toc-section-number">3.6</span> Clean-up of intermediate files</a></li>
 <li><a href="#generate-list-of-cel-names-defining-treatment-vs.control-comparisons"><span class="toc-section-number">3.7</span> Generate list of CEL names defining treatment vs. control comparisons</a></li>
-<li><a href="#deg-analysis-with-limma"><span class="toc-section-number">3.8</span> DEG analysis with Limma</a></li>
-<li><a href="#load-normalized-expression-data"><span class="toc-section-number">3.9</span> Load normalized expression data</a></li>
+<li><a href="#load-normalized-expression-data"><span class="toc-section-number">3.8</span> Load normalized expression data</a></li>
+<li><a href="#deg-analysis-with-limma"><span class="toc-section-number">3.9</span> DEG analysis with Limma</a></li>
 </ul></li>
 <li><a href="#funding"><span class="toc-section-number">4</span> Funding</a></li>
 <li><a href="#version-information"><span class="toc-section-number">5</span> Version information</a></li>
@@ -203,17 +203,12 @@ combineResults(chiptype_dir, rerun=FALSE)</code></pre>
 <pre class="r"><code>cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) # Note: cmap_instances_02.xls converted to txt with LibreOffice
 # comp_list &lt;- sampleList(cmap, myby=&quot;CMP&quot;)
 comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)</code></pre>
-</div>
-<div id="deg-analysis-with-limma" class="section level2">
-<h2><span class="header-section-number">3.8</span> DEG analysis with Limma</h2>
-<pre class="r"><code>degMA &lt;- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
-write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="load-normalized-expression-data" class="section level2">
-<h2><span class="header-section-number">3.9</span> Load normalized expression data</h2>
+<h2><span class="header-section-number">3.8</span> Load normalized expression data</h2>
 <p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. To spead up the import, <code>rds</code> files are used.</p>
 <pre class="r"><code>chiptype_dir &lt;- unique(readRDS(&quot;./data/chiptype.rds&quot;))
 df1 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[1], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
@@ -221,6 +216,14 @@ df2 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[2], &quot;/&quot;, &quo
 df3 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[3], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
 affyid &lt;- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid &lt;- affyid[affyid %in% rownames(df3)]
 df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
+</div>
+<div id="deg-analysis-with-limma" class="section level2">
+<h2><span class="header-section-number">3.9</span> DEG analysis with Limma</h2>
+<pre class="r"><code>degMA &lt;- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
 </div>
 </div>
 <div id="funding" class="section level1">
