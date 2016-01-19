@@ -232,7 +232,8 @@ df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
 <div id="deg-analysis-with-limma-1" class="section level2">
 <h2><span class="header-section-number">6.3</span> DEG analysis with Limma</h2>
 <pre class="r"><code>degMA &lt;- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
-write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
+write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+saveRDS(degMA, &quot;./results/degMA.rds&quot;)</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -253,7 +254,8 @@ myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=
 <h2><span class="header-section-number">6.5</span> Identify DEG overlaps with Peters et al <span class="citation">(2015)</span></h2>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 affyid &lt;- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$&quot;NEW.Entrez.ID&quot;,])
-degMA &lt;- read.delim(&quot;./results/degMA.xls&quot;, row.names=1, check.names=FALSE)
+# degMA &lt;- read.delim(&quot;./results/degMA.xls&quot;, row.names=1, check.names=FALSE)
+degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
 degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 degMAsub &lt;- degMA[affyid,]
 c &lt;- colSums(degMAsub==1) # Common in both (c)

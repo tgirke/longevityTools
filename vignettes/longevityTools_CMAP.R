@@ -61,6 +61,7 @@ source(fctpath)
 ## ----deg_limma, eval=FALSE-----------------------------------------------
 ## degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
 ## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
+## saveRDS(degMA, "./results/degMA.rds")
 
 ## ----affyid_annotations, eval=TRUE, message=FALSE------------------------
 library(hgu133a.db)
@@ -74,7 +75,8 @@ myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", 
 ## ----deg_overlaps, eval=TRUE---------------------------------------------
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 affyid <- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$"NEW.Entrez.ID",])
-degMA <- read.delim("./results/degMA.xls", row.names=1, check.names=FALSE)
+# degMA <- read.delim("./results/degMA.xls", row.names=1, check.names=FALSE)
+degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
 degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 degMAsub <- degMA[affyid,]
 c <- colSums(degMAsub==1) # Common in both (c)
