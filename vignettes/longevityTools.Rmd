@@ -83,6 +83,14 @@ To be continued...
 
 <div align="right">[Back to Table of Contents]()</div>
 
+## Workflow vignettes
+
+Currently, this package includes the following analysis workflow vignettes:
+
+* [longevityDrugs](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html): overview vignette
+* [longevityDrugs_eQTL](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html): eQTL, eSNP and GWAS analysis
+* [longevityDrugs_CMAP](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html): connecting drug- and age-related gene expression signatures
+* longevityTools_Drugs: coming soon
 
 # Funding
 This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).
