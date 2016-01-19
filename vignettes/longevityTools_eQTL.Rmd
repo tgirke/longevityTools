@@ -44,14 +44,14 @@ suppressPackageStartupMessages({
     library(ggplot2) }) 
 ```
 
-Note: the GitHub repository of this package is <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.
+Note: the GitHub repository of this package is <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html">here</a>.
 
 # Introduction 
 text text text text text text text text text text text text
 text text text text text text text text text text text text
 text text text text text text text text text text text text
 text text text text text text text text text text text text
-some citation [@Li2013-oy; @Li2009-oc]
+some citation [@Lamb2006-uv; @Peters2015-fc; @Sood2015-pb].
 
 <div align="right">[Back to Table of Contents]()</div>
 
