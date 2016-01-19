@@ -90,7 +90,7 @@ source(fctpath)
 ```
 
 ## Download data from Connectivity Map project site
-The drug-related expression data were downloaded from the CMAP web site
+The drug-related expression data are downloaded from the CMAP web site
 [here](http://www.broadinstitute.org/cmap). The `getCmap` function downloads
 the CMAP rank matrix along with the compound annotations, and `getCmapCEL`
 downloads the corresponding 7,056 CEL files. The functions will write the
@@ -140,7 +140,7 @@ normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl
 ## Combine results from same chip type in single data frame
 
 
-```{r comb_chip_type_data, eval=TRUE}
+```{r comb_chip_type_data, eval=FALSE}
 chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
 combineResults(chiptype_dir, rerun=FALSE)
 ```
