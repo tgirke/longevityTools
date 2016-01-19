@@ -90,15 +90,15 @@ source(fctpath)
 ## Download data from Connectivity Map project site
 The drug-related expression data were downloaded from the CMAP web site
 [here](http://www.broadinstitute.org/cmap). The `getCmap` function downloads
-the CMAP rank matrix and the compound annotation files, while `getCmapCEL`
+the CMAP rank matrix along with the compound annotations, and `getCmapCEL`
 downloads the corresponding 7,056 CEL files. The functions will write the
 downloaded files to a `data` directory within the present workding directory of
 the user's R session. This `data` directory plus a `data/CEL` sub-directory
 needs to be created by the user prior to running the download functions. Since
 some of the raw data sets are large, the following will only rerun the download
 if the argument `rerun` is assigned `TRUE`. If the raw data are not needed then users
-can skip this download step and work with the preprocessed data obtained in the
-next section.
+can skip this time consuming download step and work with the preprocessed data 
+obtained in the next section.
 
 ```{r download_cmap, eval=TRUE}
 getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
