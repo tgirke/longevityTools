@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#generate-list-of-cel-names-defining-treatment-vs.control-comparisons"><span class="toc-section-number">3.7</span> Generate list of CEL names defining treatment vs. control comparisons</a></li>
 <li><a href="#load-normalized-expression-data"><span class="toc-section-number">3.8</span> Load normalized expression data</a></li>
 <li><a href="#deg-analysis-with-limma"><span class="toc-section-number">3.9</span> DEG analysis with Limma</a></li>
+<li><a href="#annotation-information-for-affy-chips"><span class="toc-section-number">3.10</span> Annotation information for Affy chips</a></li>
 </ul></li>
 <li><a href="#funding"><span class="toc-section-number">4</span> Funding</a></li>
 <li><a href="#version-information"><span class="toc-section-number">5</span> Version information</a></li>
@@ -209,7 +210,7 @@ comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)</code></pre>
 </div>
 <div id="load-normalized-expression-data" class="section level2">
 <h2><span class="header-section-number">3.8</span> Load normalized expression data</h2>
-<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. To spead up the import, <code>rds</code> files are used.</p>
+<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. To spead up the import, the data is read from <code>rds</code> files.</p>
 <pre class="r"><code>chiptype_dir &lt;- unique(readRDS(&quot;./data/chiptype.rds&quot;))
 df1 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[1], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
 df2 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[2], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
@@ -224,6 +225,29 @@ write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
+</div>
+<div id="annotation-information-for-affy-chips" class="section level2">
+<h2><span class="header-section-number">3.10</span> Annotation information for Affy chips</h2>
+<p>The following generate annotation information for the Affymetirx probe set identifiers.</p>
+<p>Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization. The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. The annotation libraries for the two first ones are <code>hgu133a.db</code>and <code>hthgu133a.db</code>. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
+<pre class="r"><code>library(hgu133a.db)
+myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
+                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 
+                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=&quot;, &quot;), 
+                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=&quot;, &quot;), 
+                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=&quot;, &quot;), 
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))
+
+PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
+affyid &lt;- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$&quot;NEW.Entrez.ID&quot;,])
+degMA &lt;- read.delim(&quot;./results/degMA.xls&quot;, row.names=1, check.names=FALSE)
+degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+degMAsub &lt;- degMA[affyid,]
+c &lt;- colSums(degMAsub==1) # Common in both (c)
+a &lt;- colSums(degMAsub==0) # Only in query (a)
+b &lt;- colSums(degMA==1) - c # Only in cmap (b)
+j &lt;- c/(c+a+b) # Jaccard similarity 
+sort(j, decreasing=TRUE)[1:10]</code></pre>
 </div>
 </div>
 <div id="funding" class="section level1">
