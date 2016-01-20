@@ -90,6 +90,13 @@ degOL <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
 write.table(degOL, file="./results/degOL.xls", quote=FALSE, sep="\t", col.names = NA) 
 degOL[1:20,]
 
+## ----deg_queries, eval=TRUE----------------------------------------------
+affyids <- row.names(myAnnot[myAnnot$SYMBOL %in% c("IGF1", "IGF1R"),])
+degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
+q <- colSums(degMA[affyids,])
+q <- q[q > 0]
+as.data.frame(rev(sort(q))[1:20])
+
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
 library(DrugVsDisease)
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)

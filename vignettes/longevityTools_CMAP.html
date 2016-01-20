@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#deg-analysis-with-limma-1"><span class="toc-section-number">6.3</span> DEG analysis with Limma</a></li>
 <li><a href="#obtain-annotation-information"><span class="toc-section-number">6.4</span> Obtain annotation information</a></li>
 <li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.5</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.6</span> Drugs affecting known longevity genes</a></li>
 </ul></li>
 <li><a href="#connectivity-maps-enrichment-analysis"><span class="toc-section-number">7</span> Connectivity maps enrichment analysis</a><ul>
 <li><a href="#query-drug-signatures"><span class="toc-section-number">7.1</span> Query drug signatures</a></li>
@@ -299,6 +300,36 @@ degOL[1:20,]</code></pre>
 ## 18               baclofen_HL60    0.08798351
 ## 19           camptothecin_MCF7    0.08797251
 ## 20          helveticoside_HL60    0.08634280</code></pre>
+</div>
+<div id="drugs-affecting-known-longevity-genes" class="section level2">
+<h2><span class="header-section-number">6.6</span> Drugs affecting known longevity genes</h2>
+<p>This addresses one of Dan’s questions in last conference call which drugs are affecting the expression of IGF1 or IGF1R.</p>
+<pre class="r"><code>affyids &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% c(&quot;IGF1&quot;, &quot;IGF1R&quot;),])
+degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
+q &lt;- colSums(degMA[affyids,])
+q &lt;- q[q &gt; 0]
+as.data.frame(rev(sort(q))[1:20])</code></pre>
+<pre><code>##                     rev(sort(q))[1:20]
+## lobeline_HL60                        4
+## chlorzoxazone_HL60                   4
+## sirolimus_PC3                        3
+## metformin_MCF7                       3
+## anisomycin_HL60                      3
+## vorinostat_MCF7                      2
+## verteporfin_HL60                     2
+## trichostatin A_PC3                   2
+## thioridazine_MCF7                    2
+## sanguinarine_HL60                    2
+## pyrvinium_MCF7                       2
+## piperlongumine_MCF7                  2
+## lycorine_HL60                        2
+## luteolin_PC3                         2
+## laudanosine_HL60                     2
+## lanatoside C_HL60                    2
+## glibenclamide_HL60                   2
+## fulvestrant_MCF7                     2
+## emetine_HL60                         2
+## doxorubicin_MCF7                     2</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
