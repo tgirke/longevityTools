@@ -95,6 +95,7 @@ affyids <- row.names(myAnnot[myAnnot$SYMBOL %in% c("IGF1", "IGF1R"),])
 degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
 q <- colSums(degMA[affyids,])
 q <- q[q > 0]
+length(q)
 as.data.frame(rev(sort(q))[1:20])
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------

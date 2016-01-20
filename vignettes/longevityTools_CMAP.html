@@ -308,7 +308,9 @@ degOL[1:20,]</code></pre>
 degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
 q &lt;- colSums(degMA[affyids,])
 q &lt;- q[q &gt; 0]
-as.data.frame(rev(sort(q))[1:20])</code></pre>
+length(q)</code></pre>
+<pre><code>## [1] 86</code></pre>
+<pre class="r"><code>as.data.frame(rev(sort(q))[1:20])</code></pre>
 <pre><code>##                     rev(sort(q))[1:20]
 ## lobeline_HL60                        4
 ## chlorzoxazone_HL60                   4
