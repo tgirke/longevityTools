@@ -307,8 +307,10 @@ degOL[1:20,]</code></pre>
 <h1><span class="header-section-number">7</span> Connectivity maps enrichment analysis</h1>
 <div id="query-drug-signatures" class="section level2">
 <h2><span class="header-section-number">7.1</span> Query drug signatures</h2>
-<pre class="r"><code>library(DrugVsDisease); library(DvDdata)
-PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
+<pre class="r"><code>library(DrugVsDisease)</code></pre>
+<pre><code>## Warning: replacing previous import by 'grid::arrow' when loading 'qvalue'</code></pre>
+<pre><code>## Warning: replacing previous import by 'grid::unit' when loading 'qvalue'</code></pre>
+<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
 data(drugRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(drugRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
@@ -350,11 +352,33 @@ data(diseaseRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(diseaseRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
-diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)
-diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
+diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)</code></pre>
+<pre><code>## Number of Significant results greater than 20 Using top 20 hits - consider using average linkage instead</code></pre>
+<pre class="r"><code>diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
                             dynamic.fdr=0.5, adj=&quot;BH&quot;, no.signif=100)
 diseasecmap2[[1]][1:20,]</code></pre>
+<pre><code>##                                                     Disease ES Distance Cluster RPS
+## sarcoidosis                                     sarcoidosis   0.3630021       2   1
+## sepsis                                               sepsis   0.4779160       5  -1
+## aseptic-necrosis                           aseptic-necrosis   0.5624186       2   1
+## inflammatory-bowel-disease       inflammatory-bowel-disease   0.5738416       2   1
+## myelodysplastic-syndrome           myelodysplastic-syndrome   0.6118810       5  -1
+## acute-nonlymphocytic-leukemia acute-nonlymphocytic-leukemia   0.6428131       2   1
+## colorectal-cancer                         colorectal-cancer   0.6824003       3  -1
+## small-cell-lung-cancer               small-cell-lung-cancer   0.7086938       4  -1
+## periodontitis                                 periodontitis   0.7562997       1   1
+## soft-tissue-sarcoma                     soft-tissue-sarcoma   0.7610299       4  -1
+## schizophrenia                                 schizophrenia   0.7628188       6   1
+## multiple-sclerosis                       multiple-sclerosis   0.7704229       5  -1
+## juvenile-rheumatoid-arthritis juvenile-rheumatoid-arthritis   0.7825401       2   1
+## interstitial-cystitis                 interstitial-cystitis   0.7862240       3   1
+## osteoporosis                                   osteoporosis   0.7889821       5  -1
+## ulcerative-colitis                       ulcerative-colitis   0.7930566       3   1
+## parkinson-s-disease                     parkinson-s-disease   0.7952601       6   1
+## mania                                                 mania   0.8068711       6   1
+## prostate-cancer                             prostate-cancer   0.8263851       4  -1
+## bladder-cancer                               bladder-cancer   0.8314094       4  -1</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -392,16 +416,31 @@ diseasecmap2[[1]][1:20,]</code></pre>
 ## [1] C
 ## 
 ## attached base packages:
-## [1] stats     graphics  utils     datasets  grDevices methods   base     
+## [1] parallel  stats     graphics  utils     datasets  grDevices methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_2.0.0        longevityTools_1.0.0 BiocStyle_1.8.0     
+##  [1] DrugVsDisease_2.9.0     qvalue_2.2.0            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
+##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.3           
+##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     ggplot2_2.0.0          
+## [13] longevityTools_1.0.0    BiocStyle_1.8.0        
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.3      codetools_0.2-14 digest_0.6.9     plyr_1.8.3       grid_3.2.2      
-##  [6] gtable_0.1.2     formatR_1.2.1    magrittr_1.5     evaluate_0.8     scales_0.3.0    
-## [11] stringi_1.0-1    rmarkdown_0.9.2  tools_3.2.2      stringr_1.0.0    munsell_0.4.2   
-## [16] yaml_2.1.13      colorspace_1.2-6 htmltools_0.3    knitr_1.12</code></pre>
+##  [1] Rcpp_0.12.3                XVector_0.10.0             GenomeInfoDb_1.6.1        
+##  [4] BiocInstaller_1.20.1       formatR_1.2.1              plyr_1.8.3                
+##  [7] iterators_1.0.8            bitops_1.0-6               tools_3.2.2               
+## [10] zlibbioc_1.16.0            bit_1.1-12                 digest_0.6.9              
+## [13] evaluate_0.8               RSQLite_1.0.0              preprocessCore_1.32.0     
+## [16] gtable_0.1.2               ff_2.2-13                  foreach_1.4.3             
+## [19] DBI_0.3.1                  yaml_2.1.13                affxparser_1.42.0         
+## [22] stringr_1.0.0              knitr_1.12                 Biostrings_2.38.1         
+## [25] S4Vectors_0.8.7            IRanges_2.4.3              stats4_3.2.2              
+## [28] grid_3.2.2                 AnnotationDbi_1.32.0       XML_3.98-1.3              
+## [31] rmarkdown_0.9.2            oligo_1.34.0               reshape2_1.4.1            
+## [34] magrittr_1.5               splines_3.2.2              GenomicRanges_1.22.1      
+## [37] oligoClasses_1.32.0        scales_0.3.0               codetools_0.2-14          
+## [40] htmltools_0.3              SummarizedExperiment_1.0.1 colorspace_1.2-6          
+## [43] stringi_1.0-1              RCurl_1.95-4.7             munsell_0.4.2             
+## [46] affyio_1.40.0</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
