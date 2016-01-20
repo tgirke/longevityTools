@@ -101,6 +101,7 @@ drugcmap <- classifyprofile(data=testprofiles$ranklist, case="disease", signif.f
 drugcmap2 <- classifyprofile(data=testprofiles$ranklist, case="disease", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
                             dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
+write.table(drugcmap2, file="./results/drugcmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
 drugcmap2[[1]][1:20,]
 
 ## ----disease_enrichment, eval=TRUE, message=TRUE-------------------------
@@ -113,6 +114,7 @@ diseasecmap <- classifyprofile(data=testprofiles$ranklist, case="drug", signif.f
 diseasecmap2 <- classifyprofile(data=testprofiles$ranklist, case="drug", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
                             dynamic.fdr=0.5, adj="BH", no.signif=100)
+write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
 diseasecmap2[[1]][1:20,]
 
 ## ----sessionInfo---------------------------------------------------------

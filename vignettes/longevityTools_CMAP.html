@@ -237,6 +237,7 @@ df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
 </div>
 <div id="deg-analysis-with-limma-1" class="section level2">
 <h2><span class="header-section-number">6.3</span> DEG analysis with Limma</h2>
+<p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package. Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and a minimum fold change of 2). The DEG matrix is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
 <pre class="r"><code>degMA &lt;- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
 write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 saveRDS(degMA, &quot;./results/degMA.rds&quot;)</code></pre>
@@ -305,12 +306,12 @@ degOL[1:20,]</code></pre>
 </div>
 <div id="connectivity-maps-enrichment-analysis" class="section level1">
 <h1><span class="header-section-number">7</span> Connectivity maps enrichment analysis</h1>
+<p>The connectivity maps approach is a rank-based enrichment method utilizing the KS test <span class="citation">(Lamb et al. 2006)</span>. It measures the similarities of expression signatures based on the enrichment of up- and down-regulated genes at the top and bottom of sorted (ranked) gene lists.</p>
 <div id="query-drug-signatures" class="section level2">
 <h2><span class="header-section-number">7.1</span> Query drug signatures</h2>
-<pre class="r"><code>library(DrugVsDisease)</code></pre>
-<pre><code>## Warning: replacing previous import by 'grid::arrow' when loading 'qvalue'</code></pre>
-<pre><code>## Warning: replacing previous import by 'grid::unit' when loading 'qvalue'</code></pre>
-<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
+<p>The following uses the 1,497 age-related gene expression signatures from Peters et al. <span class="citation">(2015)</span> as a query against the CMAP signatures. The results are sorted by the ES Distance and the top scoring 20 drugs are given below. The full result table is<br />written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
+<pre class="r"><code>library(DrugVsDisease)
+PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
 data(drugRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(drugRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
@@ -319,6 +320,7 @@ drugcmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;disease&qu
 drugcmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;disease&quot;, 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
                             dynamic.fdr=0.5, signif.fdr=0.05, adj=&quot;BH&quot;, no.signif=100)
+write.table(drugcmap2, file=&quot;./results/drugcmap2.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 drugcmap2[[1]][1:20,]</code></pre>
 <pre><code>##                              Drug ES Distance Cluster RPS
 ## mebendazole           mebendazole   0.8322685      62   1
@@ -347,6 +349,7 @@ drugcmap2[[1]][1:20,]</code></pre>
 </div>
 <div id="query-disease-signatures" class="section level2">
 <h2><span class="header-section-number">7.2</span> Query disease signatures</h2>
+<p>The same query is performed against a reference set of disease expression signatures. The results are sorted by the ES Distance and the top scoring 20 drugs are given below. The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>diseasecmap2.xls</code></a>.</p>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
 data(diseaseRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(diseaseRL),]
@@ -357,6 +360,7 @@ diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&qu
 <pre class="r"><code>diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
                             dynamic.fdr=0.5, adj=&quot;BH&quot;, no.signif=100)
+write.table(diseasecmap2, file=&quot;./results/diseasecmap2.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 diseasecmap2[[1]][1:20,]</code></pre>
 <pre><code>##                                                     Disease ES Distance Cluster RPS
 ## sarcoidosis                                     sarcoidosis   0.3630021       2   1

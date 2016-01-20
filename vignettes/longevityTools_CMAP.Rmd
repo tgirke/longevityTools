@@ -192,6 +192,11 @@ df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
 
 ## DEG analysis with Limma
 
+The analysis of differentially expressed genes (DEGs) is performed with the `limma` package.
+Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and 
+a minimum fold change of 2). The DEG matrix is written to a file named 
+[`degMA.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls).
+
 ```{r deg_limma, eval=FALSE}
 degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
 write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
@@ -253,7 +258,16 @@ degOL[1:20,]
 
 # Connectivity maps enrichment analysis
 
+The connectivity maps approach is a rank-based enrichment method utilizing the KS test [@Lamb2006-uv]. 
+It measures the similarities of expression signatures based on the enrichment of up- and 
+down-regulated genes at the top and bottom of sorted (ranked) gene lists. 
+
 ## Query drug signatures
+
+The following uses the 1,497 age-related gene expression signatures from Peters et al. 
+[-@Peters2015-fc] as a query against the CMAP signatures. The results are sorted by the
+ES Distance and the top scoring 20 drugs are given below. The full result table is  
+written to a file named [`drugcmap2.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls).
 
 ```{r drug_enrichment, eval=TRUE, message=FALSE}
 library(DrugVsDisease)
@@ -266,12 +280,17 @@ drugcmap <- classifyprofile(data=testprofiles$ranklist, case="disease", signif.f
 drugcmap2 <- classifyprofile(data=testprofiles$ranklist, case="disease", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
                             dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
+write.table(drugcmap2, file="./results/drugcmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
 drugcmap2[[1]][1:20,]
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
 
 ## Query disease signatures
+
+The same query is performed against a reference set of disease expression signatures.
+The results are sorted by the ES Distance and the top scoring 20 drugs are given below. 
+The full result table is written to a file named [`diseasecmap2.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls).
 
 ```{r disease_enrichment, eval=TRUE, message=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
@@ -283,6 +302,7 @@ diseasecmap <- classifyprofile(data=testprofiles$ranklist, case="drug", signif.f
 diseasecmap2 <- classifyprofile(data=testprofiles$ranklist, case="drug", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
                             dynamic.fdr=0.5, adj="BH", no.signif=100)
+write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
 diseasecmap2[[1]][1:20,]
 ```
 
