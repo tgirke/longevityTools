@@ -302,35 +302,8 @@ degOL[1:20,]</code></pre>
 <h1><span class="header-section-number">7</span> Connectivity maps enrichment analysis compared to drug and disease references</h1>
 <div id="query-drug-reference" class="section level2">
 <h2><span class="header-section-number">7.1</span> Query drug reference</h2>
-<pre class="r"><code>library(DrugVsDisease); library(DvDdata)</code></pre>
-<pre><code>## Loading required package: affy</code></pre>
-<pre><code>## Loading required package: limma</code></pre>
-<pre><code>## 
-## Attaching package: 'limma'</code></pre>
-<pre><code>## The following object is masked from 'package:BiocGenerics':
-## 
-##     plotMA</code></pre>
-<pre><code>## Loading required package: biomaRt</code></pre>
-<pre><code>## Loading required package: ArrayExpress</code></pre>
-<pre><code>## Loading required package: GEOquery</code></pre>
-<pre><code>## Setting options('download.file.method.GEOquery'='auto')</code></pre>
-<pre><code>## Setting options('GEOquery.inmemory.gpl'=FALSE)</code></pre>
-<pre><code>## Loading required package: DrugVsDiseasedata</code></pre>
-<pre><code>## Loading required package: cMap2data</code></pre>
-<pre><code>## 
-## Attaching package: 'cMap2data'</code></pre>
-<pre><code>## The following object is masked from 'package:DrugVsDiseasedata':
-## 
-##     genelist</code></pre>
-<pre><code>## Loading required package: qvalue</code></pre>
-<pre><code>## Warning: replacing previous import by 'grid::arrow' when loading 'qvalue'</code></pre>
-<pre><code>## Warning: replacing previous import by 'grid::unit' when loading 'qvalue'</code></pre>
-<pre><code>## 
-## Attaching package: 'DvDdata'</code></pre>
-<pre><code>## The following objects are masked from 'package:DrugVsDiseasedata':
-## 
-##     cytodisease, diseaseClusters, diseaseRL, diseaselabels, genelist</code></pre>
-<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
+<pre class="r"><code>library(DrugVsDisease); library(DvDdata)
+PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
 data(drugRL, package=&quot;DvDdata&quot;)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(drugRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 

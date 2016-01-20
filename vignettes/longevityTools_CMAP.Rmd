@@ -253,7 +253,7 @@ degOL[1:20,]
 
 ## Query drug reference
 
-```{r drug_enrichment, eval=TRUE}
+```{r drug_enrichment, eval=TRUE, message=FALSE}
 library(DrugVsDisease); library(DvDdata)
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(drugRL, package="DvDdata")
@@ -269,7 +269,7 @@ drugcmap2[[1]][1:20,]
 
 ## Query disease reference
 
-```{r disease_enrichment, eval=FALSE}
+```{r disease_enrichment, eval=FALSE, message=FALSE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(diseaseRL, package="DvDdata")
 PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
