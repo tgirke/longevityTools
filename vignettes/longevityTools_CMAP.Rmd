@@ -249,9 +249,11 @@ write.table(degOL, file="./results/degOL.xls", quote=FALSE, sep="\t", col.names 
 degOL[1:20,]
 ```
 
-# Connectivity maps enrichment analysis compared to drug and disease references
+<div align="right">[Back to Table of Contents]()</div>
 
-## Query drug reference
+# Connectivity maps enrichment analysis
+
+## Query drug signatures
 
 ```{r drug_enrichment, eval=TRUE, message=FALSE}
 library(DrugVsDisease); library(DvDdata)
@@ -267,7 +269,9 @@ drugcmap2 <- classifyprofile(data=testprofiles$ranklist, case="disease",
 drugcmap2[[1]][1:20,]
 ```
 
-## Query disease reference
+<div align="right">[Back to Table of Contents]()</div>
+
+## Query disease signatures
 
 ```{r disease_enrichment, eval=FALSE, message=FALSE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
@@ -281,6 +285,16 @@ diseasecmap2 <- classifyprofile(data=testprofiles$ranklist, case="drug",
                             dynamic.fdr=0.5, adj="BH", no.signif=100)
 diseasecmap2[[1]][1:20,]
 ```
+
+<div align="right">[Back to Table of Contents]()</div>
+
+# Age-drug network analysis
+
+In progress...
+
+# Age-disease network analysis
+
+In progress...
 
 # Funding
 This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).
