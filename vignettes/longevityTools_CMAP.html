@@ -78,8 +78,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#obtain-annotation-information"><span class="toc-section-number">6.4</span> Obtain annotation information</a></li>
 <li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.5</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
 </ul></li>
-<li><a href="#funding"><span class="toc-section-number">7</span> Funding</a></li>
-<li><a href="#version-information"><span class="toc-section-number">8</span> Version information</a></li>
+<li><a href="#connectivity-maps-enrichment-analysis-compared-to-drug-and-disease-references"><span class="toc-section-number">7</span> Connectivity maps enrichment analysis compared to drug and disease references</a><ul>
+<li><a href="#query-drug-reference"><span class="toc-section-number">7.1</span> Query drug reference</a></li>
+<li><a href="#query-disease-reference"><span class="toc-section-number">7.2</span> Query disease reference</a></li>
+</ul></li>
+<li><a href="#funding"><span class="toc-section-number">8</span> Funding</a></li>
+<li><a href="#version-information"><span class="toc-section-number">9</span> Version information</a></li>
 </ul>
 </div>
 
@@ -294,15 +298,93 @@ degOL[1:20,]</code></pre>
 ## 20          helveticoside_HL60    0.08634280</code></pre>
 </div>
 </div>
+<div id="connectivity-maps-enrichment-analysis-compared-to-drug-and-disease-references" class="section level1">
+<h1><span class="header-section-number">7</span> Connectivity maps enrichment analysis compared to drug and disease references</h1>
+<div id="query-drug-reference" class="section level2">
+<h2><span class="header-section-number">7.1</span> Query drug reference</h2>
+<pre class="r"><code>library(DrugVsDisease); library(DvDdata)</code></pre>
+<pre><code>## Loading required package: affy</code></pre>
+<pre><code>## Loading required package: limma</code></pre>
+<pre><code>## 
+## Attaching package: 'limma'</code></pre>
+<pre><code>## The following object is masked from 'package:BiocGenerics':
+## 
+##     plotMA</code></pre>
+<pre><code>## Loading required package: biomaRt</code></pre>
+<pre><code>## Loading required package: ArrayExpress</code></pre>
+<pre><code>## Loading required package: GEOquery</code></pre>
+<pre><code>## Setting options('download.file.method.GEOquery'='auto')</code></pre>
+<pre><code>## Setting options('GEOquery.inmemory.gpl'=FALSE)</code></pre>
+<pre><code>## Loading required package: DrugVsDiseasedata</code></pre>
+<pre><code>## Loading required package: cMap2data</code></pre>
+<pre><code>## 
+## Attaching package: 'cMap2data'</code></pre>
+<pre><code>## The following object is masked from 'package:DrugVsDiseasedata':
+## 
+##     genelist</code></pre>
+<pre><code>## Loading required package: qvalue</code></pre>
+<pre><code>## Warning: replacing previous import by 'grid::arrow' when loading 'qvalue'</code></pre>
+<pre><code>## Warning: replacing previous import by 'grid::unit' when loading 'qvalue'</code></pre>
+<pre><code>## 
+## Attaching package: 'DvDdata'</code></pre>
+<pre><code>## The following objects are masked from 'package:DrugVsDiseasedata':
+## 
+##     cytodisease, diseaseClusters, diseaseRL, diseaselabels, genelist</code></pre>
+<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
+data(drugRL, package=&quot;DvDdata&quot;)
+PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(drugRL),]
+testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
+                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
+drugcmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;disease&quot;, signif.fdr=0.5, no.signif=20)
+drugcmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;disease&quot;, 
+                            pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
+                            dynamic.fdr=0.5, signif.fdr=0.05, adj=&quot;BH&quot;, no.signif=100)
+drugcmap2[[1]][1:20,]</code></pre>
+<pre><code>##                              Drug ES Distance Cluster RPS
+## mebendazole           mebendazole   0.8322685      62   1
+## cloperastine         cloperastine   0.8457056      98   1
+## fenoterol               fenoterol   0.8467810      62   1
+## (-)-isoprenaline (-)-isoprenaline   0.8476601      41   1
+## (+)-chelidonine   (+)-chelidonine   0.8510637       1   1
+## etacrynic_acid     etacrynic_acid   0.8514834     103   1
+## oxedrine                 oxedrine   0.8561747      62   1
+## suloctidil             suloctidil   0.8586264      93   1
+## noscapine               noscapine   0.8595356      70   1
+## trifluridine         trifluridine   0.8621584       4   1
+## trifluoperazine   trifluoperazine   0.8624640      98   1
+## etilefrine             etilefrine   0.8644660      40   1
+## remoxipride           remoxipride   0.8655620      76   1
+## etoposide               etoposide   0.8690638       4   1
+## ethoxyquin             ethoxyquin   0.8695707      27   1
+## albendazole           albendazole   0.8699840      93   1
+## scoulerine             scoulerine   0.8705162       1   1
+## bromopride             bromopride   0.8709264      91   1
+## milrinone               milrinone   0.8712986      83   1
+## terfenadine           terfenadine   0.8718878      93   1</code></pre>
+</div>
+<div id="query-disease-reference" class="section level2">
+<h2><span class="header-section-number">7.2</span> Query disease reference</h2>
+<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
+data(diseaseRL, package=&quot;DvDdata&quot;)
+PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(diseaseRL),]
+testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
+                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
+diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)
+diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
+                            pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
+                            dynamic.fdr=0.5, adj=&quot;BH&quot;, no.signif=100)
+diseasecmap2[[1]][1:20,]</code></pre>
+</div>
+</div>
 <div id="funding" class="section level1">
-<h1><span class="header-section-number">7</span> Funding</h1>
+<h1><span class="header-section-number">8</span> Funding</h1>
 <p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="version-information" class="section level1">
-<h1><span class="header-section-number">8</span> Version information</h1>
+<h1><span class="header-section-number">9</span> Version information</h1>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 3.2.2 (2015-08-14)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
@@ -326,7 +408,7 @@ degOL[1:20,]</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 <div class="references">
-<h1><span class="header-section-number">8</span> References</h1>
+<h1><span class="header-section-number">9</span> References</h1>
 <p>Lamb, J, E D Crawford, D Peck, J W Modell, I C Blat, M J Wrobel, J Lerner, et al. 2006. “The Connectivity Map: using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease.” <em>Science</em> 313 (5795) (September): 1929–1935. doi:<a href="http://dx.doi.org/10.1126/science.1132939">10.1126/science.1132939</a>. <a href="http://dx.doi.org/10.1126/science.1132939">http://dx.doi.org/10.1126/science.1132939</a>.</p>
 <p>Peters, Marjolein J, Roby Joehanes, Luke C Pilling, Claudia Schurmann, Karen N Conneely, Joseph Powell, Eva Reinmaa, et al. 2015. “The Transcriptional Landscape of Age in Human Peripheral Blood.” <em>Nat. Commun.</em> 6 (22~oct): 8570. doi:<a href="http://dx.doi.org/10.1038/ncomms9570">10.1038/ncomms9570</a>. <a href="http://dx.doi.org/10.1038/ncomms9570">http://dx.doi.org/10.1038/ncomms9570</a>.</p>
 <p>Sood, Sanjana, Iain Gallagher, Katie Lunnon, Eric Rullman, Aoife Keohane, Hannah Crossland, Bethan Phillips, et al. 2015. “A Novel Multi-Tissue RNA Diagnostic of Healthy Ageing Relates to Cognitive Health Status.” <em>Genome Biology</em>. doi:<a href="http://dx.doi.org/10.1186/s13059-015-0750-x">10.1186/s13059-015-0750-x</a>. <a href="http://genomebiology.com/2015/16/1/185">http://genomebiology.com/2015/16/1/185</a>.</p>
