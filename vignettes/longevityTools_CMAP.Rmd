@@ -273,7 +273,7 @@ drugcmap2[[1]][1:20,]
 
 ## Query disease signatures
 
-```{r disease_enrichment, eval=FALSE, message=TRUE}
+```{r disease_enrichment, eval=TRUE, message=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(diseaseRL)
 PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]

@@ -103,17 +103,17 @@ drugcmap2 <- classifyprofile(data=testprofiles$ranklist, case="disease",
                             dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
 drugcmap2[[1]][1:20,]
 
-## ----disease_enrichment, eval=FALSE, message=TRUE------------------------
-## PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
-## data(diseaseRL)
-## PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
-## testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])),
-##                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
-## diseasecmap <- classifyprofile(data=testprofiles$ranklist, case="drug", signif.fdr=0.5, no.signif=20)
-## diseasecmap2 <- classifyprofile(data=testprofiles$ranklist, case="drug",
-##                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic",
-##                             dynamic.fdr=0.5, adj="BH", no.signif=100)
-## diseasecmap2[[1]][1:20,]
+## ----disease_enrichment, eval=TRUE, message=TRUE-------------------------
+PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
+data(diseaseRL)
+PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
+testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
+                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
+diseasecmap <- classifyprofile(data=testprofiles$ranklist, case="drug", signif.fdr=0.5, no.signif=20)
+diseasecmap2 <- classifyprofile(data=testprofiles$ranklist, case="drug", 
+                            pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
+                            dynamic.fdr=0.5, adj="BH", no.signif=100)
+diseasecmap2[[1]][1:20,]
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
