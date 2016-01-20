@@ -155,7 +155,7 @@ combineResults(chiptype_dir, rerun=FALSE)
 
 ## Clean-up of intermediate files
 
-This deletes intermediate files. Before executing it, make sure that is what you want!
+This deletes intermediate files. Before executing these lines, please make sure that this is what you want.
 
 ```{r cleanup1, eval=FALSE}
 # for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)

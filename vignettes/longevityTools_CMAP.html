@@ -200,7 +200,7 @@ combineResults(chiptype_dir, rerun=FALSE)</code></pre>
 </div>
 <div id="clean-up-of-intermediate-files" class="section level2">
 <h2><span class="header-section-number">5.4</span> Clean-up of intermediate files</h2>
-<p>This deletes intermediate files. Before executing it, make sure that is what you want!</p>
+<p>This deletes intermediate files. Before executing these lines, please make sure that this is what you want.</p>
 <pre class="r"><code># for(i in seq_along(chiptype_dir)) unlink(list.files(paste0(&quot;data/&quot;, chiptype_dir[i]), pattern=&quot;cellbatch&quot;, full.names=TRUE), recursive=TRUE)
 # unlink(&quot;data/CEL/&quot;) # Deletes downloaded CEL files</code></pre>
 <div align="right">
