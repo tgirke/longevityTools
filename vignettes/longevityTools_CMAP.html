@@ -303,7 +303,7 @@ degOL[1:20,]</code></pre>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
 <h2><span class="header-section-number">6.6</span> Drugs affecting known longevity genes</h2>
-<p>This addresses one of Dan’s questions in last conference call which drugs are affecting the expression of IGF1 or IGF1R.</p>
+<p>This addresses one of Dan’s questions in last conference call which drugs are affecting the expression of the IGF1 or IGF1R genes.</p>
 <pre class="r"><code>affyids &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% c(&quot;IGF1&quot;, &quot;IGF1R&quot;),])
 degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
 q &lt;- colSums(degMA[affyids,])

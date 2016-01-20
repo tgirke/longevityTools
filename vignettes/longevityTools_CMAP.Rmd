@@ -257,7 +257,7 @@ degOL[1:20,]
 ## Drugs affecting known longevity genes
 
 This addresses one of Dan's questions in last conference call which drugs are affecting the
-expression of IGF1 or IGF1R.
+expression of the IGF1 or IGF1R genes.
 
 ```{r deg_queries, eval=TRUE}
 affyids <- row.names(myAnnot[myAnnot$SYMBOL %in% c("IGF1", "IGF1R"),])
