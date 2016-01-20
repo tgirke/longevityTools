@@ -91,7 +91,7 @@ write.table(degOL, file="./results/degOL.xls", quote=FALSE, sep="\t", col.names 
 degOL[1:20,]
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
-library(DrugVsDisease); library(DvDdata)
+library(DrugVsDisease)
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(drugRL)
 PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(drugRL),]
