@@ -309,7 +309,7 @@ degOL[1:20,]</code></pre>
 <h2><span class="header-section-number">7.1</span> Query drug signatures</h2>
 <pre class="r"><code>library(DrugVsDisease); library(DvDdata)
 PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
-data(drugRL, package=&quot;DvDdata&quot;)
+data(drugRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(drugRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
@@ -346,7 +346,7 @@ drugcmap2[[1]][1:20,]</code></pre>
 <div id="query-disease-signatures" class="section level2">
 <h2><span class="header-section-number">7.2</span> Query disease signatures</h2>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
-data(diseaseRL, package=&quot;DvDdata&quot;)
+data(diseaseRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(diseaseRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
