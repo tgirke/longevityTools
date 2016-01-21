@@ -45,15 +45,13 @@ suppressPackageStartupMessages({
     library(ggplot2) }) 
 ```
 
-# Longevity Genomics Project
-
+# Introduction 
 This vignette is part of the NIA funded Longevity Genomics project. For more information on ths project please visit its 
 website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
 is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
 tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html">here</a>.
 
-# Introduction 
-This study analyzes drug- and age-related genome-wide expression data from public microarray 
+The workflow of this vignette analyzes drug- and age-related genome-wide expression data from public microarray 
 and RNA-Seq experiments. One of the main objective is the identification drug candidates 
 modulating the expression of longevity genes and pathways. For this, we compare age-related expression signatures with those from 
 drug treamtments. The age-related query signatures are from recent publications such as 
