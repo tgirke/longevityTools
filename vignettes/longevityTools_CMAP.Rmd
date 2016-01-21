@@ -4,7 +4,10 @@ author: "Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, J
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 package: "`r pkg_ver('longevityTools')`"
 abstract: >
-  This vignette is part of the Longevity Genomics project. For more information on ths project please visit its website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the R package is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html">here</a>.
+  This vignette is part of the Longevity Genomics project. For more information on ths project please visit its 
+  website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
+  is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
+  tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html">here</a>.
 output:
   BiocStyle::html_document:
     toc: true
