@@ -1,5 +1,5 @@
 ---
-title: "_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures" 
+title: "[_longevityTools_](http://www.longevitygenomics.org/projects/): Connecting Drug- and Age-related Gene Expression Signatures" 
 author: "Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans"
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 package: "`r pkg_ver('longevityTools')`"
