@@ -48,9 +48,9 @@ suppressPackageStartupMessages({
 This vignette is part of the NIA funded Longevity Genomics project. For more information on ths project please visit its 
 website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
 is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
-tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.
+vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.
 
-This overview vignette provides general information about the `longevityTools` package.
+This overview tutorial provides general information about the `longevityTools` package.
 This includes an introduction into the objects, data structures, methods and
 functions defined by `longevityTools`. The development of `longevityTools` is part of the 
 [Longevity Genomics](http://www.longevitygenomics.org/) project. 
