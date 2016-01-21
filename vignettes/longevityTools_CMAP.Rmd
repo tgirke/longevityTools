@@ -183,7 +183,7 @@ comp_list <- sampleList(cmap, myby="CMP_CELL")
 ## Load normalized expression data 
 
 The following loads the MAS5 normalized expression data into a single `data.frame`. 
-To spead up the import, the data is read from `rds` files. 
+To accelerate the import, the data is read from `rds` files. 
 
 ```{r load_mas5_data, eval=FALSE}
 chiptype_dir <- unique(readRDS("./data/chiptype.rds"))

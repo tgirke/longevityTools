@@ -229,7 +229,7 @@ comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)</code></pre>
 </div>
 <div id="load-normalized-expression-data" class="section level2">
 <h2><span class="header-section-number">6.2</span> Load normalized expression data</h2>
-<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. To spead up the import, the data is read from <code>rds</code> files.</p>
+<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. To accelerate the import, the data is read from <code>rds</code> files.</p>
 <pre class="r"><code>chiptype_dir &lt;- unique(readRDS(&quot;./data/chiptype.rds&quot;))
 df1 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[1], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
 df2 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[2], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
