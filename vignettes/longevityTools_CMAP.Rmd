@@ -260,7 +260,7 @@ degOL[1:20,]
 
 ## Drugs affecting known longevity genes
 
-This addresses one of Dan's questions in last conference call which drugs are affecting the
+This addresses one of Dan's questions in one of our conference calls as to which drugs are affecting the
 expression of the IGF1 or IGF1R genes.
 
 ```{r deg_queries, eval=TRUE}
