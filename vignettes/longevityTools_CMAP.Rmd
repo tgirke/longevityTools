@@ -4,7 +4,7 @@ author: "Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, J
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 package: "`r pkg_ver('longevityTools')`"
 abstract: >
-  This vignette is part of the Longevity Genomics project. For details see [here](http://www.longevitygenomics.org/projects/).
+  This vignette is part of the Longevity Genomics project. For form information on ths project please visit its website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the R package is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html">here</a>.
 output:
   BiocStyle::html_document:
     toc: true
@@ -47,7 +47,6 @@ suppressPackageStartupMessages({
     library(ggplot2) }) 
 ```
 
-Note: the GitHub repository of this package is <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this tutorial can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html">here</a>.
 
 # Introduction 
 This study analyzes drug- and age-related genome-wide expression data from public microarray 
