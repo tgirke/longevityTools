@@ -4,7 +4,7 @@ author: "Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, J
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 package: "`r pkg_ver('longevityTools')`"
 abstract: >
-  This vigentte is part of the Longevity Genomics project. For details see [here](http://www.longevitygenomics.org/projects/).
+  This vignette is part of the Longevity Genomics project. For details see [here](http://www.longevitygenomics.org/projects/).
 output:
   BiocStyle::html_document:
     toc: true
