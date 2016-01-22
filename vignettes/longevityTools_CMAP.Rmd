@@ -242,7 +242,7 @@ DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similari
 to sort the drug table. The 20 top scoring drugs are given below and the full
 data set is written to a file named [`degOL.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL.xls).
 
-```{r deg_overlaps, eval=FALSE}
+```{r deg_overlaps, eval=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 affyid <- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$"NEW.Entrez.ID",])
@@ -265,7 +265,7 @@ degOL[1:20,]
 This addresses one of Dan's questions in one of our conference calls as to which drugs are affecting the
 expression of the IGF1 or IGF1R genes.
 
-```{r deg_queries, eval=FALSE}
+```{r deg_queries, eval=TRUE}
 affyids <- row.names(myAnnot[myAnnot$SYMBOL %in% c("IGF1", "IGF1R"),])
 degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
 q <- colSums(degMA[affyids,])
@@ -289,7 +289,7 @@ The following uses the 1,497 age-related gene expression signatures from Peters 
 ES Distance and the top scoring 20 drugs are given below. The full result table is  
 written to a file named [`drugcmap2.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls).
 
-```{r drug_enrichment, eval=FALSE, message=FALSE}
+```{r drug_enrichment, eval=TRUE, message=FALSE}
 library(DrugVsDisease)
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(drugRL)
@@ -312,7 +312,7 @@ The same query is performed against a reference set of disease expression signat
 The results are sorted by the ES Distance and the top scoring 20 drugs are given below. 
 The full result table is written to a file named [`diseasecmap2.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls).
 
-```{r disease_enrichment, eval=FALSE, message=TRUE}
+```{r disease_enrichment, eval=TRUE, message=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(diseaseRL)
 PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
