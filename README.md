@@ -10,5 +10,5 @@ R package defining the analysis routines used by the [Longevity Genomics](http:/
 
 ```s
 source("http://bioconductor.org/biocLite.R")
-biocLite("tgirke/longevityTools", build_vignettes=TRUE, dependencies=TRUE)
+biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE)
 ```
