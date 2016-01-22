@@ -20,7 +20,7 @@ suppressPackageStartupMessages({
 ## vignette(topic="longevityTools_CMAP", package="longevityTools") # Opens vignette
 
 ## ----source_fct, eval=TRUE-----------------------------------------------
-fctpath <- system.file("extdata", "analysis_Fct.R", package="longevityTools")
+fctpath <- system.file("extdata", "longevityTools_CMAP_Fct.R", package="longevityTools")
 source(fctpath)
 
 ## ----download_cmap, eval=FALSE-------------------------------------------

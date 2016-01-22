@@ -91,7 +91,7 @@ Preliminary functions that are still under developement, or not fully tested and
 can be imported with the `source` command from the `inst/extdata` directory of the package.
 
 ```{r source_fct, eval=TRUE}
-fctpath <- system.file("extdata", "analysis_Fct.R", package="longevityTools")
+fctpath <- system.file("extdata", "longevityTools_CMAP_Fct.R", package="longevityTools")
 source(fctpath)
 ```
 <div align="right">[Back to Table of Contents]()</div>
