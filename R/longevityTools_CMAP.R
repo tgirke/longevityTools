@@ -43,7 +43,6 @@ getCmapCEL <- function(rerun=TRUE) {
         unzip("./data/CEL/cmap_build02.volume7of7.zip", exdir="./data/CEL"); unlink("./data/CEL/cmap_build02.volume7of7.zip")
         
         ## Uncompress CEL files
-        library(R.utils); 
         myfiles <- list.files("./data/CEL", pattern=".CEL.bz2$", full.names=TRUE)
         for(i in myfiles) R.utils::bunzip2(i, remove=TRUE)
     } else {
