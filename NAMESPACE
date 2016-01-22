@@ -1,1 +1,9 @@
-exportPattern("^[[:alpha:]]+")
+## Functions
+# exportPattern("^[[:alpha:]]+")
+
+export(
+    ## Data sets
+
+    ## Utilities
+    "getCmap", "getCmapCEL"
+) 
