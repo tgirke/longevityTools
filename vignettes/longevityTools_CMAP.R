@@ -12,7 +12,7 @@ suppressPackageStartupMessages({
 
 ## ----install, eval=FALSE-------------------------------------------------
 ## source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script
-## biocLite("tgirke/longevityTools", build_vignettes=TRUE, dependencies=TRUE) # Installs package from GitHub
+## biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
 
 ## ----documentation, eval=FALSE-------------------------------------------
 ## library("longevityTools") # Loads the package
