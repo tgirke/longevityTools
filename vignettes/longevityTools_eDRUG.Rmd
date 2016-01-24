@@ -22,7 +22,7 @@ bibliography: bibtex.bib
 
 <!---
 - Compile from command-line
-echo "rmarkdown::render('longevityTools_CMAP.Rmd')" | R -slave; R CMD Stangle longevityTools_CMAP.Rmd
+echo "rmarkdown::render('longevityTools_eDRUG.Rmd')" | R -slave; R CMD Stangle longevityTools_eDRUG.Rmd
 
 - Commit to github
 git commit -am "some edits"; git push -u origin master
@@ -49,7 +49,7 @@ suppressPackageStartupMessages({
 This vignette is part of the NIA funded Longevity Genomics project. For more information on ths project please visit its 
 website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
 is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
-vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_CMAP.html">here</a>.
+vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html">here</a>.
 
 The project component covered by this vignette analyzes drug- and age-related
 genome-wide expression data from public microarray and RNA-Seq experiments. One
@@ -80,7 +80,7 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from
 ```{r documentation, eval=FALSE}
 library("longevityTools") # Loads the package
 library(help="longevityTools") # Lists package info
-vignette(topic="longevityTools_CMAP", package="longevityTools") # Opens vignette
+vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignette
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -91,7 +91,7 @@ Preliminary functions that are still under developement, or not fully tested and
 can be imported with the `source` command from the `inst/extdata` directory of the package.
 
 ```{r source_fct, eval=TRUE}
-fctpath <- system.file("extdata", "longevityTools_CMAP_Fct.R", package="longevityTools")
+fctpath <- system.file("extdata", "longevityTools_eDRUG_Fct.R", package="longevityTools")
 source(fctpath)
 ```
 <div align="right">[Back to Table of Contents]()</div>
