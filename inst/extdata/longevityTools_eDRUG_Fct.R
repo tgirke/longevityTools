@@ -1,6 +1,6 @@
-#########################################################
-## Functions for Connectivity Map (CMAP) Data Analysis ##
-#########################################################
+###########################################################################
+## Early Development Functions for Connectivity Map (CMAP) Data Analysis ##
+###########################################################################
 ## Author: Thomas Girke
 ## Last update: 08-Jan-16
 
