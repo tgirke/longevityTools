@@ -19,6 +19,10 @@ suppressPackageStartupMessages({
 ## library(help="longevityTools") # Lists package info
 ## vignette("longevityTools") # Opens vignette
 
+## ----source_fct, eval=TRUE-----------------------------------------------
+fctpath <- system.file("extdata", "longevityTools_eQTL_Fct.R", package="longevityTools")
+source(fctpath)
+
 ## ----eQTL_download, eval=FALSE-------------------------------------------
 ## download.file("http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz", "./GTEx_Analysis_V6_eQTLs.tar.gz")
 ## untar("GTEx_Analysis_V6_eQTLs.tar.gz")

@@ -81,6 +81,17 @@ vignette("longevityTools") # Opens vignette
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
+# Import custom functions 
+
+Preliminary functions that are still under developement, or not fully tested and documented 
+can be imported with the `source` command from the `inst/extdata` directory of the package.
+
+```{r source_fct, eval=TRUE}
+fctpath <- system.file("extdata", "longevityTools_eQTL_Fct.R", package="longevityTools")
+source(fctpath)
+```
+<div align="right">[Back to Table of Contents]()</div>
+
 ## Sample data from GTEx
 The eQTL data used in this vignette can be downloaded from the [GTEx site](http://www.gtexportal.org/home/datasets).
 Note, the following downloads a 1.3GB file, which will take some time.
