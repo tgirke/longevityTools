@@ -86,9 +86,9 @@ a <- colSums(degMAsub==0) # Only in query (a)
 b <- colSums(degMA==1) - c # Only in cmap (b)
 j <- c/(c+a+b) # Jaccard similarity 
 r <- sort(j, decreasing=TRUE)
-degOL <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
-write.table(degOL, file="./results/degOL.xls", quote=FALSE, sep="\t", col.names = NA) 
-degOL[1:20,]
+degOL_PMID26490707 <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
+degOL_PMID26490707[1:20,]
 
 ## ----deg_overlaps_PMID26343147, eval=TRUE--------------------------------
 PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")

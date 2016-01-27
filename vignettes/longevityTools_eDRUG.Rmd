@@ -240,7 +240,7 @@ Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression signa
 The following computes their intersects with each of the 3,318 drug-responsive 
 DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric
 to sort the drug table. The 20 top scoring drugs are given below and the full
-data set is written to a file named [`degOL.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL.xls).
+data set is written to a file named [`degOL_PMID26490707.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls).
 
 ```{r deg_overlaps_PMID26490707, eval=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
@@ -255,9 +255,9 @@ a <- colSums(degMAsub==0) # Only in query (a)
 b <- colSums(degMA==1) - c # Only in cmap (b)
 j <- c/(c+a+b) # Jaccard similarity 
 r <- sort(j, decreasing=TRUE)
-degOL <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
-write.table(degOL, file="./results/degOL.xls", quote=FALSE, sep="\t", col.names = NA) 
-degOL[1:20,]
+degOL_PMID26490707 <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
+degOL_PMID26490707[1:20,]
 ```
 
 ## Identify DEG overlaps with Sood et al. [-@Sood2015-pb]
