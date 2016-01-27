@@ -78,7 +78,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#deg-analysis-with-limma-1"><span class="toc-section-number">6.3</span> DEG analysis with Limma</a></li>
 <li><a href="#obtain-annotation-information"><span class="toc-section-number">6.4</span> Obtain annotation information</a></li>
 <li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.5</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
-<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.6</span> Drugs affecting known longevity genes</a></li>
+<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">6.6</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.7</span> Drugs affecting known longevity genes</a></li>
 </ul></li>
 <li><a href="#connectivity-maps-enrichment-analysis"><span class="toc-section-number">7</span> Connectivity maps enrichment analysis</a><ul>
 <li><a href="#query-drug-signatures"><span class="toc-section-number">7.1</span> Query drug signatures</a></li>
@@ -302,8 +303,47 @@ degOL[1:20,]</code></pre>
 ## 19           camptothecin_MCF7    0.08797251
 ## 20          helveticoside_HL60    0.08634280</code></pre>
 </div>
+<div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
+<h2><span class="header-section-number">6.6</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
+<p>Sood et al. <span class="citation">(2015)</span> reported 150 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric to sort the drug table. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
+<pre class="r"><code>PMID26343147 &lt;- read.delim(&quot;./data/PMID26343147_S1T1.xls&quot;, check.names=FALSE, comment=&quot;#&quot;)
+myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
+affyid &lt;- row.names(myAnnot[myAnnot[,&quot;SYMBOL&quot;] %in% PMID26343147[,&quot;Gene Symbol&quot;], ]) 
+degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
+degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+degMAsub &lt;- degMA[affyid,]
+c &lt;- colSums(degMAsub==1) # Common in both (c)
+a &lt;- colSums(degMAsub==0) # Only in query (a)
+b &lt;- colSums(degMA==1) - c # Only in cmap (b)
+j &lt;- c/(c+a+b) # Jaccard similarity 
+r &lt;- sort(j, decreasing=TRUE)
+degOL_PMID26343147 &lt;- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+write.table(degOL_PMID26343147, file=&quot;./results/degOL_PMID26343147.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+degOL_PMID26343147[1:20,]</code></pre>
+<pre><code>##                         CMP Jaccard_Index
+## 1           papaverine_HL60    0.01687764
+## 2          zardaverine_HL60    0.01608579
+## 3            etoposide_MCF7    0.01602564
+## 4  dihydroergocristine_HL60    0.01500682
+## 5        beclometasone_HL60    0.01497006
+## 6        syrosingopine_HL60    0.01420455
+## 7     benzylpenicillin_HL60    0.01329163
+## 8             monorden_MCF7    0.01287073
+## 9             pyrvinium_PC3    0.01257862
+## 10             chrysin_MCF7    0.01239669
+## 11            ajmaline_HL60    0.01228227
+## 12       dirithromycin_HL60    0.01210361
+## 13          etamsylate_HL60    0.01208459
+## 14            flunixin_HL60    0.01175407
+## 15        parthenolide_HL60    0.01170213
+## 16         azacyclonol_HL60    0.01124878
+## 17          metoprolol_HL60    0.01122625
+## 18         skimmianine_HL60    0.01111994
+## 19           vorinostat_PC3    0.01094891
+## 20           clopamide_HL60    0.01091831</code></pre>
+</div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
-<h2><span class="header-section-number">6.6</span> Drugs affecting known longevity genes</h2>
+<h2><span class="header-section-number">6.7</span> Drugs affecting known longevity genes</h2>
 <p>This addresses one of Dan’s questions in one of our conference calls as to which drugs are affecting the expression of the IGF1 or IGF1R genes.</p>
 <pre class="r"><code>affyids &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% c(&quot;IGF1&quot;, &quot;IGF1R&quot;),])
 degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()

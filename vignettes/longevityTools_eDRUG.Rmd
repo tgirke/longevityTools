@@ -242,7 +242,7 @@ DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similari
 to sort the drug table. The 20 top scoring drugs are given below and the full
 data set is written to a file named [`degOL.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL.xls).
 
-```{r deg_overlaps, eval=TRUE}
+```{r deg_overlaps_PMID26490707, eval=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 affyid <- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$"NEW.Entrez.ID",])
@@ -268,7 +268,7 @@ DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similari
 to sort the drug table. The 20 top scoring drugs are given below and the full
 data set is written to a file named [`degOL_PMID26343147.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls).
 
-```{r deg_overlaps, eval=TRUE}
+```{r deg_overlaps_PMID26343147, eval=TRUE}
 PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 affyid <- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
