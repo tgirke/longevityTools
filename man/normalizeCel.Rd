@@ -35,9 +35,8 @@ corresponding P/M/A calls and the Wilcoxon rank p-values.
 
 The function \code{combineResults} will write the combined results to the same directories
 as \code{normalizeCel}.
-}
-\details{
-More detailed information should be added to this help file.
+
+Note: more detailed information should be added to this help file.
 }
 \value{
 Files written to disk. 

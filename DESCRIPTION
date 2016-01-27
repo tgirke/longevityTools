@@ -7,7 +7,7 @@ Author: Thomas Girke, Tyler Backman, Daniel Evans
 Maintainer: Thomas Girke <thomas.girke@ucr.edu>
 Description: More about what it does (maybe more than one line)
 Depends: methods
-Imports: BiocGenerics, R.utils
+Imports: BiocGenerics, R.utils, affy, BatchJobs, BiocParallel 
 Suggests: RUnit, BiocStyle, knitr, rmarkdown, ggplot2
 VignetteBuilder: knitr
 License: Artistic-2.0

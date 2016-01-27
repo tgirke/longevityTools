@@ -66,7 +66,6 @@ normalizeCel <- function(chiptype_list, rerun=TRUE) {
             setwd(paste0("./data/", i))
             ## Function to run MAS5 on cluster with BiocParallel
             f <- function(x) {
-                library(affy)
                 celfiles <- readRDS("../chiptype_tmp.rds")
                 batchsize <- 100
                 cel_list <- suppressWarnings(split(celfiles, rep(1:(ceiling(length(celfiles)/batchsize)), each=batchsize)))
