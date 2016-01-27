@@ -260,6 +260,31 @@ write.table(degOL, file="./results/degOL.xls", quote=FALSE, sep="\t", col.names 
 degOL[1:20,]
 ```
 
+## Identify DEG overlaps with Sood et al. [-@Sood2015-pb]
+
+Sood et al. [-@Sood2015-pb] reported 150 age-related gene expression signatures. 
+The following computes their intersects with each of the 3,318 drug-responsive 
+DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric
+to sort the drug table. The 20 top scoring drugs are given below and the full
+data set is written to a file named [`degOL_PMID26343147.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls).
+
+```{r deg_overlaps, eval=TRUE}
+PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
+myAnnot <- readRDS("./results/myAnnot.rds") 
+affyid <- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
+degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
+degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+degMAsub <- degMA[affyid,]
+c <- colSums(degMAsub==1) # Common in both (c)
+a <- colSums(degMAsub==0) # Only in query (a)
+b <- colSums(degMA==1) - c # Only in cmap (b)
+j <- c/(c+a+b) # Jaccard similarity 
+r <- sort(j, decreasing=TRUE)
+degOL_PMID26343147 <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
+degOL_PMID26343147[1:20,]
+```
+
 ## Drugs affecting known longevity genes
 
 This addresses one of Dan's questions in one of our conference calls as to which drugs are affecting the
