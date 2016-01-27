@@ -73,7 +73,7 @@ source(fctpath)
 ##                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
 ## saveRDS(myAnnot, "./results/myAnnot.rds")
 
-## ----deg_overlaps, eval=TRUE---------------------------------------------
+## ----deg_overlaps_PMID26490707, eval=TRUE--------------------------------
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 affyid <- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$"NEW.Entrez.ID",])
@@ -86,9 +86,25 @@ a <- colSums(degMAsub==0) # Only in query (a)
 b <- colSums(degMA==1) - c # Only in cmap (b)
 j <- c/(c+a+b) # Jaccard similarity 
 r <- sort(j, decreasing=TRUE)
-degOL <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
-write.table(degOL, file="./results/degOL.xls", quote=FALSE, sep="\t", col.names = NA) 
-degOL[1:20,]
+degOL_PMID26490707 <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
+degOL_PMID26490707[1:20,]
+
+## ----deg_overlaps_PMID26343147, eval=TRUE--------------------------------
+PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
+myAnnot <- readRDS("./results/myAnnot.rds") 
+affyid <- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
+degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
+degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+degMAsub <- degMA[affyid,]
+c <- colSums(degMAsub==1) # Common in both (c)
+a <- colSums(degMAsub==0) # Only in query (a)
+b <- colSums(degMA==1) - c # Only in cmap (b)
+j <- c/(c+a+b) # Jaccard similarity 
+r <- sort(j, decreasing=TRUE)
+degOL_PMID26343147 <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
+degOL_PMID26343147[1:20,]
 
 ## ----deg_queries, eval=TRUE----------------------------------------------
 affyids <- row.names(myAnnot[myAnnot$SYMBOL %in% c("IGF1", "IGF1R"),])
