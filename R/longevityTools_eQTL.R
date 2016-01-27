@@ -7,7 +7,7 @@
 geneGrep <- function(dat,genes){
     myRows <- match(genes, dat$gene_name)
     myRows <- myRows[!is.na(myRows)]
-    dat2 <- dat[myRows, c("snp","snp_chrom","snp_pos","beta", "p_value", "ref", "alt", "gene_name")]
+    dat2 <- dat[myRows, c("snp","beta", "p_value", "ref", "alt", "gene_name")]
     return(dat2)
 }
 
