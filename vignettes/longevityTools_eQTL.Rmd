@@ -51,14 +51,27 @@ website [here](http://www.longevitygenomics.org/projects/). The GitHub repositor
 is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
 vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html">here</a>.
 
-text text text text text text text text text text text text
-text text text text text text text text text text text text
-text text text text text text text text text text text text
-text text text text text text text text text text text text
-some citation [@Lamb2006-uv; @Peters2015-fc; @Sood2015-pb].
+Based on muscle gene expression from 15 young (25 year old) and 15 old (65 year old) participants, Sood et al. identified a 150 probe set that accurately classified young and old individuals in external studies with gene expression data collected from tissues other than muscle [@Sood2015-pb]. A gene score based on the classifier was associated with better renal function, increased survival time over follow-up, and decreased Alzheimer’s Disease prevalence.
+
+Our goal is to perform Mendelian Randomization using the 150 gene set to determine whether SNPs associated with expression (eSNPs) of the 150 genes are associated with the aging phenotypes identified by Sood et al.
+
+Hypothesis: eSNPs associated with younger expression profile are markers for younger biological age relative to chronological age, which would be associated with longevity.
 
 <div align="right">[Back to Table of Contents]()</div>
 
+# General Analytical Approach
+
+## Construction of MR eSNP risk score
+
+File sood-2015-fileS1.xls reports the expression direction relative to age for each probe from the 150 probe set. See Top 150 worksheet. A gene marked as “down” in column “Ratio of Y:O muscle” means that the expression of the gene is lower in young vs old muscle. 
+
+The goal is to generate an eSNP risk score constructed from eSNP alleles associated with increasing gene expression for genes that decrease with age and from eSNP alleles associated with decreasing gene expression for genes that increase with age. This eSNP risk score would represent an expression profile that more closely mimics the younger age profile rather than the older age profile.  
+
+For the 150 probes that map to genes, identify cis-eSNPs using GTEx preanalyzed results from whole blood. Preanalyzed GTEx results correct for multiple testing of SNPs for each gene. To identify independent cis-eSNPs for each gene, prune cis-eSNPs in LD using 1000G EUR population group genotypes. Once independent cis-eSNPs are identified, create a file listing the SNPs to be included in a risk score and which allele is associated with decreasing expression for genes that increase with age (upregulated gene) and which allele is associated with increasing expression for genes that decrease with age (downregulated gene). Upregulated and downregulated genes based on column “Ratio of Y:O muscle” from Sood et al supplemental file.
+
+Individual level eSNP risk scores will be constructed as below. The eSNP risk score represents the MR instrumental variable.
+
+$$ eSNP Risk Score_i = \sum_{j=1}^{N} eSNP_j^{AlleleDown} + \sum_{k=1}^{N} eSNP_k^{AlleleUp}  $$
 
 # Getting Started
 
