@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 <h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 24 January, 2016</em></h4>
+<h4 class="date"><em>Last update: 27 January, 2016</em></h4>
 </div>
 <h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.1</span></h4>
 
@@ -180,7 +180,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 <h1><span class="header-section-number">5</span> Pre-processing of CEL files</h1>
 <div id="determine-chip-type-from-cel-files" class="section level2">
 <h2><span class="header-section-number">5.1</span> Determine chip type from CEL files</h2>
-<p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A, HT_HG-U133A and U133AAofAv2). The following obtains the chip type information from the CEL files and stores the result in an <code>rds</code> file with the path <code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
+<p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A, HT_HG-U133A and U133AAofAv2). The following extracts the chip type information from the CEL files and stores the result in an <code>rds</code> file with the path <code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
 <pre class="r"><code>celfiles &lt;- list.files(&quot;./data/CEL&quot;, pattern=&quot;.CEL$&quot;)
 chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0(&quot;data/CEL/&quot;, x))$chiptype)
 saveRDS(chiptype, &quot;./data/chiptype.rds&quot;)</code></pre>
@@ -193,7 +193,7 @@ saveRDS(chiptype, &quot;./data/chiptype.rds&quot;)</code></pre>
 <p>The follwoing processes the CEL files from each chip type separately using the MAS5 normalization algorithm. To save time, the processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a computer cluster with a scheduler (<em>e.g.</em> Torque).</p>
 <pre class="r"><code>library(BiocParallel); library(BatchJobs); library(affy)
 chiptype_list &lt;- split(names(chiptype), as.character(chiptype))
-normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R</code></pre>
+normalizeCel(chiptype_list, rerun=FALSE) # Note: expects in pwd files torque.tmpl and .BatchJobs.R</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -344,10 +344,8 @@ length(q)</code></pre>
 <div id="query-drug-signatures" class="section level2">
 <h2><span class="header-section-number">7.1</span> Query drug signatures</h2>
 <p>The following uses the 1,497 age-related gene expression signatures from Peters et al. <span class="citation">(2015)</span> as a query against the CMAP signatures. The results are sorted by the ES Distance and the top scoring 20 drugs are given below. The full result table is<br />written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
-<pre class="r"><code>library(DrugVsDisease)</code></pre>
-<pre><code>## Warning: replacing previous import by 'grid::arrow' when loading 'qvalue'</code></pre>
-<pre><code>## Warning: replacing previous import by 'grid::unit' when loading 'qvalue'</code></pre>
-<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
+<pre class="r"><code>library(DrugVsDisease)
+PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
 data(drugRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(drugRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
@@ -459,26 +457,26 @@ diseasecmap2[[1]][1:20,]</code></pre>
 ## [1] parallel  stats     graphics  utils     datasets  grDevices methods   base     
 ## 
 ## other attached packages:
-##  [1] DrugVsDisease_2.9.0     qvalue_2.2.0            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
-##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.3           
+##  [1] DrugVsDisease_2.10.2    qvalue_2.2.2            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
+##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.5           
 ##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     ggplot2_2.0.0          
 ## [13] longevityTools_1.0.1    BiocStyle_1.8.0        
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.3                XVector_0.10.0             GenomeInfoDb_1.6.1        
+##  [1] Rcpp_0.12.3                XVector_0.10.0             GenomeInfoDb_1.6.3        
 ##  [4] BiocInstaller_1.20.1       formatR_1.2.1              plyr_1.8.3                
 ##  [7] iterators_1.0.8            bitops_1.0-6               tools_3.2.2               
 ## [10] zlibbioc_1.16.0            bit_1.1-12                 digest_0.6.9              
 ## [13] evaluate_0.8               RSQLite_1.0.0              preprocessCore_1.32.0     
 ## [16] gtable_0.1.2               ff_2.2-13                  foreach_1.4.3             
 ## [19] DBI_0.3.1                  yaml_2.1.13                affxparser_1.42.0         
-## [22] stringr_1.0.0              knitr_1.12                 Biostrings_2.38.1         
+## [22] stringr_1.0.0              knitr_1.12.3               Biostrings_2.38.1         
 ## [25] S4Vectors_0.8.7            IRanges_2.4.3              stats4_3.2.2              
-## [28] grid_3.2.2                 AnnotationDbi_1.32.0       XML_3.98-1.3              
-## [31] rmarkdown_0.9.2            oligo_1.34.0               reshape2_1.4.1            
+## [28] grid_3.2.2                 AnnotationDbi_1.32.3       XML_3.98-1.3              
+## [31] rmarkdown_0.9.2            oligo_1.34.2               reshape2_1.4.1            
 ## [34] magrittr_1.5               splines_3.2.2              GenomicRanges_1.22.1      
 ## [37] oligoClasses_1.32.0        scales_0.3.0               codetools_0.2-14          
-## [40] htmltools_0.3              SummarizedExperiment_1.0.1 colorspace_1.2-6          
+## [40] htmltools_0.3              SummarizedExperiment_1.0.2 colorspace_1.2-6          
 ## [43] stringi_1.0-1              RCurl_1.95-4.7             munsell_0.4.2             
 ## [46] affyio_1.40.0</code></pre>
 <div align="right">

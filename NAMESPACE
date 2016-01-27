@@ -5,5 +5,5 @@ export(
     ## Data sets
 
     ## Utilities
-    "geneGrep", "getCmap", "getCmapCEL"
+    "geneGrep", "getCmap", "getCmapCEL", "normalizeCel", "combineResults"
 ) 

@@ -122,7 +122,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 
 ## Determine chip type from CEL files 
 The CMAP data set is based on three different Affymetrix chip types (HG-U133A,
-HT_HG-U133A and U133AAofAv2). The following obtains the chip type information
+HT_HG-U133A and U133AAofAv2). The following extracts the chip type information
 from the CEL files and stores the result in an `rds` file with the path 
 `./data/chiptype.rds`. Users who skipped the download of the CEL files can
 download this file [here](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds).
@@ -145,7 +145,7 @@ Torque).
 ```{r normalize_chips, eval=FALSE}
 library(BiocParallel); library(BatchJobs); library(affy)
 chiptype_list <- split(names(chiptype), as.character(chiptype))
-normalizeCel(chiptype_list, rerun=FALSE) # Note: expect in pwd files torque.tmpl and .BatchJobs.R
+normalizeCel(chiptype_list, rerun=FALSE) # Note: expects in pwd files torque.tmpl and .BatchJobs.R
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
