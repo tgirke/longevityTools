@@ -1,3 +1,7 @@
 changelog
-    version 1.0
+    version 1.0.1 - 1.0.2
+        - add functions functions for longevityTools_eDRUG
+        - vignette updates
+    
+    version 1.0.0
         - first commit
