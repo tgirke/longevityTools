@@ -61,7 +61,9 @@ normalizeCel <- function(chiptype_list, rerun=TRUE) {
             batchsize <- 100
             cel_list <- suppressWarnings(split(celfiles, rep(1:(ceiling(length(celfiles)/batchsize)), each=batchsize)))
             dir.create(paste0("./data/", i))
-            file.copy(c("torque.tmpl", ".BatchJobs.R"), paste0("./data/", i))
+            batchjobs_file <- system.file("extdata", ".BatchJobs.R", package="longevityTools")
+            torque_file <- system.file("extdata", "torque.tmpl", package="longevityTools")
+            file.copy(c(torque_file, batchjobs_file), paste0("./data/", i))
             mydir <- getwd()
             setwd(paste0("./data/", i))
             ## Function to run MAS5 on cluster with BiocParallel
