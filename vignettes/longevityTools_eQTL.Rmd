@@ -114,7 +114,7 @@ will be stored in the `data` directory and results will written to the `results`
 All paths are given relative to the present working directory of the user's R session.
 
 ```{r work_envir, eval=FALSE}
-dir.create("data"); dir.create("data/CEL"); dir.create("results") 
+dir.create("data"); dir.create("results") 
 ```
 
 <div align="right">[Back to Table of Contents]()</div>

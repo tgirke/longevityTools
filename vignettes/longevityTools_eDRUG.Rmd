@@ -107,6 +107,8 @@ All paths are given relative to the present working directory of the user's R se
 dir.create("data"); dir.create("data/CEL"); dir.create("results") 
 ```
 
+<div align="right">[Back to Table of Contents]()</div>
+
 # Data downloads
 
 ## Download data from Connectivity Map project site
