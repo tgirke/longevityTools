@@ -84,7 +84,7 @@ vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignett
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
-# Setup working environment
+# Setup of working environment
 
 ## Import custom functions 
 
