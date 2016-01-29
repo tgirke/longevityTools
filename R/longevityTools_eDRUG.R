@@ -11,7 +11,7 @@ getCmap <- function(rerun=TRUE) {
     if(rerun==TRUE) {
         ## Rank matrix
         download.file("ftp://ftp.broad.mit.edu/pub/cmap/rankMatrix.txt.zip", "./data/rankMatrix.txt.zip")
-        unzip("./data/rankMatrix.txt.zip"); unlink("./data/rankMatrix.txt.zip")
+        unzip("./data/rankMatrix.txt.zip", exdir="./data"); unlink("./data/rankMatrix.txt.zip")
         ## CMAP instances (compound annotations)
         download.file("http://www.broadinstitute.org/cmap/cmap_instances_02.xls", "./data/cmap_instances_02.xls")
     } else {
