@@ -102,7 +102,7 @@ The following creates the directory structure expected by this workflow. Input d
 will be stored in the `data` directory and results will written to the `results` directory.
 All paths are given relative to the present working directory of the user's R session.
 
-```{r source_fct, eval=FALSE}
+```{r work_envir, eval=FALSE}
 dir.create("data"); dir.create("data/CEL"); dir.create("results") 
 ```
 

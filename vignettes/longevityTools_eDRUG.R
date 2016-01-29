@@ -23,6 +23,9 @@ suppressPackageStartupMessages({
 fctpath <- system.file("extdata", "longevityTools_eDRUG_Fct.R", package="longevityTools")
 source(fctpath)
 
+## ----work_envir, eval=FALSE----------------------------------------------
+## dir.create("data"); dir.create("data/CEL"); dir.create("results")
+
 ## ----download_cmap, eval=FALSE-------------------------------------------
 ## getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 ## getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
