@@ -156,8 +156,9 @@ Torque).
 
 ```{r normalize_chips, eval=FALSE}
 library(BiocParallel); library(BatchJobs); library(affy)
+chiptype <- readRDS("./data/chiptype.rds")
 chiptype_list <- split(names(chiptype), as.character(chiptype))
-normalizeCel(chiptype_list, rerun=FALSE) # Note: expects in pwd files torque.tmpl and .BatchJobs.R
+normalizeCel(chiptype_list, rerun=FALSE) 
 ```
 
 <div align="right">[Back to Table of Contents]()</div>

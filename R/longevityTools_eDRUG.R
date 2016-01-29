@@ -39,7 +39,7 @@ getCmapCEL <- function(rerun=TRUE) {
         unzip("./data/CEL/cmap_build02.volume5of7.zip", exdir="./data/CEL"); unlink("./data/CEL/cmap_build02.volume5of7.zip")
         download.file("ftp://ftp.broad.mit.edu/pub/cmap/cmap_build02.volume6of7.zip", "./data/CEL/cmap_build02.volume6of7.zip")
         unzip("./data/CEL/cmap_build02.volume6of7.zip", exdir="./data/CEL"); unlink("./data/CEL/cmap_build02.volume6of7.zip")
-        download.file("ftp://ftp.broad.mit.edu/pub/cmap/cmap_build03.volume7of7.zip", "./data/CEL/cmap_build02.volume7of7.zip")
+        download.file("ftp://ftp.broad.mit.edu/pub/cmap/cmap_build02.volume7of7.zip", "./data/CEL/cmap_build02.volume7of7.zip")
         unzip("./data/CEL/cmap_build02.volume7of7.zip", exdir="./data/CEL"); unlink("./data/CEL/cmap_build02.volume7of7.zip")
         
         ## Uncompress CEL files
@@ -72,12 +72,12 @@ normalizeCel <- function(chiptype_list, rerun=TRUE) {
                 batchsize <- 100
                 cel_list <- suppressWarnings(split(celfiles, rep(1:(ceiling(length(celfiles)/batchsize)), each=batchsize)))
                 dir.create(paste0("cellbatch_", x))
-                mydata <- ReadAffy(filenames=cel_list[[x]], celfile.path="../CEL")
-                eset <- mas5(mydata)
-                eset_pma <- mas5calls(mydata) # Generates MAS 5.0 P/M/A calls.
-                write.table(exprs(eset), file=paste0("cellbatch_", x, "/mas5exprs.xls"), , quote=FALSE, sep="\t", col.names = NA) 
-                write.table(exprs(eset_pma), file=paste0("cellbatch_", x, "/mas5pma.xls"), quote=FALSE, sep="\t", col.names = NA) 
-                write.table(assayDataElement(eset_pma, "se.exprs"), file=paste0("cellbatch_", x, "/mas5pval.xls"), quote=FALSE, sep="\t", col.names = NA) 
+                mydata <- affy::ReadAffy(filenames=cel_list[[x]], celfile.path="../CEL")
+                eset <- affy::mas5(mydata)
+                eset_pma <- affy::mas5calls(mydata) # Generates MAS 5.0 P/M/A calls.
+                write.table(affy::exprs(eset), file=paste0("cellbatch_", x, "/mas5exprs.xls"), , quote=FALSE, sep="\t", col.names = NA) 
+                write.table(affy::exprs(eset_pma), file=paste0("cellbatch_", x, "/mas5pma.xls"), quote=FALSE, sep="\t", col.names = NA) 
+                write.table(affy::assayDataElement(eset_pma, "se.exprs"), file=paste0("cellbatch_", x, "/mas5pval.xls"), quote=FALSE, sep="\t", col.names = NA) 
             }
             funs <- makeClusterFunctionsTorque("torque.tmpl")
             param <- BatchJobsParam(length(cel_list), resources=list(walltime="20:00:00", nodes="1:ppn=1", memory="12gb"), cluster.functions=funs)
