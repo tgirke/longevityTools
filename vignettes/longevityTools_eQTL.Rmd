@@ -94,6 +94,8 @@ vignette("longevityTools") # Opens vignette
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
+# Setup of working environment
+
 ## Import custom functions 
 
 Preliminary functions that are still under developement, or not fully tested and documented 
@@ -103,6 +105,18 @@ can be imported with the `source` command from the `inst/extdata` directory of t
 fctpath <- system.file("extdata", "longevityTools_eQTL_Fct.R", package="longevityTools")
 source(fctpath)
 ```
+<div align="right">[Back to Table of Contents]()</div>
+
+## Create expected directory structure 
+
+The following creates the directory structure expected by this workflow. Input data
+will be stored in the `data` directory and results will written to the `results` directory.
+All paths are given relative to the present working directory of the user's R session.
+
+```{r work_envir, eval=FALSE}
+dir.create("data"); dir.create("data/CEL"); dir.create("results") 
+```
+
 <div align="right">[Back to Table of Contents]()</div>
 
 # Sample data from GTEx
