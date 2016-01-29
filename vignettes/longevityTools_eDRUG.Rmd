@@ -84,8 +84,9 @@ vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignett
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
+# Setup working environment
 
-# Import custom functions 
+## Import custom functions 
 
 Preliminary functions that are still under developement, or not fully tested and documented 
 can be imported with the `source` command from the `inst/extdata` directory of the package.
@@ -96,7 +97,7 @@ source(fctpath)
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
-# Create work environment
+## Create expected directory structure 
 
 The following creates the directory structure expected by this workflow. Input data
 will be stored in the `data` directory and results will written to the `results` directory.
