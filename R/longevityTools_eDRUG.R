@@ -190,7 +190,8 @@ runLimma <- function(df, comp_list, fdr=0.05, foldchange=1, verbose=TRUE) {
             }
         } else {
             dfsub <- df[, sample_set]
-            eset <- new("ExpressionSet", exprs = as.matrix(dfsub), annotation="hgu133a")
+            # eset <- new("ExpressionSet", exprs = as.matrix(dfsub), annotation="hgu133a")
+            eset <- Biobase::ExpressionSet(assayData=as.matrix(dfsub),  annotation="hgu133a")
             repno <- rep(1:length(comp_list[[i]]), sapply(comp_list[[i]], length))
             design <- model.matrix(~ -1+factor(repno))
             colnames(design) <- names(comp_list[[i]])

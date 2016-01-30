@@ -152,7 +152,10 @@ if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this lin
 The follwoing processes the CEL files from each chip type separately using the
 MAS5 normalization algorithm. To save time, the processing is parallelized with
 `BiocParallel` to run on 100 CPU cores of a computer cluster with a scheduler
-(_e.g._ Torque).
+(_e.g._ Torque). The number of CEL files from each chip type are: 807 CEL files
+from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from
+U133AAofAv2. The results are written to 3 subdirectores under `data` that are
+named after the chip type names.
 
 ```{r normalize_chips, eval=FALSE}
 library(BiocParallel); library(BatchJobs); library(affy)
@@ -221,6 +224,7 @@ a minimum fold change of 2). The DEG matrix is written to a file named
 [`degMA.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls).
 
 ```{r deg_limma, eval=FALSE}
+library(affy)
 degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
 write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
 saveRDS(degMA, "./results/degMA.rds")
@@ -229,14 +233,13 @@ saveRDS(degMA, "./results/degMA.rds")
 <div align="right">[Back to Table of Contents]()</div>
 
 ## Obtain annotation information
-The following generates annotation information for the Affymetirx probe set identifiers.
-Note, the three different Affymetrix chip types used by CMAP share most probe
-set ids (>95%), meaning it is possible to combine the data after normalization
-and use the same annotation package for all of them. The number of CEL files
-from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from
-HT_HG-U133A, and 220 CEL files from  U133AAofAv2. The annotation libraries for
-the two first ones are `hgu133a.db`and `hthgu133a.db`. However, there is no
-annotation library (e.g. CDF) available for U133AAofAv2. 
+The following generates annotation information for the Affymetirx probe set
+identifiers.  Note, the three different Affymetrix chip types used by CMAP
+share most probe set ids (>95%), meaning it is possible to combine the data
+after normalization and use the same annotation package for all of them. The
+annotation libraries for the chip types HG-U133A and HT_HG-U133A are
+`hgu133a.db` and `hthgu133a.db`, respectively. However, there is no annotation 
+library (e.g. CDF) available for U133AAofAv2. 
 
 ```{r affyid_annotations, eval=FALSE, message=FALSE}
 library(hgu133a.db)
