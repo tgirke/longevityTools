@@ -93,7 +93,7 @@ r <- sort(j, decreasing=TRUE)
 degOL_PMID26490707 <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=a[names(r)], cmap_DEG=b[names(r)], Intersect=c[names(r)])
 write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
 sum(degOL_PMID26490707[,2] > 0) # Drugs with any overlap
-degOL_PMID26490707[1:20,] # Top 20 scoring drugs
+degOL_PMID26490707[1:20, -1] # Top 20 scoring drugs
 
 ## ----deg_overlaps_PMID26343147, eval=TRUE--------------------------------
 PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
