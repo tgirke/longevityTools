@@ -297,32 +297,32 @@ a &lt;- colSums(degMAsub==0) # Only in query (a)
 b &lt;- colSums(degMA==1) - c # Only in cmap (b)
 j &lt;- c/(c+a+b) # Jaccard similarity 
 r &lt;- sort(j, decreasing=TRUE)
-degOL_PMID26490707 &lt;- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=a[names(r)], cmap_DEG=b[names(r)], Intersect=c[names(r)])
+degOL_PMID26490707 &lt;- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap</code></pre>
 <pre><code>## [1] 880</code></pre>
-<pre class="r"><code>degOL_PMID26490707[1:20, -1] # Top 20 scoring drugs</code></pre>
-<pre><code>##                             Jaccard_Index longevity_DEG cmap_DEG Intersect
-## anisomycin_HL60                0.10581448          1307     4583       697
-## trichostatin A_HL60            0.10353716          1281     4979       723
-## pergolide_HL60                 0.10348299          1490     2963       514
-## alprostadil_HL60               0.10213891          1579     2157       425
-## lycorine_HL60                  0.10194778          1266     5235       738
-## tanespimycin_HL60              0.09935438          1450     3572       554
-## emetine_HL60                   0.09638932          1390     4366       614
-## vorinostat_HL60                0.09631122          1239     5939       765
-## trichostatin A_PC3             0.09492953           832    10342      1172
-## mebendazole_HL60               0.09412955          1632     1948       372
-## trichostatin A_MCF7            0.09363618           590    13097      1414
-## (-)-isoprenaline_HL60          0.09163464          1694     1379       310
-## vorinostat_MCF7                0.09122108          1180     7029       824
-## co-dergocrine mesilate_HL60    0.09107612          1657     1806       347
-## midecamycin_HL60               0.09038592          1470     3904       534
-## tanespimycin_MCF7              0.09027778          1432     4332       572
-## cephaeline_MCF7                0.08966813          1288     5981       716
-## 8-azaguanine_HL60              0.08924279          1410     4652       594
-## Prestwick-983_HL60             0.08851541          1688     1566       316
-## cephaeline_HL60                0.08821908          1524     3437       480</code></pre>
+<pre class="r"><code>degOL_PMID26490707[1:20,] # Top 20 scoring drugs</code></pre>
+<pre><code>##                            CMP Jaccard_Index longevity_DEG cmap_DEG Intersect
+## 1              anisomycin_HL60    0.10581448          1307     4583       697
+## 2          trichostatin A_HL60    0.10353716          1281     4979       723
+## 3               pergolide_HL60    0.10348299          1490     2963       514
+## 4             alprostadil_HL60    0.10213891          1579     2157       425
+## 5                lycorine_HL60    0.10194778          1266     5235       738
+## 6            tanespimycin_HL60    0.09935438          1450     3572       554
+## 7                 emetine_HL60    0.09638932          1390     4366       614
+## 8              vorinostat_HL60    0.09631122          1239     5939       765
+## 9           trichostatin A_PC3    0.09492953           832    10342      1172
+## 10            mebendazole_HL60    0.09412955          1632     1948       372
+## 11         trichostatin A_MCF7    0.09363618           590    13097      1414
+## 12       (-)-isoprenaline_HL60    0.09163464          1694     1379       310
+## 13             vorinostat_MCF7    0.09122108          1180     7029       824
+## 14 co-dergocrine mesilate_HL60    0.09107612          1657     1806       347
+## 15            midecamycin_HL60    0.09038592          1470     3904       534
+## 16           tanespimycin_MCF7    0.09027778          1432     4332       572
+## 17             cephaeline_MCF7    0.08966813          1288     5981       716
+## 18           8-azaguanine_HL60    0.08924279          1410     4652       594
+## 19          Prestwick-983_HL60    0.08851541          1688     1566       316
+## 20             cephaeline_HL60    0.08821908          1524     3437       480</code></pre>
 </div>
 <div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
 <h2><span class="header-section-number">6.6</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
