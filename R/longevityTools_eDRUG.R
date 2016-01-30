@@ -194,11 +194,11 @@ runLimma <- function(df, comp_list, fdr=0.05, foldchange=1, verbose=TRUE) {
             repno <- rep(1:length(comp_list[[i]]), sapply(comp_list[[i]], length))
             design <- model.matrix(~ -1+factor(repno))
             colnames(design) <- names(comp_list[[i]])
-            fit <- lmFit(eset, design) # Fit a linear model for each gene based on the given series of arrays
-            contrast.matrix <- makeContrasts(contrasts="t-c", levels=design)
-            fit2 <- contrasts.fit(fit, contrast.matrix)
-            fit2 <- eBayes(fit2) # Computes moderated t-statistics and log-odds of differential expression by empirical Bayes shrinkage of the standard errors towards a common value.
-            limmaDF <- topTable(fit2, coef=1, adjust="fdr", sort.by="B", number=Inf)
+            fit <- limma::lmFit(eset, design) # Fit a linear model for each gene based on the given series of arrays
+            contrast.matrix <- limma::makeContrasts(contrasts="t-c", levels=design)
+            fit2 <- limma::contrasts.fit(fit, contrast.matrix)
+            fit2 <- limma::eBayes(fit2) # Computes moderated t-statistics and log-odds of differential expression by empirical Bayes shrinkage of the standard errors towards a common value.
+            limmaDF <- limma::topTable(fit2, coef=1, adjust="fdr", sort.by="B", number=Inf)
             pval <- limmaDF$adj.P.Val <= fdr # FDR 1%
             fold <- (limmaDF$logFC >= foldchange | limmaDF$logFC <= -foldchange) # Fold change 2
             affyids <- rownames(limmaDF[pval & fold,])
