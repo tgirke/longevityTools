@@ -150,12 +150,12 @@ if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this lin
 ## Normalization of CEL files
 
 The follwoing processes the CEL files from each chip type separately using the
-MAS5 normalization algorithm. To save time, the processing is parallelized with
-`BiocParallel` to run on 100 CPU cores of a computer cluster with a scheduler
-(_e.g._ Torque). The number of CEL files from each chip type are: 807 CEL files
-from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from
-U133AAofAv2. The results are written to 3 subdirectores under `data` that are
-named after the chip type names.
+MAS5 normalization algorithm. The results will be written to 3 subdirectores
+under `data` that are named after the chip type names.  To save time, the
+processing is parallelized with `BiocParallel` to run on 100 CPU cores of a
+computer cluster with a scheduler (_e.g._ Torque). The number of CEL files from
+each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from
+HT_HG-U133A, and 220 CEL files from U133AAofAv2. 
 
 ```{r normalize_chips, eval=FALSE}
 library(BiocParallel); library(BatchJobs); library(affy)
