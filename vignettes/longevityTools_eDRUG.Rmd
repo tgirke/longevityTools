@@ -155,7 +155,12 @@ under `data` that are named after the chip type names.  To save time, the
 processing is parallelized with `BiocParallel` to run on 100 CPU cores of a
 computer cluster with a scheduler (_e.g._ Torque). The number of CEL files from
 each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from
-HT_HG-U133A, and 220 CEL files from U133AAofAv2. 
+HT_HG-U133A, and 220 CEL files from U133AAofAv2. The MAS5 normalized data
+sets can be downloaded here: 
+[HG-U133A](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds), 
+[HT_HG-U133A](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds), 
+[U133AAofAv2](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/U133AAofAv2/all_mas5exprs.rds).
+
 
 ```{r normalize_chips, eval=FALSE}
 library(BiocParallel); library(BatchJobs); library(affy)
