@@ -297,12 +297,12 @@ a &lt;- colSums(degMAsub==0) # Only in query (a)
 b &lt;- colSums(degMA==1) - c # Only in cmap (b)
 j &lt;- c/(c+a+b) # Jaccard similarity 
 r &lt;- sort(j, decreasing=TRUE)
-degOL_PMID26490707 &lt;- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
+degOL_PMID26490707 &lt;- data.frame(Compound_Celltype=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap</code></pre>
 <pre><code>## [1] 880</code></pre>
 <pre class="r"><code>degOL_PMID26490707[1:20,] # Top 20 scoring drugs</code></pre>
-<pre><code>##                            CMP Jaccard_Index longevity_DEG cmap_DEG Intersect
+<pre><code>##              Compound_Celltype Jaccard_Index longevity_DEG cmap_DEG Intersect
 ## 1              anisomycin_HL60    0.10581448          1307     4583       697
 ## 2          trichostatin A_HL60    0.10353716          1281     4979       723
 ## 3               pergolide_HL60    0.10348299          1490     2963       514
@@ -338,30 +338,32 @@ a &lt;- colSums(degMAsub==0) # Only in query (a)
 b &lt;- colSums(degMA==1) - c # Only in cmap (b)
 j &lt;- c/(c+a+b) # Jaccard similarity 
 r &lt;- sort(j, decreasing=TRUE)
-degOL_PMID26343147 &lt;- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+degOL_PMID26343147 &lt;- data.frame(Compound_Celltype=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
 write.table(degOL_PMID26343147, file=&quot;./results/degOL_PMID26343147.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
-degOL_PMID26343147[1:20,]</code></pre>
-<pre><code>##                         CMP Jaccard_Index
-## 1           papaverine_HL60    0.01687764
-## 2          zardaverine_HL60    0.01608579
-## 3            etoposide_MCF7    0.01602564
-## 4  dihydroergocristine_HL60    0.01500682
-## 5        beclometasone_HL60    0.01497006
-## 6        syrosingopine_HL60    0.01420455
-## 7     benzylpenicillin_HL60    0.01329163
-## 8             monorden_MCF7    0.01287073
-## 9             pyrvinium_PC3    0.01257862
-## 10             chrysin_MCF7    0.01239669
-## 11            ajmaline_HL60    0.01228227
-## 12       dirithromycin_HL60    0.01210361
-## 13          etamsylate_HL60    0.01208459
-## 14            flunixin_HL60    0.01175407
-## 15        parthenolide_HL60    0.01170213
-## 16         azacyclonol_HL60    0.01124878
-## 17          metoprolol_HL60    0.01122625
-## 18         skimmianine_HL60    0.01111994
-## 19           vorinostat_PC3    0.01094891
-## 20           clopamide_HL60    0.01091831</code></pre>
+sum(degOL_PMID26343147[,2] &gt; 0) # Drugs with any overlap</code></pre>
+<pre><code>## [1] 407</code></pre>
+<pre class="r"><code>degOL_PMID26343147[1:20,] # Top 20 scoring drugs</code></pre>
+<pre><code>##           Compound_Celltype Jaccard_Index longevity_DEG cmap_DEG Intersect
+## 1           papaverine_HL60    0.01687764           203      263         8
+## 2          zardaverine_HL60    0.01608579           199      535        12
+## 3            etoposide_MCF7    0.01602564           201      413        10
+## 4  dihydroergocristine_HL60    0.01500682           200      522        11
+## 5        beclometasone_HL60    0.01497006           206      123         5
+## 6        syrosingopine_HL60    0.01420455           206      141         5
+## 7     benzylpenicillin_HL60    0.01329163           194     1068        17
+## 8             monorden_MCF7    0.01287073           188     1576        23
+## 9             pyrvinium_PC3    0.01257862           207      107         4
+## 10       orciprenaline_HL60    0.01243339           204      352         7
+## 11             chrysin_MCF7    0.01239669           202      515         9
+## 12            ajmaline_HL60    0.01228227           156     4267        55
+## 13       dirithromycin_HL60    0.01210361           161     3920        50
+## 14          etamsylate_HL60    0.01208459           207      120         4
+## 15            flunixin_HL60    0.01175407           172     3107        39
+## 16        parthenolide_HL60    0.01170213           200      729        11
+## 17         azacyclonol_HL60    0.01124878           142     5923        69
+## 18          metoprolol_HL60    0.01122625           198      947        13
+## 19         skimmianine_HL60    0.01111994           197     1048        14
+## 20           vorinostat_PC3    0.01094891           172     3351        39</code></pre>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
 <h2><span class="header-section-number">6.7</span> Drugs affecting known longevity genes</h2>
