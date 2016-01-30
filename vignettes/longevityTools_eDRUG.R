@@ -90,9 +90,10 @@ a <- colSums(degMAsub==0) # Only in query (a)
 b <- colSums(degMA==1) - c # Only in cmap (b)
 j <- c/(c+a+b) # Jaccard similarity 
 r <- sort(j, decreasing=TRUE)
-degOL_PMID26490707 <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+degOL_PMID26490707_orig <- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
 write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
-degOL_PMID26490707[1:20,]
+sum(degOL_PMID26490707[,2] > 0) # Drugs with any overlap
+degOL_PMID26490707[1:20,] # Top 20 scoring drugs
 
 ## ----deg_overlaps_PMID26343147, eval=TRUE--------------------------------
 PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
