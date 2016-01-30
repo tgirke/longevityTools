@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 <h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 28 January, 2016</em></h4>
+<h4 class="date"><em>Last update: 30 January, 2016</em></h4>
 </div>
 <h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.2</span></h4>
 
@@ -174,6 +174,9 @@ source(fctpath)</code></pre>
 <h2><span class="header-section-number">3.2</span> Create expected directory structure</h2>
 <p>The following creates the directory structure expected by this workflow. Input data will be stored in the <code>data</code> directory and results will written to the <code>results</code> directory. All paths are given relative to the present working directory of the user’s R session.</p>
 <pre class="r"><code>dir.create(&quot;data&quot;); dir.create(&quot;data/CEL&quot;); dir.create(&quot;results&quot;) </code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
 </div>
 </div>
 <div id="data-downloads" class="section level1">
@@ -195,17 +198,18 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 <p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A, HT_HG-U133A and U133AAofAv2). The following extracts the chip type information from the CEL files and stores the result in an <code>rds</code> file with the path <code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
 <pre class="r"><code>celfiles &lt;- list.files(&quot;./data/CEL&quot;, pattern=&quot;.CEL$&quot;)
 chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0(&quot;data/CEL/&quot;, x))$chiptype)
-saveRDS(chiptype, &quot;./data/chiptype.rds&quot;)</code></pre>
+if(FALSE) saveRDS(chiptype, &quot;./data/chiptype.rds&quot;) # if(FALSE) protects this line from accidental execution!</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="normalization-of-cel-files" class="section level2">
 <h2><span class="header-section-number">5.2</span> Normalization of CEL files</h2>
-<p>The follwoing processes the CEL files from each chip type separately using the MAS5 normalization algorithm. To save time, the processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a computer cluster with a scheduler (<em>e.g.</em> Torque).</p>
+<p>The follwoing processes the CEL files from each chip type separately using the MAS5 normalization algorithm. To save time, the processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a computer cluster with a scheduler (<em>e.g.</em> Torque). The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. The results are written to 3 subdirectores under <code>data</code> that are named after the chip type names.</p>
 <pre class="r"><code>library(BiocParallel); library(BatchJobs); library(affy)
+chiptype &lt;- readRDS(&quot;./data/chiptype.rds&quot;)
 chiptype_list &lt;- split(names(chiptype), as.character(chiptype))
-normalizeCel(chiptype_list, rerun=FALSE) # Note: expects in pwd files torque.tmpl and .BatchJobs.R</code></pre>
+normalizeCel(chiptype_list, rerun=FALSE) </code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -221,8 +225,8 @@ combineResults(chiptype_dir, rerun=FALSE)</code></pre>
 <div id="clean-up-of-intermediate-files" class="section level2">
 <h2><span class="header-section-number">5.4</span> Clean-up of intermediate files</h2>
 <p>This deletes intermediate files. Before executing these lines, please make sure that this is what you want.</p>
-<pre class="r"><code># for(i in seq_along(chiptype_dir)) unlink(list.files(paste0(&quot;data/&quot;, chiptype_dir[i]), pattern=&quot;cellbatch&quot;, full.names=TRUE), recursive=TRUE)
-# unlink(&quot;data/CEL/&quot;) # Deletes downloaded CEL files</code></pre>
+<pre class="r"><code>for(i in seq_along(chiptype_dir)) unlink(list.files(paste0(&quot;data/&quot;, chiptype_dir[i]), pattern=&quot;cellbatch&quot;, full.names=TRUE), recursive=TRUE)
+unlink(&quot;data/CEL/*.CEL&quot;) # Deletes downloaded CEL files</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -232,7 +236,8 @@ combineResults(chiptype_dir, rerun=FALSE)</code></pre>
 <h1><span class="header-section-number">6</span> DEG analysis with <code>limma</code></h1>
 <div id="generate-list-of-cel-names-defining-treatment-vs.control-comparisons" class="section level2">
 <h2><span class="header-section-number">6.1</span> Generate list of CEL names defining treatment vs. control comparisons</h2>
-<pre class="r"><code>cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) # Note: cmap_instances_02.xls converted to txt with LibreOffice
+<p>Note: the file <code>cmap_instances_02.xls</code> downloaded from CMAP required some cleaning in LibreOffice (Excel would work for this too). After this it was saved as tab delimited txt file.</p>
+<pre class="r"><code>cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
 # comp_list &lt;- sampleList(cmap, myby=&quot;CMP&quot;)
 comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)</code></pre>
 <div align="right">
@@ -261,7 +266,7 @@ saveRDS(degMA, &quot;./results/degMA.rds&quot;)</code></pre>
 </div>
 <div id="obtain-annotation-information" class="section level2">
 <h2><span class="header-section-number">6.4</span> Obtain annotation information</h2>
-<p>The following generates annotation information for the Affymetirx probe set identifiers. Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. The annotation libraries for the two first ones are <code>hgu133a.db</code>and <code>hthgu133a.db</code>. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
+<p>The following generates annotation information for the Affymetirx probe set identifiers. Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The annotation libraries for the chip types HG-U133A and HT_HG-U133A are <code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
 <pre class="r"><code>library(hgu133a.db)
 myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 

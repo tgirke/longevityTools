@@ -33,23 +33,24 @@ source(fctpath)
 ## ----get_cel_type, eval=FALSE--------------------------------------------
 ## celfiles <- list.files("./data/CEL", pattern=".CEL$")
 ## chiptype <- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
-## saveRDS(chiptype, "./data/chiptype.rds")
+## if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this line from accidental execution!
 
 ## ----normalize_chips, eval=FALSE-----------------------------------------
 ## library(BiocParallel); library(BatchJobs); library(affy)
+## chiptype <- readRDS("./data/chiptype.rds")
 ## chiptype_list <- split(names(chiptype), as.character(chiptype))
-## normalizeCel(chiptype_list, rerun=FALSE) # Note: expects in pwd files torque.tmpl and .BatchJobs.R
+## normalizeCel(chiptype_list, rerun=FALSE)
 
 ## ----comb_chip_type_data, eval=FALSE-------------------------------------
 ## chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
 ## combineResults(chiptype_dir, rerun=FALSE)
 
 ## ----cleanup1, eval=FALSE------------------------------------------------
-## # for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
-## # unlink("data/CEL/") # Deletes downloaded CEL files
+## for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
+## unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
 
 ## ----cel_file_list, eval=FALSE-------------------------------------------
-## cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) # Note: cmap_instances_02.xls converted to txt with LibreOffice
+## cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE)
 ## # comp_list <- sampleList(cmap, myby="CMP")
 ## comp_list <- sampleList(cmap, myby="CMP_CELL")
 

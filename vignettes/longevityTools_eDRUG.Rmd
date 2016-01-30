@@ -224,7 +224,6 @@ a minimum fold change of 2). The DEG matrix is written to a file named
 [`degMA.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls).
 
 ```{r deg_limma, eval=FALSE}
-library(affy)
 degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
 write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
 saveRDS(degMA, "./results/degMA.rds")
