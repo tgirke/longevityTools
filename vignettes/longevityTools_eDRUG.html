@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 <h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 30 January, 2016</em></h4>
+<h4 class="date"><em>Last update: 31 January, 2016</em></h4>
 </div>
 <h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.2</span></h4>
 
@@ -289,7 +289,7 @@ saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
 affyid &lt;- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$&quot;NEW.Entrez.ID&quot;,])
 # degMA &lt;- read.delim(&quot;./results/degMA.xls&quot;, row.names=1, check.names=FALSE)
-degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
+degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
 degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 degMAsub &lt;- degMA[affyid,]
 c &lt;- colSums(degMAsub==1) # Common in both (c)
@@ -500,7 +500,7 @@ diseasecmap2[[1]][1:20,]</code></pre>
 </div>
 <div id="funding" class="section level1">
 <h1><span class="header-section-number">10</span> Funding</h1>
-<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).</p>
+<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>

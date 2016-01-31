@@ -82,7 +82,7 @@ PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 affyid <- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$"NEW.Entrez.ID",])
 # degMA <- read.delim("./results/degMA.xls", row.names=1, check.names=FALSE)
-degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
+degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
 degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 degMAsub <- degMA[affyid,]
 c <- colSums(degMAsub==1) # Common in both (c)

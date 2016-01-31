@@ -213,4 +213,17 @@ runLimma <- function(df, comp_list, fdr=0.05, foldchange=1, verbose=TRUE) {
 }
 ## Usage:
 # degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
-# write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
+# write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
+
+## Transform probe set to gene level matrix
+probeset2gene <- function(degMA, myAnnot, geneIDtype="ENTREZID") {
+    ## Remove rows with NAs chosen geneIDtype column
+    myAnnot <- myAnnot[as.character(myAnnot[,geneIDtype]) != "NA",]
+    ## Remove corresponding rows in degMA
+    degMA <- degMA[rownames(myAnnot), ]
+    myAnnot <- cbind(myAnnot, freq=table(myAnnot[,geneIDtype])[myAnnot[,geneIDtype]])
+    degMAuni <- degMA[rownames(myAnnot[myAnnot$freq == 1 ,]), ]
+    degMAmulti <- degMA[rownames(myAnnot[myAnnot$freq > 1 ,]), ]
+
+}
+
