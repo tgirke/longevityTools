@@ -145,7 +145,7 @@ result
 <div align="right">[Back to Table of Contents]()</div>
 
 # Funding
-This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).
+This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).
 
 <div align="right">[Back to Table of Contents]()</div>
 
