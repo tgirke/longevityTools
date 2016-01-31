@@ -376,34 +376,38 @@ sum(degOL_PMID26343147[,2] &gt; 0) # Drugs with any overlap</code></pre>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
 <h2><span class="header-section-number">6.8</span> Drugs affecting known longevity genes</h2>
 <p>This addresses one of Dan’s questions in one of our conference calls as to which drugs are affecting the expression of the IGF1 or IGF1R genes.</p>
-<pre class="r"><code>affyids &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% c(&quot;IGF1&quot;, &quot;IGF1R&quot;),])
-degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
-q &lt;- colSums(degMA[affyids,])
-q &lt;- q[q &gt; 0]
-length(q)</code></pre>
+<pre class="r"><code>genesymbols &lt;- c(&quot;IGF1&quot;, &quot;IGF1R&quot;)
+geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;ENTREZID&quot;]))
+names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;]))
+degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
+df &lt;- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
+for(i in seq_along(geneids)) df &lt;- cbind(df, as.numeric(degMAgene[geneids[i],]))
+colnames(df) &lt;- names(geneids)
+df &lt;- df[rowSums(df)&gt;0,]; df &lt;- df[order(rowSums(df), decreasing=TRUE),]
+nrow(df)</code></pre>
 <pre><code>## [1] 89</code></pre>
-<pre class="r"><code>as.data.frame(rev(sort(q))[1:20])</code></pre>
-<pre><code>##                     rev(sort(q))[1:20]
-## lobeline_HL60                        4
-## chlorzoxazone_HL60                   4
-## trichostatin A_MCF7                  3
-## sirolimus_PC3                        3
-## metformin_MCF7                       3
-## anisomycin_HL60                      3
-## vorinostat_MCF7                      2
-## verteporfin_HL60                     2
-## trichostatin A_PC3                   2
-## thioridazine_MCF7                    2
-## sanguinarine_HL60                    2
-## pyrvinium_MCF7                       2
-## piperlongumine_MCF7                  2
-## lycorine_HL60                        2
-## luteolin_PC3                         2
-## laudanosine_HL60                     2
-## lanatoside C_HL60                    2
-## glibenclamide_HL60                   2
-## fulvestrant_MCF7                     2
-## emetine_HL60                         2</code></pre>
+<pre class="r"><code>df[1:20,]</code></pre>
+<pre><code>##                                IGF1R IGF1
+## anisomycin_HL60                    1    1
+## chlorzoxazone_HL60                 1    1
+## cicloheximide_HL60                 1    1
+## clindamycin_HL60                   1    1
+## danazol_HL60                       1    1
+## dirithromycin_HL60                 1    1
+## glibenclamide_HL60                 1    1
+## lanatoside C_HL60                  1    1
+## lobeline_HL60                      1    1
+## luteolin_PC3                       1    1
+## metformin_MCF7                     1    1
+## sirolimus_PC3                      1    1
+## trichostatin A_MCF7                1    1
+## verteporfin_HL60                   1    1
+## 0175029-0000_MCF7                  1    0
+## 15-delta prostaglandin J2_MCF7     0    1
+## GW-8510_MCF7                       1    0
+## H-7_MCF7                           1    0
+## LY-294002_MCF7                     1    0
+## ajmaline_HL60                      0    1</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>

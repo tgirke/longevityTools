@@ -118,12 +118,16 @@ sum(degOL_PMID26343147[,2] > 0) # Drugs with any overlap
 degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 
 ## ----deg_queries, eval=TRUE----------------------------------------------
-affyids <- row.names(myAnnot[myAnnot$SYMBOL %in% c("IGF1", "IGF1R"),])
-degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
-q <- colSums(degMA[affyids,])
-q <- q[q > 0]
-length(q)
-as.data.frame(rev(sort(q))[1:20])
+genesymbols <- c("IGF1", "IGF1R")
+geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
+names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
+degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+df <- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
+for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
+colnames(df) <- names(geneids)
+df <- df[rowSums(df)>0,]; df <- df[order(rowSums(df), decreasing=TRUE),]
+nrow(df)
+df[1:20,]
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
 library(DrugVsDisease)
