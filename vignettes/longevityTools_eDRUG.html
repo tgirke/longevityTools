@@ -383,10 +383,101 @@ degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.
 df &lt;- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
 for(i in seq_along(geneids)) df &lt;- cbind(df, as.numeric(degMAgene[geneids[i],]))
 colnames(df) &lt;- names(geneids)
-df &lt;- df[rowSums(df)&gt;0,]; df &lt;- df[order(rowSums(df), decreasing=TRUE),]
-nrow(df)</code></pre>
+df &lt;- df[rowSums(df)&gt;0,]
+df[order(rowSums(df), decreasing=TRUE),]</code></pre>
+<pre><code>##                                 IGF1R IGF1
+## anisomycin_HL60                     1    1
+## chlorzoxazone_HL60                  1    1
+## cicloheximide_HL60                  1    1
+## clindamycin_HL60                    1    1
+## danazol_HL60                        1    1
+## dirithromycin_HL60                  1    1
+## glibenclamide_HL60                  1    1
+## lanatoside C_HL60                   1    1
+## lobeline_HL60                       1    1
+## luteolin_PC3                        1    1
+## metformin_MCF7                      1    1
+## sirolimus_PC3                       1    1
+## trichostatin A_MCF7                 1    1
+## verteporfin_HL60                    1    1
+## 0175029-0000_MCF7                   1    0
+## 15-delta prostaglandin J2_MCF7      0    1
+## GW-8510_MCF7                        1    0
+## H-7_MCF7                            1    0
+## LY-294002_MCF7                      1    0
+## ajmaline_HL60                       0    1
+## ampyrone_HL60                       1    0
+## atovaquone_MCF7                     1    0
+## azacitidine_MCF7                    1    0
+## azacyclonol_HL60                    1    0
+## baclofen_HL60                       1    0
+## bisacodyl_MCF7                      1    0
+## camptothecin_MCF7                   1    0
+## cephaeline_HL60                     1    0
+## cephaeline_MCF7                     1    0
+## cephaeline_PC3                      1    0
+## chlorprothixene_PC3                 0    1
+## chlortetracycline_HL60              1    0
+## cicloheximide_MCF7                  1    0
+## clofilium tosylate_MCF7             0    1
+## clomipramine_PC3                    1    0
+## clopamide_HL60                      0    1
+## cloperastine_PC3                    1    0
+## colforsin_MCF7                      1    0
+## corbadrine_PC3                      0    1
+## daunorubicin_MCF7                   1    0
+## deptropine_HL60                     0    1
+## dicycloverine_HL60                  0    1
+## digoxigenin_MCF7                    1    0
+## digoxin_HL60                        0    1
+## digoxin_MCF7                        1    0
+## doxorubicin_MCF7                    1    0
+## ellipticine_MCF7                    1    0
+## emetine_HL60                        1    0
+## etacrynic acid_MCF7                 1    0
+## ethosuximide_HL60                   0    1
+## fulvestrant_MCF7                    1    0
+## genistein_MCF7                      1    0
+## harmol_MCF7                         1    0
+## helveticoside_MCF7                  1    0
+## ifenprodil_PC3                      0    1
+## irinotecan_MCF7                     1    0
+## lanatoside C_MCF7                   1    0
+## laudanosine_HL60                    0    1
+## luteolin_MCF7                       1    0
+## lycorine_HL60                       1    0
+## lycorine_MCF7                       1    0
+## meclofenoxate_HL60                  0    1
+## medrysone_HL60                      0    1
+## methotrexate_MCF7                   1    0
+## methylbenzethonium chloride_PC3     1    0
+## midecamycin_HL60                    1    0
+## mitoxantrone_MCF7                   1    0
+## ouabain_HL60                        0    1
+## pimozide_MCF7                       0    1
+## piperlongumine_HL60                 1    0
+## piperlongumine_MCF7                 1    0
+## proscillaridin_MCF7                 1    0
+## puromycin_MCF7                      1    0
+## pyrvinium_MCF7                      1    0
+## rifabutin_MCF7                      1    0
+## sanguinarine_HL60                   0    1
+## sanguinarine_MCF7                   0    1
+## sirolimus_MCF7                      1    0
+## thioguanosine_MCF7                  0    1
+## thioridazine_MCF7                   1    0
+## trichostatin A_PC3                  1    0
+## trifluoperazine_MCF7                1    0
+## tyrphostin AG-825_MCF7              1    0
+## verteporfin_MCF7                    1    0
+## vorinostat_HL60                     0    1
+## vorinostat_MCF7                     1    0
+## vorinostat_PC3                      0    1
+## wortmannin_MCF7                     1    0
+## zardaverine_HL60                    0    1</code></pre>
+<pre class="r"><code>nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R</code></pre>
 <pre><code>## [1] 89</code></pre>
-<pre class="r"><code>df[1:20,]</code></pre>
+<pre class="r"><code>df[order(rowSums(df), decreasing=TRUE),][1:20,]</code></pre>
 <pre><code>##                                IGF1R IGF1
 ## anisomycin_HL60                    1    1
 ## chlorzoxazone_HL60                 1    1

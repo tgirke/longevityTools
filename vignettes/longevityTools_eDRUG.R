@@ -125,9 +125,10 @@ degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
 df <- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
 for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
 colnames(df) <- names(geneids)
-df <- df[rowSums(df)>0,]; df <- df[order(rowSums(df), decreasing=TRUE),]
-nrow(df)
-df[1:20,]
+df <- df[rowSums(df)>0,]
+df[order(rowSums(df), decreasing=TRUE),]
+nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
+df[order(rowSums(df), decreasing=TRUE),][1:20,]
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
 library(DrugVsDisease)
