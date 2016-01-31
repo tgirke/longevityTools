@@ -110,7 +110,7 @@ source(fctpath)
 ## Create expected directory structure 
 
 The following creates the directory structure expected by this workflow. Input data
-will be stored in the `data` directory and results will written to the `results` directory.
+will be stored in the `data` directory and results will be written to the `results` directory.
 All paths are given relative to the present working directory of the user's R session.
 
 ```{r work_envir, eval=FALSE}
