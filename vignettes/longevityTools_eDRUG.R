@@ -114,7 +114,7 @@ degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 
 ## ----deg_queries, eval=TRUE----------------------------------------------
 affyids <- row.names(myAnnot[myAnnot$SYMBOL %in% c("IGF1", "IGF1R"),])
-degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
+degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
 q <- colSums(degMA[affyids,])
 q <- q[q > 0]
 length(q)

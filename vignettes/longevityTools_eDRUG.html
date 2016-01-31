@@ -369,15 +369,16 @@ sum(degOL_PMID26343147[,2] &gt; 0) # Drugs with any overlap</code></pre>
 <h2><span class="header-section-number">6.7</span> Drugs affecting known longevity genes</h2>
 <p>This addresses one of Dan’s questions in one of our conference calls as to which drugs are affecting the expression of the IGF1 or IGF1R genes.</p>
 <pre class="r"><code>affyids &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% c(&quot;IGF1&quot;, &quot;IGF1R&quot;),])
-degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
+degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
 q &lt;- colSums(degMA[affyids,])
 q &lt;- q[q &gt; 0]
 length(q)</code></pre>
-<pre><code>## [1] 86</code></pre>
+<pre><code>## [1] 198</code></pre>
 <pre class="r"><code>as.data.frame(rev(sort(q))[1:20])</code></pre>
 <pre><code>##                     rev(sort(q))[1:20]
 ## lobeline_HL60                        4
 ## chlorzoxazone_HL60                   4
+## trichostatin A_MCF7                  3
 ## sirolimus_PC3                        3
 ## metformin_MCF7                       3
 ## anisomycin_HL60                      3
@@ -394,8 +395,7 @@ length(q)</code></pre>
 ## lanatoside C_HL60                    2
 ## glibenclamide_HL60                   2
 ## fulvestrant_MCF7                     2
-## emetine_HL60                         2
-## doxorubicin_MCF7                     2</code></pre>
+## emetine_HL60                         2</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -452,9 +452,8 @@ data(diseaseRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(diseaseRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
-diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)</code></pre>
-<pre><code>## Number of Significant results greater than 20 Using top 20 hits - consider using average linkage instead</code></pre>
-<pre class="r"><code>diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
+diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)
+diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
                             dynamic.fdr=0.5, adj=&quot;BH&quot;, no.signif=100)
 write.table(diseasecmap2, file=&quot;./results/diseasecmap2.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
@@ -523,7 +522,7 @@ diseasecmap2[[1]][1:20,]</code></pre>
 ##  [1] DrugVsDisease_2.10.2    qvalue_2.2.2            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
 ##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.5           
 ##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     ggplot2_2.0.0          
-## [13] longevityTools_1.0.1    BiocStyle_1.8.0        
+## [13] longevityTools_1.0.2    BiocStyle_1.8.0        
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_0.12.3                XVector_0.10.0             GenomeInfoDb_1.6.3        

@@ -320,7 +320,7 @@ expression of the IGF1 or IGF1R genes.
 
 ```{r deg_queries, eval=TRUE}
 affyids <- row.names(myAnnot[myAnnot$SYMBOL %in% c("IGF1", "IGF1R"),])
-degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
+degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
 q <- colSums(degMA[affyids,])
 q <- q[q > 0]
 length(q)
