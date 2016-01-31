@@ -80,9 +80,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#load-normalized-expression-data"><span class="toc-section-number">6.2</span> Load normalized expression data</a></li>
 <li><a href="#deg-analysis-with-limma-1"><span class="toc-section-number">6.3</span> DEG analysis with <code>limma</code></a></li>
 <li><a href="#obtain-annotation-information"><span class="toc-section-number">6.4</span> Obtain annotation information</a></li>
-<li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.5</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
-<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">6.6</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
-<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.7</span> Drugs affecting known longevity genes</a></li>
+<li><a href="#transform-probe-set-to-gene-level-data"><span class="toc-section-number">6.5</span> Transform probe set to gene level data</a></li>
+<li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.6</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">6.7</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.8</span> Drugs affecting known longevity genes</a></li>
 </ul></li>
 <li><a href="#connectivity-maps-enrichment-analysis"><span class="toc-section-number">7</span> Connectivity maps enrichment analysis</a><ul>
 <li><a href="#query-drug-signatures"><span class="toc-section-number">7.1</span> Query drug signatures</a></li>
@@ -261,6 +262,7 @@ df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
 <h2><span class="header-section-number">6.3</span> DEG analysis with <code>limma</code></h2>
 <p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package. Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and a minimum fold change of 2). The DEG matrix is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
 <pre class="r"><code>degMA &lt;- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 saveRDS(degMA, &quot;./results/degMA.rds&quot;)</code></pre>
 <div align="right">
@@ -278,23 +280,29 @@ myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=
                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=&quot;, &quot;), 
                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))
 saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
+</div>
+<div id="transform-probe-set-to-gene-level-data" class="section level2">
+<h2><span class="header-section-number">6.5</span> Transform probe set to gene level data</h2>
+<p>The <code>probeset2gene</code> function translates a binary DEG matrix from the probe level (<code>row.names</code> are Affy IDs) to the gene level (<code>row.names</code> are gene IDs). Genes represented by several probe sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are supported: <code>summary_rule=1L</code> will consider a gene as a DEG for a specific treatment if at least one of several probe sets supports this assignment, while <code>summary_rule=2L</code> requires support from at least 2 probe sets.</p>
+<pre class="r"><code>myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
+degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
+degMAgene &lt;- probeset2gene(degMA, myAnnot, geneIDtype=&quot;ENTREZID&quot;, summary_rule=1L)
+saveRDS(degMAgene, &quot;./results/degMAgene.rds&quot;)</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
-<h2><span class="header-section-number">6.5</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
+<h2><span class="header-section-number">6.6</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
 <p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric to sort the drug table. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
-affyid &lt;- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$&quot;NEW.Entrez.ID&quot;,])
-# degMA &lt;- read.delim(&quot;./results/degMA.xls&quot;, row.names=1, check.names=FALSE)
-degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
-degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-degMAsub &lt;- degMA[affyid,]
+geneid &lt;- as.character(PMID26490707$&quot;NEW.Entrez.ID&quot;)
+degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
+degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
 c &lt;- colSums(degMAsub==1) # Common in both (c)
 a &lt;- colSums(degMAsub==0) # Only in query (a)
-b &lt;- colSums(degMA==1) - c # Only in cmap (b)
+b &lt;- colSums(degMAgene==1) - c # Only in cmap (b)
 j &lt;- c/(c+a+b) # Jaccard similarity 
 r &lt;- sort(j, decreasing=TRUE)
 degOL_PMID26490707 &lt;- data.frame(Compound_Celltype=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
@@ -303,29 +311,29 @@ sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap</code></pre>
 <pre><code>## [1] 880</code></pre>
 <pre class="r"><code>degOL_PMID26490707[1:20,] # Top 20 scoring drugs</code></pre>
 <pre><code>##              Compound_Celltype Jaccard_Index longevity_DEG cmap_DEG Intersect
-## 1              anisomycin_HL60    0.10581448          1307     4583       697
-## 2          trichostatin A_HL60    0.10353716          1281     4979       723
-## 3               pergolide_HL60    0.10348299          1490     2963       514
-## 4             alprostadil_HL60    0.10213891          1579     2157       425
-## 5                lycorine_HL60    0.10194778          1266     5235       738
-## 6            tanespimycin_HL60    0.09935438          1450     3572       554
-## 7                 emetine_HL60    0.09638932          1390     4366       614
-## 8              vorinostat_HL60    0.09631122          1239     5939       765
-## 9           trichostatin A_PC3    0.09492953           832    10342      1172
-## 10            mebendazole_HL60    0.09412955          1632     1948       372
-## 11         trichostatin A_MCF7    0.09363618           590    13097      1414
-## 12       (-)-isoprenaline_HL60    0.09163464          1694     1379       310
-## 13             vorinostat_MCF7    0.09122108          1180     7029       824
-## 14 co-dergocrine mesilate_HL60    0.09107612          1657     1806       347
-## 15            midecamycin_HL60    0.09038592          1470     3904       534
-## 16           tanespimycin_MCF7    0.09027778          1432     4332       572
-## 17             cephaeline_MCF7    0.08966813          1288     5981       716
-## 18           8-azaguanine_HL60    0.08924279          1410     4652       594
-## 19          Prestwick-983_HL60    0.08851541          1688     1566       316
-## 20             cephaeline_HL60    0.08821908          1524     3437       480</code></pre>
+## 1              anisomycin_HL60    0.11933973           657     3291       535
+## 2                lycorine_HL60    0.11291316           642     3679       550
+## 3             alprostadil_HL60    0.11186805           880     1597       312
+## 4            tanespimycin_HL60    0.11140654           773     2569       419
+## 5          trichostatin A_HL60    0.11127691           670     3499       522
+## 6               pergolide_HL60    0.11107955           801     2328       391
+## 7             mebendazole_HL60    0.11033210           893     1518       299
+## 8        (-)-isoprenaline_HL60    0.10475352           954     1080       238
+## 9              vorinostat_HL60    0.10384470           641     4114       551
+## 10                emetine_HL60    0.10352778           743     3145       449
+## 11           8-azaguanine_HL60    0.10283764           710     3495       482
+## 12          trichostatin A_PC3    0.10254095           397     6561       795
+## 13 co-dergocrine mesilate_HL60    0.10228137           923     1438       269
+## 14             cephaeline_HL60    0.10160428           812     2548       380
+## 15            midecamycin_HL60    0.10130178           764     3033       428
+## 16           camptothecin_MCF7    0.10053182           606     4637       586
+## 17           tanespimycin_MCF7    0.10048176           754     3167       438
+## 18         trichostatin A_MCF7    0.10029972           255     8150       937
+## 19          helveticoside_HL60    0.09997376           811     2619       381
+## 20               baclofen_HL60    0.09909712           742     3349       450</code></pre>
 </div>
 <div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
-<h2><span class="header-section-number">6.6</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
+<h2><span class="header-section-number">6.7</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
 <p>Sood et al. <span class="citation">(2015)</span> reported 150 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric to sort the drug table. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
 <pre class="r"><code>PMID26343147 &lt;- read.delim(&quot;./data/PMID26343147_S1T1.xls&quot;, check.names=FALSE, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
@@ -366,14 +374,14 @@ sum(degOL_PMID26343147[,2] &gt; 0) # Drugs with any overlap</code></pre>
 ## 20           vorinostat_PC3    0.01094891           172     3351        39</code></pre>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
-<h2><span class="header-section-number">6.7</span> Drugs affecting known longevity genes</h2>
+<h2><span class="header-section-number">6.8</span> Drugs affecting known longevity genes</h2>
 <p>This addresses one of Dan’s questions in one of our conference calls as to which drugs are affecting the expression of the IGF1 or IGF1R genes.</p>
 <pre class="r"><code>affyids &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% c(&quot;IGF1&quot;, &quot;IGF1R&quot;),])
 degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
 q &lt;- colSums(degMA[affyids,])
 q &lt;- q[q &gt; 0]
 length(q)</code></pre>
-<pre><code>## [1] 198</code></pre>
+<pre><code>## [1] 89</code></pre>
 <pre class="r"><code>as.data.frame(rev(sort(q))[1:20])</code></pre>
 <pre><code>##                     rev(sort(q))[1:20]
 ## lobeline_HL60                        4

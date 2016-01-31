@@ -293,7 +293,7 @@ degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
 degMAsub <- degMAgene[rownames(degMAgene) %in% geneid,]
 c <- colSums(degMAsub==1) # Common in both (c)
 a <- colSums(degMAsub==0) # Only in query (a)
-b <- colSums(degMA==1) - c # Only in cmap (b)
+b <- colSums(degMAgene==1) - c # Only in cmap (b)
 j <- c/(c+a+b) # Jaccard similarity 
 r <- sort(j, decreasing=TRUE)
 degOL_PMID26490707 <- data.frame(Compound_Celltype=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
