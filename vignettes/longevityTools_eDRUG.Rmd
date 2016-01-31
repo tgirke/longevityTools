@@ -259,7 +259,7 @@ myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", 
 saveRDS(myAnnot, "./results/myAnnot.rds")
 ```
 
-## Transform probe set level expression matrix to gene level matrix
+## Transform probe set to gene level data
 
 The `probeset2gene` function translates a binary DEG matrix from the probe level (`row.names` are
 Affy IDs) to the gene level (`row.names` are gene IDs). Genes represented by several probe
