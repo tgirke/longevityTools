@@ -232,6 +232,7 @@ a minimum fold change of 2). The DEG matrix is written to a file named
 
 ```{r deg_limma, eval=FALSE}
 degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
 saveRDS(degMA, "./results/degMA.rds")
 ```
@@ -258,6 +259,22 @@ myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", 
 saveRDS(myAnnot, "./results/myAnnot.rds")
 ```
 
+## Transform probe set level expression matrix to gene level matrix
+
+The `probeset2gene` function translates a binary DEG matrix from the probe level (`row.names` are
+Affy IDs) to the gene level (`row.names` are gene IDs). Genes represented by several probe
+sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are
+supported: `summary_rule=1L` will consider a gene as a DEG for a specific treatment if at 
+least one of several probe sets supports this assignment, while `summary_rule=2L` requires 
+support from at least 2 probe sets.
+
+```{r affyid2gene, eval=FALSE, message=FALSE}
+myAnnot <- readRDS("./results/myAnnot.rds") 
+degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
+degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
+saveRDS(degMAgene, "./results/degMAgene.rds")
+```
+
 <div align="right">[Back to Table of Contents]()</div>
 
 ## Identify DEG overlaps with Peters et al. [-@Peters2015-fc]
@@ -271,11 +288,9 @@ data set is written to a file named [`degOL_PMID26490707.xls`](http://biocluster
 ```{r deg_overlaps_PMID26490707, eval=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
-affyid <- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$"NEW.Entrez.ID",])
-# degMA <- read.delim("./results/degMA.xls", row.names=1, check.names=FALSE)
-degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
-degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-degMAsub <- degMA[affyid,]
+geneid <- as.character(PMID26490707$"NEW.Entrez.ID")
+degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+degMAsub <- degMAgene[rownames(degMAgene) %in% geneid,]
 c <- colSums(degMAsub==1) # Common in both (c)
 a <- colSums(degMAsub==0) # Only in query (a)
 b <- colSums(degMA==1) - c # Only in cmap (b)

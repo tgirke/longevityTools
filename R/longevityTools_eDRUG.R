@@ -216,14 +216,38 @@ runLimma <- function(df, comp_list, fdr=0.05, foldchange=1, verbose=TRUE) {
 # write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
 
 ## Transform probe set to gene level matrix
-probeset2gene <- function(degMA, myAnnot, geneIDtype="ENTREZID") {
+probeset2gene <- function(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L) {
     ## Remove rows with NAs chosen geneIDtype column
     myAnnot <- myAnnot[as.character(myAnnot[,geneIDtype]) != "NA",]
     ## Remove corresponding rows in degMA
     degMA <- degMA[rownames(myAnnot), ]
+    ## Remove columns where DEG analysis was not possible
+    degMA <- degMA[ , !is.na(colSums(degMA))] 
+    ## Split gene entries with single and multiple probe sets
     myAnnot <- cbind(myAnnot, freq=table(myAnnot[,geneIDtype])[myAnnot[,geneIDtype]])
     degMAuni <- degMA[rownames(myAnnot[myAnnot$freq == 1 ,]), ]
+    rownames(degMAuni) <- as.character(myAnnot[myAnnot$freq == 1 , geneIDtype])
     degMAmulti <- degMA[rownames(myAnnot[myAnnot$freq > 1 ,]), ]
-
+    ## Collapse genes with multiple probe sets to single one by summing up their values
+    idlist <- split(rownames(myAnnot[myAnnot$freq > 1 ,]), as.character(myAnnot[myAnnot$freq > 1 , geneIDtype]))
+    degMAmulticollapsed <- t(sapply(names(idlist), function(x) colSums(degMAmulti[idlist[[x]], ])))
+    ## Summary rule
+    if(summary_rule==1L) { 
+        ## Set values greater than 1 to 1: less coservative ~any~ rule
+        degMAmulticollapsed[degMAmulticollapsed > 1] <- 1 
+    } else if(summary_rule==2L) {
+        ## Set 1 to 0 and values greater than 1 to 1: more conservative >=2 rule
+        degMAmulticollapsed[degMAmulticollapsed == 1] <- 0
+        degMAmulticollapsed[degMAmulticollapsed > 1] <- 1 
+    } else {
+        stop("'summary_rule' needs to be assigned 1 or 2")
+    }
+    ## Final DEG matrix
+    finaldegMA <- rbind(degMAuni, degMAmulticollapsed)
+    finaldegMA <- finaldegMA[as.character(unique(myAnnot[,geneIDtype])),]
+    return(finaldegMA)
 }
+## Usage:
+# finaldegMA <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1)
+
 
