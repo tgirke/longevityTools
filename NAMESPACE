@@ -6,5 +6,5 @@ export(
 
     ## Utilities
     "geneGrep", "getCmap", "getCmapCEL", "normalizeCel", "combineResults",
-    "sampleList", "runLimma"
+    "sampleList", "runLimma", "probeset2gene.Rd"
 ) 
