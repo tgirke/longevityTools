@@ -330,8 +330,7 @@ degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 
 ## Drugs affecting known longevity genes
 
-This addresses one of Dan's questions in one of our conference calls as to which drugs are affecting the
-expression of the IGF1 or IGF1R genes.
+The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.
 
 ```{r deg_queries, eval=TRUE}
 genesymbols <- c("IGF1", "IGF1R")
@@ -345,6 +344,8 @@ df <- df[rowSums(df)>0,]
 nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
 ```
 
+The following computes the `limma` FDR values for the corresponding genes (here IGF1 and IGF1R) 
+and drug treatments.
 ```{r add_pvalue, eval=FALSE}
 affyids2 <- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
 affyids <- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"])
@@ -356,7 +357,8 @@ pvalDF <- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) m
 df <- cbind(df, pvalDF)
 write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
 ```
-Sorted by increasing mean FDR. 
+
+Now the final `data.frame` can be sorted by increasing mean FDR values. 
 ```{r sort_pvalue, eval=TRUE}
 igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
 igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]

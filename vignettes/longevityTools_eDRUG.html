@@ -375,7 +375,7 @@ sum(degOL_PMID26343147[,2] &gt; 0) # Drugs with any overlap</code></pre>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
 <h2><span class="header-section-number">6.8</span> Drugs affecting known longevity genes</h2>
-<p>This addresses one of Dan’s questions in one of our conference calls as to which drugs are affecting the expression of the IGF1 or IGF1R genes.</p>
+<p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.</p>
 <pre class="r"><code>genesymbols &lt;- c(&quot;IGF1&quot;, &quot;IGF1R&quot;)
 geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;ENTREZID&quot;]))
 names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;]))
@@ -386,6 +386,7 @@ colnames(df) &lt;- names(geneids)
 df &lt;- df[rowSums(df)&gt;0,]
 nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R</code></pre>
 <pre><code>## [1] 89</code></pre>
+<p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) and drug treatments.</p>
 <pre class="r"><code>affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
 affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;])
 names(affyids) &lt;- affyids2
@@ -395,7 +396,7 @@ degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FAL
 pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,&quot;adj.P.Val&quot;])))
 df &lt;- cbind(df, pvalDF)
 write.table(df, file=&quot;./results/deg_IGF1.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
-<p>Sorted by increasing mean FDR.</p>
+<p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
 <pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)
 igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]</code></pre>
 <pre><code>##                        IGF1R IGF1      IGF1R.1      IGF1.1
