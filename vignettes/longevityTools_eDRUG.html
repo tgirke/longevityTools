@@ -390,10 +390,12 @@ nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R</code></pre>
 <pre class="r"><code>affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
 affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;])
 names(affyids) &lt;- affyids2
+cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
 comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)
 comp_list &lt;- comp_list[row.names(df)]
 degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
 pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,&quot;adj.P.Val&quot;])))
+colnames(pvalDF) &lt;- paste0(colnames(pvalDF), &quot;_FDR&quot;)
 df &lt;- cbind(df, pvalDF)
 write.table(df, file=&quot;./results/deg_IGF1.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
 <p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
