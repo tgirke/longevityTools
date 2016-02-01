@@ -13,7 +13,7 @@ all comparisons defined by \code{sampleList}.
 \usage{
 sampleList(cmap, myby)
 
-runLimma(df, comp_list, fdr = 0.05, foldchange = 1, verbose = TRUE)
+runLimma(df, comp_list, fdr = 0.05, foldchange = 1, verbose = TRUE, affyid=NULL)
 }
 \arguments{
   \item{df}{
@@ -28,6 +28,11 @@ FDR cutoff filter value on scale between 0 to 1.
 }
   \item{foldchange}{
 log2 fold change filter.
+}
+  \item{affyid}{
+If \code{affyid=NULL}, a binary DEG matrix will be returned; if \code{affyid} is 
+assigned a character vector of Affy IDs, a list will be returned containing for 
+each treatment the \code{topTable} output subsetted by the corresponding Affy IDs. 
 }
   \item{verbose}{
 Function prints status output if \code{verbose=TRUE}, while \code{FALSE} suppresses it.
@@ -44,8 +49,11 @@ the cell types used in the assyas.
 \value{
 Function \code{sampleList} returns a \code{list} of \code{character} vectors.
 
-Function \code{runLimma} returns for all comparisons the complete output of \code{limma}'s 
-\code{topTable} function combinded in a single \code{data.frame}.
+If \code{affyid=NULL}, the function \code{runLimma} returns a binary matrix
+where DEGs meeting the cutoff settings are indicated by 1s. If \code{affyid} is
+assigned a character vector of Affy IDs, then the function returns a list
+containing for each treatment the \code{topTable} output subsetted by the 
+corresponding Affy IDs.
 }
 
 \author{
