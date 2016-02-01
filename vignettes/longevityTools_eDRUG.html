@@ -375,7 +375,7 @@ sum(degOL_PMID26343147[,2] &gt; 0) # Drugs with any overlap</code></pre>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
 <h2><span class="header-section-number">6.8</span> Drugs affecting known longevity genes</h2>
-<p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.</p>
+<p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes. The final result is written to file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
 <pre class="r"><code>genesymbols &lt;- c(&quot;IGF1&quot;, &quot;IGF1R&quot;)
 geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;ENTREZID&quot;]))
 names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;]))

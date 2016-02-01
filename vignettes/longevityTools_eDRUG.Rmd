@@ -331,6 +331,7 @@ degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 ## Drugs affecting known longevity genes
 
 The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.
+The final result is written to file named [`deg_IGF1.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls).
 
 ```{r deg_queries, eval=TRUE}
 genesymbols <- c("IGF1", "IGF1R")
