@@ -141,7 +141,7 @@ nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
 
 ## ----sort_pvalue, eval=TRUE----------------------------------------------
 igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
-igfDF <- igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
+igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
 library(DrugVsDisease)

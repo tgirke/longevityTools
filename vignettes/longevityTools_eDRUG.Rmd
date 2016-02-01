@@ -359,7 +359,7 @@ write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names 
 Sorted by increasing mean FDR. 
 ```{r sort_pvalue, eval=TRUE}
 igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
-igfDF <- igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
+igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
