@@ -401,7 +401,7 @@ write.table(df, file=&quot;./results/deg_IGF1.xls&quot;, quote=FALSE, sep=&quot;
 <p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
 <pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)
 igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]</code></pre>
-<pre><code>##                        IGF1R IGF1      IGF1R.1      IGF1.1
+<pre><code>##                        IGF1R IGF1    IGF1R_FDR    IGF1_FDR
 ## clindamycin_HL60           1    1 6.092100e-03 0.019806975
 ## chlorzoxazone_HL60         1    1 1.504907e-02 0.012048534
 ## trichostatin A_MCF7        1    1 7.034883e-70 0.064635337
@@ -459,13 +459,13 @@ drugcmap2[[1]][1:20,]</code></pre>
 ## trifluoperazine   trifluoperazine   0.8624640      98   1
 ## etilefrine             etilefrine   0.8644660      40   1
 ## remoxipride           remoxipride   0.8655620      76   1
-## NA                           &lt;NA&gt;          NA      NA  NA
-## NA.1                         &lt;NA&gt;          NA      NA  NA
-## NA.2                         &lt;NA&gt;          NA      NA  NA
-## NA.3                         &lt;NA&gt;          NA      NA  NA
-## NA.4                         &lt;NA&gt;          NA      NA  NA
-## NA.5                         &lt;NA&gt;          NA      NA  NA
-## NA.6                         &lt;NA&gt;          NA      NA  NA</code></pre>
+## etoposide               etoposide   0.8690638       4   1
+## ethoxyquin             ethoxyquin   0.8695707      27   1
+## albendazole           albendazole   0.8699840      93   1
+## scoulerine             scoulerine   0.8705162       1   1
+## bromopride             bromopride   0.8709264      91   1
+## milrinone               milrinone   0.8712986      83   1
+## terfenadine           terfenadine   0.8718878      93   1</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
