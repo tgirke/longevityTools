@@ -139,9 +139,9 @@ nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
 ## df <- cbind(df, pvalDF)
 ## write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA)
 
-## ----sort_pvalue, eval=FALSE---------------------------------------------
-## igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
-## igfDF <- igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
+## ----sort_pvalue, eval=TRUE----------------------------------------------
+igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
+igfDF <- igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
 library(DrugVsDisease)

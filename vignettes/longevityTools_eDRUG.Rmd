@@ -357,7 +357,7 @@ df <- cbind(df, pvalDF)
 write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
 ```
 
-```{r sort_pvalue, eval=FALSE}
+```{r sort_pvalue, eval=TRUE}
 igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
 igfDF <- igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
 ```
