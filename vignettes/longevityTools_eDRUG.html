@@ -173,7 +173,7 @@ source(fctpath)</code></pre>
 </div>
 <div id="create-expected-directory-structure" class="section level2">
 <h2><span class="header-section-number">3.2</span> Create expected directory structure</h2>
-<p>The following creates the directory structure expected by this workflow. Input data will be stored in the <code>data</code> directory and results will written to the <code>results</code> directory. All paths are given relative to the present working directory of the user’s R session.</p>
+<p>The following creates the directory structure expected by this workflow. Input data will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory. All paths are given relative to the present working directory of the user’s R session.</p>
 <pre class="r"><code>dir.create(&quot;data&quot;); dir.create(&quot;data/CEL&quot;); dir.create(&quot;results&quot;) </code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
@@ -253,7 +253,7 @@ df1 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[1], &quot;/&quot;, &quo
 df2 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[2], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
 df3 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[3], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
 affyid &lt;- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid &lt;- affyid[affyid %in% rownames(df3)]
-df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
+mas5df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -261,7 +261,7 @@ df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
 <div id="deg-analysis-with-limma-1" class="section level2">
 <h2><span class="header-section-number">6.3</span> DEG analysis with <code>limma</code></h2>
 <p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package. Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and a minimum fold change of 2). The DEG matrix is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
-<pre class="r"><code>degMA &lt;- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+<pre class="r"><code>degMA &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
 degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 saveRDS(degMA, &quot;./results/degMA.rds&quot;)</code></pre>
@@ -386,28 +386,17 @@ colnames(df) &lt;- names(geneids)
 df &lt;- df[rowSums(df)&gt;0,]
 nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R</code></pre>
 <pre><code>## [1] 89</code></pre>
-<pre class="r"><code>df[order(rowSums(df), decreasing=TRUE),][1:20,]</code></pre>
-<pre><code>##                                IGF1R IGF1
-## anisomycin_HL60                    1    1
-## chlorzoxazone_HL60                 1    1
-## cicloheximide_HL60                 1    1
-## clindamycin_HL60                   1    1
-## danazol_HL60                       1    1
-## dirithromycin_HL60                 1    1
-## glibenclamide_HL60                 1    1
-## lanatoside C_HL60                  1    1
-## lobeline_HL60                      1    1
-## luteolin_PC3                       1    1
-## metformin_MCF7                     1    1
-## sirolimus_PC3                      1    1
-## trichostatin A_MCF7                1    1
-## verteporfin_HL60                   1    1
-## 0175029-0000_MCF7                  1    0
-## 15-delta prostaglandin J2_MCF7     0    1
-## GW-8510_MCF7                       1    0
-## H-7_MCF7                           1    0
-## LY-294002_MCF7                     1    0
-## ajmaline_HL60                      0    1</code></pre>
+<pre class="r"><code>affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
+affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;])
+names(affyids) &lt;- affyids2
+comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)
+comp_list &lt;- comp_list[row.names(df)]
+degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
+pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,&quot;adj.P.Val&quot;])))
+df &lt;- cbind(df, pvalDF)
+write.table(df, file=&quot;./results/deg_IGF1.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
+<pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)
+igfDF &lt;- igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>

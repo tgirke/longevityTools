@@ -60,10 +60,10 @@ source(fctpath)
 ## df2 <- readRDS(paste0("data/", chiptype_dir[2], "/", "all_mas5exprs.rds"))
 ## df3 <- readRDS(paste0("data/", chiptype_dir[3], "/", "all_mas5exprs.rds"))
 ## affyid <- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid <- affyid[affyid %in% rownames(df3)]
-## df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
+## mas5df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
 
 ## ----deg_limma, eval=FALSE-----------------------------------------------
-## degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+## degMA <- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
 ## degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 ## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
 ## saveRDS(degMA, "./results/degMA.rds")
@@ -127,7 +127,21 @@ for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
 colnames(df) <- names(geneids)
 df <- df[rowSums(df)>0,]
 nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
-df[order(rowSums(df), decreasing=TRUE),][1:20,]
+
+## ----add_pvalue, eval=FALSE----------------------------------------------
+## affyids2 <- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
+## affyids <- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"])
+## names(affyids) <- affyids2
+## comp_list <- sampleList(cmap, myby="CMP_CELL")
+## comp_list <- comp_list[row.names(df)]
+## degList <- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
+## pvalDF <- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,"adj.P.Val"])))
+## df <- cbind(df, pvalDF)
+## write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA)
+
+## ----sort_pvalue, eval=FALSE---------------------------------------------
+## igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
+## igfDF <- igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
 library(DrugVsDisease)
