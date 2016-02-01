@@ -395,6 +395,7 @@ degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FAL
 pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,&quot;adj.P.Val&quot;])))
 df &lt;- cbind(df, pvalDF)
 write.table(df, file=&quot;./results/deg_IGF1.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
+<p>Sorted by increasing mean FDR.</p>
 <pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)
 igfDF &lt;- igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]</code></pre>
 <div align="right">

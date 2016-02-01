@@ -356,7 +356,7 @@ pvalDF <- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) m
 df <- cbind(df, pvalDF)
 write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
 ```
-
+Sorted by increasing mean FDR. 
 ```{r sort_pvalue, eval=TRUE}
 igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
 igfDF <- igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
