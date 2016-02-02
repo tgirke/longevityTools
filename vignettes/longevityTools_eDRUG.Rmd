@@ -144,13 +144,18 @@ Each cell type was subjected to the following number of total treatments and num
 of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.
 
 ```{r overview_cmap_drugs, eval=TRUE}
-library(ggplot2)
+library(ggplot2); library(reshape2) 
+
 cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
-df <- data.frame(table(cmap[, "cell2"])); colnames(df) <- c("Cell_type", "Number")
-ggplot(df, aes(Cell_type, Number)) + geom_bar(position="dodge", stat="identity", fill = "cornflowerblue") + ggtitle("Number of treatments by cell types")
-df <- data.frame(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])); colnames(df) <- c("Cell_type", "Number") 
-ggplot(df, aes(Cell_type, Number)) + geom_bar(position="dodge", stat="identity", fill = "cornflowerblue") + ggtitle("Number of drugs by cell types")
+df <- data.frame(table(cmap[, "cell2"]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])))
+colnames(df) <- c("Cell_type", "Treatments", "Drugs")
+df <- melt(df, id.vars=c("Cell_type"), variable.name = "Samples", value.name="Values")
+ggplot(df, aes(Cell_type, Values, fill=Samples)) + 
+       geom_bar(position="dodge", stat="identity") + 
+       ggtitle("Number of treatments by cell types")
+
 ```
+
 The number Affymetrix chip used in the experiments is plotted here for each one of
 the three chip types used by CMAP:
 
