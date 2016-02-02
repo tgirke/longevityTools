@@ -280,7 +280,7 @@ saveRDS(degMAgene, "./results/degMAgene.rds")
 ## Identify DEG overlaps with Peters et al. [-@Peters2015-fc]
 
 Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression signatures. 
-The following `intersectStats` function computes their intersects with each of the 3,318 
+The `intersectStats` function computes their intersects with each of the 3,318 
 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple 
 similarity metric for gene sets as well as the raw and adjusted p-values based on the 
 hypergeometric distribution expressing how likely it is to observe the observed intersect 
@@ -302,7 +302,7 @@ degOL_PMID26490707[1:20,]
 ## Identify DEG overlaps with Sood et al. [-@Sood2015-pb]
 
 Sood et al. [-@Sood2015-pb] reported 150 age-related gene expression signatures. 
-The following `intersectStats` function computes their intersects with each of the 3,318 
+The `intersectStats` function computes their intersects with each of the 3,318 
 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple 
 similarity metric for gene sets as well as the raw and adjusted p-values based on the 
 hypergeometric distribution expressing how likely it is to observe the observed intersect 
