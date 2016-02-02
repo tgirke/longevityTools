@@ -300,7 +300,6 @@ myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;)
 geneid &lt;- as.character(PMID26490707$&quot;NEW.Entrez.ID&quot;)
 degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
 degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
-source(system.file(&quot;extdata&quot;, &quot;longevityTools_eDRUG_Fct.R&quot;, package=&quot;longevityTools&quot;))
 degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap</code></pre>
