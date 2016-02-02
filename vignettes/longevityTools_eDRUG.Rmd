@@ -307,7 +307,7 @@ saveRDS(degMAgene, "./results/degMAgene.rds")
 
 ## Number of DEGs per drug treatment
 
-```{r deg_distr, eval=FALSE, message=TRUE}
+```{r deg_distr, eval=TRUE, message=TRUE}
 degMAgene <- readRDS("./results/degMAgene.rds")
 hist(colSums(degMAgene))
 ```
