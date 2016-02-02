@@ -295,7 +295,7 @@ saveRDS(degMAgene, &quot;./results/degMAgene.rds&quot;)</code></pre>
 <div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
 <h2><span class="header-section-number">6.6</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
 <p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric to sort the drug table. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
-<pre class="r"><code>PMID26490708 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
+<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
 geneid &lt;- as.character(PMID26490707$&quot;NEW.Entrez.ID&quot;)
 degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
@@ -303,8 +303,51 @@ degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
 source(system.file(&quot;extdata&quot;, &quot;longevityTools_eDRUG_Fct.R&quot;, package=&quot;longevityTools&quot;))
 degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
-sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap
-degOL_PMID26490707[1:20,]</code></pre>
+sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap</code></pre>
+<pre><code>## [1] 880</code></pre>
+<pre class="r"><code>degOL_PMID26490707[1:20,]</code></pre>
+<pre><code>##                 Compound_Celltype Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
+## 1                 anisomycin_HL60    0.11933973          1192     3826       535 2.344725e-27
+## 2                alprostadil_HL60    0.11186805          1192     1909       312 1.394157e-24
+## 3           (-)-isoprenaline_HL60    0.10475352          1192     1318       238 3.108024e-24
+## 4                mebendazole_HL60    0.11033210          1192     1817       299 6.281549e-24
+## 5                  tretinoin_HL60    0.09301104          1192      888       177 1.302556e-22
+## 6                  pergolide_HL60    0.11107955          1192     2719       391 2.203268e-20
+## 7              bromocriptine_HL60    0.08947368          1192      878       170 2.543364e-20
+## 8          dihydroergotamine_HL60    0.09692237          1192     1196       211 4.395981e-20
+## 9                   lycorine_HL60    0.11291316          1192     4229       550 4.475942e-20
+## 10              tanespimycin_HL60    0.11140654          1192     2988       419 5.549520e-20
+## 11    co-dergocrine mesilate_HL60    0.10228137          1192     1707       269 1.428828e-18
+## 12            trichostatin A_HL60    0.11127691          1192     4021       522 1.895076e-18
+## 13             Prestwick-983_HL60    0.09537572          1192     1461       231 5.536597e-16
+## 14         methylergometrine_HL60    0.07056695          1192      583       117 2.678052e-15
+## 15                 clonidine_HL60    0.06911315          1192      556       113 3.297109e-15
+## 16              isotretinoin_HL60    0.07020649          1192      622       119 5.581359e-14
+## 17                 puromycin_HL60    0.09287430          1192     1538       232 1.067668e-13
+## 18                  monorden_HL60    0.04433140          1192      245        61 1.493799e-12
+## 19           podophyllotoxin_HL60    0.08635961          1192     1261       195 1.573915e-12
+## 20 15-delta prostaglandin J2_HL60    0.09484610          1192     1867       265 1.727186e-12
+##        adj_Pval
+## 1  8.154954e-24
+## 2  4.848876e-21
+## 3  1.080971e-20
+## 4  2.184723e-20
+## 5  4.530291e-19
+## 6  7.662964e-17
+## 7  8.845821e-17
+## 8  1.528922e-16
+## 9  1.556732e-16
+## 10 1.930123e-16
+## 11 4.969462e-15
+## 12 6.591075e-15
+## 13 1.925628e-12
+## 14 9.314264e-12
+## 15 1.146735e-11
+## 16 1.941197e-10
+## 17 3.713349e-10
+## 18 5.195432e-09
+## 19 5.474077e-09
+## 20 6.007155e-09</code></pre>
 </div>
 <div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
 <h2><span class="header-section-number">6.7</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>

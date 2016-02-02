@@ -85,7 +85,7 @@ source(fctpath)
 ## saveRDS(degMAgene, "./results/degMAgene.rds")
 
 ## ----deg_overlaps_PMID26490707, eval=TRUE--------------------------------
-PMID26490708 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
+PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 geneid <- as.character(PMID26490707$"NEW.Entrez.ID")
 degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
