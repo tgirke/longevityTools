@@ -159,7 +159,7 @@ ggplot(df, aes(Cell_type, Counts, fill=Samples)) +
        ggtitle("Number of treatments by cell types")
 ```
 
-The number Affymetrix chip used in the experiments is plotted here for each one of
+The number Affymetrix chip used in the experiments is plotted here for each of
 the three chip types used by CMAP:
 
 ```{r overview_cmap_chip_type, eval=TRUE}
