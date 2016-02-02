@@ -303,6 +303,14 @@ degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
 degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
 saveRDS(degMAgene, "./results/degMAgene.rds")
 ```
+<div align="right">[Back to Table of Contents]()</div>
+
+## Number of DEGs per drug treatment
+
+```{r deg_distr, eval=FALSE, message=TRUE}
+degMAgene <- readRDS("./results/degMAgene.rds")
+hist(colSums(degMAgene))
+```
 
 <div align="right">[Back to Table of Contents]()</div>
 

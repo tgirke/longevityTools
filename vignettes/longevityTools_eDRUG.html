@@ -82,9 +82,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#deg-analysis-with-limma-1"><span class="toc-section-number">7.3</span> DEG analysis with <code>limma</code></a></li>
 <li><a href="#obtain-annotation-information"><span class="toc-section-number">7.4</span> Obtain annotation information</a></li>
 <li><a href="#transform-probe-set-to-gene-level-data"><span class="toc-section-number">7.5</span> Transform probe set to gene level data</a></li>
-<li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">7.6</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
-<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">7.7</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
-<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">7.8</span> Drugs affecting known longevity genes</a></li>
+<li><a href="#number-of-degs-per-drug-treatment"><span class="toc-section-number">7.6</span> Number of DEGs per drug treatment</a></li>
+<li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">7.7</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">7.8</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">7.9</span> Drugs affecting known longevity genes</a></li>
 </ul></li>
 <li><a href="#connectivity-maps-enrichment-analysis"><span class="toc-section-number">8</span> Connectivity maps enrichment analysis</a><ul>
 <li><a href="#query-drug-signatures"><span class="toc-section-number">8.1</span> Query drug signatures</a></li>
@@ -311,8 +312,16 @@ saveRDS(degMAgene, &quot;./results/degMAgene.rds&quot;)</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
+<div id="number-of-degs-per-drug-treatment" class="section level2">
+<h2><span class="header-section-number">7.6</span> Number of DEGs per drug treatment</h2>
+<pre class="r"><code>degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;)
+hist(colSums(degMAgene))</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
 <div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
-<h2><span class="header-section-number">7.6</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
+<h2><span class="header-section-number">7.7</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
 <p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to observe the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
@@ -371,7 +380,7 @@ sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap</code></pre>
 </div>
 </div>
 <div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
-<h2><span class="header-section-number">7.7</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
+<h2><span class="header-section-number">7.8</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
 <p>Sood et al. <span class="citation">(2015)</span> reported 150 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to observe the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
 <pre class="r"><code>PMID26343147 &lt;- read.delim(&quot;./data/PMID26343147_S1T1.xls&quot;, check.names=FALSE, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
@@ -410,7 +419,7 @@ sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap</code></pre>
 </div>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
-<h2><span class="header-section-number">7.8</span> Drugs affecting known longevity genes</h2>
+<h2><span class="header-section-number">7.9</span> Drugs affecting known longevity genes</h2>
 <p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes. The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
 <pre class="r"><code>genesymbols &lt;- c(&quot;IGF1&quot;, &quot;IGF1R&quot;)
 geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;ENTREZID&quot;]))

@@ -92,6 +92,10 @@ barplot(table(cmap$array3))
 ## degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
 ## saveRDS(degMAgene, "./results/degMAgene.rds")
 
+## ----deg_distr, eval=FALSE, message=TRUE---------------------------------
+## degMAgene <- readRDS("./results/degMAgene.rds")
+## hist(colSums(degMAgene))
+
 ## ----deg_overlaps_PMID26490707, eval=TRUE--------------------------------
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
