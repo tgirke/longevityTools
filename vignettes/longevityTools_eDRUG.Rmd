@@ -130,7 +130,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 
 <div align="right">[Back to Table of Contents]()</div>
 
-# Overiew of CMAP data
+## Overiew of CMAP data
 
 The experimental design of the CMAP project is defined in the file
 `cmap_instances_02.xls`.  Note, this file required some cleaning in LibreOffice
