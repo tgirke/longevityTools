@@ -132,7 +132,8 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 
 # Overiew of CMAP data
 
-The experimental design of the CMAP project is defined in the file [cmap_instances_02.txt](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt).
+The experimental design of the CMAP project is defined in the file 
+[cmap_instances_02.txt](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt).
 The following count statisitics are extracted from this file.
 
 The panel of cell lines used by CMAP includes MCF7, ssMCF7, HL60, PC3 and SKMEL5. 
@@ -150,6 +151,8 @@ the three chip types used by CMAP:
 ```{r overview_cmap_chip_type, eval=TRUE}
 barplot(table(cmap$array3))
 ```
+
+<div align="right">[Back to Table of Contents]()</div>
 
 # Pre-processing of CEL files
 
