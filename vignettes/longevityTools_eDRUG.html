@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 <h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 31 January, 2016</em></h4>
+<h4 class="date"><em>Last update: 01 February, 2016</em></h4>
 </div>
 <h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.3</span></h4>
 
@@ -295,42 +295,16 @@ saveRDS(degMAgene, &quot;./results/degMAgene.rds&quot;)</code></pre>
 <div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
 <h2><span class="header-section-number">6.6</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
 <p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric to sort the drug table. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
-<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
+<pre class="r"><code>PMID26490708 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
 geneid &lt;- as.character(PMID26490707$&quot;NEW.Entrez.ID&quot;)
 degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
 degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
-c &lt;- colSums(degMAsub==1) # Common in both (c)
-a &lt;- colSums(degMAsub==0) # Only in query (a)
-b &lt;- colSums(degMAgene==1) - c # Only in cmap (b)
-j &lt;- c/(c+a+b) # Jaccard similarity 
-r &lt;- sort(j, decreasing=TRUE)
-degOL_PMID26490707 &lt;- data.frame(Compound_Celltype=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
+source(system.file(&quot;extdata&quot;, &quot;longevityTools_eDRUG_Fct.R&quot;, package=&quot;longevityTools&quot;))
+degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
-sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap</code></pre>
-<pre><code>## [1] 880</code></pre>
-<pre class="r"><code>degOL_PMID26490707[1:20,] # Top 20 scoring drugs</code></pre>
-<pre><code>##              Compound_Celltype Jaccard_Index longevity_DEG cmap_DEG Intersect
-## 1              anisomycin_HL60    0.11933973           657     3291       535
-## 2                lycorine_HL60    0.11291316           642     3679       550
-## 3             alprostadil_HL60    0.11186805           880     1597       312
-## 4            tanespimycin_HL60    0.11140654           773     2569       419
-## 5          trichostatin A_HL60    0.11127691           670     3499       522
-## 6               pergolide_HL60    0.11107955           801     2328       391
-## 7             mebendazole_HL60    0.11033210           893     1518       299
-## 8        (-)-isoprenaline_HL60    0.10475352           954     1080       238
-## 9              vorinostat_HL60    0.10384470           641     4114       551
-## 10                emetine_HL60    0.10352778           743     3145       449
-## 11           8-azaguanine_HL60    0.10283764           710     3495       482
-## 12          trichostatin A_PC3    0.10254095           397     6561       795
-## 13 co-dergocrine mesilate_HL60    0.10228137           923     1438       269
-## 14             cephaeline_HL60    0.10160428           812     2548       380
-## 15            midecamycin_HL60    0.10130178           764     3033       428
-## 16           camptothecin_MCF7    0.10053182           606     4637       586
-## 17           tanespimycin_MCF7    0.10048176           754     3167       438
-## 18         trichostatin A_MCF7    0.10029972           255     8150       937
-## 19          helveticoside_HL60    0.09997376           811     2619       381
-## 20               baclofen_HL60    0.09909712           742     3349       450</code></pre>
+sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap
+degOL_PMID26490707[1:20,]</code></pre>
 </div>
 <div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
 <h2><span class="header-section-number">6.7</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>

@@ -84,21 +84,17 @@ source(fctpath)
 ## degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
 ## saveRDS(degMAgene, "./results/degMAgene.rds")
 
-## ----deg_overlaps_PMID26490707, eval=TRUE--------------------------------
-PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
-myAnnot <- readRDS("./results/myAnnot.rds") 
-geneid <- as.character(PMID26490707$"NEW.Entrez.ID")
-degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
-degMAsub <- degMAgene[rownames(degMAgene) %in% geneid,]
-c <- colSums(degMAsub==1) # Common in both (c)
-a <- colSums(degMAsub==0) # Only in query (a)
-b <- colSums(degMAgene==1) - c # Only in cmap (b)
-j <- c/(c+a+b) # Jaccard similarity 
-r <- sort(j, decreasing=TRUE)
-degOL_PMID26490707 <- data.frame(Compound_Celltype=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
-write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
-sum(degOL_PMID26490707[,2] > 0) # Drugs with any overlap
-degOL_PMID26490707[1:20,] # Top 20 scoring drugs
+## ----deg_overlaps_PMID26490707, eval=FALSE-------------------------------
+## PMID26490708 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
+## myAnnot <- readRDS("./results/myAnnot.rds")
+## geneid <- as.character(PMID26490707$"NEW.Entrez.ID")
+## degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+## degMAsub <- degMAgene[rownames(degMAgene) %in% geneid,]
+## source(system.file("extdata", "longevityTools_eDRUG_Fct.R", package="longevityTools"))
+## degOL_PMID26490707 <- intersectStats(degMAgene, degMAsub)
+## write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA)
+## sum(degOL_PMID26490707[,2] > 0) # Drugs with any overlap
+## degOL_PMID26490707[1:20,]
 
 ## ----deg_overlaps_PMID26343147, eval=TRUE--------------------------------
 PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
