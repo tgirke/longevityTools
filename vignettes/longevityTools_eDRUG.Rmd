@@ -132,14 +132,23 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 
 # Overiew of CMAP data
 
+The experimental design of the CMAP project is defined in the file [cmap_instances_02.txt](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt).
+The following count statisitics is extracted from this file.
+
 The panel of cell lines used by CMAP includes MCF7, ssMCF7, HL60, PC3 and SKMEL5. 
 Each cell type was subjected to the following number of total treatments and number
-of distinct drugs, respectively:
+of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.
 
-```{r overview_cmap, eval=TRUE}
+```{r overview_cmap_drugs, eval=TRUE}
 cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
 barplot(table(cmap[, "cell2"]), main="Frequency of treatments by cell types")
 barplot(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"]), main="Frequency of drugs by cell type")
+```
+The number Affymetrix chip types used in the experiments is plotted here for each one of
+the three chip types:
+
+```{r overview_cmap_chip_type, eval=TRUE}
+barplot(table(cmap$array3))
 ```
 
 # Pre-processing of CEL files
@@ -167,7 +176,8 @@ under `data` that are named after the chip type names.  To save time, the
 processing is parallelized with `BiocParallel` to run on 100 CPU cores of a
 computer cluster with a scheduler (_e.g._ Torque). The number of CEL files from
 each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from
-HT_HG-U133A, and 220 CEL files from U133AAofAv2. The MAS5 normalized data
+HT_HG-U133A, and 220 CEL files from U133AAofAv2. Note, these numbers are slightly
+different than those reported in the `cmap_instances_02.txt` file. The MAS5 normalized data
 sets can be downloaded here: 
 [HG-U133A](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds), 
 [HT_HG-U133A](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds), 

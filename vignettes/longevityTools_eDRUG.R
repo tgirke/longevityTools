@@ -30,10 +30,13 @@ source(fctpath)
 ## getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 ## getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 
-## ----overview_cmap, eval=TRUE--------------------------------------------
+## ----overview_cmap_drugs, eval=TRUE--------------------------------------
 cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
 barplot(table(cmap[, "cell2"]), main="Frequency of treatments by cell types")
 barplot(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"]), main="Frequency of drugs by cell type")
+
+## ----overview_cmap_chip_type, eval=TRUE----------------------------------
+barplot(table(cmap$array3))
 
 ## ----get_cel_type, eval=FALSE--------------------------------------------
 ## celfiles <- list.files("./data/CEL", pattern=".CEL$")
