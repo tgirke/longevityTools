@@ -92,7 +92,7 @@ degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
 degMAsub <- degMAgene[rownames(degMAgene) %in% geneid,]
 degOL_PMID26490707 <- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
-sum(degOL_PMID26490707[,2] > 0) # Drugs with any overlap
+sum(degOL_PMID26490707[,1] > 0) # Drugs with any overlap
 degOL_PMID26490707[1:20,]
 
 ## ----deg_overlaps_PMID26343147, eval=TRUE--------------------------------
@@ -104,7 +104,7 @@ degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis wa
 degMAsub <- degMA[affyid,]
 degOL_PMID26343147 <- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
-sum(degOL_PMID26343147[,2] > 0) # Drugs with any overlap
+sum(degOL_PMID26343147[,1] > 0) # Drugs with any overlap
 degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 
 ## ----deg_queries, eval=TRUE----------------------------------------------

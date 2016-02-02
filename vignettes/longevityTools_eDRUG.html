@@ -280,6 +280,9 @@ myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=
                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=&quot;, &quot;), 
                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))
 saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
 </div>
 <div id="transform-probe-set-to-gene-level-data" class="section level2">
 <h2><span class="header-section-number">6.5</span> Transform probe set to gene level data</h2>
@@ -302,8 +305,8 @@ degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.
 degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
 degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
-sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap</code></pre>
-<pre><code>## [1] 3478</code></pre>
+sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap</code></pre>
+<pre><code>## [1] 880</code></pre>
 <pre class="r"><code>degOL_PMID26490707[1:20,]</code></pre>
 <pre><code>##                                Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
 ## anisomycin_HL60                   0.11933973          1192     3826       535 2.344725e-27
@@ -362,8 +365,8 @@ degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis
 degMAsub &lt;- degMA[affyid,]
 degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file=&quot;./results/degOL_PMID26343147.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
-sum(degOL_PMID26343147[,2] &gt; 0) # Drugs with any overlap</code></pre>
-<pre><code>## [1] 3478</code></pre>
+sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap</code></pre>
+<pre><code>## [1] 407</code></pre>
 <pre class="r"><code>degOL_PMID26343147[1:20,] # Top 20 scoring drugs</code></pre>
 <pre><code>##                               Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
 ## idoxuridine_MCF7                0.009478673           211        2         2 0.0002862571 0.9956022
