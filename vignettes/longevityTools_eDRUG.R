@@ -103,12 +103,7 @@ affyid <- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"]
 degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
 degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 degMAsub <- degMA[affyid,]
-c <- colSums(degMAsub==1) # Common in both (c)
-a <- colSums(degMAsub==0) # Only in query (a)
-b <- colSums(degMA==1) - c # Only in cmap (b)
-j <- c/(c+a+b) # Jaccard similarity 
-r <- sort(j, decreasing=TRUE)
-degOL_PMID26343147 <- data.frame(Compound_Celltype=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
+degOL_PMID26343147 <- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
 sum(degOL_PMID26343147[,2] > 0) # Drugs with any overlap
 degOL_PMID26343147[1:20,] # Top 20 scoring drugs

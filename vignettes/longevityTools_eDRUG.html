@@ -294,7 +294,7 @@ saveRDS(degMAgene, &quot;./results/degMAgene.rds&quot;)</code></pre>
 </div>
 <div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
 <h2><span class="header-section-number">6.6</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
-<p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric to sort the drug table. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
+<p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index is used as a simple similarity metric among gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to observe the observed intersect sizes just by chance. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
 geneid &lt;- as.character(PMID26490707$&quot;NEW.Entrez.ID&quot;)
@@ -358,37 +358,32 @@ affyid &lt;- row.names(myAnnot[myAnnot[,&quot;SYMBOL&quot;] %in% PMID26343147[,&
 degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
 degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 degMAsub &lt;- degMA[affyid,]
-c &lt;- colSums(degMAsub==1) # Common in both (c)
-a &lt;- colSums(degMAsub==0) # Only in query (a)
-b &lt;- colSums(degMA==1) - c # Only in cmap (b)
-j &lt;- c/(c+a+b) # Jaccard similarity 
-r &lt;- sort(j, decreasing=TRUE)
-degOL_PMID26343147 &lt;- data.frame(Compound_Celltype=names(r), Jaccard_Index=as.numeric(r), longevity_DEG=as.numeric(a[names(r)]), cmap_DEG=as.numeric(b[names(r)]), Intersect=as.numeric(c[names(r)]))
+degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file=&quot;./results/degOL_PMID26343147.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26343147[,2] &gt; 0) # Drugs with any overlap</code></pre>
 <pre><code>## [1] 407</code></pre>
 <pre class="r"><code>degOL_PMID26343147[1:20,] # Top 20 scoring drugs</code></pre>
-<pre><code>##           Compound_Celltype Jaccard_Index longevity_DEG cmap_DEG Intersect
-## 1           papaverine_HL60    0.01687764           203      263         8
-## 2          zardaverine_HL60    0.01608579           199      535        12
-## 3            etoposide_MCF7    0.01602564           201      413        10
-## 4  dihydroergocristine_HL60    0.01500682           200      522        11
-## 5        beclometasone_HL60    0.01497006           206      123         5
-## 6        syrosingopine_HL60    0.01420455           206      141         5
-## 7     benzylpenicillin_HL60    0.01329163           194     1068        17
-## 8             monorden_MCF7    0.01287073           188     1576        23
-## 9             pyrvinium_PC3    0.01257862           207      107         4
-## 10       orciprenaline_HL60    0.01243339           204      352         7
-## 11             chrysin_MCF7    0.01239669           202      515         9
-## 12            ajmaline_HL60    0.01228227           156     4267        55
-## 13       dirithromycin_HL60    0.01210361           161     3920        50
-## 14          etamsylate_HL60    0.01208459           207      120         4
-## 15            flunixin_HL60    0.01175407           172     3107        39
-## 16        parthenolide_HL60    0.01170213           200      729        11
-## 17         azacyclonol_HL60    0.01124878           142     5923        69
-## 18          metoprolol_HL60    0.01122625           198      947        13
-## 19         skimmianine_HL60    0.01111994           197     1048        14
-## 20           vorinostat_PC3    0.01094891           172     3351        39</code></pre>
+<pre><code>##        Compound_Celltype Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
+## 1       idoxuridine_MCF7   0.009478673           211        2         2 0.0002862571 0.9956022
+## 2   (+)-chelidonine_HL60   0.004518072           211      456         3 0.9850316380 1.0000000
+## 3   (+)-chelidonine_MCF7   0.000000000           211       48         0 1.0000000000 1.0000000
+## 4    (+)-chelidonine_PC3   0.000000000           211       41         0 1.0000000000 1.0000000
+## 5  (+)-isoprenaline_HL60   0.005917160           211      299         3 0.8862525485 1.0000000
+## 6  (+)-isoprenaline_MCF7   0.000000000           211        0         0 1.0000000000 1.0000000
+## 7   (+)-isoprenaline_PC3   0.003412969           211       83         1 0.7593430020 1.0000000
+## 8    (+/-)-catechin_HL60   0.000000000           211        0         0 1.0000000000 1.0000000
+## 9    (+/-)-catechin_MCF7   0.000000000           211        0         0 1.0000000000 1.0000000
+## 10    (+/-)-catechin_PC3   0.000000000           211        0         0 1.0000000000 1.0000000
+## 11       (-)-MK-801_HL60   0.000000000           211        0         0 1.0000000000 1.0000000
+## 12       (-)-MK-801_MCF7   0.000000000           211        6         0 1.0000000000 1.0000000
+## 13        (-)-MK-801_PC3   0.000000000           211        0         0 1.0000000000 1.0000000
+## 14     (-)-atenolol_HL60   0.000000000           211        1         0 1.0000000000 1.0000000
+## 15     (-)-atenolol_MCF7   0.000000000           211        0         0 1.0000000000 1.0000000
+## 16      (-)-atenolol_PC3   0.000000000           211        0         0 1.0000000000 1.0000000
+## 17     (-)-catechin_MCF7   0.000000000           211        1         0 1.0000000000 1.0000000
+## 18 (-)-isoprenaline_HL60   0.011243386           211     1318        17 0.9108611894 1.0000000
+## 19 (-)-isoprenaline_MCF7   0.000000000           211        1         0 1.0000000000 1.0000000
+## 20  (-)-isoprenaline_PC3   0.003952569           211       43         1 0.5213246450 1.0000000</code></pre>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
 <h2><span class="header-section-number">6.8</span> Drugs affecting known longevity genes</h2>
