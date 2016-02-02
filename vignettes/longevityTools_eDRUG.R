@@ -30,6 +30,10 @@ source(fctpath)
 ## getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 ## getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 
+## ----overview_cmap, eval=TRUE--------------------------------------------
+cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
+barplot(table(cmap[, "cell2"]))
+
 ## ----get_cel_type, eval=FALSE--------------------------------------------
 ## celfiles <- list.files("./data/CEL", pattern=".CEL$")
 ## chiptype <- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
