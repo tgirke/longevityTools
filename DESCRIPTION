@@ -8,7 +8,7 @@ Maintainer: Thomas Girke <thomas.girke@ucr.edu>
 Description: More about what it does (maybe more than one line)
 Depends: methods
 Imports: BiocGenerics, R.utils, affy, BatchJobs, BiocParallel, limma 
-Suggests: RUnit, BiocStyle, knitr, rmarkdown, ggplot2
+Suggests: RUnit, BiocStyle, knitr, rmarkdown, ggplot2, reshape2
 VignetteBuilder: knitr
 License: Artistic-2.0
 NeedsCompilation: no
