@@ -33,7 +33,7 @@ intersectStats <- function(degMAgene, degMAsub) {
 
     ## Assemble results in data.frame
     df <- data.frame(df, Pval=pval, adj_Pval=adj_pval)
-    df <- df[order(df$adj_Pval),] # Sort by adj_Pvalue
+    df <- df[order(df$Pval),] # Sort by P-value
     row.names(df) <- df[,1]
     df <- df[,-1]
     return(df)
