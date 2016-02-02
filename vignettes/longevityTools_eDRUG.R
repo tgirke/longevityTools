@@ -32,7 +32,8 @@ source(fctpath)
 
 ## ----overview_cmap, eval=TRUE--------------------------------------------
 cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
-barplot(table(cmap[, "cell2"]), main="Cell type distribution")
+barplot(table(cmap[, "cell2"]), main="Frequency of treatments by cell types")
+barplot(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"]), main="Frequency of drugs by cell type")
 
 ## ----get_cel_type, eval=FALSE--------------------------------------------
 ## celfiles <- list.files("./data/CEL", pattern=".CEL$")

@@ -130,7 +130,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 
 <div align="right">[Back to Table of Contents]()</div>
 
-## Overiew of CMAP data
+# Overiew of CMAP data
 
 The panel of cell lines used by CMAP includes MCF7, ssMCF7, HL60, PC3 and SKMEL5. 
 Each cell type was subjected to the following number of total treatments and number
@@ -138,7 +138,8 @@ of distinct drugs, respectively:
 
 ```{r overview_cmap, eval=TRUE}
 cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
-barplot(table(cmap[, "cell2"]), main="Cell type distribution")
+barplot(table(cmap[, "cell2"]), main="Frequency of treatments by cell types")
+barplot(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"]), main="Frequency of drugs by cell type")
 ```
 
 # Pre-processing of CEL files
