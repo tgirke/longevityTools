@@ -133,7 +133,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 # Overiew of CMAP data
 
 The experimental design of the CMAP project is defined in the file [cmap_instances_02.txt](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt).
-The following count statisitics is extracted from this file.
+The following count statisitics are extracted from this file.
 
 The panel of cell lines used by CMAP includes MCF7, ssMCF7, HL60, PC3 and SKMEL5. 
 Each cell type was subjected to the following number of total treatments and number
@@ -144,8 +144,8 @@ cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE)
 barplot(table(cmap[, "cell2"]), main="Frequency of treatments by cell types")
 barplot(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"]), main="Frequency of drugs by cell type")
 ```
-The number Affymetrix chip types used in the experiments is plotted here for each one of
-the three chip types:
+The number Affymetrix chip used in the experiments is plotted here for each one of
+the three chip types used by CMAP:
 
 ```{r overview_cmap_chip_type, eval=TRUE}
 barplot(table(cmap$array3))
