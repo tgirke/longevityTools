@@ -31,9 +31,12 @@ source(fctpath)
 ## getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 
 ## ----overview_cmap_drugs, eval=TRUE--------------------------------------
+library(ggplot2)
 cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
-barplot(table(cmap[, "cell2"]), main="Frequency of treatments by cell types")
-barplot(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"]), main="Frequency of drugs by cell type")
+df <- data.frame(table(cmap[, "cell2"])); colnames(df) <- c("Cell_type", "Number")
+ggplot(df, aes(Cell_type, Number)) + geom_bar(position="dodge", stat="identity", fill = "cornflowerblue") + ggtitle("Number of treatments by cell types")
+df <- data.frame(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])); colnames(df) <- c("Cell_type", "Number") 
+ggplot(df, aes(Cell_type, Number)) + geom_bar(position="dodge", stat="identity", fill = "cornflowerblue") + ggtitle("Number of drugs by cell types")
 
 ## ----overview_cmap_chip_type, eval=TRUE----------------------------------
 barplot(table(cmap$array3))
