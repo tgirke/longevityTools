@@ -132,8 +132,13 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 
 # Overiew of CMAP data
 
-The experimental design of the CMAP project is defined in the file 
+The experimental design of the CMAP project is defined in the file
+`cmap_instances_02.xls`.  Note, this file required some cleaning in LibreOffice
+(Excel would work for this too). After this it was saved as tab delimited txt
+file named
 [cmap_instances_02.txt](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt).
+
+
 The following count statisitics are extracted from this file.
 
 The panel of cell lines used by CMAP includes MCF7, ssMCF7, HL60, PC3 and SKMEL5. 
@@ -220,9 +225,6 @@ unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
 
 ## Generate list of CEL names defining treatment vs. control comparisons
 
-Note: the file `cmap_instances_02.xls` downloaded from CMAP required some 
-cleaning in LibreOffice (Excel would work for this too). After this 
-it was saved as tab delimited txt file.
 
 ```{r cel_file_list, eval=FALSE}
 cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 

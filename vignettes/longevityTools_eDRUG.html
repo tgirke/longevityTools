@@ -195,7 +195,8 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 </div>
 <div id="overiew-of-cmap-data" class="section level1">
 <h1><span class="header-section-number">5</span> Overiew of CMAP data</h1>
-<p>The experimental design of the CMAP project is defined in the file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>. The following count statisitics are extracted from this file.</p>
+<p>The experimental design of the CMAP project is defined in the file <code>cmap_instances_02.xls</code>. Note, this file required some cleaning in LibreOffice (Excel would work for this too). After this it was saved as tab delimited txt file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>.</p>
+<p>The following count statisitics are extracted from this file.</p>
 <p>The panel of cell lines used by CMAP includes MCF7, ssMCF7, HL60, PC3 and SKMEL5. Each cell type was subjected to the following number of total treatments and number of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.</p>
 <pre class="r"><code>cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
 barplot(table(cmap[, &quot;cell2&quot;]), main=&quot;Frequency of treatments by cell types&quot;)</code></pre>
@@ -253,7 +254,6 @@ unlink(&quot;data/CEL/*.CEL&quot;) # Deletes downloaded CEL files</code></pre>
 <h1><span class="header-section-number">7</span> DEG analysis with <code>limma</code></h1>
 <div id="generate-list-of-cel-names-defining-treatment-vs.control-comparisons" class="section level2">
 <h2><span class="header-section-number">7.1</span> Generate list of CEL names defining treatment vs. control comparisons</h2>
-<p>Note: the file <code>cmap_instances_02.xls</code> downloaded from CMAP required some cleaning in LibreOffice (Excel would work for this too). After this it was saved as tab delimited txt file.</p>
 <pre class="r"><code>cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
 # comp_list &lt;- sampleList(cmap, myby=&quot;CMP&quot;)
 comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)</code></pre>
