@@ -32,8 +32,7 @@ source(fctpath)
 
 ## ----overview_cmap, eval=TRUE--------------------------------------------
 cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
-library(ggplot2)
-qplot(data.frame(table(cmap[, "cell2"])), geom="bar")
+barplot(table(cmap[, "cell2"]), main="Cell type distribution")
 
 ## ----get_cel_type, eval=FALSE--------------------------------------------
 ## celfiles <- list.files("./data/CEL", pattern=".CEL$")
