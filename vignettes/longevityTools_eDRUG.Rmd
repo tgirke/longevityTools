@@ -158,7 +158,10 @@ The number Affymetrix chip used in the experiments is plotted here for each one 
 the three chip types used by CMAP:
 
 ```{r overview_cmap_chip_type, eval=TRUE}
-barplot(table(cmap$array3))
+df <- data.frame(table(cmap$array3)); colnames(df) <- c("Chip_type", "Counts") 
+ggplot(df, aes(Chip_type, Counts)) + 
+       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
+       ggtitle("Number of chip types")
 ```
 
 <div align="right">[Back to Table of Contents]()</div>

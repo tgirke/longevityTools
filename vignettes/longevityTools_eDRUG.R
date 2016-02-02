@@ -41,7 +41,10 @@ ggplot(df, aes(Cell_type, Counts, fill=Samples)) +
        ggtitle("Number of treatments by cell types")
 
 ## ----overview_cmap_chip_type, eval=TRUE----------------------------------
-barplot(table(cmap$array3))
+df <- data.frame(table(cmap$array3)); colnames(df) <- c("Chip_type", "Counts") 
+ggplot(df, aes(Chip_type, Counts)) + 
+       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
+       ggtitle("Number of chip types")
 
 ## ----get_cel_type, eval=FALSE--------------------------------------------
 ## celfiles <- list.files("./data/CEL", pattern=".CEL$")
