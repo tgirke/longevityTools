@@ -318,7 +318,12 @@ saveRDS(degMAgene, "./results/degMAgene.rds")
 
 ```{r deg_distr, eval=TRUE, message=TRUE}
 degMAgene <- readRDS("./results/degMAgene.rds")
-hist(colSums(degMAgene))
+y <- as.numeric(colSums(degMAgene))
+interval <- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
+df <- data.frame(interval); colnames(df) <- c("Bins", "Counts")
+ggplot(df, aes(Bins, Counts)) + 
+       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
+       ggtitle("DEG numbers by count bins")
 ```
 
 <div align="right">[Back to Table of Contents]()</div>

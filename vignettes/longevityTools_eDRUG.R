@@ -102,7 +102,12 @@ ggplot(df, aes(Chip_type, Counts)) +
 
 ## ----deg_distr, eval=TRUE, message=TRUE----------------------------------
 degMAgene <- readRDS("./results/degMAgene.rds")
-hist(colSums(degMAgene))
+y <- as.numeric(colSums(degMAgene))
+interval <- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
+df <- data.frame(interval); colnames(df) <- c("Bins", "Counts")
+ggplot(df, aes(Bins, Counts)) + 
+       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
+       ggtitle("DEG numbers by count bins")
 
 ## ----deg_overlaps_PMID26490707, eval=TRUE--------------------------------
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
