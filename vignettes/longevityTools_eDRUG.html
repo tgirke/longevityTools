@@ -304,50 +304,50 @@ source(system.file(&quot;extdata&quot;, &quot;longevityTools_eDRUG_Fct.R&quot;, 
 degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26490707[,2] &gt; 0) # Drugs with any overlap</code></pre>
-<pre><code>## [1] 880</code></pre>
+<pre><code>## [1] 3478</code></pre>
 <pre class="r"><code>degOL_PMID26490707[1:20,]</code></pre>
-<pre><code>##                 Compound_Celltype Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
-## 1                 anisomycin_HL60    0.11933973          1192     3826       535 2.344725e-27
-## 2                alprostadil_HL60    0.11186805          1192     1909       312 1.394157e-24
-## 3           (-)-isoprenaline_HL60    0.10475352          1192     1318       238 3.108024e-24
-## 4                mebendazole_HL60    0.11033210          1192     1817       299 6.281549e-24
-## 5                  tretinoin_HL60    0.09301104          1192      888       177 1.302556e-22
-## 6                  pergolide_HL60    0.11107955          1192     2719       391 2.203268e-20
-## 7              bromocriptine_HL60    0.08947368          1192      878       170 2.543364e-20
-## 8          dihydroergotamine_HL60    0.09692237          1192     1196       211 4.395981e-20
-## 9                   lycorine_HL60    0.11291316          1192     4229       550 4.475942e-20
-## 10              tanespimycin_HL60    0.11140654          1192     2988       419 5.549520e-20
-## 11    co-dergocrine mesilate_HL60    0.10228137          1192     1707       269 1.428828e-18
-## 12            trichostatin A_HL60    0.11127691          1192     4021       522 1.895076e-18
-## 13             Prestwick-983_HL60    0.09537572          1192     1461       231 5.536597e-16
-## 14         methylergometrine_HL60    0.07056695          1192      583       117 2.678052e-15
-## 15                 clonidine_HL60    0.06911315          1192      556       113 3.297109e-15
-## 16              isotretinoin_HL60    0.07020649          1192      622       119 5.581359e-14
-## 17                 puromycin_HL60    0.09287430          1192     1538       232 1.067668e-13
-## 18                  monorden_HL60    0.04433140          1192      245        61 1.493799e-12
-## 19           podophyllotoxin_HL60    0.08635961          1192     1261       195 1.573915e-12
-## 20 15-delta prostaglandin J2_HL60    0.09484610          1192     1867       265 1.727186e-12
-##        adj_Pval
-## 1  8.154954e-24
-## 2  4.848876e-21
-## 3  1.080971e-20
-## 4  2.184723e-20
-## 5  4.530291e-19
-## 6  7.662964e-17
-## 7  8.845821e-17
-## 8  1.528922e-16
-## 9  1.556732e-16
-## 10 1.930123e-16
-## 11 4.969462e-15
-## 12 6.591075e-15
-## 13 1.925628e-12
-## 14 9.314264e-12
-## 15 1.146735e-11
-## 16 1.941197e-10
-## 17 3.713349e-10
-## 18 5.195432e-09
-## 19 5.474077e-09
-## 20 6.007155e-09</code></pre>
+<pre><code>##                                Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
+## anisomycin_HL60                   0.11933973          1192     3826       535 2.344725e-27
+## alprostadil_HL60                  0.11186805          1192     1909       312 1.394157e-24
+## (-)-isoprenaline_HL60             0.10475352          1192     1318       238 3.108024e-24
+## mebendazole_HL60                  0.11033210          1192     1817       299 6.281549e-24
+## tretinoin_HL60                    0.09301104          1192      888       177 1.302556e-22
+## pergolide_HL60                    0.11107955          1192     2719       391 2.203268e-20
+## bromocriptine_HL60                0.08947368          1192      878       170 2.543364e-20
+## dihydroergotamine_HL60            0.09692237          1192     1196       211 4.395981e-20
+## lycorine_HL60                     0.11291316          1192     4229       550 4.475942e-20
+## tanespimycin_HL60                 0.11140654          1192     2988       419 5.549520e-20
+## co-dergocrine mesilate_HL60       0.10228137          1192     1707       269 1.428828e-18
+## trichostatin A_HL60               0.11127691          1192     4021       522 1.895076e-18
+## Prestwick-983_HL60                0.09537572          1192     1461       231 5.536597e-16
+## methylergometrine_HL60            0.07056695          1192      583       117 2.678052e-15
+## clonidine_HL60                    0.06911315          1192      556       113 3.297109e-15
+## isotretinoin_HL60                 0.07020649          1192      622       119 5.581359e-14
+## puromycin_HL60                    0.09287430          1192     1538       232 1.067668e-13
+## monorden_HL60                     0.04433140          1192      245        61 1.493799e-12
+## podophyllotoxin_HL60              0.08635961          1192     1261       195 1.573915e-12
+## 15-delta prostaglandin J2_HL60    0.09484610          1192     1867       265 1.727186e-12
+##                                    adj_Pval
+## anisomycin_HL60                8.154954e-24
+## alprostadil_HL60               4.848876e-21
+## (-)-isoprenaline_HL60          1.080971e-20
+## mebendazole_HL60               2.184723e-20
+## tretinoin_HL60                 4.530291e-19
+## pergolide_HL60                 7.662964e-17
+## bromocriptine_HL60             8.845821e-17
+## dihydroergotamine_HL60         1.528922e-16
+## lycorine_HL60                  1.556732e-16
+## tanespimycin_HL60              1.930123e-16
+## co-dergocrine mesilate_HL60    4.969462e-15
+## trichostatin A_HL60            6.591075e-15
+## Prestwick-983_HL60             1.925628e-12
+## methylergometrine_HL60         9.314264e-12
+## clonidine_HL60                 1.146735e-11
+## isotretinoin_HL60              1.941197e-10
+## puromycin_HL60                 3.713349e-10
+## monorden_HL60                  5.195432e-09
+## podophyllotoxin_HL60           5.474077e-09
+## 15-delta prostaglandin J2_HL60 6.007155e-09</code></pre>
 </div>
 <div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
 <h2><span class="header-section-number">6.7</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
@@ -361,29 +361,29 @@ degMAsub &lt;- degMA[affyid,]
 degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file=&quot;./results/degOL_PMID26343147.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26343147[,2] &gt; 0) # Drugs with any overlap</code></pre>
-<pre><code>## [1] 407</code></pre>
+<pre><code>## [1] 3478</code></pre>
 <pre class="r"><code>degOL_PMID26343147[1:20,] # Top 20 scoring drugs</code></pre>
-<pre><code>##        Compound_Celltype Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
-## 1       idoxuridine_MCF7   0.009478673           211        2         2 0.0002862571 0.9956022
-## 2   (+)-chelidonine_HL60   0.004518072           211      456         3 0.9850316380 1.0000000
-## 3   (+)-chelidonine_MCF7   0.000000000           211       48         0 1.0000000000 1.0000000
-## 4    (+)-chelidonine_PC3   0.000000000           211       41         0 1.0000000000 1.0000000
-## 5  (+)-isoprenaline_HL60   0.005917160           211      299         3 0.8862525485 1.0000000
-## 6  (+)-isoprenaline_MCF7   0.000000000           211        0         0 1.0000000000 1.0000000
-## 7   (+)-isoprenaline_PC3   0.003412969           211       83         1 0.7593430020 1.0000000
-## 8    (+/-)-catechin_HL60   0.000000000           211        0         0 1.0000000000 1.0000000
-## 9    (+/-)-catechin_MCF7   0.000000000           211        0         0 1.0000000000 1.0000000
-## 10    (+/-)-catechin_PC3   0.000000000           211        0         0 1.0000000000 1.0000000
-## 11       (-)-MK-801_HL60   0.000000000           211        0         0 1.0000000000 1.0000000
-## 12       (-)-MK-801_MCF7   0.000000000           211        6         0 1.0000000000 1.0000000
-## 13        (-)-MK-801_PC3   0.000000000           211        0         0 1.0000000000 1.0000000
-## 14     (-)-atenolol_HL60   0.000000000           211        1         0 1.0000000000 1.0000000
-## 15     (-)-atenolol_MCF7   0.000000000           211        0         0 1.0000000000 1.0000000
-## 16      (-)-atenolol_PC3   0.000000000           211        0         0 1.0000000000 1.0000000
-## 17     (-)-catechin_MCF7   0.000000000           211        1         0 1.0000000000 1.0000000
-## 18 (-)-isoprenaline_HL60   0.011243386           211     1318        17 0.9108611894 1.0000000
-## 19 (-)-isoprenaline_MCF7   0.000000000           211        1         0 1.0000000000 1.0000000
-## 20  (-)-isoprenaline_PC3   0.003952569           211       43         1 0.5213246450 1.0000000</code></pre>
+<pre><code>##                               Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
+## idoxuridine_MCF7                0.009478673           211        2         2 0.0002862571 0.9956022
+## cinchonidine_MCF7               0.009389671           211        4         2 0.0016793094 1.0000000
+## papaverine_MCF7                 0.009090909           211       11         2 0.0142342625 1.0000000
+## trichlormethiazide_HL60         0.004739336           211        1         1 0.0169586883 1.0000000
+## beclometasone_HL60              0.016129032           211      104         5 0.0318882201 1.0000000
+## papaverine_HL60                 0.018648019           211      226         8 0.0388976900 1.0000000
+## nimodipine_HL60                 0.008695652           211       21         2 0.0486620004 1.0000000
+## midodrine_PC3                   0.004694836           211        3         1 0.0500221030 1.0000000
+## syrosingopine_HL60              0.015243902           211      122         5 0.0565837628 1.0000000
+## Prestwick-920_PC3               0.004672897           211        4         1 0.0661363675 1.0000000
+## sulfamethizole_MCF7             0.004672897           211        4         1 0.0661363675 1.0000000
+## zardaverine_HL60                0.018547141           211      448        12 0.0794990573 1.0000000
+## pyrvinium_PC3                   0.013201320           211       96         4 0.0803067056 1.0000000
+## etomidate_MCF7                  0.004651163           211        5         1 0.0819785629 1.0000000
+## nimesulide_MCF7                 0.004651163           211        5         1 0.0819785629 1.0000000
+## nordihydroguaiaretic acid_PC3   0.004651163           211        5         1 0.0819785629 1.0000000
+## procaine_PC3                    0.004651163           211        5         1 0.0819785629 1.0000000
+## remoxipride_MCF7                0.004651163           211        5         1 0.0819785629 1.0000000
+## tobramycin_HL60                 0.004651163           211        5         1 0.0819785629 1.0000000
+## triamcinolone_PC3               0.004651163           211        5         1 0.0819785629 1.0000000</code></pre>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
 <h2><span class="header-section-number">6.8</span> Drugs affecting known longevity genes</h2>
@@ -490,8 +490,9 @@ data(diseaseRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(diseaseRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
-diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)
-diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
+diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)</code></pre>
+<pre><code>## Number of Significant results greater than 20 Using top 20 hits - consider using average linkage instead</code></pre>
+<pre class="r"><code>diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
                             dynamic.fdr=0.5, adj=&quot;BH&quot;, no.signif=100)
 write.table(diseasecmap2, file=&quot;./results/diseasecmap2.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
