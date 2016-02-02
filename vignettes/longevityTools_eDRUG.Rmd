@@ -139,7 +139,8 @@ file named
 [cmap_instances_02.txt](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt).
 The following count statisitics are extracted from this file.
 
-The panel of cell lines used by CMAP includes [MCF7](http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7), 
+The panel of cell lines used by CMAP includes 
+[MCF7](http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7), 
 [ssMCF7](http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7), 
 [HL60](http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#hl60), 
 [PC3](http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#pc3) and 
