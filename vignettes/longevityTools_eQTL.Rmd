@@ -143,6 +143,19 @@ head(result)
 
 There are `r nrow(result)` eSNPs.
 
+# SNP clumping using PLINK
+Save results from geneGrep to external file gtex.txt 
+Download 1KG genotype data in PLINK format here: https://www.cog-genomics.org/plink2/resources#1kg
+Run clump command using default settings, but might want to change with different nominal significance thresholds.
+
+```
+plink -bfile 1kg_phase1_chr22 --clump gtex.txt
+```
+
+Output from PLINK clump command will be set of independent eSNPs in the region. 
+
+Next step, extract independent eSNPs from individual level genotype data, build MR risk score, evaluate for association with survival time.
+
 <div align="right">[Back to Table of Contents]()</div>
 
 # Funding

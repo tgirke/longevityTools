@@ -71,8 +71,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul></li>
 <li><a href="#sample-data-from-gtex"><span class="toc-section-number">5</span> Sample data from GTEx</a></li>
 <li><a href="#utilities"><span class="toc-section-number">6</span> Utilities</a></li>
-<li><a href="#funding"><span class="toc-section-number">7</span> Funding</a></li>
-<li><a href="#version-information"><span class="toc-section-number">8</span> Version information</a></li>
+<li><a href="#snp-clumping-using-plink"><span class="toc-section-number">7</span> SNP clumping using PLINK</a></li>
+<li><a href="#funding"><span class="toc-section-number">8</span> Funding</a></li>
+<li><a href="#version-information"><span class="toc-section-number">9</span> Version information</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
@@ -192,19 +193,26 @@ head(result)</code></pre>
 ## 5 22_19819703_T_C_b37 -0.5795619 7.729480e-14   T   C    TXNRD2
 ## 6 22_19827244_T_A_b37 -0.2030922 1.193292e-05   T   A    TXNRD2</code></pre>
 <p>There are 139 eSNPs.</p>
+</div>
+<div id="snp-clumping-using-plink" class="section level1">
+<h1><span class="header-section-number">7</span> SNP clumping using PLINK</h1>
+<p>Save results from geneGrep to external file gtex.txt Download 1KG genotype data in PLINK format here: <a href="https://www.cog-genomics.org/plink2/resources#1kg" class="uri">https://www.cog-genomics.org/plink2/resources#1kg</a> Run clump command using default settings, but might want to change with different nominal significance thresholds.</p>
+<pre><code>plink -bfile 1kg_phase1_chr22 --clump gtex.txt</code></pre>
+<p>Output from PLINK clump command will be set of independent eSNPs in the region.</p>
+<p>Next step, extract independent eSNPs from individual level genotype data, build MR risk score, evaluate for association with survival time.</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="funding" class="section level1">
-<h1><span class="header-section-number">7</span> Funding</h1>
+<h1><span class="header-section-number">8</span> Funding</h1>
 <p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="version-information" class="section level1">
-<h1><span class="header-section-number">8</span> Version information</h1>
+<h1><span class="header-section-number">9</span> Version information</h1>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 3.2.3 (2015-12-10)
 ## Platform: x86_64-apple-darwin13.4.0 (64-bit)
