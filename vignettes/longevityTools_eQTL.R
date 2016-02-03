@@ -33,7 +33,7 @@ source(fctpath)
 ## ----geneGrep, eval=TRUE-------------------------------------------------
 library(longevityTools)
 samplepath <- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package="longevityTools") 
-dat <- read.delim(samplepath,sep=" ")
+dat <- read.delim(samplepath)
 myGenes <- c("TXNRD2")
 result <- geneGrep(dat, myGenes)
 result
