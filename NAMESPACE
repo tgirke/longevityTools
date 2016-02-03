@@ -5,5 +5,6 @@ export(
     ## Data sets
 
     ## Utilities
-    "geneGrep", "getCmap", "getCmapCEL", "normalizeCel", "combineResults"
+    "geneGrep", "getCmap", "getCmapCEL", "normalizeCel", "combineResults",
+    "sampleList", "runLimma", "probeset2gene"
 ) 

@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 <h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 27 January, 2016</em></h4>
+<h4 class="date"><em>Last update: 02 February, 2016</em></h4>
 </div>
-<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.1</span></h4>
+<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.3</span></h4>
 
 <h1>Contents</h1>
 <div id="TOC">
@@ -62,9 +62,13 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
 </ul></li>
-<li><a href="#import-custom-functions"><span class="toc-section-number">3</span> Import custom functions</a></li>
+<li><a href="#setup-of-working-environment"><span class="toc-section-number">3</span> Setup of working environment</a><ul>
+<li><a href="#import-custom-functions"><span class="toc-section-number">3.1</span> Import custom functions</a></li>
+<li><a href="#create-expected-directory-structure"><span class="toc-section-number">3.2</span> Create expected directory structure</a></li>
+</ul></li>
 <li><a href="#data-downloads"><span class="toc-section-number">4</span> Data downloads</a><ul>
 <li><a href="#download-data-from-connectivity-map-project-site"><span class="toc-section-number">4.1</span> Download data from Connectivity Map project site</a></li>
+<li><a href="#overiew-of-cmap-data"><span class="toc-section-number">4.2</span> Overiew of CMAP data</a></li>
 </ul></li>
 <li><a href="#pre-processing-of-cel-files"><span class="toc-section-number">5</span> Pre-processing of CEL files</a><ul>
 <li><a href="#determine-chip-type-from-cel-files"><span class="toc-section-number">5.1</span> Determine chip type from CEL files</a></li>
@@ -75,11 +79,13 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#deg-analysis-with-limma"><span class="toc-section-number">6</span> DEG analysis with <code>limma</code></a><ul>
 <li><a href="#generate-list-of-cel-names-defining-treatment-vs.control-comparisons"><span class="toc-section-number">6.1</span> Generate list of CEL names defining treatment vs. control comparisons</a></li>
 <li><a href="#load-normalized-expression-data"><span class="toc-section-number">6.2</span> Load normalized expression data</a></li>
-<li><a href="#deg-analysis-with-limma-1"><span class="toc-section-number">6.3</span> DEG analysis with Limma</a></li>
+<li><a href="#deg-analysis-with-limma-1"><span class="toc-section-number">6.3</span> DEG analysis with <code>limma</code></a></li>
 <li><a href="#obtain-annotation-information"><span class="toc-section-number">6.4</span> Obtain annotation information</a></li>
-<li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.5</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
-<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">6.6</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
-<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.7</span> Drugs affecting known longevity genes</a></li>
+<li><a href="#transform-probe-set-to-gene-level-data"><span class="toc-section-number">6.5</span> Transform probe set to gene level data</a></li>
+<li><a href="#number-of-degs-per-drug-treatment"><span class="toc-section-number">6.6</span> Number of DEGs per drug treatment</a></li>
+<li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.7</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">6.8</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.9</span> Drugs affecting known longevity genes</a></li>
 </ul></li>
 <li><a href="#connectivity-maps-enrichment-analysis"><span class="toc-section-number">7</span> Connectivity maps enrichment analysis</a><ul>
 <li><a href="#query-drug-signatures"><span class="toc-section-number">7.1</span> Query drug signatures</a></li>
@@ -129,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>This vignette is part of the NIA funded Longevity Genomics project. For more information on ths project please visit its website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html">here</a>.</p>
+<p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html">here</a>.</p>
 <p>The project component covered by this vignette analyzes drug- and age-related genome-wide expression data from public microarray and RNA-Seq experiments. One of the main objective is the identification drug candidates modulating the expression of longevity genes and pathways. For this, we compare age-related expression signatures with those from drug treamtments. The age-related query signatures are from recent publications such as Peters et al. <span class="citation">(2015)</span> and Sood et al. <span class="citation">(2015)</span>, while the drug-related reference signatures are from the Connectivity Map (CMAP) and LINCS projects <span class="citation">(Lamb et al. 2006)</span>.</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
@@ -156,8 +162,10 @@ vignette(topic=&quot;longevityTools_eDRUG&quot;, package=&quot;longevityTools&qu
 </div>
 </div>
 </div>
-<div id="import-custom-functions" class="section level1">
-<h1><span class="header-section-number">3</span> Import custom functions</h1>
+<div id="setup-of-working-environment" class="section level1">
+<h1><span class="header-section-number">3</span> Setup of working environment</h1>
+<div id="import-custom-functions" class="section level2">
+<h2><span class="header-section-number">3.1</span> Import custom functions</h2>
 <p>Preliminary functions that are still under developement, or not fully tested and documented can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
 <pre class="r"><code>fctpath &lt;- system.file(&quot;extdata&quot;, &quot;longevityTools_eDRUG_Fct.R&quot;, package=&quot;longevityTools&quot;)
 source(fctpath)</code></pre>
@@ -165,13 +173,45 @@ source(fctpath)</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
+<div id="create-expected-directory-structure" class="section level2">
+<h2><span class="header-section-number">3.2</span> Create expected directory structure</h2>
+<p>The following creates the directory structure expected by this workflow. Input data will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory. All paths are given relative to the present working directory of the user’s R session.</p>
+<pre class="r"><code>dir.create(&quot;data&quot;); dir.create(&quot;data/CEL&quot;); dir.create(&quot;results&quot;) </code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+</div>
 <div id="data-downloads" class="section level1">
 <h1><span class="header-section-number">4</span> Data downloads</h1>
 <div id="download-data-from-connectivity-map-project-site" class="section level2">
 <h2><span class="header-section-number">4.1</span> Download data from Connectivity Map project site</h2>
-<p>The drug-related expression data are downloaded from the CMAP web site <a href="http://www.broadinstitute.org/cmap">here</a>. The <code>getCmap</code> function downloads the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code> downloads the corresponding 7,056 CEL files. The functions will write the downloaded files to a <code>data</code> directory within the present workding directory of the user’s R session. This <code>data</code> directory plus a <code>data/CEL</code> sub-directory need to be created by the user prior to running the download functions. Since some of the raw data sets are large, the functions will only rerun the download if the argument <code>rerun</code> is assigned <code>TRUE</code>. If the raw data are not needed then users can skip this time consuming download step and work with the preprocessed data obtained in the next section.</p>
+<p>The drug-related expression data are downloaded from the CMAP web site <a href="http://www.broadinstitute.org/cmap">here</a>. The <code>getCmap</code> function downloads the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code> downloads the corresponding 7,056 CEL files. The functions will write the downloaded files to the <code>data</code> and <code>data/CEL</code> directories within the present working directory of the user’s R session. Since some of the raw data sets are large, the functions will only rerun the download if the argument <code>rerun</code> is assigned <code>TRUE</code>. If the raw data are not needed then users can skip this time consuming download step and work with the preprocessed data obtained in the next section.</p>
 <pre class="r"><code>getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="overiew-of-cmap-data" class="section level2">
+<h2><span class="header-section-number">4.2</span> Overiew of CMAP data</h2>
+<p>The experimental design of the CMAP project is defined in the file <code>cmap_instances_02.xls</code>. Note, this file required some cleaning in LibreOffice (Excel would work for this too). After this it was saved as tab delimited txt file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>. The following count statisitics are extracted from this file.</p>
+<p>The panel of cell lines used by CMAP includes <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7">MCF7</a>, <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7">ssMCF7</a>, <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#hl60">HL60</a>, <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#pc3">PC3</a> and <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#skmel5">SKMEL5</a>. Each cell type was subjected to the following number of total treatments and number of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.</p>
+<pre class="r"><code>library(ggplot2); library(reshape2) 
+cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
+df &lt;- data.frame(table(cmap[, &quot;cell2&quot;]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),&quot;cell2&quot;])))
+colnames(df) &lt;- c(&quot;Cell_type&quot;, &quot;Treatments&quot;, &quot;Drugs&quot;)
+df &lt;- melt(df, id.vars=c(&quot;Cell_type&quot;), variable.name = &quot;Samples&quot;, value.name=&quot;Counts&quot;)
+ggplot(df, aes(Cell_type, Counts, fill=Samples)) + 
+       geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;) + 
+       ggtitle(&quot;Number of treatments by cell types&quot;)</code></pre>
+<p><img src="data:image/png;base64,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PdWqVVu2bJkQ4vTp04qi7Nmzp02bNjVr1pwwYcLt27cL956UlPTggw/6+Ph07Nhx165dauORI0ciIiKqV6/u5+f38MMPnzhxwon7X34IeACAC3n++edHjBgRHh6+atWqX3/91Wq1+vr69uzZUwiRk5MTHh6elpb24YcffvXVV/fff/+wYcNsD5wyZcpLL710+PDhVq1aPf7449u2bfv888+fe+65adOmXb9+XV1n0qRJr7/+elxcXGJi4uzZswt0feTIkb///e+jR49OTk7u0qVL7969k5OTTSbTI4880rx58+3bt+/YsaNu3bpDhw6tsNG4G4pT71xwqoyMDK1LKIWnp6e3t7dr1um7NEbD3pV5y7KzszUswAUFBgbeuHEjNzdX60JciNFo9PPzy8rKMpvNWtfiQnx8fAwGQ1ZWltaFlC4wMPAOHmW1Wnfu3PnJJ5989dVXKSkpwcHBo0ePnjFjhtFovH79+gcffBAeHt66dWshxP79+zt37qymmKIoW7du7du3rxDip59+ateu3e+//x4SEpKVlVW9evVTp04JIZo1a/b5559HREQIIRITE0eOHJmZmakoiqIop06dCg0NHTp0aGho6KxZs9RKevXq5e3tHRsbGxwc/OOPP7Zt21YIce3atW+//VbtyMVxBA8AcCGKojz++ONr1669cOHC2bNnR4wY8dZbb6kX4P39/SdOnJiRkfH6668PHjy4X79+9g9s0qSJOuHp6SmEaNCggRCiWrVq9ut06dJFnejevfu1a9cKHIDt378/PDzcNhsREXHu3Lm6deuOGTOmS5cujz766IIFC7KzsytFugsCHgDgOtLT0/v163fr1i0hhKIojRs3njdv3vr16xMSEtQVBg8eHBUVde3atVGjRiUmJto/VlGUEmYL0Ol0Qoj8/Hz7xosXL3bp0kX5r8mTJ1+4cEFRlH/961/nz5+PiIg4dOhQaGjojBkzymVnna2sd9EfP3586NChc+fO7du37/Tp02NjY++///5169aFhIQ4tT6gIml45SJPCPHqAq16B1yEn5/ff/7zn+3btw8cONDWmJ2dXa9ePSFERkbGxx9/fPny5Vq1agkh9u/f7+j29+7dq56i//bbb318fOrUqWO/tE6dOnFxcWFhYers+fPnb9y4ce3atYULFy5YsODFF1988cUXd+zY8cwzzyxcuPAu9rKClDXgX3jhhVatWnXv3v3ChQtvv/12QkLC+vXrJ02atHnzZqfWBwCoOtzd3adPnz5s2LBjx4517drV29v76NGjc+fOfe2114QQXl5e7u7uq1atGjJkyC+//DJ9+nQhxLlz5xo1alTG7U+cONFoNObl5UVHR0dFRRU4yh8+fHhUVNSSJUsaNWp08ODBiRMnTp06ddasWXFxcXl5eUOHDs3JyVm/fv39999f7jvuDGUN+EOHDsXExAQEBMTGxj766KO9e/f29/d/8sknnVocAKCqeeWVV+rWrbtx48bVq1fn5ubed999y5YtU++W9/Ly+vDDD6dNm7Z8+fLOnTtv3Lhx/PjxPXv2PH/+fBk3vnDhQvVrcwYMGKD+02Bv5syZiqJMmjTp0qVLDRo0ePXVV19++WWdTpeYmDhlypT333/faDSGhYWtW7eunPfZOcp6F31AQMDnn3/epUuXRx55JCIiQv0oQlhY2F9//eXsEovjmnen2+Mu+uK47F302g5L/qsLuIveHnfRF0n6u+id5PTp082aNau8Hxy7A2W9ya5jx46fffbZTz/99NVXXz366KNms/mjjz5q06aNU4sDAAB3pqwBv3jx4vj4+Hbt2g0ZMqR58+YzZszYsGHDkiVLnFocAADlwmAwNG7cWOsqKlRZr8G3bds2NTX1zz//rFu3rhBi5syZCxcu1Ov1zqwNAIDy0bhx47Nnz2pdRYUq6xG8oihubm716tVT7zkMCAj4888/q1ev7szaAADAHSrlCD4/P/+3335Tpwv8XO4PP/xQ5Df1AwAAzZUS8H/++WezZs3UaduESlGUCRMmOKsuAEDVk5+fb3ll8t1swbjorZK/w67qKCXgg4ODbd/jX6U+XQAAqHgWi0XrEuRR1pvsrFbrzZs3U1JSCrSHhoaWd0kAAOBulTXgN27cOHz48MIX3TmsBwDABZX1LvoZM2ZMmDDh5s2b1v/l1OIAAMCdKWvAX7t2LTo62svLy6nVAACAclHWgA8PDz969KhTSwEAAOWlrNfgp0yZ8uKLL6alpXXs2NHT09PWzk12AADXFB4evnfvXiFEXl6eu7u7EKJHjx47d+7Uuq4KUtaA79KlixDi4MGDBdq5DA8AcE1fffWVOuHm5nb3P9XYr1+/xMTEuy7KiRsswIGPyTmvCAAAXNzWrVtdfIMFlPUaPAAAclAUZe3atSEhIWfPnu3evXvNmjXDw8N///13denWrVtbt25do0aNOnXqLFu2TG2MjIwUQnTo0EF9+PTp0+vVqzdnzpzZs2eHhob6+/svWLBACFHkBtWHbNiwoX379jVq1HjzzTcLbDAuLq5u3bpBQUFvv/12Oe6mAz82U6RyLAUAgIrx888/79mzJyoqasKECZcvX3755ZdHjhypLoqJiRk1alR6evqXX345a9YstXHz5s1CiB9++EGdbdeu3X/+85+YmJigoKBjx45t2bJl3rx5QogiN6hKS0s7fPjw5s2bZ86cWWCDkydP3r179759+8r3/oCyfgGt/S/N5ObmHj58eMWKFZs2bWratGk5VuOQjIwMrbouI09PT29vb9es03dpjIa9K/OWZWdna1hAcbQdlvxXF9z9ZUKZGI1GPz+/rKwss9msdS0uxMfHx2AwZGVlaV1I6QIDAx19SF5enpj98t10WuR30bu5uZlMJtusoihXrlwJCgry8vLKyclRGwMCAtRRtVgshw4dOnHixDfffBMfH29LSdtXtiuKkpeXZzAYdDpdfn6+m5ub1WrV6XRWq7XIDaoPyc7O9vX1LbAddeLJJ5/Mz88fMWLE008/7eZW1kvnpSrrhgrcLX///ffXrVt37NixX3/9dXmVAgBAxQgKChJC+Pv7nz17tm7duhaLJTU1VV00cOBAnU43ePDghQsXxsfHF/lwo9GoTqh5bPuXosgNqtR0L1JiYuKXX365du3aNWvW7Nq166537v+782vwderUsZ2sAACg0nn00UdXr15tNptXrFjxwgsvqI1ffvnlP//5z759++7evVsIYX/on5+ffwcbLIG6wSZNmtx7771z5swp/FG1u1HWI/gCPwafm5s7f/78Bg0alGMpAABUpCVLlgwfPrxmzZrNmzdfv3692jh//vywsLDatWsPGjSoV69e48aNW716tRDisccea9q06blz5xzdYHFsG5w0aVLHjh2NRuPSpUvLa9dE2a/BF76kERISEhcXFx4eXo7VOMQ1r23b4xp8cbgGXySuwRfANfgicQ2+ZPwevA2fgwcAQEKOXYO3Wq1XrlxJS0sj7wEAcGVlPYLPy8ubPXv2qlWr1DOrfn5+48aNi4mJsd1JWPHsvxLfNRkMBlEZ6qx4er2eYSnMaDRyatGeXq8XQri7u3NEYU+v1yuK4vrvIIvFonUJVV1Z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IZ1OV+Amu+LWvHnz5pUrVxYvXqzX6zdv3vz222/HxMRYLBbbClar1Ww2O7fcCuHt7d2wYcOTJ0/qdLp77rnH09PTtigwMDArK8v2l8VisezatUv9417kn2mz2fzpp5++/vrrFVN5hSlyZ4sbHHd3dyFEQkLC9u3b33//ffWCfSViNBojIyMjIyPT09Pj4+Nfe+019d8Uq9U6ePDg9u3bP//88wcOHLA/DC3hJSTKfOU4MDDQNlbDhg174YUXym+fyk2LFi3i4uJ69uxpuy+hcIvgPYW7wyl6p6tWrdqgQYP8/f19fHz69+9/5swZIUTNmjVTU1PVFdLS0mrVqqVpjeVGPaO4b9++zp0727ffd9999t+effbs2XXr1hmNxuK2c/LkyXr16nl4eDixVpdR5ODk5+e/9957Qgh3d/devXpVxq+pHzBgwOXLl4UQQUFBo0ePtu2CTqfr2rWrh4fHuHHjVq5cefPmTftHFfcSKrtLly4dP35cnTYYDK55++qsWbP69Omzb9++mJiY4lpUvKdwxwh4p+vSpUtCQsLt27dNJtOWLVtatmwphOjRo0dCQoLZbDaZTJs2bSpworLyevDBBw8cOHDw4MGOHTvatz/77LOffPLJ999/n5eX98cff7zzzjsRERGKohS3nf3797dv39759bqEIgfH29v70KFDP/74oxBi7969tg/UVSLt27ffsGHDX3/9df369c8//7x169YFVujQoUOrVq0++OAD+8biXkIOmT9//oULF9Rj1rvZjvNERUXVrVt30KBBv/76a3EtKt5TuGOu+L9tpWaxWCIjI22zmzdvfuaZZ9asWfOPf/zDarW2adNGvdWoT58+mZmZ48ePt1qtnTt37t27t3Yllyd/f/86deooiuLn52ffXrt27ZkzZ8bFxb311lu+vr4PPfSQ+nmeIlmt1gMHDjz11FPOr9clFDk4iqLMmDHj3XfffeONN2rXru2a55lLNnHixPfeey86Ojo/P79Vq1Zjx44tvM6YMWPGjx/fvXt3W/wX9xISQti/s8R/PwxW+B1Xr169sWPHLlq06MaNG23bti2yX83169dv8uTJbm5uI0eOLK5FxXsKd4zvogcAQEKcogcAQEIEPAAAEiLgAQCQEAEPAICECHgAACREwAN3Ii8vb9asWW3atPHy8mrUqNHEiRMzMjJKfZSiKKdPn7afKM7Fixfz8/PLrVwAVQ+fgwccZjabw8LCsrOzX3rppXvvvff06dOLFy8+cODAN998o36/7N2rX7/+qVOnQkNDy2VrAKogAh5w2Pvvv3/9+vUDBw74+voKIcLCwiIiIho3brxt27b+/ftrXR0ACMEpeuAOvPXWW7NmzVLTXRUSErJ27dqgoCBbS1JS0oMPPujj49OxY8ddu3Y5tH31C0ebNWumKMrLL7/80EMP2RbNnz+/efPmp06dUhRlz549bdq0qVmz5oQJE27fvl0uXQOQBgEPOCY/P//MmTOFf6p8yJAhYWFh6vSRI0f+/ve/jx49Ojk5uUuXLr17905OTi57F+r3S546dcpqtUZGRn733Xe2HxTeuHHj0KFD1f8AJk2a9Prrr8fFxSUmJs6ePbtcugYgDb6qFnDMhQsXGjZseOvWrQI/Zmpv6NChoaGhs2bNUmd79erl7e2dmJioKIp6Zd02UdwWbCtYLJYGDRrMnTv3ueeeO378eKtWrX7//fecnJxmzZp9/vnnERERQojExMSRI0dmZmYqilJc1+U6BgAqAY7gAcfUqVNHr9enpaUVaE9NTVV/C1gIsX//fvtfCIyIiDh37tyddafT6SIjIz/77DMhxMaNG7t37x4SEqIusp1F6N69+7Vr19Tb+MuxawCVGjfZAY4xGo2NGzf+/vvvGzVqZN/+7LPPBgQEqMfKFy9eLHAOv/Bvo5VdZGRkr169srOzN27cOG3atMIr6HQ6IYT6sbry7RpA5cURPOCwsWPHxsTEXLt2zdZy4sSJ77777pFHHlFn69Sp8/XXX1v/69y5c999990dd9e1a9eAgICYmJiUlJS///3vtva9e/eqE99++62Pj0+dOnXKvWsAlRcBDzgsOjra19e3Q4cOq1at+uqrr958882ePXu2atVq9OjR6grDhw+PioraunXrsWPH1qxZ06pVqy1btjjUhaIoP/zwQ2pqqhBCr9c//fTTb7zxxhNPPFGtWjXbOhMnTkxKSvr888+jo6OjoqLUO+/uvmsAkrACcNyNGzcmTZoUGhrq6el53333vfjii1lZWbalt2/fnjt3bqNGjdzd3Zs0abJo0SKz2Wy1uzfeNlGcCRMmeHt7V6tWTZ39z3/+I4T47LPP1NlTp04JIT799NN77723Ro0a48aNy83NLblrAFUNd9EDlcDWrVtHjBhx+fJl9ZvyTp8+3axZM968AErATXaAS8vPz7958+by5cuHDRtWXt+DC6Aq4Bo8oBmleLZ1jh49Wq1ataysrJiYGFujwWBo3LixFiUDqDQ4RQ+4uqtXr1avXt0+9QGgVAQ8AAAS4hQ9AAASIuABAJAQAQ8AgIQIeAAAJETAAwAgof8HVDuFrT8XRJMAAAAASUVORK5CYII=" /><!-- --></p>
+<p>The number Affymetrix chip used in the experiments is plotted here for each of the three chip types used by CMAP:</p>
+<pre class="r"><code>df &lt;- data.frame(table(cmap$array3)); colnames(df) &lt;- c(&quot;Chip_type&quot;, &quot;Counts&quot;) 
+ggplot(df, aes(Chip_type, Counts)) + 
+       geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;, fill=&quot;cornflowerblue&quot;) + 
+       ggtitle(&quot;Number of chip types&quot;)</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -184,17 +224,18 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 <p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A, HT_HG-U133A and U133AAofAv2). The following extracts the chip type information from the CEL files and stores the result in an <code>rds</code> file with the path <code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
 <pre class="r"><code>celfiles &lt;- list.files(&quot;./data/CEL&quot;, pattern=&quot;.CEL$&quot;)
 chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0(&quot;data/CEL/&quot;, x))$chiptype)
-saveRDS(chiptype, &quot;./data/chiptype.rds&quot;)</code></pre>
+if(FALSE) saveRDS(chiptype, &quot;./data/chiptype.rds&quot;) # if(FALSE) protects this line from accidental execution!</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="normalization-of-cel-files" class="section level2">
 <h2><span class="header-section-number">5.2</span> Normalization of CEL files</h2>
-<p>The follwoing processes the CEL files from each chip type separately using the MAS5 normalization algorithm. To save time, the processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a computer cluster with a scheduler (<em>e.g.</em> Torque).</p>
+<p>The follwoing processes the CEL files from each chip type separately using the MAS5 normalization algorithm. The results will be written to 3 subdirectores under <code>data</code> that are named after the chip type names. To save time, the processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a computer cluster with a scheduler (<em>e.g.</em> Torque). The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. Note, these numbers are slightly different than those reported in the <code>cmap_instances_02.txt</code> file. The MAS5 normalized data sets can be downloaded here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds">HG-U133A</a>, <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds">HT_HG-U133A</a>, <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/U133AAofAv2/all_mas5exprs.rds">U133AAofAv2</a>.</p>
 <pre class="r"><code>library(BiocParallel); library(BatchJobs); library(affy)
+chiptype &lt;- readRDS(&quot;./data/chiptype.rds&quot;)
 chiptype_list &lt;- split(names(chiptype), as.character(chiptype))
-normalizeCel(chiptype_list, rerun=FALSE) # Note: expects in pwd files torque.tmpl and .BatchJobs.R</code></pre>
+normalizeCel(chiptype_list, rerun=FALSE) </code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -210,8 +251,8 @@ combineResults(chiptype_dir, rerun=FALSE)</code></pre>
 <div id="clean-up-of-intermediate-files" class="section level2">
 <h2><span class="header-section-number">5.4</span> Clean-up of intermediate files</h2>
 <p>This deletes intermediate files. Before executing these lines, please make sure that this is what you want.</p>
-<pre class="r"><code># for(i in seq_along(chiptype_dir)) unlink(list.files(paste0(&quot;data/&quot;, chiptype_dir[i]), pattern=&quot;cellbatch&quot;, full.names=TRUE), recursive=TRUE)
-# unlink(&quot;data/CEL/&quot;) # Deletes downloaded CEL files</code></pre>
+<pre class="r"><code>for(i in seq_along(chiptype_dir)) unlink(list.files(paste0(&quot;data/&quot;, chiptype_dir[i]), pattern=&quot;cellbatch&quot;, full.names=TRUE), recursive=TRUE)
+unlink(&quot;data/CEL/*.CEL&quot;) # Deletes downloaded CEL files</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -221,7 +262,8 @@ combineResults(chiptype_dir, rerun=FALSE)</code></pre>
 <h1><span class="header-section-number">6</span> DEG analysis with <code>limma</code></h1>
 <div id="generate-list-of-cel-names-defining-treatment-vs.control-comparisons" class="section level2">
 <h2><span class="header-section-number">6.1</span> Generate list of CEL names defining treatment vs. control comparisons</h2>
-<pre class="r"><code>cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) # Note: cmap_instances_02.xls converted to txt with LibreOffice
+<p>The <code>sampleList</code> function extracts the sample comparisons (contrasts) from the CMAP annotation table and stores them as a list.</p>
+<pre class="r"><code>cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
 # comp_list &lt;- sampleList(cmap, myby=&quot;CMP&quot;)
 comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)</code></pre>
 <div align="right">
@@ -236,12 +278,16 @@ df1 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[1], &quot;/&quot;, &quo
 df2 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[2], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
 df3 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[3], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
 affyid &lt;- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid &lt;- affyid[affyid %in% rownames(df3)]
-df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
+mas5df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
 </div>
 <div id="deg-analysis-with-limma-1" class="section level2">
-<h2><span class="header-section-number">6.3</span> DEG analysis with Limma</h2>
+<h2><span class="header-section-number">6.3</span> DEG analysis with <code>limma</code></h2>
 <p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package. Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and a minimum fold change of 2). The DEG matrix is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
-<pre class="r"><code>degMA &lt;- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+<pre class="r"><code>degMA &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
+degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 saveRDS(degMA, &quot;./results/degMA.rds&quot;)</code></pre>
 <div align="right">
@@ -250,7 +296,7 @@ saveRDS(degMA, &quot;./results/degMA.rds&quot;)</code></pre>
 </div>
 <div id="obtain-annotation-information" class="section level2">
 <h2><span class="header-section-number">6.4</span> Obtain annotation information</h2>
-<p>The following generates annotation information for the Affymetirx probe set identifiers. Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. The annotation libraries for the two first ones are <code>hgu133a.db</code>and <code>hthgu133a.db</code>. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
+<p>The following generates annotation information for the Affymetirx probe set identifiers. Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The annotation libraries for the chip types HG-U133A and HT_HG-U133A are <code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
 <pre class="r"><code>library(hgu133a.db)
 myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 
@@ -263,116 +309,178 @@ saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
+<div id="transform-probe-set-to-gene-level-data" class="section level2">
+<h2><span class="header-section-number">6.5</span> Transform probe set to gene level data</h2>
+<p>The <code>probeset2gene</code> function translates a binary DEG matrix from the probe level (<code>row.names</code> are Affy IDs) to the gene level (<code>row.names</code> are gene IDs). Genes represented by several probe sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are supported: <code>summary_rule=1L</code> will consider a gene as a DEG for a specific treatment if at least one of several probe sets supports this assignment, while <code>summary_rule=2L</code> requires support from at least 2 probe sets.</p>
+<pre class="r"><code>myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
+degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
+degMAgene &lt;- probeset2gene(degMA, myAnnot, geneIDtype=&quot;ENTREZID&quot;, summary_rule=1L)
+saveRDS(degMAgene, &quot;./results/degMAgene.rds&quot;)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="number-of-degs-per-drug-treatment" class="section level2">
+<h2><span class="header-section-number">6.6</span> Number of DEGs per drug treatment</h2>
+<pre class="r"><code>degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;)
+y &lt;- as.numeric(colSums(degMAgene))
+interval &lt;- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
+df &lt;- data.frame(interval); colnames(df) &lt;- c(&quot;Bins&quot;, &quot;Counts&quot;)
+ggplot(df, aes(Bins, Counts)) + 
+       geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;, fill=&quot;cornflowerblue&quot;) + 
+       ggtitle(&quot;DEG numbers by bins&quot;)</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
 <div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
-<h2><span class="header-section-number">6.5</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
-<p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric to sort the drug table. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
+<h2><span class="header-section-number">6.7</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
+<p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to observe the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
-affyid &lt;- row.names(myAnnot[myAnnot$ENTREZID %in% PMID26490707$&quot;NEW.Entrez.ID&quot;,])
-# degMA &lt;- read.delim(&quot;./results/degMA.xls&quot;, row.names=1, check.names=FALSE)
-degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
-degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-degMAsub &lt;- degMA[affyid,]
-c &lt;- colSums(degMAsub==1) # Common in both (c)
-a &lt;- colSums(degMAsub==0) # Only in query (a)
-b &lt;- colSums(degMA==1) - c # Only in cmap (b)
-j &lt;- c/(c+a+b) # Jaccard similarity 
-r &lt;- sort(j, decreasing=TRUE)
-degOL_PMID26490707 &lt;- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+geneid &lt;- as.character(PMID26490707$&quot;NEW.Entrez.ID&quot;)
+degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
+degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
+degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
-degOL_PMID26490707[1:20,]</code></pre>
-<pre><code>##                            CMP Jaccard_Index
-## 1              anisomycin_HL60    0.10581448
-## 2               pergolide_HL60    0.10348299
-## 3             alprostadil_HL60    0.10213891
-## 4                lycorine_HL60    0.10194778
-## 5            tanespimycin_HL60    0.09935438
-## 6                 emetine_HL60    0.09638932
-## 7              vorinostat_HL60    0.09631122
-## 8           trichostatin A_PC3    0.09492953
-## 9             mebendazole_HL60    0.09412955
-## 10       (-)-isoprenaline_HL60    0.09163464
-## 11             vorinostat_MCF7    0.09122108
-## 12 co-dergocrine mesilate_HL60    0.09107612
-## 13            midecamycin_HL60    0.09038592
-## 14           tanespimycin_MCF7    0.09027778
-## 15             cephaeline_MCF7    0.08966813
-## 16           8-azaguanine_HL60    0.08924279
-## 17          Prestwick-983_HL60    0.08851541
-## 18               baclofen_HL60    0.08798351
-## 19           camptothecin_MCF7    0.08797251
-## 20          helveticoside_HL60    0.08634280</code></pre>
+sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap</code></pre>
+<pre><code>## [1] 880</code></pre>
+<pre class="r"><code>degOL_PMID26490707[1:20,]</code></pre>
+<pre><code>##                                Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
+## anisomycin_HL60                   0.11933973          1192     3826       535 2.344725e-27
+## alprostadil_HL60                  0.11186805          1192     1909       312 1.394157e-24
+## (-)-isoprenaline_HL60             0.10475352          1192     1318       238 3.108024e-24
+## mebendazole_HL60                  0.11033210          1192     1817       299 6.281549e-24
+## tretinoin_HL60                    0.09301104          1192      888       177 1.302556e-22
+## pergolide_HL60                    0.11107955          1192     2719       391 2.203268e-20
+## bromocriptine_HL60                0.08947368          1192      878       170 2.543364e-20
+## dihydroergotamine_HL60            0.09692237          1192     1196       211 4.395981e-20
+## lycorine_HL60                     0.11291316          1192     4229       550 4.475942e-20
+## tanespimycin_HL60                 0.11140654          1192     2988       419 5.549520e-20
+## co-dergocrine mesilate_HL60       0.10228137          1192     1707       269 1.428828e-18
+## trichostatin A_HL60               0.11127691          1192     4021       522 1.895076e-18
+## Prestwick-983_HL60                0.09537572          1192     1461       231 5.536597e-16
+## methylergometrine_HL60            0.07056695          1192      583       117 2.678052e-15
+## clonidine_HL60                    0.06911315          1192      556       113 3.297109e-15
+## isotretinoin_HL60                 0.07020649          1192      622       119 5.581359e-14
+## puromycin_HL60                    0.09287430          1192     1538       232 1.067668e-13
+## monorden_HL60                     0.04433140          1192      245        61 1.493799e-12
+## podophyllotoxin_HL60              0.08635961          1192     1261       195 1.573915e-12
+## 15-delta prostaglandin J2_HL60    0.09484610          1192     1867       265 1.727186e-12
+##                                    adj_Pval
+## anisomycin_HL60                8.154954e-24
+## alprostadil_HL60               4.848876e-21
+## (-)-isoprenaline_HL60          1.080971e-20
+## mebendazole_HL60               2.184723e-20
+## tretinoin_HL60                 4.530291e-19
+## pergolide_HL60                 7.662964e-17
+## bromocriptine_HL60             8.845821e-17
+## dihydroergotamine_HL60         1.528922e-16
+## lycorine_HL60                  1.556732e-16
+## tanespimycin_HL60              1.930123e-16
+## co-dergocrine mesilate_HL60    4.969462e-15
+## trichostatin A_HL60            6.591075e-15
+## Prestwick-983_HL60             1.925628e-12
+## methylergometrine_HL60         9.314264e-12
+## clonidine_HL60                 1.146735e-11
+## isotretinoin_HL60              1.941197e-10
+## puromycin_HL60                 3.713349e-10
+## monorden_HL60                  5.195432e-09
+## podophyllotoxin_HL60           5.474077e-09
+## 15-delta prostaglandin J2_HL60 6.007155e-09</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
 </div>
 <div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
-<h2><span class="header-section-number">6.6</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
-<p>Sood et al. <span class="citation">(2015)</span> reported 150 age-related gene expression signatures. The following computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. Subsequently, the Jaccard index is used as a simple similarity metric to sort the drug table. The 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
+<h2><span class="header-section-number">6.8</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
+<p>Sood et al. <span class="citation">(2015)</span> reported 150 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to observe the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
 <pre class="r"><code>PMID26343147 &lt;- read.delim(&quot;./data/PMID26343147_S1T1.xls&quot;, check.names=FALSE, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
 affyid &lt;- row.names(myAnnot[myAnnot[,&quot;SYMBOL&quot;] %in% PMID26343147[,&quot;Gene Symbol&quot;], ]) 
 degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
 degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
 degMAsub &lt;- degMA[affyid,]
-c &lt;- colSums(degMAsub==1) # Common in both (c)
-a &lt;- colSums(degMAsub==0) # Only in query (a)
-b &lt;- colSums(degMA==1) - c # Only in cmap (b)
-j &lt;- c/(c+a+b) # Jaccard similarity 
-r &lt;- sort(j, decreasing=TRUE)
-degOL_PMID26343147 &lt;- data.frame(CMP=names(r), Jaccard_Index=as.numeric(r))
+degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file=&quot;./results/degOL_PMID26343147.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
-degOL_PMID26343147[1:20,]</code></pre>
-<pre><code>##                         CMP Jaccard_Index
-## 1           papaverine_HL60    0.01687764
-## 2          zardaverine_HL60    0.01608579
-## 3            etoposide_MCF7    0.01602564
-## 4  dihydroergocristine_HL60    0.01500682
-## 5        beclometasone_HL60    0.01497006
-## 6        syrosingopine_HL60    0.01420455
-## 7     benzylpenicillin_HL60    0.01329163
-## 8             monorden_MCF7    0.01287073
-## 9             pyrvinium_PC3    0.01257862
-## 10             chrysin_MCF7    0.01239669
-## 11            ajmaline_HL60    0.01228227
-## 12       dirithromycin_HL60    0.01210361
-## 13          etamsylate_HL60    0.01208459
-## 14            flunixin_HL60    0.01175407
-## 15        parthenolide_HL60    0.01170213
-## 16         azacyclonol_HL60    0.01124878
-## 17          metoprolol_HL60    0.01122625
-## 18         skimmianine_HL60    0.01111994
-## 19           vorinostat_PC3    0.01094891
-## 20           clopamide_HL60    0.01091831</code></pre>
+sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap</code></pre>
+<pre><code>## [1] 407</code></pre>
+<pre class="r"><code>degOL_PMID26343147[1:20,] # Top 20 scoring drugs</code></pre>
+<pre><code>##                               Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
+## idoxuridine_MCF7                0.009478673           211        2         2 0.0002862571 0.9956022
+## cinchonidine_MCF7               0.009389671           211        4         2 0.0016793094 1.0000000
+## papaverine_MCF7                 0.009090909           211       11         2 0.0142342625 1.0000000
+## trichlormethiazide_HL60         0.004739336           211        1         1 0.0169586883 1.0000000
+## beclometasone_HL60              0.016129032           211      104         5 0.0318882201 1.0000000
+## papaverine_HL60                 0.018648019           211      226         8 0.0388976900 1.0000000
+## nimodipine_HL60                 0.008695652           211       21         2 0.0486620004 1.0000000
+## midodrine_PC3                   0.004694836           211        3         1 0.0500221030 1.0000000
+## syrosingopine_HL60              0.015243902           211      122         5 0.0565837628 1.0000000
+## Prestwick-920_PC3               0.004672897           211        4         1 0.0661363675 1.0000000
+## sulfamethizole_MCF7             0.004672897           211        4         1 0.0661363675 1.0000000
+## zardaverine_HL60                0.018547141           211      448        12 0.0794990573 1.0000000
+## pyrvinium_PC3                   0.013201320           211       96         4 0.0803067056 1.0000000
+## etomidate_MCF7                  0.004651163           211        5         1 0.0819785629 1.0000000
+## nimesulide_MCF7                 0.004651163           211        5         1 0.0819785629 1.0000000
+## nordihydroguaiaretic acid_PC3   0.004651163           211        5         1 0.0819785629 1.0000000
+## procaine_PC3                    0.004651163           211        5         1 0.0819785629 1.0000000
+## remoxipride_MCF7                0.004651163           211        5         1 0.0819785629 1.0000000
+## tobramycin_HL60                 0.004651163           211        5         1 0.0819785629 1.0000000
+## triamcinolone_PC3               0.004651163           211        5         1 0.0819785629 1.0000000</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
-<h2><span class="header-section-number">6.7</span> Drugs affecting known longevity genes</h2>
-<p>This addresses one of Dan’s questions in one of our conference calls as to which drugs are affecting the expression of the IGF1 or IGF1R genes.</p>
-<pre class="r"><code>affyids &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% c(&quot;IGF1&quot;, &quot;IGF1R&quot;),])
-degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
-q &lt;- colSums(degMA[affyids,])
-q &lt;- q[q &gt; 0]
-length(q)</code></pre>
-<pre><code>## [1] 86</code></pre>
-<pre class="r"><code>as.data.frame(rev(sort(q))[1:20])</code></pre>
-<pre><code>##                     rev(sort(q))[1:20]
-## lobeline_HL60                        4
-## chlorzoxazone_HL60                   4
-## sirolimus_PC3                        3
-## metformin_MCF7                       3
-## anisomycin_HL60                      3
-## vorinostat_MCF7                      2
-## verteporfin_HL60                     2
-## trichostatin A_PC3                   2
-## thioridazine_MCF7                    2
-## sanguinarine_HL60                    2
-## pyrvinium_MCF7                       2
-## piperlongumine_MCF7                  2
-## lycorine_HL60                        2
-## luteolin_PC3                         2
-## laudanosine_HL60                     2
-## lanatoside C_HL60                    2
-## glibenclamide_HL60                   2
-## fulvestrant_MCF7                     2
-## emetine_HL60                         2
-## doxorubicin_MCF7                     2</code></pre>
+<h2><span class="header-section-number">6.9</span> Drugs affecting known longevity genes</h2>
+<p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes. The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
+<pre class="r"><code>genesymbols &lt;- c(&quot;IGF1&quot;, &quot;IGF1R&quot;)
+geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;ENTREZID&quot;]))
+names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;]))
+degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
+df &lt;- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
+for(i in seq_along(geneids)) df &lt;- cbind(df, as.numeric(degMAgene[geneids[i],]))
+colnames(df) &lt;- names(geneids)
+df &lt;- df[rowSums(df)&gt;0,]
+nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R</code></pre>
+<pre><code>## [1] 89</code></pre>
+<p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) and drug treatments.</p>
+<pre class="r"><code>affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
+affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;])
+names(affyids) &lt;- affyids2
+cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
+comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)
+comp_list &lt;- comp_list[row.names(df)]
+degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
+pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,&quot;adj.P.Val&quot;])))
+colnames(pvalDF) &lt;- paste0(colnames(pvalDF), &quot;_FDR&quot;)
+df &lt;- cbind(df, pvalDF)
+write.table(df, file=&quot;./results/deg_IGF1.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
+<p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
+<pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)
+igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]</code></pre>
+<pre><code>##                        IGF1R IGF1    IGF1R_FDR    IGF1_FDR
+## clindamycin_HL60           1    1 6.092100e-03 0.019806975
+## chlorzoxazone_HL60         1    1 1.504907e-02 0.012048534
+## trichostatin A_MCF7        1    1 7.034883e-70 0.064635337
+## lobeline_HL60              1    1 5.806638e-02 0.009620433
+## sirolimus_PC3              1    1 1.275160e-03 0.069531082
+## danazol_HL60               1    1 1.841954e-02 0.062206588
+## metformin_MCF7             1    1 3.828423e-02 0.057888354
+## camptothecin_MCF7          1    0 1.197152e-05 0.102505584
+## anisomycin_HL60            1    1 5.853122e-02 0.044227001
+## cicloheximide_HL60         1    1 2.332200e-02 0.080773276
+## chlortetracycline_HL60     1    0 5.247463e-03 0.123157328
+## meclofenoxate_HL60         0    1 1.032619e-01 0.027735684
+## dirithromycin_HL60         1    1 6.354512e-02 0.068276953
+## lanatoside C_HL60          1    1 9.528609e-02 0.045103831
+## verteporfin_HL60           1    1 9.319481e-02 0.049425440
+## glibenclamide_HL60         1    1 6.094179e-02 0.088000986
+## emetine_HL60               1    0 8.857805e-04 0.155084082
+## puromycin_MCF7             1    0 1.497782e-02 0.143499225
+## sanguinarine_MCF7          0    1 1.246229e-01 0.034384079
+## proscillaridin_MCF7        1    0 4.432492e-02 0.121900908</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -478,7 +586,7 @@ diseasecmap2[[1]][1:20,]</code></pre>
 </div>
 <div id="funding" class="section level1">
 <h1><span class="header-section-number">10</span> Funding</h1>
-<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).</p>
+<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -500,7 +608,7 @@ diseasecmap2[[1]][1:20,]</code></pre>
 ##  [1] DrugVsDisease_2.10.2    qvalue_2.2.2            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
 ##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.5           
 ##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     ggplot2_2.0.0          
-## [13] longevityTools_1.0.1    BiocStyle_1.8.0        
+## [13] longevityTools_1.0.3    BiocStyle_1.8.0        
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_0.12.3                XVector_0.10.0             GenomeInfoDb_1.6.3        
@@ -525,7 +633,7 @@ diseasecmap2[[1]][1:20,]</code></pre>
 <div class="references">
 <h1><span class="header-section-number">11</span> References</h1>
 <p>Lamb, J, E D Crawford, D Peck, J W Modell, I C Blat, M J Wrobel, J Lerner, et al. 2006. “The Connectivity Map: using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease.” <em>Science</em> 313 (5795) (September): 1929–1935. doi:<a href="http://dx.doi.org/10.1126/science.1132939">10.1126/science.1132939</a>. <a href="http://dx.doi.org/10.1126/science.1132939">http://dx.doi.org/10.1126/science.1132939</a>.</p>
-<p>Peters, Marjolein J, Roby Joehanes, Luke C Pilling, Claudia Schurmann, Karen N Conneely, Joseph Powell, Eva Reinmaa, et al. 2015. “The Transcriptional Landscape of Age in Human Peripheral Blood.” <em>Nat. Commun.</em> 6 (22~oct): 8570. doi:<a href="http://dx.doi.org/10.1038/ncomms9570">10.1038/ncomms9570</a>. <a href="http://dx.doi.org/10.1038/ncomms9570">http://dx.doi.org/10.1038/ncomms9570</a>.</p>
+<p>Peters, Marjolein J, Roby Joehanes, Luke C Pilling, Claudia Schurmann, Karen N Conneely, Joseph Powell, Eva Reinmaa, George L Sutphin,.., and Andrew D Johnson. 2015. “The Transcriptional Landscape of Age in Human Peripheral Blood.” <em>Nat. Commun.</em> 6 (22~oct): 8570. doi:<a href="http://dx.doi.org/10.1038/ncomms9570">10.1038/ncomms9570</a>. <a href="http://dx.doi.org/10.1038/ncomms9570">http://dx.doi.org/10.1038/ncomms9570</a>.</p>
 <p>Sood, Sanjana, Iain Gallagher, Katie Lunnon, Eric Rullman, Aoife Keohane, Hannah Crossland, Bethan Phillips, et al. 2015. “A Novel Multi-Tissue RNA Diagnostic of Healthy Ageing Relates to Cognitive Health Status.” <em>Genome Biology</em>. doi:<a href="http://dx.doi.org/10.1186/s13059-015-0750-x">10.1186/s13059-015-0750-x</a>. <a href="http://genomebiology.com/2015/16/1/185">http://genomebiology.com/2015/16/1/185</a>.</p>
 </div>
 </div>

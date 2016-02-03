@@ -11,7 +11,7 @@ getCmap <- function(rerun=TRUE) {
     if(rerun==TRUE) {
         ## Rank matrix
         download.file("ftp://ftp.broad.mit.edu/pub/cmap/rankMatrix.txt.zip", "./data/rankMatrix.txt.zip")
-        unzip("./data/rankMatrix.txt.zip"); unlink("./data/rankMatrix.txt.zip")
+        unzip("./data/rankMatrix.txt.zip", exdir="./data"); unlink("./data/rankMatrix.txt.zip")
         ## CMAP instances (compound annotations)
         download.file("http://www.broadinstitute.org/cmap/cmap_instances_02.xls", "./data/cmap_instances_02.xls")
     } else {
@@ -39,7 +39,7 @@ getCmapCEL <- function(rerun=TRUE) {
         unzip("./data/CEL/cmap_build02.volume5of7.zip", exdir="./data/CEL"); unlink("./data/CEL/cmap_build02.volume5of7.zip")
         download.file("ftp://ftp.broad.mit.edu/pub/cmap/cmap_build02.volume6of7.zip", "./data/CEL/cmap_build02.volume6of7.zip")
         unzip("./data/CEL/cmap_build02.volume6of7.zip", exdir="./data/CEL"); unlink("./data/CEL/cmap_build02.volume6of7.zip")
-        download.file("ftp://ftp.broad.mit.edu/pub/cmap/cmap_build03.volume7of7.zip", "./data/CEL/cmap_build02.volume7of7.zip")
+        download.file("ftp://ftp.broad.mit.edu/pub/cmap/cmap_build02.volume7of7.zip", "./data/CEL/cmap_build02.volume7of7.zip")
         unzip("./data/CEL/cmap_build02.volume7of7.zip", exdir="./data/CEL"); unlink("./data/CEL/cmap_build02.volume7of7.zip")
         
         ## Uncompress CEL files
@@ -61,7 +61,9 @@ normalizeCel <- function(chiptype_list, rerun=TRUE) {
             batchsize <- 100
             cel_list <- suppressWarnings(split(celfiles, rep(1:(ceiling(length(celfiles)/batchsize)), each=batchsize)))
             dir.create(paste0("./data/", i))
-            file.copy(c("torque.tmpl", ".BatchJobs.R"), paste0("./data/", i))
+            batchjobs_file <- system.file("extdata", ".BatchJobs.R", package="longevityTools")
+            torque_file <- system.file("extdata", "torque.tmpl", package="longevityTools")
+            file.copy(c(torque_file, batchjobs_file), paste0("./data/", i))
             mydir <- getwd()
             setwd(paste0("./data/", i))
             ## Function to run MAS5 on cluster with BiocParallel
@@ -70,12 +72,12 @@ normalizeCel <- function(chiptype_list, rerun=TRUE) {
                 batchsize <- 100
                 cel_list <- suppressWarnings(split(celfiles, rep(1:(ceiling(length(celfiles)/batchsize)), each=batchsize)))
                 dir.create(paste0("cellbatch_", x))
-                mydata <- ReadAffy(filenames=cel_list[[x]], celfile.path="../CEL")
-                eset <- mas5(mydata)
-                eset_pma <- mas5calls(mydata) # Generates MAS 5.0 P/M/A calls.
-                write.table(exprs(eset), file=paste0("cellbatch_", x, "/mas5exprs.xls"), , quote=FALSE, sep="\t", col.names = NA) 
-                write.table(exprs(eset_pma), file=paste0("cellbatch_", x, "/mas5pma.xls"), quote=FALSE, sep="\t", col.names = NA) 
-                write.table(assayDataElement(eset_pma, "se.exprs"), file=paste0("cellbatch_", x, "/mas5pval.xls"), quote=FALSE, sep="\t", col.names = NA) 
+                mydata <- affy::ReadAffy(filenames=cel_list[[x]], celfile.path="../CEL")
+                eset <- affy::mas5(mydata)
+                eset_pma <- affy::mas5calls(mydata) # Generates MAS 5.0 P/M/A calls.
+                write.table(affy::exprs(eset), file=paste0("cellbatch_", x, "/mas5exprs.xls"), , quote=FALSE, sep="\t", col.names = NA) 
+                write.table(affy::exprs(eset_pma), file=paste0("cellbatch_", x, "/mas5pma.xls"), quote=FALSE, sep="\t", col.names = NA) 
+                write.table(Biobase::assayDataElement(eset_pma, "se.exprs"), file=paste0("cellbatch_", x, "/mas5pval.xls"), quote=FALSE, sep="\t", col.names = NA) 
             }
             funs <- makeClusterFunctionsTorque("torque.tmpl")
             param <- BatchJobsParam(length(cel_list), resources=list(walltime="20:00:00", nodes="1:ppn=1", memory="12gb"), cluster.functions=funs)
@@ -127,3 +129,135 @@ combineResults <- function(chiptype_dir, rerun=TRUE) {
 ## Usage:
 # chiptype_dir <- unique(readRDS("./data/chiptype.rds"))
 # combineResults(chiptype_dir, rerun=TRUE)
+
+## Generate CEL file list for treatment vs. control comparisons
+sampleList <- function(cmap, myby) {
+    ## Reconstruct CEL file names for control samples
+    byCel_list <- split(cmap[, c("perturbation_scan_id", "vehicle_scan_id4")], as.character(cmap$perturbation_scan_id))
+    sampleList1 <- function(x) {
+        c <- unlist(strsplit(as.character(x[,2]), "\\."))
+        if(max(nchar(c)>4)) {    
+            c <- gsub("'", "", as.character(x[,2]))
+        } else {
+            c <- c[nchar(c)!=0]
+            c <- paste0(gsub("\\..*", "", as.character(x[,1])), ".", c)
+            c <- gsub("'", "", c) # Quite a few CEL file names have a "'" prepended 
+        }
+        t <- gsub("'", "", as.character(x[,1]))
+        return(list(list(t=t, c=c)))
+    }
+    byCel_list <- sapply(byCel_list, sampleList1)
+    
+    ## Split by CMP only, or CMP and cell type
+    if(myby=="CMP") {
+        byCMP_list <- split(cmap[, c("cmap_name", "perturbation_scan_id")], as.character(cmap$cmap_name))
+    }
+    if(myby=="CMP_CELL") {
+        cmap <- data.frame(cmp_cell=paste(cmap$cmap_name, cmap$cell2, sep="_"), cmap)
+        byCMP_list <- split(cmap[, c("cmap_name", "perturbation_scan_id")], as.character(cmap$cmp_cell))
+    }
+    sampleList2 <- function(x, y=byCel_list) {
+        s <- y[x[,2]]    
+        l <- list(t=paste0(unique(as.character(unlist(sapply(seq_along(s), function(x) s[[x]]$t)))), ".CEL"),
+                  c=paste0(unique(as.character(unlist(sapply(seq_along(s), function(x) s[[x]]$c)))), ".CEL"))
+        return(list(l))
+    }
+    byCel_list <- sapply(names(byCMP_list), function(i) sampleList2(x=byCMP_list[[i]], y=byCel_list))
+    return(byCel_list)
+}
+## Usage: 
+# cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) # Note: cmap_instances_02.xls converted to txt with LibreOffice
+# comp_list <- sampleList(cmap, myby="CMP")
+# comp_list <- sampleList(cmap, myby="CMP_CELL")
+
+## DEG analysis with Limma
+runLimma <- function(df, comp_list, fdr=0.05, foldchange=1, verbose=TRUE, affyid=NULL) {
+    ## Generate result container
+    deg <- matrix(0, nrow=nrow(df), ncol=length(comp_list), dimnames = list(rownames(df, names(comp_list))))
+    colnames(deg) <- names(comp_list)
+    deg_list <- NULL # only used if affyid not NULL
+    ## Run limma
+    for(i in seq_along(comp_list)) {
+        sample_set <- unlist(comp_list[[i]])
+        repcounts <- sapply(comp_list[[i]], length)
+        repcounts <- paste("rep count:", paste(paste0(names(repcounts), repcounts), collapse="_"))
+        ## The following if statement will skip sample sets with less than 3 CEL files (control and 
+        ## treatment) or those containing non-existing CEL files. For tracking NAs will be injected 
+        ## in the corresponding columns of the result matrix.
+        if((length(sample_set)<3) | any(!sample_set %in% colnames(df))) {
+            deg[, i] <- NA
+            if(verbose==TRUE) {
+                cat("Sample", i, "of", paste0(length(comp_list), ":"), paste0("not enough usable replicates (", repcounts, ")."), "\n")
+            }
+        } else {
+            dfsub <- df[, sample_set]
+            # eset <- new("ExpressionSet", exprs = as.matrix(dfsub), annotation="hgu133a")
+            eset <- Biobase::ExpressionSet(assayData=as.matrix(dfsub),  annotation="hgu133a")
+            repno <- rep(1:length(comp_list[[i]]), sapply(comp_list[[i]], length))
+            design <- model.matrix(~ -1+factor(repno))
+            colnames(design) <- names(comp_list[[i]])
+            fit <- limma::lmFit(eset, design) # Fit a linear model for each gene based on the given series of arrays
+            contrast.matrix <- limma::makeContrasts(contrasts="t-c", levels=design)
+            fit2 <- limma::contrasts.fit(fit, contrast.matrix)
+            fit2 <- limma::eBayes(fit2) # Computes moderated t-statistics and log-odds of differential expression by empirical Bayes shrinkage of the standard errors towards a common value.
+            limmaDF <- limma::topTable(fit2, coef=1, adjust="fdr", sort.by="B", number=Inf)
+            if(!is.null(affyid)) {
+                tmp_list <- list(limmaDF[affyid,])
+                names(tmp_list) <- names(comp_list[i])
+                deg_list <- c(deg_list, tmp_list)
+            } 
+            pval <- limmaDF$adj.P.Val <= fdr # FDR 1%
+            fold <- (limmaDF$logFC >= foldchange | limmaDF$logFC <= -foldchange) # Fold change 2
+            affyids <- rownames(limmaDF[pval & fold,])
+            deg[affyids, i] <- 1
+            if(verbose==TRUE) {
+                cat("Sample", i, "of", paste0(length(comp_list), ":"), "identified", length(affyids), paste0("DEGs (", repcounts, ")."), "\n")
+            }
+        }
+    }
+    if(!is.null(affyid)) {
+        return(deg_list)
+    } else {
+        return(deg)
+    }
+}
+## Usage:
+# degMA <- runLimma(df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE)
+# write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
+
+## Transform probe set to gene level matrix
+probeset2gene <- function(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L) {
+    ## Remove rows with NAs chosen geneIDtype column
+    myAnnot <- myAnnot[as.character(myAnnot[,geneIDtype]) != "NA",]
+    ## Remove corresponding rows in degMA
+    degMA <- degMA[rownames(myAnnot), ]
+    ## Remove columns where DEG analysis was not possible
+    degMA <- degMA[ , !is.na(colSums(degMA))] 
+    ## Split gene entries with single and multiple probe sets
+    myAnnot <- cbind(myAnnot, freq=table(myAnnot[,geneIDtype])[myAnnot[,geneIDtype]])
+    degMAuni <- degMA[rownames(myAnnot[myAnnot$freq == 1 ,]), ]
+    rownames(degMAuni) <- as.character(myAnnot[myAnnot$freq == 1 , geneIDtype])
+    degMAmulti <- degMA[rownames(myAnnot[myAnnot$freq > 1 ,]), ]
+    ## Collapse genes with multiple probe sets to single one by summing up their values
+    idlist <- split(rownames(myAnnot[myAnnot$freq > 1 ,]), as.character(myAnnot[myAnnot$freq > 1 , geneIDtype]))
+    degMAmulticollapsed <- t(sapply(names(idlist), function(x) colSums(degMAmulti[idlist[[x]], ])))
+    ## Summary rule
+    if(summary_rule==1L) { 
+        ## Set values greater than 1 to 1: less coservative ~any~ rule
+        degMAmulticollapsed[degMAmulticollapsed > 1] <- 1 
+    } else if(summary_rule==2L) {
+        ## Set 1 to 0 and values greater than 1 to 1: more conservative >=2 rule
+        degMAmulticollapsed[degMAmulticollapsed == 1] <- 0
+        degMAmulticollapsed[degMAmulticollapsed > 1] <- 1 
+    } else {
+        stop("'summary_rule' needs to be assigned 1 or 2")
+    }
+    ## Final DEG matrix
+    finaldegMA <- rbind(degMAuni, degMAmulticollapsed)
+    finaldegMA <- finaldegMA[as.character(unique(myAnnot[,geneIDtype])),]
+    return(finaldegMA)
+}
+## Usage:
+# finaldegMA <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1)
+
+

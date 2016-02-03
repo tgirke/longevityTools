@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: eQTL, eSNP and GWAS Analysis</h1>
 <h4 class="author"><em>Authors: Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 27 January, 2016</em></h4>
+<h4 class="date"><em>Last update: 31 January, 2016</em></h4>
 </div>
-<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.1</span></h4>
+<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.3</span></h4>
 
 <h1>Contents</h1>
 <div id="TOC">
@@ -64,12 +64,15 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#getting-started"><span class="toc-section-number">3</span> Getting Started</a><ul>
 <li><a href="#installation"><span class="toc-section-number">3.1</span> Installation</a></li>
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">3.2</span> Loading package and documentation</a></li>
-<li><a href="#import-custom-functions"><span class="toc-section-number">3.3</span> Import custom functions</a></li>
 </ul></li>
-<li><a href="#sample-data-from-gtex"><span class="toc-section-number">4</span> Sample data from GTEx</a></li>
-<li><a href="#utilities"><span class="toc-section-number">5</span> Utilities</a></li>
-<li><a href="#funding"><span class="toc-section-number">6</span> Funding</a></li>
-<li><a href="#version-information"><span class="toc-section-number">7</span> Version information</a></li>
+<li><a href="#setup-of-working-environment"><span class="toc-section-number">4</span> Setup of working environment</a><ul>
+<li><a href="#import-custom-functions"><span class="toc-section-number">4.1</span> Import custom functions</a></li>
+<li><a href="#create-expected-directory-structure"><span class="toc-section-number">4.2</span> Create expected directory structure</a></li>
+</ul></li>
+<li><a href="#sample-data-from-gtex"><span class="toc-section-number">5</span> Sample data from GTEx</a></li>
+<li><a href="#utilities"><span class="toc-section-number">6</span> Utilities</a></li>
+<li><a href="#funding"><span class="toc-section-number">7</span> Funding</a></li>
+<li><a href="#version-information"><span class="toc-section-number">8</span> Version information</a></li>
 </ul>
 </div>
 
@@ -110,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>This vignette is part of the NIA funded Longevity Genomics project. For more information on ths project please visit its website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html">here</a>.</p>
+<p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html">here</a>.</p>
 <p>Based on muscle gene expression from 15 young (25 year old) and 15 old (65 year old) participants, Sood et al. identified a 150 probe set that accurately classified young and old individuals in external studies with gene expression data collected from tissues other than muscle <span class="citation">(Sood et al. 2015)</span>. A gene score based on the classifier was associated with better renal function, increased survival time over follow-up, and decreased Alzheimer’s Disease prevalence.</p>
 <p>Our goal is to perform Mendelian Randomization using the 150 gene set to determine whether SNPs associated with expression (eSNPs) of the 150 genes are associated with the aging phenotypes identified by Sood et al.</p>
 <p>Hypothesis: eSNPs associated with younger expression profile are markers for younger biological age relative to chronological age, which would be associated with longevity.</p>
@@ -149,8 +152,11 @@ vignette(&quot;longevityTools&quot;) # Opens vignette</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
+</div>
+<div id="setup-of-working-environment" class="section level1">
+<h1><span class="header-section-number">4</span> Setup of working environment</h1>
 <div id="import-custom-functions" class="section level2">
-<h2><span class="header-section-number">3.3</span> Import custom functions</h2>
+<h2><span class="header-section-number">4.1</span> Import custom functions</h2>
 <p>Preliminary functions that are still under developement, or not fully tested and documented can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
 <pre class="r"><code>fctpath &lt;- system.file(&quot;extdata&quot;, &quot;longevityTools_eQTL_Fct.R&quot;, package=&quot;longevityTools&quot;)
 source(fctpath)</code></pre>
@@ -158,15 +164,23 @@ source(fctpath)</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
+<div id="create-expected-directory-structure" class="section level2">
+<h2><span class="header-section-number">4.2</span> Create expected directory structure</h2>
+<p>The following creates the directory structure expected by this workflow. Input data will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory. All paths are given relative to the present working directory of the user’s R session.</p>
+<pre class="r"><code>dir.create(&quot;data&quot;); dir.create(&quot;results&quot;) </code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
 </div>
 <div id="sample-data-from-gtex" class="section level1">
-<h1><span class="header-section-number">4</span> Sample data from GTEx</h1>
+<h1><span class="header-section-number">5</span> Sample data from GTEx</h1>
 <p>The eQTL data used in this vignette can be downloaded from the <a href="http://www.gtexportal.org/home/datasets">GTEx site</a>. Note, the following downloads a 1.3GB file, which will take some time.</p>
 <pre class="r"><code>download.file(&quot;http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz&quot;, &quot;./GTEx_Analysis_V6_eQTLs.tar.gz&quot;)
 untar(&quot;GTEx_Analysis_V6_eQTLs.tar.gz&quot;)</code></pre>
 </div>
 <div id="utilities" class="section level1">
-<h1><span class="header-section-number">5</span> Utilities</h1>
+<h1><span class="header-section-number">6</span> Utilities</h1>
 <p>The <em><code>geneGrep</code></em> function takes GTEx results and gene list as arguments, returns GTEx eSNP results for genes in gene list. Genes without significant eSNPs are removed from results. The following sample file <em>Whole_Blood_Analysis.snpgenes</em> has been subsetted to the first 100 rows.</p>
 <pre class="r"><code>library(longevityTools)
 samplepath &lt;- system.file(&quot;extdata&quot;, &quot;Whole_Blood_Analysis.snpgenes.head100&quot;, package=&quot;longevityTools&quot;) 
@@ -182,14 +196,14 @@ result</code></pre>
 </div>
 </div>
 <div id="funding" class="section level1">
-<h1><span class="header-section-number">6</span> Funding</h1>
-<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).</p>
+<h1><span class="header-section-number">7</span> Funding</h1>
+<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="version-information" class="section level1">
-<h1><span class="header-section-number">7</span> Version information</h1>
+<h1><span class="header-section-number">8</span> Version information</h1>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 3.2.2 (2015-08-14)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
@@ -213,7 +227,7 @@ result</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 <div class="references">
-<h1><span class="header-section-number">7</span> References</h1>
+<h1><span class="header-section-number">8</span> References</h1>
 <p>Sood, Sanjana, Iain Gallagher, Katie Lunnon, Eric Rullman, Aoife Keohane, Hannah Crossland, Bethan Phillips, et al. 2015. “A Novel Multi-Tissue RNA Diagnostic of Healthy Ageing Relates to Cognitive Health Status.” <em>Genome Biology</em>. doi:<a href="http://dx.doi.org/10.1186/s13059-015-0750-x">10.1186/s13059-015-0750-x</a>. <a href="http://genomebiology.com/2015/16/1/185">http://genomebiology.com/2015/16/1/185</a>.</p>
 </div>
 </div>

@@ -46,7 +46,7 @@ suppressPackageStartupMessages({
 ```
 
 # Introduction 
-This vignette is part of the NIA funded Longevity Genomics project. For more information on ths project please visit its 
+This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
 website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
 is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
 vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.
@@ -100,7 +100,7 @@ Currently, this package includes the following analysis workflow vignettes:
 <div align="right">[Back to Table of Contents]()</div>
 
 # Funding
-This project is funded by NIH grant U24AG051129 awarded by the National Intitute of Aging (NIA).
+This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).
 
 <div align="right">[Back to Table of Contents]()</div>
 
