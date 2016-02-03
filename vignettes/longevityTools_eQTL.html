@@ -186,7 +186,6 @@ result &lt;- geneGrep(dat, myGenes)
 result</code></pre>
 <pre><code>##                   snp       beta      p_value ref alt gene_name
 ## 1 22_19814171_C_T_b37 -0.2113802 4.626631e-06   C   T    TXNRD2</code></pre>
-<p>Code above throws an error that snp_chrom and snp_pos aren’t columns, but my code function in the git repo doesn’t extract those columns. I loaded the package in R locally, and saw that the geneGrep fxn was old and was trying to pull those columns. So, I need to update my longevity tools package to pull the latest code from github, then knit the Rmd file. I updated my longevity tools package locally, and it did pull down new functions from Thomas, but I need to push my new geneGrep function to github too, then update my package.</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
