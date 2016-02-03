@@ -183,9 +183,15 @@ samplepath &lt;- system.file(&quot;extdata&quot;, &quot;Thyroid_Analysis.snpgene
 dat &lt;- read.delim(samplepath)
 myGenes &lt;- c(&quot;TXNRD2&quot;)
 result &lt;- geneGrep(dat, myGenes)
-result</code></pre>
+head(result)</code></pre>
 <pre><code>##                   snp       beta      p_value ref alt gene_name
-## 1 22_19814171_C_T_b37 -0.2113802 4.626631e-06   C   T    TXNRD2</code></pre>
+## 1 22_19814171_C_T_b37 -0.2113802 4.626631e-06   C   T    TXNRD2
+## 2 22_19814416_G_A_b37 -0.2238668 8.084904e-07   G   A    TXNRD2
+## 3 22_19815044_G_A_b37 -0.2030786 1.148645e-05   G   A    TXNRD2
+## 4 22_19817365_G_T_b37 -0.2733527 7.705441e-06   G   T    TXNRD2
+## 5 22_19819703_T_C_b37 -0.5795619 7.729480e-14   T   C    TXNRD2
+## 6 22_19827244_T_A_b37 -0.2030922 1.193292e-05   T   A    TXNRD2</code></pre>
+<p>There are 139 eSNPs.</p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>

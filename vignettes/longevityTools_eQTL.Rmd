@@ -138,8 +138,10 @@ samplepath <- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package
 dat <- read.delim(samplepath)
 myGenes <- c("TXNRD2")
 result <- geneGrep(dat, myGenes)
-result
+head(result)
 ```
+
+There are `r nrow(result)` eSNPs.
 
 <div align="right">[Back to Table of Contents]()</div>
 
