@@ -32,9 +32,9 @@ source(fctpath)
 
 ## ----geneGrep, eval=TRUE-------------------------------------------------
 library(longevityTools)
-samplepath <- system.file("extdata", "Whole_Blood_Analysis.snpgenes.head100", package="longevityTools") 
-dat <- read.delim(samplepath)
-myGenes <- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
+samplepath <- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package="longevityTools") 
+dat <- read.delim(samplepath,sep=" ")
+myGenes <- c("TXNRD2")
 result <- geneGrep(dat, myGenes)
 result
 

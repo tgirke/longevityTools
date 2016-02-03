@@ -131,16 +131,18 @@ untar("GTEx_Analysis_V6_eQTLs.tar.gz")
 # Utilities
 The _`geneGrep`_ function takes GTEx results and gene list as arguments,
 returns GTEx eSNP results for genes in gene list. Genes without significant
-eSNPs are removed from results. The following sample file _Whole\_Blood\_Analysis.snpgenes_ 
-has been subsetted to the first 100 rows.
+eSNPs are removed from results. The following sample file _Thyroid\_Analysis.snpgenes.TXNRD2_ has been subsetted to include eSNPs for TXNRD2.
 ```{r geneGrep, eval=TRUE}
 library(longevityTools)
-samplepath <- system.file("extdata", "Whole_Blood_Analysis.snpgenes.head100", package="longevityTools") 
+samplepath <- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package="longevityTools") 
 dat <- read.delim(samplepath)
-myGenes <- c("RP11-693J15.4", "RP11-809N8.4", "junkNoMatch")
+myGenes <- c("TXNRD2")
 result <- geneGrep(dat, myGenes)
 result
 ```
+
+Code above throws an error that snp_chrom and snp_pos aren't columns, but my code function in the git repo doesn't extract those columns. I loaded the package in R locally, and saw that the geneGrep fxn was old and was trying to pull those columns. So, I need to update my longevity tools package to pull the latest code from github, then knit the Rmd file.
+I updated my longevity tools package locally, and it did pull down new functions from Thomas, but I need to push my new geneGrep function to github too, then update my package.
 
 <div align="right">[Back to Table of Contents]()</div>
 
