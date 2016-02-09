@@ -1,15 +1,16 @@
-## 2015-12-15
 ## parse GTEx results
 ## GTEx_Analysis_V6_eQTLs.tar.gz
 ## head -n100 Whole_Blood_Analysis.snpgenes > Whole_Blood_Analysis.snpgenes.head100
 ## ...
 
 geneGrep <- function(dat,genes){
-    #myRows <- match(genes, dat$gene_name)
-    myRows <- grep(genes, dat$gene_name)
-    myRows <- myRows[!is.na(myRows)]
+  if(sum(dat$gene_name %in% genes)>0){
+    myRows <- which(dat$gene_name %in% genes)
     dat2 <- dat[myRows, c("snp","beta", "p_value", "ref", "alt", "gene_name")]
     return(dat2)
+  } else {
+    print("No matches")
+  }
 }
 
 ## Usage:
