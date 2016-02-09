@@ -138,18 +138,63 @@ samplepath <- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package
 dat <- read.delim(samplepath)
 myGenes <- c("TXNRD2")
 result <- geneGrep(dat, myGenes)
-head(result)
+head(result[order(result$p_value),])
+#output results in PLINK format
+result2<-result[,c("snp_id_1kg_project_phaseI_v3","p_value")]
+names(result2)<-c("SNP","P")
+#write.table(result2,file="data/eSNP.assoc",quote=F,row.names=F)
+
 ```
 
 There are `r nrow(result)` eSNPs.
 
 # SNP clumping using PLINK
-Save results from geneGrep to external file gtex.txt 
-Download 1KG genotype data in PLINK format here: https://www.cog-genomics.org/plink2/resources#1kg
-Run clump command using default settings, but might want to change with different nominal significance thresholds.
+GTEx V6 analysis results are based on genotypes imputed to 1000 Genomes (1KG) Phase I version 3. Thus, significant results could be LD-filtered using Phase I data. However, to make use of the larger sample size in later projects, 1KG Phase 3 genotypes will be used.
+
+```{r 1KG_download_filter, eval=FALSE}
+#genotypes
+download.file("ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz", "./ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz")
+untar("ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz")
+
+#sample ped file
+download.file("ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v2.20130502.ALL.ped", "./integrated_call_samples_v2.20130502.ALL.ped")
+
+#sample super population file
+download.file("ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v3.20130502.ALL.panel", "./integrated_call_samples_v3.20130502.ALL.panel")
+
+#identify EUR unrelated samples from 1KG phase 3
+ped2<-read.table("data/integrated_call_samples_v2.20130502.ALL.ped", stringsAsFactors = F, header = T, sep="\t")
+ped3<-read.table("data/integrated_call_samples_v3.20130502.ALL.panel", stringsAsFactors = F, header = T, sep="\t")
+
+samples1KG <- filter_1KGsamples("EUR",ped2,ped3)
+samples1KG_ID <- samples1KG[,"Individual.ID",drop=F]
+write.table(samples1KG_ID,file="data/samples1KG.txt",quote=F,row.names=F,col.names=F)
 
 ```
-plink -bfile 1kg_phase1_chr22 --clump gtex.txt
+
+Create region file to use with bcftools for LD.
+```{r regionsFile, eval=FALSE}
+regions<-data.frame(chr="chr1",pos=0,pos_to=0,stringsAsFactors = F)
+regions$chr[1]<-result$snp_chrom[1]
+regions$pos[1]<-min(result$snp_pos)
+regions$pos_to[1]<-max(result$snp_pos)
+write.table(regions,file="data/regions.txt",quote=F,row.names=F,col.names=F,sep="\t")
+```
+
+
+Filter 1KG genotypes to only include EUR unrelated individuals and eQTL region.
+Using bcftools v.1.2, htslib v1.2.1
+Output compressed BCF2.
+
+```
+bcftools view -Ob -o results/1KGgeno.bgzf -S data/samples1KG.txt data/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz -R data/regions.txt
+
+```
+
+Run PLINK clump command using default settings, but might want to change with different nominal significance thresholds.
+
+```
+plink -bcf results/1KGgeno.bgzf --clump data/eSNP.assoc 
 ```
 
 Output from PLINK clump command will be set of independent eSNPs in the region. 
