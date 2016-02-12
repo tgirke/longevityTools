@@ -19,6 +19,9 @@ suppressPackageStartupMessages({
 ## library(help="longevityTools") # Lists package info
 ## vignette("longevityTools") # Opens vignette
 
+## ----someplot, eval=TRUE-------------------------------------------------
+barplot(1:10)
+
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
 

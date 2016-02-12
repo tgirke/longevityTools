@@ -80,6 +80,10 @@ library(help="longevityTools") # Lists package info
 vignette("longevityTools") # Opens vignette
 ```
 
+```{r someplot, eval=TRUE}
+barplot(1:10)
+```
+
 <div align="right">[Back to Table of Contents]()</div>
 
 # Overview of object clases, methods and functions
