@@ -1,4 +1,6 @@
 # longevityTools
+
+[![Join the chat at https://gitter.im/tgirke/longevityTools](https://badges.gitter.im/tgirke/longevityTools.svg)](https://gitter.im/tgirke/longevityTools?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 R package defining the analysis routines used by the [Longevity Genomics](http://www.longevitygenomics.org/) project funded by NIA. The HTML vignettes of the package are available here:
 
 * [longevityTools](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html): overview vignette
