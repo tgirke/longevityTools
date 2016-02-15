@@ -14,11 +14,11 @@ h4 {color: #808080; }
 }
 
 .nav > li.active > a {
-    background-color: #696969;
+    background-color: #347DBE;
 }
 
 div.navbar-collapse .dropdown-menu > li > a:hover {
-    background-color: #696969;
+    background-color: #347DBE;
 }
 
 .nav li.thirdlevel > a {
@@ -34,7 +34,7 @@ a[data-toggle="tooltip"] {
 }
 
 .navbar-inverse {
-    background-color: #696969;
+    background-color: #347DBE;
     border-color: #015CAE;
 }
 
