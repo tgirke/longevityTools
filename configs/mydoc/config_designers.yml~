@@ -6,8 +6,8 @@ platform: all
 version: all
 output: web
 destination: ../doc_outputs/mydoc/designers
-topnav_title: Data Analysis Tutorials 
-homepage_title: Introduction
+topnav_title: Longevity Tools 
+homepage_title: Analysis Tools for Longevity Genomics Project
 site_title: Manuals
 project_folder: mydoc
 company_name: UC Riverside
@@ -21,9 +21,9 @@ kramdown:
   auto_ids: true
 
 
-sidebar_tagline: Manuals
-#sidebar_tagline: <img src="../common_images/logo.png">
-sidebar_version: Under Construction!
+#sidebar_tagline: lgTools
+sidebar_tagline: <img src="../common_images/logo.png">
+#sidebar_version: Under Construction!
 theme_file: theme-blue.css
 pdf_file_name: mydoc_designers_pdf.pdf
 
@@ -52,6 +52,11 @@ host: 127.0.0.1
 feedback_email: thomas.girke@ucr.edu
 
 highlighter: rouge
+# ThG_note: when adding the follwing lines then paragraph formatting changes
+# markdown: kramdown
+# kramdown:
+#  input: GFM
+#  auto_ids: true
 
 collections:
   tooltips:

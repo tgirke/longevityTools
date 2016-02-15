@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans" />
+
+
+<title>longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures</title>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<link href="data:text/css;charset=utf-8,pre%20%2Eoperator%2C%0Apre%20%2Eparen%20%7B%0Acolor%3A%20rgb%28104%2C%20118%2C%20135%29%0A%7D%0Apre%20%2Eliteral%20%7B%0Acolor%3A%20%23990073%0A%7D%0Apre%20%2Enumber%20%7B%0Acolor%3A%20%23099%3B%0A%7D%0Apre%20%2Ecomment%20%7B%0Acolor%3A%20%23998%3B%0Afont%2Dstyle%3A%20italic%0A%7D%0Apre%20%2Ekeyword%20%7B%0Acolor%3A%20%23900%3B%0Afont%2Dweight%3A%20bold%0A%7D%0Apre%20%2Eidentifier%20%7B%0Acolor%3A%20rgb%280%2C%200%2C%200%29%3B%0A%7D%0Apre%20%2Estring%20%7B%0Acolor%3A%20%23d14%3B%0A%7D%0A" rel="stylesheet" type="text/css" />
+<script src="data:application/x-javascript;base64,CnZhciBobGpzPW5ldyBmdW5jdGlvbigpe2Z1bmN0aW9uIG0ocCl7cmV0dXJuIHAucmVwbGFjZSgvJi9nbSwiJmFtcDsiKS5yZXBsYWNlKC88L2dtLCImbHQ7Iil9ZnVuY3Rpb24gZihyLHEscCl7cmV0dXJuIFJlZ0V4cChxLCJtIisoci5jST8iaSI6IiIpKyhwPyJnIjoiIikpfWZ1bmN0aW9uIGIocil7Zm9yKHZhciBwPTA7cDxyLmNoaWxkTm9kZXMubGVuZ3RoO3ArKyl7dmFyIHE9ci5jaGlsZE5vZGVzW3BdO2lmKHEubm9kZU5hbWU9PSJDT0RFIil7cmV0dXJuIHF9aWYoIShxLm5vZGVUeXBlPT0zJiZxLm5vZGVWYWx1ZS5tYXRjaCgvXHMrLykpKXticmVha319fWZ1bmN0aW9uIGgodCxzKXt2YXIgcD0iIjtmb3IodmFyIHI9MDtyPHQuY2hpbGROb2Rlcy5sZW5ndGg7cisrKXtpZih0LmNoaWxkTm9kZXNbcl0ubm9kZVR5cGU9PTMpe3ZhciBxPXQuY2hpbGROb2Rlc1tyXS5ub2RlVmFsdWU7aWYocyl7cT1xLnJlcGxhY2UoL1xuL2csIiIpfXArPXF9ZWxzZXtpZih0LmNoaWxkTm9kZXNbcl0ubm9kZU5hbWU9PSJCUiIpe3ArPSJcbiJ9ZWxzZXtwKz1oKHQuY2hpbGROb2Rlc1tyXSl9fX1pZigvTVNJRSBbNjc4XS8udGVzdChuYXZpZ2F0b3IudXNlckFnZW50KSl7cD1wLnJlcGxhY2UoL1xyL2csIlxuIil9cmV0dXJuIHB9ZnVuY3Rpb24gYShzKXt2YXIgcj1zLmNsYXNzTmFtZS5zcGxpdCgvXHMrLyk7cj1yLmNvbmNhdChzLnBhcmVudE5vZGUuY2xhc3NOYW1lLnNwbGl0KC9ccysvKSk7Zm9yKHZhciBxPTA7cTxyLmxlbmd0aDtxKyspe3ZhciBwPXJbcV0ucmVwbGFjZSgvXmxhbmd1YWdlLS8sIiIpO2lmKGVbcF0pe3JldHVybiBwfX19ZnVuY3Rpb24gYyhxKXt2YXIgcD1bXTsoZnVuY3Rpb24ocyx0KXtmb3IodmFyIHI9MDtyPHMuY2hpbGROb2Rlcy5sZW5ndGg7cisrKXtpZihzLmNoaWxkTm9kZXNbcl0ubm9kZVR5cGU9PTMpe3QrPXMuY2hpbGROb2Rlc1tyXS5ub2RlVmFsdWUubGVuZ3RofWVsc2V7aWYocy5jaGlsZE5vZGVzW3JdLm5vZGVOYW1lPT0iQlIiKXt0Kz0xfWVsc2V7aWYocy5jaGlsZE5vZGVzW3JdLm5vZGVUeXBlPT0xKXtwLnB1c2goe2V2ZW50OiJzdGFydCIsb2Zmc2V0OnQsbm9kZTpzLmNoaWxkTm9kZXNbcl19KTt0PWFyZ3VtZW50cy5jYWxsZWUocy5jaGlsZE5vZGVzW3JdLHQpO3AucHVzaCh7ZXZlbnQ6InN0b3AiLG9mZnNldDp0LG5vZGU6cy5jaGlsZE5vZGVzW3JdfSl9fX19cmV0dXJuIHR9KShxLDApO3JldHVybiBwfWZ1bmN0aW9uIGsoeSx3LHgpe3ZhciBxPTA7dmFyIHo9IiI7dmFyIHM9W107ZnVuY3Rpb24gdSgpe2lmKHkubGVuZ3RoJiZ3Lmxlbmd0aCl7aWYoeVswXS5vZmZzZXQhPXdbMF0ub2Zmc2V0KXtyZXR1cm4oeVswXS5vZmZzZXQ8d1swXS5vZmZzZXQpP3k6d31lbHNle3JldHVybiB3WzBdLmV2ZW50PT0ic3RhcnQiP3k6d319ZWxzZXtyZXR1cm4geS5sZW5ndGg/eTp3fX1mdW5jdGlvbiB0KEQpe3ZhciBBPSI8IitELm5vZGVOYW1lLnRvTG93ZXJDYXNlKCk7Zm9yKHZhciBCPTA7QjxELmF0dHJpYnV0ZXMubGVuZ3RoO0IrKyl7dmFyIEM9RC5hdHRyaWJ1dGVzW0JdO0ErPSIgIitDLm5vZGVOYW1lLnRvTG93ZXJDYXNlKCk7aWYoQy52YWx1ZSE9PXVuZGVmaW5lZCYmQy52YWx1ZSE9PWZhbHNlJiZDLnZhbHVlIT09bnVsbCl7QSs9Jz0iJyttKEMudmFsdWUpKyciJ319cmV0dXJuIEErIj4ifXdoaWxlKHkubGVuZ3RofHx3Lmxlbmd0aCl7dmFyIHY9dSgpLnNwbGljZSgwLDEpWzBdO3orPW0oeC5zdWJzdHIocSx2Lm9mZnNldC1xKSk7cT12Lm9mZnNldDtpZih2LmV2ZW50PT0ic3RhcnQiKXt6Kz10KHYubm9kZSk7cy5wdXNoKHYubm9kZSl9ZWxzZXtpZih2LmV2ZW50PT0ic3RvcCIpe3ZhciBwLHI9cy5sZW5ndGg7ZG97ci0tO3A9c1tyXTt6Kz0oIjwvIitwLm5vZGVOYW1lLnRvTG93ZXJDYXNlKCkrIj4iKX13aGlsZShwIT12Lm5vZGUpO3Muc3BsaWNlKHIsMSk7d2hpbGUocjxzLmxlbmd0aCl7eis9dChzW3JdKTtyKyt9fX19cmV0dXJuIHorbSh4LnN1YnN0cihxKSl9ZnVuY3Rpb24gaigpe2Z1bmN0aW9uIHEoeCx5LHYpe2lmKHguY29tcGlsZWQpe3JldHVybn12YXIgdTt2YXIgcz1bXTtpZih4Lmspe3gubFI9Zih5LHgubHx8aGxqcy5JUix0cnVlKTtmb3IodmFyIHcgaW4geC5rKXtpZigheC5rLmhhc093blByb3BlcnR5KHcpKXtjb250aW51ZX1pZih4Lmtbd10gaW5zdGFuY2VvZiBPYmplY3Qpe3U9eC5rW3ddfWVsc2V7dT14Lms7dz0ia2V5d29yZCJ9Zm9yKHZhciByIGluIHUpe2lmKCF1Lmhhc093blByb3BlcnR5KHIpKXtjb250aW51ZX14Lmtbcl09W3csdVtyXV07cy5wdXNoKHIpfX19aWYoIXYpe2lmKHguYldLKXt4LmI9IlxcYigiK3Muam9pbigifCIpKyIpXFxzIn14LmJSPWYoeSx4LmI/eC5iOiJcXEJ8XFxiIik7aWYoIXguZSYmIXguZVcpe3guZT0iXFxCfFxcYiJ9aWYoeC5lKXt4LmVSPWYoeSx4LmUpfX1pZih4Lmkpe3guaVI9Zih5LHguaSl9aWYoeC5yPT09dW5kZWZpbmVkKXt4LnI9MX1pZigheC5jKXt4LmM9W119eC5jb21waWxlZD10cnVlO2Zvcih2YXIgdD0wO3Q8eC5jLmxlbmd0aDt0Kyspe2lmKHguY1t0XT09InNlbGYiKXt4LmNbdF09eH1xKHguY1t0XSx5LGZhbHNlKX1pZih4LnN0YXJ0cyl7cSh4LnN0YXJ0cyx5LGZhbHNlKX19Zm9yKHZhciBwIGluIGUpe2lmKCFlLmhhc093blByb3BlcnR5KHApKXtjb250aW51ZX1xKGVbcF0uZE0sZVtwXSx0cnVlKX19ZnVuY3Rpb24gZChCLEMpe2lmKCFqLmNhbGxlZCl7aigpO2ouY2FsbGVkPXRydWV9ZnVuY3Rpb24gcShyLE0pe2Zvcih2YXIgTD0wO0w8TS5jLmxlbmd0aDtMKyspe2lmKChNLmNbTF0uYlIuZXhlYyhyKXx8W251bGxdKVswXT09cil7cmV0dXJuIE0uY1tMXX19fWZ1bmN0aW9uIHYoTCxyKXtpZihEW0xdLmUmJkRbTF0uZVIudGVzdChyKSl7cmV0dXJuIDF9aWYoRFtMXS5lVyl7dmFyIE09dihMLTEscik7cmV0dXJuIE0/TSsxOjB9cmV0dXJuIDB9ZnVuY3Rpb24gdyhyLEwpe3JldHVybiBMLmkmJkwuaVIudGVzdChyKX1mdW5jdGlvbiBLKE4sTyl7dmFyIE09W107Zm9yKHZhciBMPTA7TDxOLmMubGVuZ3RoO0wrKyl7TS5wdXNoKE4uY1tMXS5iKX12YXIgcj1ELmxlbmd0aC0xO2Rve2lmKERbcl0uZSl7TS5wdXNoKERbcl0uZSl9ci0tfXdoaWxlKERbcisxXS5lVyk7aWYoTi5pKXtNLnB1c2goTi5pKX1yZXR1cm4gZihPLE0uam9pbigifCIpLHRydWUpfWZ1bmN0aW9uIHAoTSxMKXt2YXIgTj1EW0QubGVuZ3RoLTFdO2lmKCFOLnQpe04udD1LKE4sRSl9Ti50Lmxhc3RJbmRleD1MO3ZhciByPU4udC5leGVjKE0pO3JldHVybiByP1tNLnN1YnN0cihMLHIuaW5kZXgtTCksclswXSxmYWxzZV06W00uc3Vic3RyKEwpLCIiLHRydWVdfWZ1bmN0aW9uIHooTixyKXt2YXIgTD1FLmNJP3JbMF0udG9Mb3dlckNhc2UoKTpyWzBdO3ZhciBNPU4ua1tMXTtpZihNJiZNIGluc3RhbmNlb2YgQXJyYXkpe3JldHVybiBNfXJldHVybiBmYWxzZX1mdW5jdGlvbiBGKEwsUCl7TD1tKEwpO2lmKCFQLmspe3JldHVybiBMfXZhciByPSIiO3ZhciBPPTA7UC5sUi5sYXN0SW5kZXg9MDt2YXIgTT1QLmxSLmV4ZWMoTCk7d2hpbGUoTSl7cis9TC5zdWJzdHIoTyxNLmluZGV4LU8pO3ZhciBOPXooUCxNKTtpZihOKXt4Kz1OWzFdO3IrPSc8c3BhbiBjbGFzcz0iJytOWzBdKyciPicrTVswXSsiPC9zcGFuPiJ9ZWxzZXtyKz1NWzBdfU89UC5sUi5sYXN0SW5kZXg7TT1QLmxSLmV4ZWMoTCl9cmV0dXJuIHIrTC5zdWJzdHIoTyxMLmxlbmd0aC1PKX1mdW5jdGlvbiBKKEwsTSl7aWYoTS5zTCYmZVtNLnNMXSl7dmFyIHI9ZChNLnNMLEwpO3grPXIua2V5d29yZF9jb3VudDtyZXR1cm4gci52YWx1ZX1lbHNle3JldHVybiBGKEwsTSl9fWZ1bmN0aW9uIEkoTSxyKXt2YXIgTD1NLmNOPyc8c3BhbiBjbGFzcz0iJytNLmNOKyciPic6IiI7aWYoTS5yQil7eSs9TDtNLmJ1ZmZlcj0iIn1lbHNle2lmKE0uZUIpe3krPW0ocikrTDtNLmJ1ZmZlcj0iIn1lbHNle3krPUw7TS5idWZmZXI9cn19RC5wdXNoKE0pO0ErPU0ucn1mdW5jdGlvbiBHKE4sTSxRKXt2YXIgUj1EW0QubGVuZ3RoLTFdO2lmKFEpe3krPUooUi5idWZmZXIrTixSKTtyZXR1cm4gZmFsc2V9dmFyIFA9cShNLFIpO2lmKFApe3krPUooUi5idWZmZXIrTixSKTtJKFAsTSk7cmV0dXJuIFAuckJ9dmFyIEw9dihELmxlbmd0aC0xLE0pO2lmKEwpe3ZhciBPPVIuY04/Ijwvc3Bhbj4iOiIiO2lmKFIuckUpe3krPUooUi5idWZmZXIrTixSKStPfWVsc2V7aWYoUi5lRSl7eSs9SihSLmJ1ZmZlcitOLFIpK08rbShNKX1lbHNle3krPUooUi5idWZmZXIrTitNLFIpK099fXdoaWxlKEw+MSl7Tz1EW0QubGVuZ3RoLTJdLmNOPyI8L3NwYW4+IjoiIjt5Kz1PO0wtLTtELmxlbmd0aC0tfXZhciByPURbRC5sZW5ndGgtMV07RC5sZW5ndGgtLTtEW0QubGVuZ3RoLTFdLmJ1ZmZlcj0iIjtpZihyLnN0YXJ0cyl7SShyLnN0YXJ0cywiIil9cmV0dXJuIFIuckV9aWYodyhNLFIpKXt0aHJvdyJJbGxlZ2FsIn19dmFyIEU9ZVtCXTt2YXIgRD1bRS5kTV07dmFyIEE9MDt2YXIgeD0wO3ZhciB5PSIiO3RyeXt2YXIgcyx1PTA7RS5kTS5idWZmZXI9IiI7ZG97cz1wKEMsdSk7dmFyIHQ9RyhzWzBdLHNbMV0sc1syXSk7dSs9c1swXS5sZW5ndGg7aWYoIXQpe3UrPXNbMV0ubGVuZ3RofX13aGlsZSghc1syXSk7aWYoRC5sZW5ndGg+MSl7dGhyb3ciSWxsZWdhbCJ9cmV0dXJue3I6QSxrZXl3b3JkX2NvdW50OngsdmFsdWU6eX19Y2F0Y2goSCl7aWYoSD09IklsbGVnYWwiKXtyZXR1cm57cjowLGtleXdvcmRfY291bnQ6MCx2YWx1ZTptKEMpfX1lbHNle3Rocm93IEh9fX1mdW5jdGlvbiBnKHQpe3ZhciBwPXtrZXl3b3JkX2NvdW50OjAscjowLHZhbHVlOm0odCl9O3ZhciByPXA7Zm9yKHZhciBxIGluIGUpe2lmKCFlLmhhc093blByb3BlcnR5KHEpKXtjb250aW51ZX12YXIgcz1kKHEsdCk7cy5sYW5ndWFnZT1xO2lmKHMua2V5d29yZF9jb3VudCtzLnI+ci5rZXl3b3JkX2NvdW50K3Iucil7cj1zfWlmKHMua2V5d29yZF9jb3VudCtzLnI+cC5rZXl3b3JkX2NvdW50K3Aucil7cj1wO3A9c319aWYoci5sYW5ndWFnZSl7cC5zZWNvbmRfYmVzdD1yfXJldHVybiBwfWZ1bmN0aW9uIGkocixxLHApe2lmKHEpe3I9ci5yZXBsYWNlKC9eKCg8W14+XSs+fFx0KSspL2dtLGZ1bmN0aW9uKHQsdyx2LHUpe3JldHVybiB3LnJlcGxhY2UoL1x0L2cscSl9KX1pZihwKXtyPXIucmVwbGFjZSgvXG4vZywiPGJyPiIpfXJldHVybiByfWZ1bmN0aW9uIG4odCx3LHIpe3ZhciB4PWgodCxyKTt2YXIgdj1hKHQpO3ZhciB5LHM7aWYodil7eT1kKHYseCl9ZWxzZXtyZXR1cm59dmFyIHE9Yyh0KTtpZihxLmxlbmd0aCl7cz1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJwcmUiKTtzLmlubmVySFRNTD15LnZhbHVlO3kudmFsdWU9ayhxLGMocykseCl9eS52YWx1ZT1pKHkudmFsdWUsdyxyKTt2YXIgdT10LmNsYXNzTmFtZTtpZighdS5tYXRjaCgiKFxcc3xeKShsYW5ndWFnZS0pPyIrdisiKFxcc3wkKSIpKXt1PXU/KHUrIiAiK3YpOnZ9aWYoL01TSUUgWzY3OF0vLnRlc3QobmF2aWdhdG9yLnVzZXJBZ2VudCkmJnQudGFnTmFtZT09IkNPREUiJiZ0LnBhcmVudE5vZGUudGFnTmFtZT09IlBSRSIpe3M9dC5wYXJlbnROb2RlO3ZhciBwPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImRpdiIpO3AuaW5uZXJIVE1MPSI8cHJlPjxjb2RlPiIreS52YWx1ZSsiPC9jb2RlPjwvcHJlPiI7dD1wLmZpcnN0Q2hpbGQuZmlyc3RDaGlsZDtwLmZpcnN0Q2hpbGQuY049cy5jTjtzLnBhcmVudE5vZGUucmVwbGFjZUNoaWxkKHAuZmlyc3RDaGlsZCxzKX1lbHNle3QuaW5uZXJIVE1MPXkudmFsdWV9dC5jbGFzc05hbWU9dTt0LnJlc3VsdD17bGFuZ3VhZ2U6dixrdzp5LmtleXdvcmRfY291bnQscmU6eS5yfTtpZih5LnNlY29uZF9iZXN0KXt0LnNlY29uZF9iZXN0PXtsYW5ndWFnZTp5LnNlY29uZF9iZXN0Lmxhbmd1YWdlLGt3Onkuc2Vjb25kX2Jlc3Qua2V5d29yZF9jb3VudCxyZTp5LnNlY29uZF9iZXN0LnJ9fX1mdW5jdGlvbiBvKCl7aWYoby5jYWxsZWQpe3JldHVybn1vLmNhbGxlZD10cnVlO3ZhciByPWRvY3VtZW50LmdldEVsZW1lbnRzQnlUYWdOYW1lKCJwcmUiKTtmb3IodmFyIHA9MDtwPHIubGVuZ3RoO3ArKyl7dmFyIHE9YihyW3BdKTtpZihxKXtuKHEsaGxqcy50YWJSZXBsYWNlKX19fWZ1bmN0aW9uIGwoKXtpZih3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcil7d2luZG93LmFkZEV2ZW50TGlzdGVuZXIoIkRPTUNvbnRlbnRMb2FkZWQiLG8sZmFsc2UpO3dpbmRvdy5hZGRFdmVudExpc3RlbmVyKCJsb2FkIixvLGZhbHNlKX1lbHNle2lmKHdpbmRvdy5hdHRhY2hFdmVudCl7d2luZG93LmF0dGFjaEV2ZW50KCJvbmxvYWQiLG8pfWVsc2V7d2luZG93Lm9ubG9hZD1vfX19dmFyIGU9e307dGhpcy5MQU5HVUFHRVM9ZTt0aGlzLmhpZ2hsaWdodD1kO3RoaXMuaGlnaGxpZ2h0QXV0bz1nO3RoaXMuZml4TWFya3VwPWk7dGhpcy5oaWdobGlnaHRCbG9jaz1uO3RoaXMuaW5pdEhpZ2hsaWdodGluZz1vO3RoaXMuaW5pdEhpZ2hsaWdodGluZ09uTG9hZD1sO3RoaXMuSVI9IlthLXpBLVpdW2EtekEtWjAtOV9dKiI7dGhpcy5VSVI9IlthLXpBLVpfXVthLXpBLVowLTlfXSoiO3RoaXMuTlI9IlxcYlxcZCsoXFwuXFxkKyk/Ijt0aGlzLkNOUj0iXFxiKDBbeFhdW2EtZkEtRjAtOV0rfChcXGQrKFxcLlxcZCopP3xcXC5cXGQrKShbZUVdWy0rXT9cXGQrKT8pIjt0aGlzLkJOUj0iXFxiKDBiWzAxXSspIjt0aGlzLlJTUj0iIXwhPXwhPT18JXwlPXwmfCYmfCY9fFxcKnxcXCo9fFxcK3xcXCs9fCx8XFwufC18LT18L3wvPXw6fDt8PHw8PHw8PD18PD18PXw9PXw9PT18Pnw+PXw+Pnw+Pj18Pj4+fD4+Pj18XFw/fFxcW3xcXHt8XFwofFxcXnxcXF49fFxcfHxcXHw9fFxcfFxcfHx+Ijt0aGlzLkVSPSIoPyFbXFxzXFxTXSkiO3RoaXMuQkU9e2I6IlxcXFwuIixyOjB9O3RoaXMuQVNNPXtjTjoic3RyaW5nIixiOiInIixlOiInIixpOiJcXG4iLGM6W3RoaXMuQkVdLHI6MH07dGhpcy5RU009e2NOOiJzdHJpbmciLGI6JyInLGU6JyInLGk6IlxcbiIsYzpbdGhpcy5CRV0scjowfTt0aGlzLkNMQ009e2NOOiJjb21tZW50IixiOiIvLyIsZToiJCJ9O3RoaXMuQ0JMQ0xNPXtjTjoiY29tbWVudCIsYjoiL1xcKiIsZToiXFwqLyJ9O3RoaXMuSENNPXtjTjoiY29tbWVudCIsYjoiIyIsZToiJCJ9O3RoaXMuTk09e2NOOiJudW1iZXIiLGI6dGhpcy5OUixyOjB9O3RoaXMuQ05NPXtjTjoibnVtYmVyIixiOnRoaXMuQ05SLHI6MH07dGhpcy5CTk09e2NOOiJudW1iZXIiLGI6dGhpcy5CTlIscjowfTt0aGlzLmluaGVyaXQ9ZnVuY3Rpb24ocixzKXt2YXIgcD17fTtmb3IodmFyIHEgaW4gcil7cFtxXT1yW3FdfWlmKHMpe2Zvcih2YXIgcSBpbiBzKXtwW3FdPXNbcV19fXJldHVybiBwfX0oKTtobGpzLkxBTkdVQUdFUy5jcHA9ZnVuY3Rpb24oKXt2YXIgYT17a2V5d29yZDp7ImZhbHNlIjoxLCJpbnQiOjEsImZsb2F0IjoxLCJ3aGlsZSI6MSwicHJpdmF0ZSI6MSwiY2hhciI6MSwiY2F0Y2giOjEsImV4cG9ydCI6MSx2aXJ0dWFsOjEsb3BlcmF0b3I6MixzaXplb2Y6MixkeW5hbWljX2Nhc3Q6Mix0eXBlZGVmOjIsY29uc3RfY2FzdDoyLCJjb25zdCI6MSxzdHJ1Y3Q6MSwiZm9yIjoxLHN0YXRpY19jYXN0OjIsdW5pb246MSxuYW1lc3BhY2U6MSx1bnNpZ25lZDoxLCJsb25nIjoxLCJ0aHJvdyI6MSwidm9sYXRpbGUiOjIsInN0YXRpYyI6MSwicHJvdGVjdGVkIjoxLGJvb2w6MSx0ZW1wbGF0ZToxLG11dGFibGU6MSwiaWYiOjEsInB1YmxpYyI6MSxmcmllbmQ6MiwiZG8iOjEsInJldHVybiI6MSwiZ290byI6MSxhdXRvOjEsInZvaWQiOjIsImVudW0iOjEsImVsc2UiOjEsImJyZWFrIjoxLCJuZXciOjEsZXh0ZXJuOjEsdXNpbmc6MSwidHJ1ZSI6MSwiY2xhc3MiOjEsYXNtOjEsImNhc2UiOjEsdHlwZWlkOjEsInNob3J0IjoxLHJlaW50ZXJwcmV0X2Nhc3Q6MiwiZGVmYXVsdCI6MSwiZG91YmxlIjoxLHJlZ2lzdGVyOjEsZXhwbGljaXQ6MSxzaWduZWQ6MSx0eXBlbmFtZToxLCJ0cnkiOjEsInRoaXMiOjEsInN3aXRjaCI6MSwiY29udGludWUiOjEsd2NoYXJfdDoxLGlubGluZToxLCJkZWxldGUiOjEsYWxpZ25vZjoxLGNoYXIxNl90OjEsY2hhcjMyX3Q6MSxjb25zdGV4cHI6MSxkZWNsdHlwZToxLG5vZXhjZXB0OjEsbnVsbHB0cjoxLHN0YXRpY19hc3NlcnQ6MSx0aHJlYWRfbG9jYWw6MSxyZXN0cmljdDoxLF9Cb29sOjEsY29tcGxleDoxfSxidWlsdF9pbjp7c3RkOjEsc3RyaW5nOjEsY2luOjEsY291dDoxLGNlcnI6MSxjbG9nOjEsc3RyaW5nc3RyZWFtOjEsaXN0cmluZ3N0cmVhbToxLG9zdHJpbmdzdHJlYW06MSxhdXRvX3B0cjoxLGRlcXVlOjEsbGlzdDoxLHF1ZXVlOjEsc3RhY2s6MSx2ZWN0b3I6MSxtYXA6MSxzZXQ6MSxiaXRzZXQ6MSxtdWx0aXNldDoxLG11bHRpbWFwOjEsdW5vcmRlcmVkX3NldDoxLHVub3JkZXJlZF9tYXA6MSx1bm9yZGVyZWRfbXVsdGlzZXQ6MSx1bm9yZGVyZWRfbXVsdGltYXA6MSxhcnJheToxLHNoYXJlZF9wdHI6MX19O3JldHVybntkTTp7azphLGk6IjwvIixjOltobGpzLkNMQ00saGxqcy5DQkxDTE0saGxqcy5RU00se2NOOiJzdHJpbmciLGI6IidcXFxcPy4iLGU6IiciLGk6Ii4ifSx7Y046Im51bWJlciIsYjoiXFxiKFxcZCsoXFwuXFxkKik/fFxcLlxcZCspKHV8VXxsfEx8dWx8VUx8ZnxGKSJ9LGhsanMuQ05NLHtjTjoicHJlcHJvY2Vzc29yIixiOiIjIixlOiIkIn0se2NOOiJzdGxfY29udGFpbmVyIixiOiJcXGIoZGVxdWV8bGlzdHxxdWV1ZXxzdGFja3x2ZWN0b3J8bWFwfHNldHxiaXRzZXR8bXVsdGlzZXR8bXVsdGltYXB8dW5vcmRlcmVkX21hcHx1bm9yZGVyZWRfc2V0fHVub3JkZXJlZF9tdWx0aXNldHx1bm9yZGVyZWRfbXVsdGltYXB8YXJyYXkpXFxzKjwiLGU6Ij4iLGs6YSxyOjEwLGM6WyJzZWxmIl19XX19fSgpO2hsanMuTEFOR1VBR0VTLnI9e2RNOntjOltobGpzLkhDTSx7Y046Im51bWJlciIsYjoiXFxiMFt4WF1bMC05YS1mQS1GXStbTGldP1xcYiIsZTpobGpzLklNTUVESUFURV9SRSxyOjB9LHtjTjoibnVtYmVyIixiOiJcXGJcXGQrKD86W2VFXVsrXFwtXT9cXGQqKT9MXFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MH0se2NOOiJudW1iZXIiLGI6IlxcYlxcZCtcXC4oPyFcXGQpKD86aVxcYik/IixlOmhsanMuSU1NRURJQVRFX1JFLHI6MX0se2NOOiJudW1iZXIiLGI6IlxcYlxcZCsoPzpcXC5cXGQqKT8oPzpbZUVdWytcXC1dP1xcZCopP2k/XFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MH0se2NOOiJudW1iZXIiLGI6IlxcLlxcZCsoPzpbZUVdWytcXC1dP1xcZCopP2k/XFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MX0se2NOOiJrZXl3b3JkIixiOiIoPzp0cnlDYXRjaHxsaWJyYXJ5fHNldEdlbmVyaWN8c2V0R3JvdXBHZW5lcmljKVxcYiIsZTpobGpzLklNTUVESUFURV9SRSxyOjEwfSx7Y046ImtleXdvcmQiLGI6IlxcLlxcLlxcLiIsZTpobGpzLklNTUVESUFURV9SRSxyOjEwfSx7Y046ImtleXdvcmQiLGI6IlxcLlxcLlxcZCsoPyFbXFx3Ll0pIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MTB9LHtjTjoia2V5d29yZCIsYjoiXFxiKD86ZnVuY3Rpb24pIixlOmhsanMuSU1NRURJQVRFX1JFLHI6Mn0se2NOOiJrZXl3b3JkIixiOiIoPzppZnxpbnxicmVha3xuZXh0fHJlcGVhdHxlbHNlfGZvcnxyZXR1cm58c3dpdGNofHdoaWxlfHRyeXxzdG9wfHdhcm5pbmd8cmVxdWlyZXxhdHRhY2h8ZGV0YWNofHNvdXJjZXxzZXRNZXRob2R8c2V0Q2xhc3MpXFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MX0se2NOOiJsaXRlcmFsIixiOiIoPzpOQXxOQV9pbnRlZ2VyX3xOQV9yZWFsX3xOQV9jaGFyYWN0ZXJffE5BX2NvbXBsZXhfKVxcYiIsZTpobGpzLklNTUVESUFURV9SRSxyOjEwfSx7Y046ImxpdGVyYWwiLGI6Iig/Ok5VTEx8VFJVRXxGQUxTRXxUfEZ8SW5mfE5hTilcXGIiLGU6aGxqcy5JTU1FRElBVEVfUkUscjoxfSx7Y046ImlkZW50aWZpZXIiLGI6IlthLXpBLVouXVthLXpBLVowLTkuX10qXFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MH0se2NOOiJvcGVyYXRvciIsYjoiPFxcLSg/IVxccypcXGQpIixlOmhsanMuSU1NRURJQVRFX1JFLHI6Mn0se2NOOiJvcGVyYXRvciIsYjoiXFwtPnw8XFwtIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MX0se2NOOiJvcGVyYXRvciIsYjoiJSV8fiIsZTpobGpzLklNTUVESUFURV9SRX0se2NOOiJvcGVyYXRvciIsYjoiPj18PD18PT18IT18XFx8XFx8fCYmfD18XFwrfFxcLXxcXCp8L3xcXF58Pnw8fCF8JnxcXHx8XFwkfDoiLGU6aGxqcy5JTU1FRElBVEVfUkUscjowfSx7Y046Im9wZXJhdG9yIixiOiIlIixlOiIlIixpOiJcXG4iLHI6MX0se2NOOiJpZGVudGlmaWVyIixiOiJgIixlOiJgIixyOjB9LHtjTjoic3RyaW5nIixiOiciJyxlOiciJyxjOltobGpzLkJFXSxyOjB9LHtjTjoic3RyaW5nIixiOiInIixlOiInIixjOltobGpzLkJFXSxyOjB9LHtjTjoicGFyZW4iLGI6IltbKHtcXF0pfV0iLGU6aGxqcy5JTU1FRElBVEVfUkUscjowfV19fTsKaGxqcy5pbml0SGlnaGxpZ2h0aW5nT25Mb2FkKCk7Cgo="></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link href="data:text/css;charset=utf-8,body%2C%20td%20%7B%0Afont%2Dfamily%3A%20sans%2Dserif%3B%0Abackground%2Dcolor%3A%20white%3B%0Afont%2Dsize%3A%2013px%3B%0A%7D%0Abody%20%7B%0Amax%2Dwidth%3A%20800px%3B%0Amargin%3A%200%20auto%3B%0Apadding%3A%201em%201em%202em%3B%0Aline%2Dheight%3A%2020px%3B%0A%7D%0A%0Adiv%23TOC%20li%20%7B%0Alist%2Dstyle%3Anone%3B%0Abackground%2Dimage%3Anone%3B%0Abackground%2Drepeat%3Anone%3B%0Abackground%2Dposition%3A0%3B%0A%7D%0A%0Ap%2C%20pre%20%7B%20margin%3A%200em%200em%201em%3B%0A%7D%0A%0Aimg%2C%20table%20%7B%0Amargin%3A%200em%20auto%201em%3B%0A%7D%0Ap%20%7B%0Atext%2Dalign%3A%20justify%3B%0A%7D%0Att%2C%20code%2C%20pre%20%7B%0Afont%2Dfamily%3A%20%27DejaVu%20Sans%20Mono%27%2C%20%27Droid%20Sans%20Mono%27%2C%20%27Lucida%20Console%27%2C%20Consolas%2C%20Monaco%2C%20monospace%3B%0A%7D%0Ah1%2C%20h2%2C%20h3%2C%20h4%2C%20h5%2C%20h6%20%7B%20font%2Dfamily%3A%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Amargin%3A%201%2E2em%200em%200%2E6em%200em%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah1%2Etitle%20%7B%0Afont%2Dsize%3A%20250%25%3B%0Afont%2Dweight%3A%20normal%3B%0Acolor%3A%20%2387b13f%3B%0Aline%2Dheight%3A%201%2E1em%3B%0Amargin%2Dtop%3A%200px%3B%0Aborder%2Dbottom%3A%200px%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%20160%25%3B%0Afont%2Dweight%3A%20normal%3B%0Aline%2Dheight%3A%201%2E4em%3B%0Aborder%2Dbottom%3A%201px%20%231a81c2%20solid%3B%0A%7D%0Ah2%20%7B%0Afont%2Dsize%3A%20130%25%3B%20%7D%0Ah1%2C%20h2%2C%20h3%20%7B%0Acolor%3A%20%231a81c2%3B%0A%7D%0Ah3%2C%20h4%2C%20h5%2C%20h6%20%7B%0Afont%2Dsize%3A115%25%3B%0A%7D%20%0A%0Aa%20%7B%20color%3A%20%231a81c2%3B%20%7D%0Aa%3Aactive%20%7B%20outline%3A%20none%3B%20%7D%0Aa%3Avisited%20%7B%20color%3A%20%231a81c2%3B%20%7D%0Aa%3Ahover%20%7B%20color%3A%20%234c94c2%3B%20%7D%0Apre%2C%20img%20%7B%0Amax%2Dwidth%3A%20100%25%3B%0Adisplay%3A%20block%3B%0A%7D%0Apre%20%7B%0Aborder%3A%200px%20none%3B%0Abackground%2Dcolor%3A%20%23F8F8F8%3B%0Awhite%2Dspace%3A%20pre%3B%0Aoverflow%2Dx%3A%20auto%3B%0A%7D%0Apre%20code%20%7B%0Aborder%3A%201px%20%23aaa%20dashed%3B%0Abackground%2Dcolor%3A%20white%3B%0Adisplay%3A%20block%3B%0Apadding%3A%201em%3B%20color%3A%20%23111%3B%0Aoverflow%2Dx%3A%20inherit%3B%0A%7D%0A%0Apre%20code%5Bclass%5D%20%7B%0Abackground%2Dcolor%3A%20inherit%3B%0A%7D%0A%0Apre%5Bclass%5D%20code%20%7B%0Abackground%2Dcolor%3A%20inherit%3B%0A%7D%0A%0Acode%20%7B%20background%2Dcolor%3A%20transparent%3B%0Acolor%3A%20%2387b13f%3B%0Afont%2Dsize%3A%2092%25%3B%0A%7D%0A%0Atable%2C%20td%2C%20th%20%7B%0Aborder%3A%20none%3B%0Apadding%3A%200%200%2E5em%3B%0A%7D%0A%0Atbody%20tr%3Anth%2Dchild%28odd%29%20td%20%7B%0Abackground%2Dcolor%3A%20%23F8F8F8%3B%0A%7D%0Ablockquote%20%7B%0Acolor%3A%23666666%3B%0Amargin%3A0%3B%0Apadding%2Dleft%3A%201em%3B%0Aborder%2Dleft%3A%200%2E5em%20%23EEE%20solid%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%200px%3B%0Aborder%2Dbottom%3A%20none%3B%0Aborder%2Dtop%2Dwidth%3A%20thin%3B%0Aborder%2Dtop%2Dstyle%3A%20dotted%3B%0Aborder%2Dtop%2Dcolor%3A%20%23999999%3B%0A%7D%0Aspan%2Eheader%2Dsection%2Dnumber%20%7B%0Apadding%2Dright%3A%201em%3B%0A%7D%0Aspan%2Etoc%2Dsection%2Dnumber%3A%3Aafter%20%7B%0Acontent%3A%20%22%20%22%3B%0Awhite%2Dspace%3A%20pre%3B%0A%7D%0A%40media%20print%20%7B%0A%2A%20%7B%0Abackground%3A%20transparent%20%21important%3B%0Acolor%3A%20black%20%21important%3B%0Afilter%3Anone%20%21important%3B%0A%2Dms%2Dfilter%3A%20none%20%21important%3B%0A%7D%0Abody%20%7B%0Afont%2Dsize%3A12pt%3B%0Amax%2Dwidth%3A100%25%3B%0A%7D%0Aa%2C%20a%3Avisited%20%7B%0Atext%2Ddecoration%3A%20underline%3B%0A%7D%0Ahr%20%7B%0Avisibility%3A%20hidden%3B%0Apage%2Dbreak%2Dbefore%3A%20always%3B%0A%7D%0Apre%2C%20blockquote%20%7B%0Apadding%2Dright%3A%201em%3B%0Apage%2Dbreak%2Dinside%3A%20avoid%3B%0A%7D%0Atr%2C%20img%20%7B%0Apage%2Dbreak%2Dinside%3A%20avoid%3B%0A%7D%0Aimg%20%7B%0Amax%2Dwidth%3A%20100%25%20%21important%3B%0A%7D%0A%40page%20%3Aleft%20%7B%0Amargin%3A%2015mm%2020mm%2015mm%2010mm%3B%0A%7D%0A%40page%20%3Aright%20%7B%0Amargin%3A%2015mm%2010mm%2015mm%2020mm%3B%0A%7D%0Ap%2C%20h2%2C%20h3%20%7B%0Aorphans%3A%203%3B%20widows%3A%203%3B%0A%7D%0Ah2%2C%20h3%20%7B%0Apage%2Dbreak%2Dafter%3A%20avoid%3B%0A%7D%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  var links = document.links;  
+  for (var i = 0, linksLength = links.length; i < linksLength; i++)
+    if(links[i].hostname != window.location.hostname)
+      links[i].target = '_blank';
+});
+</script>
+
+</head>
+
+<body>
+
+
+<div id="header">
+<h1 class="title">longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures</h1>
+<h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
+<h4 class="date"><em>Last update: 15 February, 2016</em></h4>
+</div>
+<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.3</span></h4>
+
+<h1>Contents</h1>
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#getting-started"><span class="toc-section-number">2</span> Getting Started</a><ul>
+<li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
+<li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
+</ul></li>
+<li><a href="#setup-of-working-environment"><span class="toc-section-number">3</span> Setup of working environment</a><ul>
+<li><a href="#import-custom-functions"><span class="toc-section-number">3.1</span> Import custom functions</a></li>
+<li><a href="#create-expected-directory-structure"><span class="toc-section-number">3.2</span> Create expected directory structure</a></li>
+</ul></li>
+<li><a href="#data-downloads"><span class="toc-section-number">4</span> Data downloads</a><ul>
+<li><a href="#download-data-from-connectivity-map-project-site"><span class="toc-section-number">4.1</span> Download data from Connectivity Map project site</a></li>
+<li><a href="#overiew-of-cmap-data"><span class="toc-section-number">4.2</span> Overiew of CMAP data</a></li>
+</ul></li>
+<li><a href="#pre-processing-of-cel-files"><span class="toc-section-number">5</span> Pre-processing of CEL files</a><ul>
+<li><a href="#determine-chip-type-from-cel-files"><span class="toc-section-number">5.1</span> Determine chip type from CEL files</a></li>
+<li><a href="#normalization-of-cel-files"><span class="toc-section-number">5.2</span> Normalization of CEL files</a></li>
+<li><a href="#combine-results-from-same-chip-type-in-single-data-frame"><span class="toc-section-number">5.3</span> Combine results from same chip type in single data frame</a></li>
+<li><a href="#clean-up-of-intermediate-files"><span class="toc-section-number">5.4</span> Clean-up of intermediate files</a></li>
+</ul></li>
+<li><a href="#deg-analysis-with-limma"><span class="toc-section-number">6</span> DEG analysis with <code>limma</code></a><ul>
+<li><a href="#generate-list-of-cel-names-defining-treatment-vs.control-comparisons"><span class="toc-section-number">6.1</span> Generate list of CEL names defining treatment vs. control comparisons</a></li>
+<li><a href="#load-normalized-expression-data"><span class="toc-section-number">6.2</span> Load normalized expression data</a></li>
+<li><a href="#deg-analysis-with-limma-1"><span class="toc-section-number">6.3</span> DEG analysis with <code>limma</code></a></li>
+<li><a href="#obtain-annotation-information"><span class="toc-section-number">6.4</span> Obtain annotation information</a></li>
+<li><a href="#transform-probe-set-to-gene-level-data"><span class="toc-section-number">6.5</span> Transform probe set to gene level data</a></li>
+<li><a href="#number-of-degs-per-drug-treatment"><span class="toc-section-number">6.6</span> Number of DEGs per drug treatment</a></li>
+<li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.7</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">6.8</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.9</span> Drugs affecting known longevity genes</a></li>
+</ul></li>
+<li><a href="#connectivity-maps-enrichment-analysis"><span class="toc-section-number">7</span> Connectivity maps enrichment analysis</a><ul>
+<li><a href="#query-drug-signatures"><span class="toc-section-number">7.1</span> Query drug signatures</a></li>
+<li><a href="#query-disease-signatures"><span class="toc-section-number">7.2</span> Query disease signatures</a></li>
+</ul></li>
+<li><a href="#age-drug-network-analysis"><span class="toc-section-number">8</span> Age-drug network analysis</a></li>
+<li><a href="#age-disease-network-analysis"><span class="toc-section-number">9</span> Age-disease network analysis</a></li>
+<li><a href="#funding"><span class="toc-section-number">10</span> Funding</a></li>
+<li><a href="#version-information"><span class="toc-section-number">11</span> Version information</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<!--
+%% \VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Overview Vignette}
+%% \VignetteDepends{methods}
+%% \VignetteKeywords{compute cluster, pipeline, reports}
+%% \VignettePackage{longevityTools}
+-->
+<!---
+- Compile from command-line
+echo "rmarkdown::render('longevityTools_eDRUG.Rmd', clean=F)" | R -slave; R CMD Stangle longevityTools_eDRUG.Rmd; Rscript ../md2jekyll.R longevityTools_eDRUG.knit.md 5
+
+- Commit to github
+git commit -am "some edits"; git push -u origin master
+
+- To customize font size and other style features, add this line to output section in preamble:  
+    css: style.css
+-->
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelector("h1").className = "title";
+});
+</script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  var links = document.links;  
+  for (var i = 0, linksLength = links.length; i < linksLength; i++)
+    if (links[i].hostname != window.location.hostname)
+      links[i].target = '_blank';
+});
+</script>
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html">here</a>.</p>
+<p>The project component covered by this vignette analyzes drug- and age-related genome-wide expression data from public microarray and RNA-Seq experiments. One of the main objective is the identification drug candidates modulating the expression of longevity genes and pathways. For this, we compare age-related expression signatures with those from drug treamtments. The age-related query signatures are from recent publications such as Peters et al. <span class="citation">(2015)</span> and Sood et al. <span class="citation">(2015)</span>, while the drug-related reference signatures are from the Connectivity Map (CMAP) and LINCS projects <span class="citation">(Lamb et al. 2006)</span>.</p>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="getting-started" class="section level1">
+<h1><span class="header-section-number">2</span> Getting Started</h1>
+<div id="installation" class="section level2">
+<h2><span class="header-section-number">2.1</span> Installation</h2>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+<pre class="r"><code>source(&quot;http://bioconductor.org/biocLite.R&quot;) # Sources the biocLite.R installation script 
+biocLite(&quot;tgirke/longevityTools&quot;, build_vignettes=FALSE) # Installs package from GitHub</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="loading-package-and-documentation" class="section level2">
+<h2><span class="header-section-number">2.2</span> Loading package and documentation</h2>
+<pre class="r"><code>library(&quot;longevityTools&quot;) # Loads the package
+library(help=&quot;longevityTools&quot;) # Lists package info
+vignette(topic=&quot;longevityTools_eDRUG&quot;, package=&quot;longevityTools&quot;) # Opens vignette</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+</div>
+<div id="setup-of-working-environment" class="section level1">
+<h1><span class="header-section-number">3</span> Setup of working environment</h1>
+<div id="import-custom-functions" class="section level2">
+<h2><span class="header-section-number">3.1</span> Import custom functions</h2>
+<p>Preliminary functions that are still under developement, or not fully tested and documented can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
+<pre class="r"><code>fctpath &lt;- system.file(&quot;extdata&quot;, &quot;longevityTools_eDRUG_Fct.R&quot;, package=&quot;longevityTools&quot;)
+source(fctpath)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="create-expected-directory-structure" class="section level2">
+<h2><span class="header-section-number">3.2</span> Create expected directory structure</h2>
+<p>The following creates the directory structure expected by this workflow. Input data will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory. All paths are given relative to the present working directory of the user’s R session.</p>
+<pre class="r"><code>dir.create(&quot;data&quot;); dir.create(&quot;data/CEL&quot;); dir.create(&quot;results&quot;) </code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+</div>
+<div id="data-downloads" class="section level1">
+<h1><span class="header-section-number">4</span> Data downloads</h1>
+<div id="download-data-from-connectivity-map-project-site" class="section level2">
+<h2><span class="header-section-number">4.1</span> Download data from Connectivity Map project site</h2>
+<p>The drug-related expression data are downloaded from the CMAP web site <a href="http://www.broadinstitute.org/cmap">here</a>. The <code>getCmap</code> function downloads the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code> downloads the corresponding 7,056 CEL files. The functions will write the downloaded files to the <code>data</code> and <code>data/CEL</code> directories within the present working directory of the user’s R session. Since some of the raw data sets are large, the functions will only rerun the download if the argument <code>rerun</code> is assigned <code>TRUE</code>. If the raw data are not needed then users can skip this time consuming download step and work with the preprocessed data obtained in the next section.</p>
+<pre class="r"><code>getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
+getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="overiew-of-cmap-data" class="section level2">
+<h2><span class="header-section-number">4.2</span> Overiew of CMAP data</h2>
+<p>The experimental design of the CMAP project is defined in the file <code>cmap_instances_02.xls</code>. Note, this file required some cleaning in LibreOffice (Excel would work for this too). After this it was saved as tab delimited txt file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>. The following count statisitics are extracted from this file.</p>
+<p>The panel of cell lines used by CMAP includes <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7">MCF7</a>, <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7">ssMCF7</a>, <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#hl60">HL60</a>, <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#pc3">PC3</a> and <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#skmel5">SKMEL5</a>. Each cell type was subjected to the following number of total treatments and number of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.</p>
+<pre class="r"><code>library(ggplot2); library(reshape2) 
+cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
+df &lt;- data.frame(table(cmap[, &quot;cell2&quot;]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),&quot;cell2&quot;])))
+colnames(df) &lt;- c(&quot;Cell_type&quot;, &quot;Treatments&quot;, &quot;Drugs&quot;)
+df &lt;- melt(df, id.vars=c(&quot;Cell_type&quot;), variable.name = &quot;Samples&quot;, value.name=&quot;Counts&quot;)
+ggplot(df, aes(Cell_type, Counts, fill=Samples)) + 
+       geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;) + 
+       ggtitle(&quot;Number of treatments by cell types&quot;)</code></pre>
+<p>The number Affymetrix chip used in the experiments is plotted here for each of the three chip types used by CMAP:</p>
+<pre class="r"><code>df &lt;- data.frame(table(cmap$array3)); colnames(df) &lt;- c(&quot;Chip_type&quot;, &quot;Counts&quot;) 
+ggplot(df, aes(Chip_type, Counts)) + 
+       geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;, fill=&quot;cornflowerblue&quot;) + 
+       ggtitle(&quot;Number of chip types&quot;)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+</div>
+<div id="pre-processing-of-cel-files" class="section level1">
+<h1><span class="header-section-number">5</span> Pre-processing of CEL files</h1>
+<div id="determine-chip-type-from-cel-files" class="section level2">
+<h2><span class="header-section-number">5.1</span> Determine chip type from CEL files</h2>
+<p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A, HT_HG-U133A and U133AAofAv2). The following extracts the chip type information from the CEL files and stores the result in an <code>rds</code> file with the path <code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
+<pre class="r"><code>celfiles &lt;- list.files(&quot;./data/CEL&quot;, pattern=&quot;.CEL$&quot;)
+chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0(&quot;data/CEL/&quot;, x))$chiptype)
+if(FALSE) saveRDS(chiptype, &quot;./data/chiptype.rds&quot;) # if(FALSE) protects this line from accidental execution!</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="normalization-of-cel-files" class="section level2">
+<h2><span class="header-section-number">5.2</span> Normalization of CEL files</h2>
+<p>The follwoing processes the CEL files from each chip type separately using the MAS5 normalization algorithm. The results will be written to 3 subdirectores under <code>data</code> that are named after the chip type names. To save time, the processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a computer cluster with a scheduler (<em>e.g.</em> Torque). The number of CEL files from each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from HT_HG-U133A, and 220 CEL files from U133AAofAv2. Note, these numbers are slightly different than those reported in the <code>cmap_instances_02.txt</code> file. The MAS5 normalized data sets can be downloaded here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds">HG-U133A</a>, <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds">HT_HG-U133A</a>, <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/U133AAofAv2/all_mas5exprs.rds">U133AAofAv2</a>.</p>
+<pre class="r"><code>library(BiocParallel); library(BatchJobs); library(affy)
+chiptype &lt;- readRDS(&quot;./data/chiptype.rds&quot;)
+chiptype_list &lt;- split(names(chiptype), as.character(chiptype))
+normalizeCel(chiptype_list, rerun=FALSE) </code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="combine-results-from-same-chip-type-in-single-data-frame" class="section level2">
+<h2><span class="header-section-number">5.3</span> Combine results from same chip type in single data frame</h2>
+<pre class="r"><code>chiptype_dir &lt;- unique(readRDS(&quot;./data/chiptype.rds&quot;))
+combineResults(chiptype_dir, rerun=FALSE)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="clean-up-of-intermediate-files" class="section level2">
+<h2><span class="header-section-number">5.4</span> Clean-up of intermediate files</h2>
+<p>This deletes intermediate files. Before executing these lines, please make sure that this is what you want.</p>
+<pre class="r"><code>for(i in seq_along(chiptype_dir)) unlink(list.files(paste0(&quot;data/&quot;, chiptype_dir[i]), pattern=&quot;cellbatch&quot;, full.names=TRUE), recursive=TRUE)
+unlink(&quot;data/CEL/*.CEL&quot;) # Deletes downloaded CEL files</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+</div>
+<div id="deg-analysis-with-limma" class="section level1">
+<h1><span class="header-section-number">6</span> DEG analysis with <code>limma</code></h1>
+<div id="generate-list-of-cel-names-defining-treatment-vs.control-comparisons" class="section level2">
+<h2><span class="header-section-number">6.1</span> Generate list of CEL names defining treatment vs. control comparisons</h2>
+<p>The <code>sampleList</code> function extracts the sample comparisons (contrasts) from the CMAP annotation table and stores them as a list.</p>
+<pre class="r"><code>cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
+# comp_list &lt;- sampleList(cmap, myby=&quot;CMP&quot;)
+comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="load-normalized-expression-data" class="section level2">
+<h2><span class="header-section-number">6.2</span> Load normalized expression data</h2>
+<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. To accelerate the import, the data is read from <code>rds</code> files.</p>
+<pre class="r"><code>chiptype_dir &lt;- unique(readRDS(&quot;./data/chiptype.rds&quot;))
+df1 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[1], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
+df2 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[2], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
+df3 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[3], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
+affyid &lt;- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid &lt;- affyid[affyid %in% rownames(df3)]
+mas5df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="deg-analysis-with-limma-1" class="section level2">
+<h2><span class="header-section-number">6.3</span> DEG analysis with <code>limma</code></h2>
+<p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package. Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and a minimum fold change of 2). The DEG matrix is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
+<pre class="r"><code>degMA &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
+degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+saveRDS(degMA, &quot;./results/degMA.rds&quot;)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="obtain-annotation-information" class="section level2">
+<h2><span class="header-section-number">6.4</span> Obtain annotation information</h2>
+<p>The following generates annotation information for the Affymetirx probe set identifiers. Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The annotation libraries for the chip types HG-U133A and HT_HG-U133A are <code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
+<pre class="r"><code>library(hgu133a.db)
+myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
+                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 
+                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=&quot;, &quot;), 
+                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=&quot;, &quot;), 
+                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=&quot;, &quot;), 
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))
+saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="transform-probe-set-to-gene-level-data" class="section level2">
+<h2><span class="header-section-number">6.5</span> Transform probe set to gene level data</h2>
+<p>The <code>probeset2gene</code> function translates a binary DEG matrix from the probe level (<code>row.names</code> are Affy IDs) to the gene level (<code>row.names</code> are gene IDs). Genes represented by several probe sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are supported: <code>summary_rule=1L</code> will consider a gene as a DEG for a specific treatment if at least one of several probe sets supports this assignment, while <code>summary_rule=2L</code> requires support from at least 2 probe sets.</p>
+<pre class="r"><code>myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
+degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
+degMAgene &lt;- probeset2gene(degMA, myAnnot, geneIDtype=&quot;ENTREZID&quot;, summary_rule=1L)
+saveRDS(degMAgene, &quot;./results/degMAgene.rds&quot;)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="number-of-degs-per-drug-treatment" class="section level2">
+<h2><span class="header-section-number">6.6</span> Number of DEGs per drug treatment</h2>
+<pre class="r"><code>degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;)
+y &lt;- as.numeric(colSums(degMAgene))
+interval &lt;- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
+df &lt;- data.frame(interval); colnames(df) &lt;- c(&quot;Bins&quot;, &quot;Counts&quot;)
+ggplot(df, aes(Bins, Counts)) + 
+       geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;, fill=&quot;cornflowerblue&quot;) + 
+       ggtitle(&quot;DEG numbers by bins&quot;)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
+<h2><span class="header-section-number">6.7</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
+<p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to observe the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
+<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
+myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
+geneid &lt;- as.character(PMID26490707$&quot;NEW.Entrez.ID&quot;)
+degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
+degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
+degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
+write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap
+degOL_PMID26490707[1:20,]</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
+<h2><span class="header-section-number">6.8</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
+<p>Sood et al. <span class="citation">(2015)</span> reported 150 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to observe the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
+<pre class="r"><code>PMID26343147 &lt;- read.delim(&quot;./data/PMID26343147_S1T1.xls&quot;, check.names=FALSE, comment=&quot;#&quot;)
+myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
+affyid &lt;- row.names(myAnnot[myAnnot[,&quot;SYMBOL&quot;] %in% PMID26343147[,&quot;Gene Symbol&quot;], ]) 
+degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
+degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+degMAsub &lt;- degMA[affyid,]
+degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
+write.table(degOL_PMID26343147, file=&quot;./results/degOL_PMID26343147.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap
+degOL_PMID26343147[1:20,] # Top 20 scoring drugs</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="drugs-affecting-known-longevity-genes" class="section level2">
+<h2><span class="header-section-number">6.9</span> Drugs affecting known longevity genes</h2>
+<p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes. The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
+<pre class="r"><code>genesymbols &lt;- c(&quot;IGF1&quot;, &quot;IGF1R&quot;)
+geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;ENTREZID&quot;]))
+names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;]))
+degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
+df &lt;- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
+for(i in seq_along(geneids)) df &lt;- cbind(df, as.numeric(degMAgene[geneids[i],]))
+colnames(df) &lt;- names(geneids)
+df &lt;- df[rowSums(df)&gt;0,]
+nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R</code></pre>
+<p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) and drug treatments.</p>
+<pre class="r"><code>affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
+affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;])
+names(affyids) &lt;- affyids2
+cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
+comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)
+comp_list &lt;- comp_list[row.names(df)]
+degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
+pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,&quot;adj.P.Val&quot;])))
+colnames(pvalDF) &lt;- paste0(colnames(pvalDF), &quot;_FDR&quot;)
+df &lt;- cbind(df, pvalDF)
+write.table(df, file=&quot;./results/deg_IGF1.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
+<p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
+<pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)
+igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+</div>
+<div id="connectivity-maps-enrichment-analysis" class="section level1">
+<h1><span class="header-section-number">7</span> Connectivity maps enrichment analysis</h1>
+<p>The connectivity maps approach is a rank-based enrichment method utilizing the KS test <span class="citation">(Lamb et al. 2006)</span>. It measures the similarities of expression signatures based on the enrichment of up- and down-regulated genes at the top and bottom of sorted (ranked) gene lists.</p>
+<div id="query-drug-signatures" class="section level2">
+<h2><span class="header-section-number">7.1</span> Query drug signatures</h2>
+<p>The following uses the 1,497 age-related gene expression signatures from Peters et al. <span class="citation">(2015)</span> as a query against the CMAP signatures. The results are sorted by the ES Distance and the top scoring 20 drugs are given below. The full result table is<br />
+written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
+<pre class="r"><code>library(DrugVsDisease)
+PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
+data(drugRL)
+PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(drugRL),]
+testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
+                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
+drugcmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;disease&quot;, signif.fdr=0.5, no.signif=20)
+drugcmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;disease&quot;, 
+                            pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
+                            dynamic.fdr=0.5, signif.fdr=0.05, adj=&quot;BH&quot;, no.signif=100)
+write.table(drugcmap2, file=&quot;./results/drugcmap2.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+drugcmap2[[1]][1:20,]</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="query-disease-signatures" class="section level2">
+<h2><span class="header-section-number">7.2</span> Query disease signatures</h2>
+<p>The same query is performed against a reference set of disease expression signatures. The results are sorted by the ES Distance and the top scoring 20 drugs are given below. The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code>diseasecmap2.xls</code></a>.</p>
+<pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;, check.names=FALSE)
+data(diseaseRL)
+PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(diseaseRL),]
+testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
+                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
+diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)
+diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
+                            pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
+                            dynamic.fdr=0.5, adj=&quot;BH&quot;, no.signif=100)
+write.table(diseasecmap2, file=&quot;./results/diseasecmap2.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+diseasecmap2[[1]][1:20,]</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+</div>
+<div id="age-drug-network-analysis" class="section level1">
+<h1><span class="header-section-number">8</span> Age-drug network analysis</h1>
+<p>In progress…</p>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="age-disease-network-analysis" class="section level1">
+<h1><span class="header-section-number">9</span> Age-disease network analysis</h1>
+<p>In progress…</p>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="funding" class="section level1">
+<h1><span class="header-section-number">10</span> Funding</h1>
+<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).</p>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="version-information" class="section level1">
+<h1><span class="header-section-number">11</span> Version information</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.2.3 (2015-12-10)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 14.04.3 LTS
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8       
+##  [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
+## [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  utils     datasets  grDevices methods   base     
+## 
+## other attached packages:
+## [1] ggplot2_2.0.0        longevityTools_1.0.3 BiocStyle_1.8.0     
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.3      digest_0.6.9     plyr_1.8.3       grid_3.2.3       gtable_0.1.2    
+##  [6] formatR_1.2.1    magrittr_1.5     evaluate_0.8     scales_0.3.0     stringi_1.0-1   
+## [11] rmarkdown_0.9.2  tools_3.2.3      stringr_1.0.0    munsell_0.4.2    yaml_2.1.13     
+## [16] colorspace_1.2-6 htmltools_0.3    knitr_1.12</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-Lamb2006-uv">
+<p>Lamb, J, E D Crawford, D Peck, J W Modell, I C Blat, M J Wrobel, J Lerner, et al. 2006. “The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease.” <em>Science</em> 313 (5795): 1929–35. doi:<a href="https://doi.org/10.1126/science.1132939">10.1126/science.1132939</a>.</p>
+</div>
+<div id="ref-Peters2015-fc">
+<p>Peters, Marjolein J, Roby Joehanes, Luke C Pilling, Claudia Schurmann, Karen N Conneely, Joseph Powell, Eva Reinmaa, George L Sutphin,..., and Andrew D Johnson. 2015. “The Transcriptional Landscape of Age in Human Peripheral Blood.” <em>Nat. Commun.</em> 6 (22~oct): 8570. doi:<a href="https://doi.org/10.1038/ncomms9570">10.1038/ncomms9570</a>.</p>
+</div>
+<div id="ref-Sood2015-pb">
+<p>Sood, Sanjana, Iain Gallagher, Katie Lunnon, Eric Rullman, Aoife Keohane, Hannah Crossland, Bethan Phillips, et al. 2015. “A Novel Multi-Tissue RNA Diagnostic of Healthy Ageing Relates to Cognitive Health Status.” <em>Genome Biology</em>. doi:<a href="https://doi.org/10.1186/s13059-015-0750-x">10.1186/s13059-015-0750-x</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
