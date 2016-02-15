@@ -4,11 +4,12 @@ keywords:
 last_updated: Thu Feb 11 21:16:00 2016
 ---
 
-## Current projects
 
-### Overview Vignette
+## Overview Vignette
 
 * [longevityTools](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html){:target="_blank"}
+
+## Workflow Vignettes
 
 1. **Analysis of eSNPs, eQTL & GWAS data**
 
