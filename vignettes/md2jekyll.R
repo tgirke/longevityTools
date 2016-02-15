@@ -271,5 +271,5 @@ md2Jekyll <- function(mdfile="Rbasics.knit.md", sidebartitle=NULL, sidebarpos, o
 ## Run from command-line with arguments
 myargs <- commandArgs()
 md2Jekyll(mdfile=myargs[6], sidebartitle=NULL, sidebarpos=as.numeric(myargs[7]), outfilebasename=NULL, outpath="../../mydoc", sidebar_url_path="../../_data/mydoc/", fenced2highlight=TRUE, image_dir=NULL)
-# $ Rscript ../md2jekyll.R bioassayR.knit.md NULL 8
+# $ Rscript ../md2jekyll.R bioassayR.knit.md 8
 

@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+  <head>
+
+ <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures  | Manuals</title>
+<link rel="stylesheet" type="text/css" href="../css/syntax.css">
+<link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="../css/modern-business.css">
+<link rel="stylesheet" type="text/css" href="../css/lavish-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../css/customstyles.css">
+<link rel="stylesheet" type="text/css" href="../css/theme-blue.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="../js/jquery.navgoco.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="../js/toc.js"></script>
+<script src="../js/customscripts.js"></script>
+<link rel="shortcut icon" href="../common_images/favicon.ico" type="image/x-icon">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+
+
+
+ 
+
+<script>
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+
+
+  </head>
+
+<body>
+
+   <!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="fa fa-home fa-lg navbar-brand" href="home.html">&nbsp;<span class="projectTitle"> Longevity Tools</span></a>
+
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                
+                
+                
+                <li><a href="../mydoc/search.html">Search</a></li>
+                
+                
+                
+                
+                
+                <li><a href="https://github.com/tgirke/longevityTools" target="_blank">Github Repo</a></li>
+                
+                
+                
+                
+
+
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+
+                <li class="dropdown">
+                    
+                    
+                    
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        
+                        <li><a href="http://www.longevitygenomics.org/" target="_blank">Longevity Genomics</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="https://cran.r-project.org/" target="_blank">CRAN</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="http://bioconductor.org/" target="_blank">Bioconductor</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="https://guides.github.com/activities/hello-world/" target="_blank">GitHub</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="http://jekyllrb.com/" target="_blank">Jekyll</a></li>
+                        
+                        
+                        
+                        
+
+                    </ul>
+                </li>
+                
+                
+
+
+                <!-- special insertion -->
+
+               
+                
+                
+                <!-- Send feedback function -->
+<script>
+function SendLinkByMail(href) {
+var subject= "Manuals feedback";
+var body = "I have some feedback about the longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures page: ";
+body += window.location.href;
+body += "";
+var uri = "mailto:?subject=";
+uri += encodeURIComponent(subject);
+uri += "&body=";
+uri += encodeURIComponent(body);
+window.location.href = uri;
+}
+</script>
+
+<li><a href="javascript:(function()%7BSendLinkByMail()%3B%7D)()%3B" target="_blank"><i class="fa fa-envelope-o"></i> Feedback</a></li>
+
+
+                <!--uncomment this block if you want simple search instead of algolia-->
+                <li>
+                     <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="../js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                        SimpleJekyllSearch.init({
+                            searchInput: document.getElementById('search-input'),
+                            resultsContainer: document.getElementById('results-container'),
+                            dataSource: '../search.json',
+                            searchResultTemplate: '<li><a href="{url}" title="longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures">{title}</a></li>',
+                        noResultsText: 'No results found.',
+                                limit: 10,
+                                fuzzy: true,
+                        })
+                    </script>
+                     <!--end search-->
+                </li>
+
+            
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="col-lg-12">&nbsp;</div>
+
+
+<!-- Content Row -->
+<div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+
+        <script>
+
+            $(document).ready(function() {
+                // Initialize navgoco with default options
+                $("#mysidebar").navgoco({
+                    caretHtml: '',
+                    accordion: true,
+                    openClass: 'active', // open
+                    save: false, // leave false or nav highlighting doesn't work right
+                    cookie: {
+                        name: 'navgoco',
+                        expires: false,
+                        path: '/'
+                    },
+                    slide: {
+                        duration: 400,
+                        easing: 'swing'
+                    }
+                });
+
+                $("#collapseAll").click(function(e) {
+                    e.preventDefault();
+                    $("#mysidebar").navgoco('toggle', false);
+                });
+
+                $("#expandAll").click(function(e) {
+                    e.preventDefault();
+                    $("#mysidebar").navgoco('toggle', true);
+                });
+
+            });
+
+        </script>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <ul id="mysidebar" class="nav">
+
+            <span class="siteTagline"><img src="../common_images/logo.png"></span>
+            <span class="versionTagline"></span>
+
+            
+            
+            
+                
+            
+            <li><a href="#">Overview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/home.html">Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_current_projects.html">Current Projects</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_getting_started.html">Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">Downloads</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_downloads.html">Download of Analysis Results</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_software.html">Software</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolsOverview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_1.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_2.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_3.html">3. Overview of object clases, methods and functions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_4.html">4. Workflow vignettes</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_5.html">5. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_6.html">6. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_7.html">7. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolseQTL</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_02.html">2. General Analytical Approach</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_03.html">3. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_04.html">4. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_05.html">5. Sample data from GTEx</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_06.html">6. Utilities</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_07.html">7. SNP clumping using PLINK</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_08.html">8. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_09.html">9. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolseDRUG</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+                
+
+
+                <!-- if you aren't using the accordion, uncomment this block:
+
+                     <p class="external">
+                         <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+                     </p>
+                 -->
+
+    </div>
+    <!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+    <script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+            <!-- Content Column -->
+            <div class="col-md-9">
+                
+                <div class="post-header">
+   <h1 class="post-title-main">longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures</h1>
+</div>
+
+<div class="post-content">
+
+   
+
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+
+<div id="toc"></div>
+
+
+<!--
+    
+    <a target="_blank" href="https://github.com/tgirke/manuals/tree/master/mydoc/" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+    
+-->
+<!--
+%% \VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Overview Vignette}
+%% \VignetteDepends{methods}
+%% \VignetteKeywords{compute cluster, pipeline, reports}
+%% \VignettePackage{longevityTools}
+-->
+
+<!---
+- Compile from command-line
+echo "rmarkdown::render('longevityTools_eDRUG.Rmd', clean=F)" | R -slave; R CMD Stangle longevityTools_eDRUG.Rmd; Rscript ../md2jekyll.R longevityTools_eDRUG.knit.md 5
+
+- Commit to github
+git commit -am "some edits"; git push -u origin master
+
+- To customize font size and other style features, add this line to output section in preamble:  
+    css: style.css
+-->
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelector("h1").className = "title";
+});
+</script>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  var links = document.links;  
+  for (var i = 0, linksLength = links.length; i < linksLength; i++)
+    if (links[i].hostname != window.location.hostname)
+      links[i].target = '_blank';
+});
+</script>
+
+<h1 id="introduction">Introduction</h1>
+<p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
+website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package 
+is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
+vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html">here</a>.</p>
+
+<p>The project component covered by this vignette analyzes drug- and age-related
+genome-wide expression data from public microarray and RNA-Seq experiments. One
+of the main objective is the identification drug candidates modulating the
+expression of longevity genes and pathways. For this, we compare age-related
+expression signatures with those from drug treamtments. The age-related query
+signatures are from recent publications such as Peters et al. [-@Peters2015-fc]
+and Sood et al. [-@Sood2015-pb], while the drug-related reference signatures
+are from the Connectivity Map (CMAP) and LINCS projects [@Lamb2006-uv].</p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="getting-started">Getting Started</h1>
+
+<h2 id="installation">Installation</h2>
+
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+
+<p><code>r
+source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
+biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="loading-package-and-documentation">Loading package and documentation</h2>
+
+<p><code>r
+library("longevityTools") # Loads the package
+library(help="longevityTools") # Lists package info
+vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignette
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="setup-of-working-environment">Setup of working environment</h1>
+
+<h2 id="import-custom-functions">Import custom functions</h2>
+
+<p>Preliminary functions that are still under developement, or not fully tested and documented 
+can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
+
+<p><code>r
+fctpath &lt;- system.file("extdata", "longevityTools_eDRUG_Fct.R", package="longevityTools")
+source(fctpath)
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="create-expected-directory-structure">Create expected directory structure</h2>
+
+<p>The following creates the directory structure expected by this workflow. Input data
+will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory.
+All paths are given relative to the present working directory of the user’s R session.</p>
+
+<p><code>r
+dir.create("data"); dir.create("data/CEL"); dir.create("results") 
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="data-downloads">Data downloads</h1>
+
+<h2 id="download-data-from-connectivity-map-project-site">Download data from Connectivity Map project site</h2>
+<p>The drug-related expression data are downloaded from the CMAP web site
+<a href="http://www.broadinstitute.org/cmap">here</a>. The <code>getCmap</code> function downloads
+the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code>
+downloads the corresponding 7,056 CEL files. The functions will write the
+downloaded files to the <code>data</code> and <code>data/CEL</code> directories within the present 
+working directory of the user’s R session. Since some of the raw data sets 
+are large, the functions will only rerun the download if the argument <code>rerun</code> 
+is assigned <code>TRUE</code>. If the raw data are not needed then users can skip this 
+time consuming download step and work with the preprocessed data 
+obtained in the next section.</p>
+
+<p><code>r
+getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
+getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="overiew-of-cmap-data">Overiew of CMAP data</h2>
+
+<p>The experimental design of the CMAP project is defined in the file
+<code>cmap_instances_02.xls</code>.  Note, this file required some cleaning in LibreOffice
+(Excel would work for this too). After this it was saved as tab delimited txt
+file named
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>.
+The following count statisitics are extracted from this file.</p>
+
+<p>The panel of cell lines used by CMAP includes 
+<a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7">MCF7</a>, 
+<a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7">ssMCF7</a>, 
+<a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#hl60">HL60</a>, 
+<a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#pc3">PC3</a> and 
+<a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#skmel5">SKMEL5</a>. 
+Each cell type was subjected to the following number of total treatments and number
+of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.</p>
+
+<p><code>r
+library(ggplot2); library(reshape2) 
+cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
+df &lt;- data.frame(table(cmap[, "cell2"]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])))
+colnames(df) &lt;- c("Cell_type", "Treatments", "Drugs")
+df &lt;- melt(df, id.vars=c("Cell_type"), variable.name = "Samples", value.name="Counts")
+ggplot(df, aes(Cell_type, Counts, fill=Samples)) + 
+       geom_bar(position="dodge", stat="identity") + 
+       ggtitle("Number of treatments by cell types")
+</code></p>
+
+<p>The number Affymetrix chip used in the experiments is plotted here for each of
+the three chip types used by CMAP:</p>
+
+<p><code>r
+df &lt;- data.frame(table(cmap$array3)); colnames(df) &lt;- c("Chip_type", "Counts") 
+ggplot(df, aes(Chip_type, Counts)) + 
+       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
+       ggtitle("Number of chip types")
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="pre-processing-of-cel-files">Pre-processing of CEL files</h1>
+
+<h2 id="determine-chip-type-from-cel-files">Determine chip type from CEL files</h2>
+<p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A,
+HT_HG-U133A and U133AAofAv2). The following extracts the chip type information
+from the CEL files and stores the result in an <code>rds</code> file with the path 
+<code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can
+download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
+
+<p><code>r
+celfiles &lt;- list.files("./data/CEL", pattern=".CEL$")
+chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
+if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this line from accidental execution!
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="normalization-of-cel-files">Normalization of CEL files</h2>
+
+<p>The follwoing processes the CEL files from each chip type separately using the
+MAS5 normalization algorithm. The results will be written to 3 subdirectores
+under <code>data</code> that are named after the chip type names.  To save time, the
+processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a
+computer cluster with a scheduler (<em>e.g.</em> Torque). The number of CEL files from
+each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from
+HT_HG-U133A, and 220 CEL files from U133AAofAv2. Note, these numbers are slightly
+different than those reported in the <code>cmap_instances_02.txt</code> file. The MAS5 normalized data
+sets can be downloaded here: 
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds">HG-U133A</a>, 
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds">HT_HG-U133A</a>, 
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/U133AAofAv2/all_mas5exprs.rds">U133AAofAv2</a>.</p>
+
+<p><code>r
+library(BiocParallel); library(BatchJobs); library(affy)
+chiptype &lt;- readRDS("./data/chiptype.rds")
+chiptype_list &lt;- split(names(chiptype), as.character(chiptype))
+normalizeCel(chiptype_list, rerun=FALSE) 
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="combine-results-from-same-chip-type-in-single-data-frame">Combine results from same chip type in single data frame</h2>
+
+<p><code>r
+chiptype_dir &lt;- unique(readRDS("./data/chiptype.rds"))
+combineResults(chiptype_dir, rerun=FALSE)
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="clean-up-of-intermediate-files">Clean-up of intermediate files</h2>
+
+<p>This deletes intermediate files. Before executing these lines, please make sure that this is what you want.</p>
+
+<p><code>r
+for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
+unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="deg-analysis-with-limma">DEG analysis with <code>limma</code></h1>
+
+<h2 id="generate-list-of-cel-names-defining-treatment-vs-control-comparisons">Generate list of CEL names defining treatment vs. control comparisons</h2>
+
+<p>The <code>sampleList</code> function extracts the sample comparisons (contrasts) from the
+CMAP annotation table and stores them as a list.</p>
+
+<p><code>r
+cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
+# comp_list &lt;- sampleList(cmap, myby="CMP")
+comp_list &lt;- sampleList(cmap, myby="CMP_CELL")
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="load-normalized-expression-data">Load normalized expression data</h2>
+
+<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. 
+To accelerate the import, the data is read from <code>rds</code> files.</p>
+
+<p><code>r
+chiptype_dir &lt;- unique(readRDS("./data/chiptype.rds"))
+df1 &lt;- readRDS(paste0("data/", chiptype_dir[1], "/", "all_mas5exprs.rds"))
+df2 &lt;- readRDS(paste0("data/", chiptype_dir[2], "/", "all_mas5exprs.rds"))
+df3 &lt;- readRDS(paste0("data/", chiptype_dir[3], "/", "all_mas5exprs.rds"))
+affyid &lt;- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid &lt;- affyid[affyid %in% rownames(df3)]
+mas5df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="deg-analysis-with-limma-1">DEG analysis with <code>limma</code></h2>
+
+<p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package.
+Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and 
+a minimum fold change of 2). The DEG matrix is written to a file named 
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
+
+<p><code>r
+degMA &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
+degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
+saveRDS(degMA, "./results/degMA.rds")
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="obtain-annotation-information">Obtain annotation information</h2>
+<p>The following generates annotation information for the Affymetirx probe set
+identifiers.  Note, the three different Affymetrix chip types used by CMAP
+share most probe set ids (&gt;95%), meaning it is possible to combine the data
+after normalization and use the same annotation package for all of them. The
+annotation libraries for the chip types HG-U133A and HT_HG-U133A are
+<code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation 
+library (e.g. CDF) available for U133AAofAv2.</p>
+
+<p><code>r
+library(hgu133a.db)
+myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
+                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
+                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
+                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
+                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+saveRDS(myAnnot, "./results/myAnnot.rds")
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="transform-probe-set-to-gene-level-data">Transform probe set to gene level data</h2>
+
+<p>The <code>probeset2gene</code> function translates a binary DEG matrix from the probe level (<code>row.names</code> are
+Affy IDs) to the gene level (<code>row.names</code> are gene IDs). Genes represented by several probe
+sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are
+supported: <code>summary_rule=1L</code> will consider a gene as a DEG for a specific treatment if at 
+least one of several probe sets supports this assignment, while <code>summary_rule=2L</code> requires 
+support from at least 2 probe sets.</p>
+
+<p><code>r
+myAnnot &lt;- readRDS("./results/myAnnot.rds") 
+degMA &lt;- readRDS("./results/degMA.rds") # Faster than read.delim()
+degMAgene &lt;- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
+saveRDS(degMAgene, "./results/degMAgene.rds")
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="number-of-degs-per-drug-treatment">Number of DEGs per drug treatment</h2>
+
+<p><code>r
+degMAgene &lt;- readRDS("./results/degMAgene.rds")
+y &lt;- as.numeric(colSums(degMAgene))
+interval &lt;- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
+df &lt;- data.frame(interval); colnames(df) &lt;- c("Bins", "Counts")
+ggplot(df, aes(Bins, Counts)) + 
+       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
+       ggtitle("DEG numbers by bins")
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="identify-deg-overlaps-with-peters-et-al--peters2015-fc">Identify DEG overlaps with Peters et al. [-@Peters2015-fc]</h2>
+
+<p>Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression
+signatures.  The <code>intersectStats</code> function computes their intersects with each
+of the 3,318 drug-responsive DEG sets from CMAP. The result includes the
+Jaccard index as a simple similarity metric for gene sets as well as the raw
+and adjusted p-values based on the hypergeometric distribution expressing how
+likely it is to observe the observed intersect sizes just by chance. The
+results for the 20 top scoring drugs are given below and the full data set is
+written to a file named
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
+
+<p><code>r
+PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#")
+myAnnot &lt;- readRDS("./results/myAnnot.rds") 
+geneid &lt;- as.character(PMID26490707$"NEW.Entrez.ID")
+degMAgene &lt;- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
+degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
+write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
+sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap
+degOL_PMID26490707[1:20,]
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="identify-deg-overlaps-with-sood-et-al--sood2015-pb">Identify DEG overlaps with Sood et al. [-@Sood2015-pb]</h2>
+
+<p>Sood et al. [-@Sood2015-pb] reported 150 age-related gene expression signatures. 
+The <code>intersectStats</code> function computes their intersects with each of the 3,318 
+drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple 
+similarity metric for gene sets as well as the raw and adjusted p-values based on the 
+hypergeometric distribution expressing how likely it is to observe the observed intersect 
+sizes just by chance. The results for the 20 top scoring drugs are given below and the full
+data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
+
+<p><code>r
+PMID26343147 &lt;- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
+myAnnot &lt;- readRDS("./results/myAnnot.rds") 
+affyid &lt;- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
+degMA &lt;- readRDS("./results/degMA.rds") # Faster then read.delim()
+degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+degMAsub &lt;- degMA[affyid,]
+degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
+write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
+sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap
+degOL_PMID26343147[1:20,] # Top 20 scoring drugs
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="drugs-affecting-known-longevity-genes">Drugs affecting known longevity genes</h2>
+
+<p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.
+The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
+
+<p><code>r
+genesymbols &lt;- c("IGF1", "IGF1R")
+geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
+names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
+degMAgene &lt;- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+df &lt;- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
+for(i in seq_along(geneids)) df &lt;- cbind(df, as.numeric(degMAgene[geneids[i],]))
+colnames(df) &lt;- names(geneids)
+df &lt;- df[rowSums(df)&gt;0,]
+nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
+</code></p>
+
+<p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) 
+and drug treatments.</p>
+
+<p><code>r
+affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
+affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"])
+names(affyids) &lt;- affyids2
+cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
+comp_list &lt;- sampleList(cmap, myby="CMP_CELL")
+comp_list &lt;- comp_list[row.names(df)]
+degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
+pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,"adj.P.Val"])))
+colnames(pvalDF) &lt;- paste0(colnames(pvalDF), "_FDR")
+df &lt;- cbind(df, pvalDF)
+write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
+</code></p>
+
+<p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
+
+<p><code>r
+igfDF &lt;- read.delim("./results/deg_IGF1.xls", row.names=1)
+igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="connectivity-maps-enrichment-analysis">Connectivity maps enrichment analysis</h1>
+
+<p>The connectivity maps approach is a rank-based enrichment method utilizing the KS test [@Lamb2006-uv]. 
+It measures the similarities of expression signatures based on the enrichment of up- and 
+down-regulated genes at the top and bottom of sorted (ranked) gene lists.</p>
+
+<h2 id="query-drug-signatures">Query drug signatures</h2>
+
+<p>The following uses the 1,497 age-related gene expression signatures from Peters et al. 
+[-@Peters2015-fc] as a query against the CMAP signatures. The results are sorted by the
+ES Distance and the top scoring 20 drugs are given below. The full result table is<br />
+written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
+
+<p><code>r
+library(DrugVsDisease)
+PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
+data(drugRL)
+PMID26490707sub &lt;- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(drugRL),]
+testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
+                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
+drugcmap &lt;- classifyprofile(data=testprofiles$ranklist, case="disease", signif.fdr=0.5, no.signif=20)
+drugcmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case="disease", 
+                            pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
+                            dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
+write.table(drugcmap2, file="./results/drugcmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
+drugcmap2[[1]][1:20,]
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="query-disease-signatures">Query disease signatures</h2>
+
+<p>The same query is performed against a reference set of disease expression signatures.
+The results are sorted by the ES Distance and the top scoring 20 drugs are given below. 
+The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code>diseasecmap2.xls</code></a>.</p>
+
+<p><code>r
+PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
+data(diseaseRL)
+PMID26490707sub &lt;- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
+testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
+                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
+diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case="drug", signif.fdr=0.5, no.signif=20)
+diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case="drug", 
+                            pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
+                            dynamic.fdr=0.5, adj="BH", no.signif=100)
+write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
+diseasecmap2[[1]][1:20,]
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="age-drug-network-analysis">Age-drug network analysis</h1>
+
+<p>In progress…</p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="age-disease-network-analysis">Age-disease network analysis</h1>
+
+<p>In progress…</p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="funding">Funding</h1>
+<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).</p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="version-information">Version information</h1>
+
+<p><code>r
+sessionInfo()
+</code></p>
+
+<p><code>
+## R version 3.2.3 (2015-12-10)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 14.04.3 LTS
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8       
+##  [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
+## [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  utils     datasets  grDevices methods   base     
+## 
+## other attached packages:
+## [1] ggplot2_2.0.0        longevityTools_1.0.3 BiocStyle_1.8.0     
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.3      digest_0.6.9     plyr_1.8.3       grid_3.2.3       gtable_0.1.2    
+##  [6] formatR_1.2.1    magrittr_1.5     evaluate_0.8     scales_0.3.0     stringi_1.0-1   
+## [11] rmarkdown_0.9.2  tools_3.2.3      stringr_1.0.0    munsell_0.4.2    yaml_2.1.13     
+## [16] colorspace_1.2-6 htmltools_0.3    knitr_1.12
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="references">References</h1>
+
+
+<div class="tags">
+    
+</div>
+
+
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2016 UC Riverside. All rights reserved. <br />
+ Site last generated: Feb 15, 2016 <br />
+<p><img src="../common_images/company_logo.png/></p>
+                </div>
+            </div>
+</footer>
+
+            </div><!-- /.row -->
+
+    </div>    <!-- /.container -->
+
+</body>
+
+
+</html>
+

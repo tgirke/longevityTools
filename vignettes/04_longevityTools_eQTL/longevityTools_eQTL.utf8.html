@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+  <head>
+
+ <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>longevityToolseQTL - eSNP and GWAS Analysis  | Manuals</title>
+<link rel="stylesheet" type="text/css" href="../css/syntax.css">
+<link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="../css/modern-business.css">
+<link rel="stylesheet" type="text/css" href="../css/lavish-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../css/customstyles.css">
+<link rel="stylesheet" type="text/css" href="../css/theme-blue.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="../js/jquery.navgoco.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="../js/toc.js"></script>
+<script src="../js/customscripts.js"></script>
+<link rel="shortcut icon" href="../common_images/favicon.ico" type="image/x-icon">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+
+
+
+ 
+
+<script>
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+
+
+  </head>
+
+<body>
+
+   <!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="fa fa-home fa-lg navbar-brand" href="home.html">&nbsp;<span class="projectTitle"> Longevity Tools</span></a>
+
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                
+                
+                
+                <li><a href="../mydoc/search.html">Search</a></li>
+                
+                
+                
+                
+                
+                <li><a href="https://github.com/tgirke/longevityTools" target="_blank">Github Repo</a></li>
+                
+                
+                
+                
+
+
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+
+                <li class="dropdown">
+                    
+                    
+                    
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        
+                        <li><a href="http://www.longevitygenomics.org/" target="_blank">Longevity Genomics</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="https://cran.r-project.org/" target="_blank">CRAN</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="http://bioconductor.org/" target="_blank">Bioconductor</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="https://guides.github.com/activities/hello-world/" target="_blank">GitHub</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="http://jekyllrb.com/" target="_blank">Jekyll</a></li>
+                        
+                        
+                        
+                        
+
+                    </ul>
+                </li>
+                
+                
+
+
+                <!-- special insertion -->
+
+               
+                
+                
+                <!-- Send feedback function -->
+<script>
+function SendLinkByMail(href) {
+var subject= "Manuals feedback";
+var body = "I have some feedback about the longevityToolseQTL - eSNP and GWAS Analysis page: ";
+body += window.location.href;
+body += "";
+var uri = "mailto:?subject=";
+uri += encodeURIComponent(subject);
+uri += "&body=";
+uri += encodeURIComponent(body);
+window.location.href = uri;
+}
+</script>
+
+<li><a href="javascript:(function()%7BSendLinkByMail()%3B%7D)()%3B" target="_blank"><i class="fa fa-envelope-o"></i> Feedback</a></li>
+
+
+                <!--uncomment this block if you want simple search instead of algolia-->
+                <li>
+                     <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="../js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                        SimpleJekyllSearch.init({
+                            searchInput: document.getElementById('search-input'),
+                            resultsContainer: document.getElementById('results-container'),
+                            dataSource: '../search.json',
+                            searchResultTemplate: '<li><a href="{url}" title="longevityToolseQTL - eSNP and GWAS Analysis">{title}</a></li>',
+                        noResultsText: 'No results found.',
+                                limit: 10,
+                                fuzzy: true,
+                        })
+                    </script>
+                     <!--end search-->
+                </li>
+
+            
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="col-lg-12">&nbsp;</div>
+
+
+<!-- Content Row -->
+<div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+
+        <script>
+
+            $(document).ready(function() {
+                // Initialize navgoco with default options
+                $("#mysidebar").navgoco({
+                    caretHtml: '',
+                    accordion: true,
+                    openClass: 'active', // open
+                    save: false, // leave false or nav highlighting doesn't work right
+                    cookie: {
+                        name: 'navgoco',
+                        expires: false,
+                        path: '/'
+                    },
+                    slide: {
+                        duration: 400,
+                        easing: 'swing'
+                    }
+                });
+
+                $("#collapseAll").click(function(e) {
+                    e.preventDefault();
+                    $("#mysidebar").navgoco('toggle', false);
+                });
+
+                $("#expandAll").click(function(e) {
+                    e.preventDefault();
+                    $("#mysidebar").navgoco('toggle', true);
+                });
+
+            });
+
+        </script>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <ul id="mysidebar" class="nav">
+
+            <span class="siteTagline"><img src="../common_images/logo.png"></span>
+            <span class="versionTagline"></span>
+
+            
+            
+            
+                
+            
+            <li><a href="#">Overview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/home.html">Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_current_projects.html">Current Projects</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_getting_started.html">Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">Downloads</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_downloads.html">Download of Analysis Results</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_software.html">Software</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolsOverview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_1.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_2.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_3.html">3. Overview of object clases, methods and functions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_4.html">4. Workflow vignettes</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_5.html">5. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_6.html">6. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_7.html">7. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolseQTL</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_02.html">2. General Analytical Approach</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_03.html">3. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_04.html">4. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_05.html">5. Sample data from GTEx</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_06.html">6. Utilities</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_07.html">7. SNP clumping using PLINK</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_08.html">8. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_09.html">9. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolseDRUG</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+                
+
+
+                <!-- if you aren't using the accordion, uncomment this block:
+
+                     <p class="external">
+                         <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+                     </p>
+                 -->
+
+    </div>
+    <!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+    <script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+            <!-- Content Column -->
+            <div class="col-md-9">
+                
+                <div class="post-header">
+   <h1 class="post-title-main">longevityToolseQTL - eSNP and GWAS Analysis</h1>
+</div>
+
+<div class="post-content">
+
+   
+
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+
+<div id="toc"></div>
+
+
+<!--
+    
+    <a target="_blank" href="https://github.com/tgirke/manuals/tree/master/mydoc/" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+    
+-->
+<!--
+%% \VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Overview Vignette}
+%% \VignetteDepends{methods}
+%% \VignetteKeywords{compute cluster, pipeline, reports}
+%% \VignettePackage{longevityTools}
+-->
+
+<!---
+- Compile from command-line
+echo "rmarkdown::render('longevityTools_eQTL.Rmd', clean=F)" | R -slave; R CMD Stangle longevityTools_eQTL.Rmd; Rscript ../md2jekyll.R longevityTools_eQTL.knit.md 4
+
+- Commit to github
+git commit -am "some edits"; git push -u origin master
+
+- To customize font size and other style features, add this line to output section in preamble:  
+    css: style.css
+-->
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelector("h1").className = "title";
+});
+</script>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  var links = document.links;  
+  for (var i = 0, linksLength = links.length; i < linksLength; i++)
+    if (links[i].hostname != window.location.hostname)
+      links[i].target = '_blank';
+});
+</script>
+
+<h1 id="introduction">Introduction</h1>
+<p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
+website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package 
+is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
+vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html">here</a>.</p>
+
+<p>Based on muscle gene expression from 15 young (25 year old) and 15 old (65 year old) participants, Sood et al. identified a 150 probe set that accurately classified young and old individuals in external studies with gene expression data collected from tissues other than muscle [@Sood2015-pb]. A gene score based on the classifier was associated with better renal function, increased survival time over follow-up, and decreased Alzheimer’s Disease prevalence.</p>
+
+<p>Our goal is to perform Mendelian Randomization using the 150 gene set to determine whether SNPs associated with expression (eSNPs) of the 150 genes are associated with the aging phenotypes identified by Sood et al.</p>
+
+<p>Hypothesis: eSNPs associated with younger expression profile are markers for younger biological age relative to chronological age, which would be associated with longevity.</p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="general-analytical-approach">General Analytical Approach</h1>
+
+<h2 id="construction-of-mr-esnp-risk-score">Construction of MR eSNP risk score</h2>
+
+<p>File sood-2015-fileS1.xls reports the expression direction relative to age for each probe from the 150 probe set. See Top 150 worksheet. A gene marked as ‘down’ in column ‘Ratio of Y:O muscle’ means that the expression of the gene is lower in young vs old muscle.</p>
+
+<p>The goal is to generate an eSNP risk score constructed from eSNP alleles associated with increasing gene expression for genes that decrease with age and from eSNP alleles associated with decreasing gene expression for genes that increase with age. This eSNP risk score would represent an expression profile that more closely mimics the younger age profile rather than the older age profile.</p>
+
+<p>For the 150 probes that map to genes, identify cis-eSNPs using GTEx preanalyzed results from whole blood. Preanalyzed GTEx results correct for multiple testing of SNPs for each gene. To identify independent cis-eSNPs for each gene, prune cis-eSNPs in LD using 1000G EUR population group genotypes. Once independent cis-eSNPs are identified, create a file listing the SNPs to be included in a risk score and which allele is associated with decreasing expression for genes that increase with age (upregulated gene) and which allele is associated with increasing expression for genes that decrease with age (downregulated gene). Upregulated and downregulated genes based on column ‘Ratio of Y:O muscle’ from Sood et al supplemental file.</p>
+
+<p>Individual level eSNP risk scores will be constructed as below. The eSNP risk score represents the MR instrumental variable.</p>
+
+<script type="math/tex; mode=display">eSNP Risk Score_i = \sum_{j=1}^{N} eSNP_j^{AlleleDown} + \sum_{k=1}^{N} eSNP_k^{AlleleUp}</script>
+
+<h1 id="getting-started">Getting Started</h1>
+
+<h2 id="installation">Installation</h2>
+
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+
+<p><code>r
+source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
+biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="loading-package-and-documentation">Loading package and documentation</h2>
+
+<p><code>r
+library("longevityTools") # Loads the package
+library(help="longevityTools") # Lists package info
+vignette("longevityTools") # Opens vignette
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="setup-of-working-environment">Setup of working environment</h1>
+
+<h2 id="import-custom-functions">Import custom functions</h2>
+
+<p>Preliminary functions that are still under developement, or not fully tested and documented 
+can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
+
+<p><code>r
+fctpath &lt;- system.file("extdata", "longevityTools_eQTL_Fct.R", package="longevityTools")
+source(fctpath)
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="create-expected-directory-structure">Create expected directory structure</h2>
+
+<p>The following creates the directory structure expected by this workflow. Input data
+will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory.
+All paths are given relative to the present working directory of the user’s R session.</p>
+
+<p><code>r
+dir.create("data"); dir.create("results") 
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="sample-data-from-gtex">Sample data from GTEx</h1>
+<p>The eQTL data used in this vignette can be downloaded from the <a href="http://www.gtexportal.org/home/datasets">GTEx site</a>.
+Note, the following downloads a 1.3GB file, which will take some time.</p>
+
+<p><code>r
+download.file("http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz", "./GTEx_Analysis_V6_eQTLs.tar.gz")
+untar("GTEx_Analysis_V6_eQTLs.tar.gz")
+</code></p>
+
+<h1 id="utilities">Utilities</h1>
+<p>The <em><code>geneGrep</code></em> function takes GTEx results and gene list as arguments,
+returns GTEx eSNP results for genes in gene list. Genes without significant
+eSNPs are removed from results. The following sample file <em>Thyroid_Analysis.snpgenes.TXNRD2</em> has been subsetted to include eSNPs for TXNRD2.</p>
+
+<p><code>r
+library(longevityTools)
+samplepath &lt;- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package="longevityTools") 
+dat &lt;- read.delim(samplepath)
+myGenes &lt;- c("TXNRD2")
+result &lt;- geneGrep(dat, myGenes)
+head(result[order(result$p_value),])
+</code></p>
+
+<p><code>
+##                    snp       beta      p_value ref alt gene_name   nom_thresh snp_chrom  snp_pos
+## 83 22_19867771_C_T_b37 -0.4596489 6.598661e-21   C   T    TXNRD2 1.215557e-05        22 19867771
+## 86 22_19868678_T_C_b37 -0.4522136 1.109763e-20   T   C    TXNRD2 1.215557e-05        22 19868678
+## 82 22_19867276_T_C_b37 -0.4527145 5.145122e-20   T   C    TXNRD2 1.215557e-05        22 19867276
+## 80 22_19866194_G_C_b37 -0.4547658 6.891885e-20   G   C    TXNRD2 1.215557e-05        22 19866194
+## 95 22_19871691_C_T_b37 -0.4709824 8.145810e-20   C   T    TXNRD2 1.215557e-05        22 19871691
+## 91 22_19870036_C_G_b37 -0.4454200 1.026483e-19   C   G    TXNRD2 1.215557e-05        22 19870036
+##    snp_id_1kg_project_phaseI_v3 rs_id_dbSNP142_GRCh37p13
+## 83                    rs1139795                rs1139795
+## 86                   rs45465601               rs45465601
+## 82                   rs34175429               rs34175429
+## 80                    rs5993849                rs5993849
+## 95                   rs12158214               rs12158214
+## 91                    rs8141451                rs8141451
+</code></p>
+
+<p><code>r
+#output results in PLINK format
+result2&lt;-result[,c("snp_id_1kg_project_phaseI_v3","p_value")]
+names(result2)&lt;-c("SNP","P")
+#write.table(result2,file="data/eSNP.assoc",quote=F,row.names=F)
+</code></p>
+
+<p>There are 139 eSNPs.</p>
+
+<h1 id="snp-clumping-using-plink">SNP clumping using PLINK</h1>
+<p>GTEx V6 analysis results are based on genotypes imputed to 1000 Genomes (1KG) Phase I version 3. Thus, significant results could be LD-filtered using Phase I data. However, to make use of the larger sample size in later projects, 1KG Phase 3 genotypes will be used.</p>
+
+<p>```r
+#genotypes
+download.file(“ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz”, “./ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz”)
+untar(“ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz”)</p>
+
+<h1 id="sample-ped-file">sample ped file</h1>
+<p>download.file(“ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v2.20130502.ALL.ped”, “./integrated_call_samples_v2.20130502.ALL.ped”)</p>
+
+<h1 id="sample-super-population-file">sample super population file</h1>
+<p>download.file(“ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v3.20130502.ALL.panel”, “./integrated_call_samples_v3.20130502.ALL.panel”)</p>
+
+<h1 id="identify-eur-unrelated-samples-from-1kg-phase-3">identify EUR unrelated samples from 1KG phase 3</h1>
+<p>ped2&lt;-read.table(“data/integrated_call_samples_v2.20130502.ALL.ped”, stringsAsFactors = F, header = T, sep=”\t”)
+ped3&lt;-read.table(“data/integrated_call_samples_v3.20130502.ALL.panel”, stringsAsFactors = F, header = T, sep=”\t”)</p>
+
+<p>samples1KG &lt;- filter_1KGsamples(“EUR”,ped2,ped3)
+samples1KG_ID &lt;- samples1KG[,”Individual.ID”,drop=F]
+write.table(samples1KG_ID,file=”data/samples1KG.txt”,quote=F,row.names=F,col.names=F)
+```</p>
+
+<p>Create region file to use with bcftools for LD.</p>
+
+<p><code>r
+regions&lt;-data.frame(chr="chr1",pos=0,pos_to=0,stringsAsFactors = F)
+regions$chr[1]&lt;-result$snp_chrom[1]
+regions$pos[1]&lt;-min(result$snp_pos)
+regions$pos_to[1]&lt;-max(result$snp_pos)
+write.table(regions,file="data/regions.txt",quote=F,row.names=F,col.names=F,sep="\t")
+</code></p>
+
+<p>Filter 1KG genotypes to only include EUR unrelated individuals and eQTL region.
+Using bcftools v.1.2, htslib v1.2.1
+Output compressed BCF2.</p>
+
+<p>```
+bcftools view -Ob -o results/1KGgeno.bgzf -S data/samples1KG.txt data/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz -R data/regions.txt</p>
+
+<p>```</p>
+
+<p>Run PLINK clump command using default settings, but might want to change with different nominal significance thresholds.</p>
+
+<p><code>
+plink -bcf results/1KGgeno.bgzf --clump data/eSNP.assoc 
+</code></p>
+
+<p>Output from PLINK clump command will be set of independent eSNPs in the region.</p>
+
+<p>Next step, extract independent eSNPs from individual level genotype data, build MR risk score, evaluate for association with survival time.</p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="funding">Funding</h1>
+<p>This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).</p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="version-information">Version information</h1>
+
+<p><code>r
+sessionInfo()
+</code></p>
+
+<p><code>
+## R version 3.2.3 (2015-12-10)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 14.04.3 LTS
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8       
+##  [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
+## [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  utils     datasets  grDevices methods   base     
+## 
+## other attached packages:
+## [1] ggplot2_2.0.0        longevityTools_1.0.3 BiocStyle_1.8.0     
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.3      codetools_0.2-14 digest_0.6.9     plyr_1.8.3       grid_3.2.3      
+##  [6] gtable_0.1.2     formatR_1.2.1    magrittr_1.5     evaluate_0.8     scales_0.3.0    
+## [11] stringi_1.0-1    rmarkdown_0.9.2  tools_3.2.3      stringr_1.0.0    munsell_0.4.2   
+## [16] yaml_2.1.13      colorspace_1.2-6 htmltools_0.3    knitr_1.12
+</code></p>
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="references">References</h1>
+
+
+<div class="tags">
+    
+</div>
+
+
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2016 UC Riverside. All rights reserved. <br />
+ Site last generated: Feb 15, 2016 <br />
+<p><img src="../common_images/company_logo.png/></p>
+                </div>
+            </div>
+</footer>
+
+            </div><!-- /.row -->
+
+    </div>    <!-- /.container -->
+
+</body>
+
+
+</html>
+
