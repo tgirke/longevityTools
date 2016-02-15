@@ -1,0 +1,83 @@
+# project definitions
+project: mydoc_designers
+audience: designers
+product: doc
+platform: all
+version: all
+output: web
+destination: ../doc_outputs/mydoc/designers
+topnav_title: Data Analysis Tutorials 
+homepage_title: Introduction
+site_title: Manuals
+project_folder: mydoc
+company_name: UC Riverside
+footer_image_location: ../common_images/company_logo.png
+github_editme_path: tgirke/manuals/edit/reviews
+disqus_shortname: 
+# variables
+
+markdown: kramdown
+kramdown:
+  auto_ids: true
+
+
+sidebar_tagline: Manuals
+#sidebar_tagline: <img src="../common_images/logo.png">
+sidebar_version: Under Construction!
+theme_file: theme-blue.css
+pdf_file_name: mydoc_designers_pdf.pdf
+
+# the algolia entries here are experimental only.
+
+#gems:
+#  - redcarpet
+#  - jekyll-gist
+#  - pygments.rb
+
+#gems:
+#  - algoliasearch-jekyll
+#algolia:
+#  application_id: 'HXUBJERYYB'
+#  index_name:     'documentation_theme_jekyll_designers'
+port: 4009
+
+exclude:
+  - _site
+  - _drafts
+  - configs/
+  - doc/mydoc_writers*
+
+# same for all
+host: 127.0.0.1
+feedback_email: thomas.girke@ucr.edu
+
+highlighter: rouge
+# ThG_note: when adding the follwing lines then paragraph formatting changes
+# markdown: kramdown
+# kramdown:
+#  input: GFM
+#  auto_ids: true
+
+collections:
+  tooltips:
+    output: false
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+      comments: true
+      search: true
+  -
+    scope:
+      path: ""
+      type: "tooltips"
+    values:
+      layout: "page"
+      comments: true
+      search: true
+      tooltip: true
+
