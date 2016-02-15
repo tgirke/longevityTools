@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+  <head>
+
+ <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Overview of Classes and Functions  | Manuals</title>
+<link rel="stylesheet" type="text/css" href="../css/syntax.css">
+<link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="../css/modern-business.css">
+<link rel="stylesheet" type="text/css" href="../css/lavish-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../css/customstyles.css">
+<link rel="stylesheet" type="text/css" href="../css/theme-blue.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="../js/jquery.navgoco.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="../js/toc.js"></script>
+<script src="../js/customscripts.js"></script>
+<link rel="shortcut icon" href="../common_images/favicon.ico" type="image/x-icon">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+
+
+
+ 
+
+<script>
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+
+
+  </head>
+
+<body>
+
+   <!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="fa fa-home fa-lg navbar-brand" href="home.html">&nbsp;<span class="projectTitle"> Data Analysis Tutorials</span></a>
+
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- entries without drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                
+                
+                
+                <li><a href="../mydoc/search.html">Search</a></li>
+                
+                
+                
+                
+                
+                <li><a href="https://github.com/tgirke/manuals" target="_blank">Github Repo</a></li>
+                
+                
+                
+                
+
+
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+
+                <li class="dropdown">
+                    
+                    
+                    
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        
+                        <li><a href="https://cran.r-project.org/" target="_blank">CRAN</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="http://bioconductor.org/" target="_blank">Bioconductor</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="https://guides.github.com/activities/hello-world/" target="_blank">GitHub</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="http://jekyllrb.com/" target="_blank">Jekyll</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="http://girke.bioinformatics.ucr.edu/" target="_blank">Girke Lab</a></li>
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="http://idratherbewriting.com/documentation-theme-jekyll/mydoc/home.html" target="_blank">Jekyll Doc Theme</a></li>
+                        
+                        
+                        
+                        
+
+                    </ul>
+                </li>
+                
+                
+
+
+                <!-- special insertion -->
+
+               
+                
+                
+                <!-- Send feedback function -->
+<script>
+function SendLinkByMail(href) {
+var subject= "Manuals feedback";
+var body = "I have some feedback about the Overview of Classes and Functions page: ";
+body += window.location.href;
+body += "";
+var uri = "mailto:?subject=";
+uri += encodeURIComponent(subject);
+uri += "&body=";
+uri += encodeURIComponent(body);
+window.location.href = uri;
+}
+</script>
+
+<li><a href="javascript:(function()%7BSendLinkByMail()%3B%7D)()%3B" target="_blank"><i class="fa fa-envelope-o"></i> Feedback</a></li>
+
+
+                <!--uncomment this block if you want simple search instead of algolia-->
+                <li>
+                     <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="../js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                        SimpleJekyllSearch.init({
+                            searchInput: document.getElementById('search-input'),
+                            resultsContainer: document.getElementById('results-container'),
+                            dataSource: '../search.json',
+                            searchResultTemplate: '<li><a href="{url}" title="Overview of Classes and Functions">{title}</a></li>',
+                        noResultsText: 'No results found.',
+                                limit: 10,
+                                fuzzy: true,
+                        })
+                    </script>
+                     <!--end search-->
+                </li>
+
+            
+        </div>
+        <!-- /.container -->
+</nav>
+
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="col-lg-12">&nbsp;</div>
+
+
+<!-- Content Row -->
+<div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+
+        <script>
+
+            $(document).ready(function() {
+                // Initialize navgoco with default options
+                $("#mysidebar").navgoco({
+                    caretHtml: '',
+                    accordion: true,
+                    openClass: 'active', // open
+                    save: false, // leave false or nav highlighting doesn't work right
+                    cookie: {
+                        name: 'navgoco',
+                        expires: false,
+                        path: '/'
+                    },
+                    slide: {
+                        duration: 400,
+                        easing: 'swing'
+                    }
+                });
+
+                $("#collapseAll").click(function(e) {
+                    e.preventDefault();
+                    $("#mysidebar").navgoco('toggle', false);
+                });
+
+                $("#expandAll").click(function(e) {
+                    e.preventDefault();
+                    $("#mysidebar").navgoco('toggle', true);
+                });
+
+            });
+
+        </script>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <ul id="mysidebar" class="nav">
+
+            <span class="siteTagline">Manuals</span>
+            <span class="versionTagline">Under Construction!</span>
+
+            
+            
+            
+                
+            
+            <li><a href="#">Overview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/home.html">Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_classes.html">Class teaching</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">Introduction to R</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_Rbasics_1.html">1. Overview</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_Rbasics_2.html">2. R Package Repositories</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_Rbasics_3.html">3. Installation of R and Add-on Packages</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_Rbasics_4.html">4. Getting Around</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_Rbasics_5.html">5. Basic Syntax</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_Rbasics_6.html">6. Data Types</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_Rbasics_7.html">7. Data objects</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_Rbasics_8.html">8. Graphics example</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_Rbasics_9.html">9. Session Info</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">ChemmineR</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_03.html">3. OpenBabel Functions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="active"><a href="../mydoc/mydoc_ChemmineR_04.html">4. Overview of Classes and Functions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_05.html">5. Import of Compounds</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_06.html">6. Export of Compounds</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_07.html">7. Format Interconversions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_08.html">8. Splitting SD Files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_09.html">9. Streaming Through Large SD Files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_10.html">10. Storing Compounds in an SQL Database</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_11.html">11. Working with SDF/SDFset Classes</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_12.html">12. Molecular Property Functions (Physicochemical Descriptors)</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_13.html">13. Bond Matrices</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_14.html">14. Charges and Missing Hydrogens</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_15.html">15. Ring Perception and Aromaticity Assignment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_16.html">16. Rendering Chemical Structure Images</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_17.html">17. Similarity Comparisons and Searching</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_18.html">18. Clustering</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_19.html">19. Searching PubChem</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_20.html">20. ChemMine Tools R Interface</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_21.html">21. Version Information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_22.html">22. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_ChemmineR_23.html">23. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">bioassayR</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_bioassayR_1.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_bioassayR_2.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_bioassayR_3.html">3. Examples</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_bioassayR_4.html">4. Building PubChem BioAssay Database</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_bioassayR_5.html">5. Version Information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_bioassayR_6.html">6. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_bioassayR_7.html">7. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">systemPipeR</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_systemPipeR_1.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_systemPipeR_2.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_systemPipeR_3.html">3. Workflow overview</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_systemPipeR_4.html">4. Workflow templates</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_systemPipeR_5.html">5. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_systemPipeR_6.html">6. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">Internal notes</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_internal_notes.html">Administration of site</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+                
+
+
+                <!-- if you aren't using the accordion, uncomment this block:
+
+                     <p class="external">
+                         <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+                     </p>
+                 -->
+
+    </div>
+    <!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+    <script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+            <!-- Content Column -->
+            <div class="col-md-9">
+                
+                <div class="post-header">
+   <h1 class="post-title-main">Overview of Classes and Functions</h1>
+</div>
+
+<div class="post-content">
+
+   
+
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+
+<div id="toc"></div>
+
+
+<!--
+    
+    <a target="_blank" href="https://github.com/tgirke/manuals/tree/master/mydoc/" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
+    
+-->
+<p>The following list gives an overview of the most important S4 classes,
+methods and functions available in the ChemmineR package. The help
+documents of the package provide much more detailed information on each
+utility. The standard R help documents for these utilities can be
+accessed with this syntax: <code>?function\_name</code> (<em>e.g.</em>
+<code>?cid</code>) and <code>?class\_name-class</code> (<em>e.g</em>.
+<code>?"SDFset-class"</code>).</p>
+
+<h2 id="molecular-structure-data">Molecular Structure Data</h2>
+
+<p>Classes</p>
+
+<ul>
+  <li>
+    <p><code>SDFstr</code>: intermediate string class to facilitate SD
+file import; not important for end user</p>
+  </li>
+  <li>
+    <p><code>SDF</code>: container for single molecule imported from an
+SD file</p>
+  </li>
+  <li>
+    <p><code>SDFset</code>: container for many SDF objects; most
+important structure container for end user</p>
+  </li>
+  <li>
+    <p><code>SMI</code>: container for a single SMILES string</p>
+  </li>
+  <li>
+    <p><code>SMIset</code>: container for many SMILES strings</p>
+  </li>
+</ul>
+
+<p>Functions/Methods (mainly for <code>SDFset</code> container,
+<code>SMIset</code> should be coerced with
+<code>smiles2sd</code> to <code>SDFset</code>)</p>
+
+<ul>
+  <li>
+    <p>Accessor methods for <code>SDF/SDFset</code></p>
+
+    <ul>
+      <li>
+        <p>Object slots: <code>cid</code>, <code>header</code>, <code>atomblock</code>, <code>bondblock</code>,
+<code>datablock</code> (<code>sdfid</code>, <code>datablocktag</code>)</p>
+      </li>
+      <li>
+        <p>Summary of <code>SDFset</code>: <code>view</code></p>
+      </li>
+      <li>
+        <p>Matrix conversion of data block: <code>datablock2ma</code>,
+<code>splitNumChar</code></p>
+      </li>
+      <li>
+        <p>String search in SDFset: <code>grepSDFset</code></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Coerce one class to another</p>
+
+    <ul>
+      <li>Standard syntax <code>as(..., "...")</code> works in most
+cases. For details see R help with
+   <code>?"SDFset-class"</code>.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Utilities</p>
+
+    <ul>
+      <li>
+        <p>Atom frequencies: <code>atomcountMA</code>, <code>atomcount</code></p>
+      </li>
+      <li>
+        <p>Molecular weight: <code>MW</code></p>
+      </li>
+      <li>
+        <p>Molecular formula: <code>MF</code></p>
+      </li>
+      <li>
+        <p>…</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Compound structure depictions</p>
+
+    <ul>
+      <li>
+        <p>R graphics device: <code>plot</code>, <code>plotStruc</code></p>
+      </li>
+      <li>
+        <p>Online: <code>cmp.visualize</code></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="structure-descriptor-data">Structure Descriptor Data</h2>
+
+<p>Classes</p>
+
+<ul>
+  <li>
+    <p><code>AP</code>: container for atom pair descriptors of a single
+molecule</p>
+  </li>
+  <li>
+    <p><code>APset</code>: container for many AP objects; most
+important structure descriptor container for end user</p>
+  </li>
+  <li>
+    <p><code>FP</code>: container for fingerprint of a single molecule</p>
+  </li>
+  <li>
+    <p><code>FPset</code>: container for fingerprints of many
+molecules, most important structure descriptor container for end
+user</p>
+  </li>
+</ul>
+
+<p>Functions/Methods</p>
+
+<ul>
+  <li>
+    <p>Create <code>AP/APset</code> instances</p>
+
+    <ul>
+      <li>
+        <p>From <code>SDFset</code>: <code>sdf2ap</code></p>
+      </li>
+      <li>
+        <p>From SD file: <code>cmp.parse</code></p>
+      </li>
+      <li>
+        <p>Summary of <code>AP/APset</code>: <code>view</code>,
+<code>db.explain</code></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Accessor methods for AP/APset</p>
+
+    <ul>
+      <li>Object slots: <code>ap</code>, <code>cid</code></li>
+    </ul>
+  </li>
+  <li>
+    <p>Coerce one class to another</p>
+
+    <ul>
+      <li>Standard syntax <code>as(..., "...")</code> works in most
+cases. For details see R help with
+<code>?"APset-class"</code>.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Structure Similarity comparisons and Searching</p>
+
+    <ul>
+      <li>
+        <p>Compute pairwise similarities : <code>cmp.similarity</code>,
+<code>fpSim</code></p>
+      </li>
+      <li>
+        <p>Search APset database: <code>cmp.search</code>, <code>fpSim</code></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>AP-based Structure Similarity Clustering</p>
+
+    <ul>
+      <li>
+        <p>Single-linkage binning clustering: <code>cmp.cluster</code></p>
+      </li>
+      <li>
+        <p>Visualize clustering result with MDS:
+<code>cluster.visualize</code></p>
+      </li>
+      <li>
+        <p>Size distribution of clusters: <code>cluster.sizestat</code></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Folding</p>
+    <ul>
+      <li>Fold a descriptor with <code>fold</code></li>
+      <li>Query the number of times a descriptor has been folded:
+ <code>foldCount</code></li>
+      <li>Query the number of bits in a descriptor: <code>numBits</code></li>
+    </ul>
+  </li>
+</ul>
+
+
+
+<div class="tags">
+    
+</div>
+
+
+
+</div>
+
+
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2016 UC Riverside. All rights reserved. <br />
+<p>Page last updated:</span> Sat Feb 13 19:36:03 2016<br/> Site last generated: Feb 15, 2016 <br />
+<p><img src="../common_images/company_logo.png/></p>
+                </div>
+            </div>
+</footer>
+
+            </div><!-- /.row -->
+
+    </div>    <!-- /.container -->
+
+</body>
+
+
+</html>
+

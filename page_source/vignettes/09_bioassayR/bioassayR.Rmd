@@ -1,0 +1,799 @@
+---
+title: "bioassayR - Introduction and Examples" 
+author: "Authors: Tyler Backman, Thomas Girke"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
+output:
+  BiocStyle::html_document:
+    toc: true
+    toc_depth: 2
+    fig_caption: yes
+
+fontsize: 14pt
+bibliography: bibtex.bib
+---
+<!--
+%% \VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Introduction and Examples}
+%% \VignettePackage{bioassayR}
+-->
+
+```{r setup, include=FALSE}
+# knitr::opts_chunk$set(cache=TRUE)
+library(bioassayR) 
+library(knitcitations)
+cite_options(max.names=1)
+RefManageR:::BibOptions(style="markdown",no.print.fields=c("doi"))
+sapply(read.bibtex(file="bibtex.bib"),record_as_cited)
+```
+
+Alternative formats of this tutorial:
+[`.Rmd HTML`](http://girke.bioinformatics.ucr.edu/manuals/vignettes/bioassayR/bioassayR.html), 
+[`.Rmd Source`](http://girke.bioinformatics.ucr.edu/manuals/vignettes/bioassayR/bioassayR.Rmd), 
+[`.R Source`](http://girke.bioinformatics.ucr.edu/manuals/vignettes/bioassayR/bioassayR.R), 
+[`PDF Slides`](http://biocluster.ucr.edu/~tbackman/chem_workshop/ht_screen.pdf)
+
+Introduction
+============
+
+*bioassayR* is a tool for cross-target analysis of biological screening data. It allows users to store, organize, and
+systematically analyze data from a large number of small molecule bioactivity experiments of heterogenous design. 
+Users have the option of supplying their own bioactivity
+data for analysis, or downloading a database from the authors website (<http://chemmine.ucr.edu/bioassayr>) pre-loaded with bioactivity data sourced from NCBI PubChem BioAssay `r citep(c("Backman2011a","Wang:2012hj"))`.
+The pre-loaded database contains the results of thousands of bioassay experiments, where small molecules were screened against a defined biological target.
+*bioassayR* allows users to leverage these data as a reference to 
+identify small molecules active against a protein or organism of interest, identify target selective compounds that may be useful as drugs or chemical genomics probes, and identify and compare the activity profiles of small molecules.
+
+The design of bioassayR is based around four distinct objects, each which
+is optimized for investigating bioactivity data in different ways.
+The *bioassay* object stores activity data for a single assay, and also acts as
+a gateway for importing new activity data, and editing the data for a single assay.
+The *bioassayDB* object uses a SQL database to store and query thousands of
+assays, in a time-efficient manner. Often users will wish to further investigate
+a set of compounds or assays identified with a *bioassayDB* query by pulling
+them out into a *bioassaySet* object. The *bioassaySet*
+object stores activity data as a compound vs assay matrix, and can be created 
+from a list of assay ids or compounds of interest. Lastly, the *perTargetMatrix* 
+is a matrix of compounds vs targets, where replicates (assays hitting the same
+target) from a *bioassaySet* object are summarized into a single value. 
+This internally uses a sparse matrix
+to save system memory, while allowing the user to leverage R language matrix features to
+further investigate these data.
+
+Getting Started
+===================
+
+Installation
+------------
+
+The R software for running bioassayR can be downloaded from CRAN (<http://cran.at.r-project.org/>). The *bioassayR* package can be installed from R using the *bioLite* install command. 
+
+```{r eval=FALSE}
+source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script
+biocLite("bioassayR") # Installs the package
+```
+
+Loading the Package and Documentation
+-------------------------------------
+
+```{r eval=TRUE, tidy=FALSE}
+library(bioassayR) # Loads the package
+```
+
+```{r eval=FALSE, tidy=FALSE}
+library(help="bioassayR") # Lists all functions and classes 
+vignette("bioassayR") # Opens this manual from R
+```
+
+Quick Tutorial
+-------------------------------------
+
+This example walks you through creating a new empty database, adding example small molecule bioactivity data, and performing queries on these data. If you are interested only in querying
+a pre-built PubChem BioAssay database, skip to the later section titled "Prebuilt Database Example: Investigate Activity of a Known Drug."
+
+This example includes real experimental data from an antibiotics discovery experiment. These data are a "confirmatory bioassay" where 57 small molecules were screened against the mevalonate kinase protein from the *Streptococcus pneumonia* (SP) bacteria. Mevalonate kinase inhibitors are one possible class of antibiotic drugs that may be effective against this infamous bacteria.
+These data were published as assay identifier (aid) 1000 in the NCBI PubChem BioAssay database, by Dr. Thomas S. Leyh.
+
+First, create a new database. For purposes of this manual a temporary file is used, but you can replace the *tempfile* function call with a filename of your choice if you wish to save the resulting database for later.
+
+```{r eval=TRUE, tidy=FALSE}
+library(bioassayR)
+myDatabaseFilename <- tempfile() 
+mydb <- newBioassayDB(myDatabaseFilename, indexed=F)
+```
+
+Next, specify the source and version of the data you plan to load. This is a required step, which makes it easier to track the origin of your data later. Feel free to use the current date for a version number, if your data isn't versioned.
+
+```{r eval=TRUE, tidy=FALSE}
+addDataSource(mydb, description="PubChem BioAssay", version="unknown")
+```
+
+After adding a data source, create or import a *data.frame* which contains the activity scores for each of the molecules in your assay. 
+This *data.frame* must contain three columns which includes a cid (unique compound identifier) for each compound, a binary activity score (1=active, 0=inactive, NA=inconclusive), and a numeric activity score.
+Consult the *bioassay* man page for more details on formatting this *data.frame*. The *bioassayR* package contains an example activity score data frame that can be accessed as follows:
+
+```{r eval=TRUE, tidy=FALSE}
+data(samplebioassay)
+samplebioassay[1:10,] # print the first 10 scores
+```
+
+All bioactivity data is loaded into the database, or retrieved from the database as an *bioassay* object which contains details on the assay experimental design, molecular targets, and the activity scores. A bioassay object which incorporates activity scores can be created as follows.
+The source id value must exactly match that loaded earlier by *addDataSource*. The molecular target(s) for the assay are optional, and an unlimited number can be specified for a single assay as a vector passed to the targets option. The target types field should be a vector of equal length, describing the type of each target in the same order.
+
+```{r eval=TRUE, tidy=FALSE}
+myAssay <- new("bioassay",aid="1000", source_id="PubChem BioAssay",
+    assay_type="confirmatory", organism="unknown", scoring="activity rank", 
+    targets="116516899", target_types="protein", scores=samplebioassay)
+myAssay
+```
+
+The *bioassay* object can be loaded into the database with the *loadBioassay* function. By repeating this step with different data, a large number of distinct assays can be loaded into the database.
+
+```{r eval=TRUE, tidy=FALSE}
+loadBioassay(mydb, myAssay)
+```
+
+It is reccomended to use NCBI GI numbers as the label for any biomolecule
+assay targets, as this is what is used in the pre-built database also
+supplied with the package. In some cases it is useful to also store identifier translations,
+which contain the corresponding IDs from other biological databases. For example,
+in this case the mevalonate kinase target protein GI 116516899 has a corresponding
+identifier in the UniProt Database of Q8DR51. This can be stored for future reference as follows.
+Any number of translations from any category of choice can be stored in this way. It
+can also be used to store annotation data for targets. For example, if you
+have sequence level clustering data on your targets you could store them
+in category "sequenceClustering" and store the cluster number as the identifier.
+
+```{r eval=TRUE, tidy=FALSE}
+loadIdMapping(mydb, target="116516899", category="UniProt", identifier="Q8DR51")
+```
+
+Wait a minute! We accidentally labeled that assay as organism "unknown" when we know that it's actually a screen against a protein from *Streptococcus pneumonia*. 
+After loading an assay into the database, you can later retrieve these data with the *getAssay* function. By combining this with the ability to delete an assay (the *dropBioassay* function) one can edit the database by (1) pulling an assay out, (2) deleting it from the database, (3) modifying the pulled out object, and (4) reloading the assay. For example, we can update the species annotation for our assay as follows:
+
+```{r eval=TRUE, tidy=FALSE}
+tempAssay <- getAssay(mydb, "1000") # get assay from database
+dropBioassay(mydb, "1000") # delete assay from database
+organism(tempAssay) <- "Streptococcus pneumonia" # update organism
+loadBioassay(mydb, tempAssay)
+```
+
+It is recommended to index your database after loading all of your data. This significantly speeds up access to the database, but can also slow down loading of data if indexing is performed before loading.
+
+```{r eval=TRUE, tidy=FALSE}
+addBioassayIndex(mydb)
+```
+
+After indexing, you can query the database. Here are some example queries. First view the database summary provided by *bioassayR*:
+
+```{r eval=TRUE, tidy=FALSE}
+mydb
+```
+
+Next, you can query the database for active targets for a given compound by cid. In this case, since only one assay has been loaded only a single target can be found. Experiment with loading more assays for a more interesting result!
+When using the pre-built PubChem BioAssay database, these targets are returned
+as NCBI Protein identifiers.
+
+```{r eval=TRUE, tidy=FALSE}
+activeTargets(mydb, 16749979)
+```
+
+If target translations were loaded in a previous step, these can be accessed with
+the *translateTargetId* function as follows. This accepts only a single target,
+and will return a vector of all corresponding identifiers in the category of choice.
+In some cases, you may wish to subset this result to only get a single indentifier
+when the database contains a large number for some targets.
+
+Here we request the UniProt identifiers for GI 116516899, as stored earlier with
+the *loadIdMapping* function.
+
+```{r eval=TRUE, tidy=FALSE}
+translateTargetId(mydb, target="116516899", category="UniProt")
+```
+
+Lastly, disconnecting from the database after analysis reduces the chances of data corruption. If you are using a pre-built database in read only mode (as demonstrated in the Prebuilt Database Example section) you can optionally skip this step, as only writable databases are prone to corruption from failure to disconnect.
+
+```{r eval=TRUE, tidy=FALSE}
+disconnectBioassayDB(mydb)
+```
+
+```{r eval=TRUE, echo=FALSE}
+# delete temporary database
+unlink(myDatabaseFilename)
+```
+
+Examples
+===================
+
+Loading User Supplied PubChem BioAssay Data
+-------------------------------------
+
+This section demonstrates the process for creating a new bioactivity database from user supplied data. As an example, we will demonstrate the process of downloading an assay from the NCBI PubChem BioAssay bioactivity data repository, and loading this into a new database `r citep(c("Wang:2012hj"))`.
+
+First, get two files from PubChem BioAssay for the assay of interest: an XML file containing details on how the experiment was performed, and a CSV (comma separated value) file which contains the actual activity scores. For the purposes of this example, we will use the data from assay 1000, which is a confirmatory assay (titration assay) of 57 small molecules against a mevalonate kinase protein. More details on this assay were provided in the  "Quick Tutorial," where the same data is used. These files can be downloaded from PubChem BioAssay at <http://pubchem.ncbi.nlm.nih.gov/> or loaded from the example data repository included in this package as follows:
+
+```{r eval=TRUE, tidy=FALSE}
+library(bioassayR)
+extdata_dir <- system.file("extdata", package="bioassayR")
+assayDescriptionFile <- file.path(extdata_dir, "exampleAssay.xml")
+activityScoresFile <- file.path(extdata_dir, "exampleScores.csv")
+```
+
+Next, create a new empty database for loading these data into. This example uses the R *tempfile* function to create the database in a random location. If you would like to keep your resulting database, replace *myDatabaseFilename* with your desired path and filename.
+
+```{r eval=TRUE, tidy=FALSE}
+myDatabaseFilename <- tempfile()
+mydb <- newBioassayDB(myDatabaseFilename, indexed=F)
+```
+
+We will also add a data source to this database, specifying that our data here mirrors an assay provided by PubChem BioAssay.
+
+```{r eval=TRUE, tidy=FALSE}
+addDataSource(mydb, description="PubChem BioAssay", version="unknown")
+```
+
+The XML file provided by PubChem BioAssay contains extensive details on how the assay was performed, molecular targets, and results scoring methods. You can extract these using the *parsePubChemBioassay* function as follows.
+The *parsePubChemBioassay* function also requires a .csv file which contains the activity scores for each assay, in the standard CSV format provided by PubChem BioAssay.
+For data from sources other than PubChem BioAssay, you may need to write your own code to parse out the assay details- or type them in manually.
+
+```{r eval=TRUE, tidy=FALSE}
+myAssay <- parsePubChemBioassay("1000", activityScoresFile, assayDescriptionFile)
+myAssay
+```
+
+Next, load the resulting data parsed from the XML and CSV files into the database. This creates records in the database for both the assay itself, and it's molecular targets. 
+
+```{r eval=TRUE, tidy=FALSE}
+loadBioassay(mydb, myAssay)
+```
+
+To load additional assays, repeat the above steps. After all data is loaded, you can significantly improve subsequent query performance by adding an index to the database. 
+
+```{r eval=TRUE, tidy=FALSE}
+addBioassayIndex(mydb)
+```
+
+After indexing, perform a test query on your database to confirm that the data loaded correctly.
+
+```{r eval=TRUE, tidy=FALSE}
+activeAgainst(mydb,"116516899")
+```
+
+Lastly, disconnect from the database to prevent data corruption.
+
+```{r eval=TRUE, tidy=FALSE}
+disconnectBioassayDB(mydb)
+```
+
+```{r eval=TRUE, echo=FALSE}
+# delete temporary database
+unlink(myDatabaseFilename)
+```
+
+Prebuilt Database Example: Investigate Activity of a Known Drug
+-------------------------------------
+
+A pre-built database containing large quantities of public domain bioactivity data sourced from the PubChem BioAssay database, can be downloaded from <http://chemmine.ucr.edu/bioassayr>. 
+While downloading the full database is recommended, it is possible to run this example using a small subset of the database, included within the *bioassayR* package for testing purposes.
+This example demonstrates the utility of *bioassayR* for identifying the bioactivity patterns of a small drug-like molecule. In this example, we look at the binding activity patterns for the drug acetylsalicylic acid (aka Aspirin) and compare these binding data to annotated targets in the [DrugBank](http://www.DrugBank.ca) drug database `r citep(c("Wishart:2008bb"))`.
+
+The DrugBank database is a valuable resource containing numerous data on drug activity in humans, including known molecular targets. In this exercise, first take a look at the
+annotated molecular targets for acetylsalicylic acid by searching this name at <http://drugbank.ca>. This will provide a point of reference for comparing to the bioactivity
+data we find in the prebuild PubChem BioAssay database. Note that DrugBank also contains the PubChem CID of this compound, which you can use to query the bioassayR PubChem BioAssay
+database.
+
+To get started first connect to the database. The variable *sampleDatabasePath* can be replaced with the filename of the full test database you downloaded, if you would like to use
+that instead of the small example version included with this software package.
+
+```{r eval=TRUE, tidy=FALSE}
+library(bioassayR)
+extdata_dir <- system.file("extdata", package="bioassayR")
+sampleDatabasePath <- file.path(extdata_dir, "sampleDatabase.sqlite")
+pubChemDatabase <- connectBioassayDB(sampleDatabasePath)  
+```
+
+Next, use the *activeTargets* function to find all protein targets which acetylsalicylic acid shows activity against in the loaded database.
+These target IDs are NCBI Protein identifiers as provided by PubChem BioAssay `r citep(c("Tatusova2014"))`. In which cases do these results agree with or disagree
+with the annotated targets from DrugBank?
+
+```{r eval=TRUE, tidy=FALSE}
+drugTargets <- activeTargets(pubChemDatabase, "2244")
+drugTargets
+```
+
+Now we would like to connect to the UniProt (Universal Protein Resource) database
+to obtain annotation details on these targets  
+`r citep(c("Bateman2015"))`. The *biomaRt* Bioconductor package
+is an excellent tool for this purpose, but works best with *UniProt* identifers,
+instead of the NCBI Protein identifiers we currently have, so we must
+translate the identifiers first `r citep(c("Durinck2009","Durinck2005"))`.
+
+We will use the *translateTargetId* function in *bioassayR* to obtain
+a corresponding UniProt identifier for each NCBI Protein identifier (GI).
+These identifier translations were obtained from UniProt and come pre-loaded
+into the database. The *translateTargetId* takes only a single query and returns
+one or more UniProt identifiers. Here we call it with *sapply* which automates
+calling the function multiple times, one for each protein stored in *drugTargets*.
+In many instances, a single query GI will translate into multiple UniProt
+identifiers. In this case, we keep only the first one as the annotation
+details we are looking for here will likely be the same for all of them.
+
+```{r eval=TRUE, tidy=FALSE}
+# run translateTargetId on each target identifier
+uniProtIds <- lapply(row.names(drugTargets), translateTargetId, database=pubChemDatabase, category="UniProt")
+
+# if any targets had more than one UniProt ID, keep only the first one
+uniProtIds <- sapply(uniProtIds, function(x) x[1])
+```
+
+Next, we connect to Ensembl via biomaRt to obtain a description for each
+target that is a *Homo sapiens* gene. For more information,
+consult the *biomaRt* documentation. After retrieving these data, we call the
+*match* function to ensure they are in the same order as the query data.
+
+```{r eval=FALSE, tidy=FALSE}
+library(biomaRt)
+ensembl <- useEnsembl(biomart="ensembl",dataset="hsapiens_gene_ensembl")
+proteinDetails <- getBM(attributes=c("description","uniprot_swissprot","external_gene_name"), filters=c("uniprot_swissprot"), mart=ensembl, values=uniProtIds)
+proteinDetails <- proteinDetails[match(uniProtIds, proteinDetails$uniprot_swissprot),]
+```
+
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+# cache results from previous code chunk
+# NOTE: this must match the code in the previous code chunk but will be
+#   hidden. Delete cacheFileName to rebuild the cache from web data.
+cacheFileName <- "getBM.RData"
+if(! file.exists(cacheFileName)){
+    library(biomaRt)
+    ensembl <- useEnsembl(biomart="ensembl",dataset="hsapiens_gene_ensembl")
+    proteinDetails <- getBM(attributes=c("description","uniprot_swissprot","external_gene_name"), filters=c("uniprot_swissprot"), mart=ensembl, values=uniProtIds)
+    proteinDetails <- proteinDetails[match(uniProtIds, proteinDetails$uniprot_swissprot),]
+    save(list=c("proteinDetails"), file=cacheFileName)
+}
+load(cacheFileName)
+```
+
+Now we can view this annotation data. NAs represent proteins not found
+on the *Homo sapiens* Ensembl, which may be from other species.
+
+```{r eval=TRUE, tidy=FALSE}
+proteinDetails
+```
+
+Lastly, let's again look at our active target list, with the annotation alongside.
+Note, these only match up in length and order because in the above code
+we removed all but one UniProt ID for each target protein, and then reordered
+the biomaRt results with the *match* function to get them in the correct order.
+
+```{r eval=TRUE, tidy=FALSE}
+drugTargets <- drugTargets[! is.na(proteinDetails[,1]),]
+proteinDetails <- proteinDetails[!is.na(proteinDetails[,1]),]
+cbind(proteinDetails, drugTargets)
+```
+
+Identify Target Selective Compounds
+-------------------------------------
+
+In the previous example, acetylsalicylic acid was found to show binding activity against numerous proteins, including the COX-1 cyclooxygenase enzyme (NCBI Protein ID 166897622).
+COX-1 activity is theorized to be the key mechanism in this molecules function as a nonsteroidal anti-inflammatory drug (NSAID).
+In this example, we will look for other small molecules which selectively bind to COX-1, under the assumption that these may be worth further investigation as potential nonsteroidal anti-inflammatory drugs.
+This example shows how *bioassayR* can be used 
+identify small molecules which selectively bind to a target of interest, and assist in the
+discovery of small molecule drugs and molecular probes. 
+
+First, we will start by connecting to a database. 
+Once again, the variable *sampleDatabasePath* can be replaced with the filename of the full PubChem BioAssay database (downloadable from <http://chemmine.ucr.edu/bioassayr>), if you would like to use
+that instead of the small example version included with this software package.
+
+```{r eval=TRUE, tidy=FALSE}
+library(bioassayR)
+extdata_dir <- system.file("extdata", package="bioassayR") 
+sampleDatabasePath <- file.path(extdata_dir, "sampleDatabase.sqlite")
+pubChemDatabase <- connectBioassayDB(sampleDatabasePath)  
+```
+
+The *activeAgainst* function can be used to show all small molecules in the database which demonstrate activity against COX-1 as follows.
+Each row name represents a small molecule cid. The column labeled "total assays" shows the total number of times each small molecule has been screened against the target of interest. The column labeled "fraction active" shows the portion of these which were annotated as active as a number between 0 and 1.
+This function allows users to consider different binding assays from distinct sources as replicates, to assist in distinguishing potentially spurious binding results from those with demonstrated reproducibility.
+
+```{r eval=TRUE, tidy=FALSE}
+activeCompounds <- activeAgainst(pubChemDatabase, "166897622")
+activeCompounds[1:10,] # look at the first 10 compounds
+```
+
+Looking only at compounds which show binding to the target of interest is not sufficient for identifying drug candidates, as a portion of these compounds may be target unselective compounds (TUCs) which bind
+indiscriminately to a large number of distinct protein targets. The R function *selectiveAgainst* provides the user with a list of compounds that show activity against a target of interest (in at least one assay), while also showing limited activity against other targets.
+
+The *maxCompounds* option limits the maximum number of results returned, and the *minimumTargets*
+option limits returned compounds to those screened against a specified minimum of distinct targets. Results are formatted as a *data.frame* whereby each row name represents a distinct compound. The first column shows the number of distinct targets this compound shows activity against, and the second shows the total number of targets it was screened against.
+
+```{r eval=TRUE, tidy=FALSE}
+selectiveCompounds <- selectiveAgainst(pubChemDatabase, "166897622", 
+    maxCompounds = 10, minimumTargets = 1)
+selectiveCompounds
+```
+
+In the example database these compounds are only showing one tested target because very few assays are loaded. Users are encouraged to try this example for themselves with the full PubChem BioAssay database downloadable from <http://chemmine.ucr.edu/bioassayr> for a more interesting and informative result.
+
+Users can combine *bioassayR* with the *ChemmineR* library to obtain structural information on these target selective compounds, and then perform further analysis- such as structural clustering, visualization, and computing physicochemical properties. 
+
+The *ChemmineR* software library can be used to download structural data for any of these compounds, and to visualize these structures as follows  `r citep(c("Cao2008c"))`.
+This example requires an active internet connection, as the compound structures are obtained from a remote server.
+
+```{r eval=FALSE, tidy=FALSE}
+library(ChemmineR)
+structures <- getIds(as.numeric(row.names(selectiveCompounds)))
+```
+
+```{r eval=TRUE, echo=FALSE}
+# cache results from previous code chunk
+# NOTE: this must match the code in the previous code chunk but will be
+#   hidden. Delete cacheFileName to rebuild the cache from web data.
+library(ChemmineR)
+cacheFileName <- "getids.RData"
+if(! file.exists(cacheFileName)){
+    structures <- getIds(as.numeric(row.names(selectiveCompounds)))
+    save(list=c("structures"), file=cacheFileName)
+}
+load(cacheFileName)
+```
+
+Here we visualize just the first four compounds found with *selectiveAgainst*. Consult the vignette supplied with *ChemmineR* for numerous examples of visualizing and analyzing these structures further.
+
+```{r eval=TRUE, tidy=FALSE}
+plot(structures[1:4], print=FALSE) # Plots structures to R graphics device
+```
+
+Cluster Compounds by Activity Profile
+---------------------------------------
+
+This example demonstrates an example of clustering small molecules by similar bioactivity profiles across several distinct bioassay experiments.
+In many cases it is too cpu and memory intensive to cluster all compounds in the database, so we first pull just a subset of these data from the database into an *bioassaySet* object, and then convert that into a compounds vs targets activity matrix for subsequent clustering according to similarities in activity profile.
+The function *getBioassaySetByCids* extracts the activity data for a given list of compounds. Alternatively, the entire data for a given list of assay ids can be extracted with the function *getAssays*.
+
+First, connect to the included sample database:
+
+```{r eval=TRUE, tidy=FALSE}
+library(bioassayR)
+extdata_dir <- system.file("extdata", package="bioassayR") 
+sampleDatabasePath <- file.path(extdata_dir, "sampleDatabase.sqlite")
+sampleDB <- connectBioassayDB(sampleDatabasePath)  
+```
+
+Next, select data from just 3 compounds to extract into a *bioassaySet* object for subsequent analysis.
+
+```{r eval=TRUE, tidy=FALSE}
+compoundsOfInterest <- c("2244", "2662", "3715")
+selectedAssayData <- getBioassaySetByCids(sampleDB, compoundsOfInterest)
+selectedAssayData
+```
+
+The function *perTargetMatrix* converts the activity data extracted earlier into a matrix of targets (rows) vs compounds (columns). Data from multiple assays hitting the same target are summarized into a single value in the manner specified by the user. If you choose the *summarizeReplicates* option
+*activesFirst*, any active scores take prescendence over inactives. If you choose the option *mode* the most abundant of either actives or inactives
+is stored in the resulting matrix. You can also pass a custom function to decide how replicates are summarized.
+In the resulting matrix a "2" represents an active compound vs target combination, a "1" represents an inactive combination, and a "0" represents
+an untested or inconclusive combination. Inactive results can optionally be excluded from consideration
+by passing the option inactives = FALSE. Here a sparse matrix (which omits actually storing 0 values) is used to save memory.
+In a sparse matrix a period "." entry is equal to a zero "0" entry, but is implied without
+taking extra space in memory.
+
+Here we create an activity matrix, choosing to include inactive values, and summarize replicates according to the statistical mode:
+
+```{r eval=TRUE, tidy=FALSE}
+myActivityMatrix <- perTargetMatrix(selectedAssayData, inactives=TRUE, summarizeReplicates = "mode")
+myActivityMatrix[1:15,] # print the first 15 rows
+```
+
+Next, we will re-create the activity matrix where protein targets
+that are very similar at the sequence level (such as orthologues from different species)
+are treated as replicates, and merged.
+
+The function *perTargetMatrix* contains an option *assayTargets*
+which let's you specify the targets for each assay instead of taking them from the *bioassaySet* object.
+The function *assaySetTargets* returns a vector of the targets for each assay
+in a *bioassaySet* object, where the name of each element corresponds to it's
+assay identifier (aid). This is the format that must be passed to *perTargetMatrix*
+to specify which assays are treated as replicates to be merged, so first we can
+obtain these data, and then replace them with a custom merge criteria formatted
+in the same manner.
+
+```{r eval=TRUE, tidy=FALSE}
+myAssayTargets <- assaySetTargets(selectedAssayData)
+myAssayTargets[1:5] # print the first 5 targets
+```
+
+The pre-built PubChem BioAssay database includes sequence level
+protein target clustering results generated with the kClust tool
+(options s=2.93, E-value < 1*10^-4, c=0.8) `r citep(c("Hauser:2013im"))`.
+Each cluster has a unique number, and targets which cluster together are assigned
+the same cluster number.
+These clustering results are stored in the database as target
+translations under category "kClust". Now we will access these
+traslations, and make a compound vs. target cluster matrix as follows.
+
+```{r eval=TRUE, tidy=FALSE}
+# get kClust protein cluster number for a single target
+translateTargetId(database = sampleDB, target = "166897622", category = "kClust")
+
+# get kClust protein cluster numbers for all targets in myAssayTargets
+customMerge <- sapply(myAssayTargets, translateTargetId, database = sampleDB, category = "kClust")
+customMerge[1:5]
+
+mergedActivityMatrix <- perTargetMatrix(selectedAssayData, inactives=TRUE, assayTargets=customMerge)
+mergedActivityMatrix[1:15,] # print the first 15 rows
+```
+
+Note that the merged matrix is smaller, because several similar protein targets
+have been collapsed into single clusters.
+```{r eval=TRUE, tidy=FALSE}
+# get number of rows and columns for unmerged matrix
+dim(myActivityMatrix) 
+
+# get number of rows and columns for merged matrix
+dim(mergedActivityMatrix)
+```
+
+Now, to make it possible to use binary clustering methods, we simplify the matrix
+into a binary matrix where "1" represents active, and "0" represents either inactive
+or untested combinations. We caution the user to carefully consider if this makes sense within the context of the specific experiments being analyzed. 
+
+```{r eval=TRUE, tidy=FALSE}
+binaryMatrix <- 1*(mergedActivityMatrix > 1)
+binaryMatrix[1:15,] # print the first 15 rows
+```
+
+As mentioned earlier, "0" and "." entries in a sparse matrix are numerically equivalent.
+
+Cluster using the built in euclidean clustering functions within R to cluster.
+This provides a dendrogram which indicates the similarity amongst compounds according to their activity profiles.
+
+```{r eval=TRUE, tidy=FALSE}
+transposedMatrix <- t(binaryMatrix)
+distanceMatrix <- dist(transposedMatrix)
+clusterResults <- hclust(distanceMatrix, method="average")
+plot(clusterResults)
+```
+
+A second way to compare activity profiles and cluster data is to pass
+the activity matrix to the *ChemmineR* cheminformatics library as an *FPset* (binary fingerprint) object.
+This represents the bioactivity data as a binary fingerprint (bioactivity fingerprint), which is a
+binary string for each compound, where each bit represents activity (with a 1) or inactivity (with a 0) against
+the full set of targets these compounds have shown activity against. This allows for pairwise comparison
+of the bioactivity profile among compounds.
+See the *ChemmineR* documentation at http://bioconductor.org/packages/ChemmineR/ for additional examples and details.
+
+```{r eval=TRUE, tidy=FALSE}
+library(ChemmineR)
+fpset <- bioactivityFingerprint(selectedAssayData)
+fpset
+```
+
+Perform activity profile similarity searching with the FPset object, by comparing
+the first compound to all compounds.
+
+```{r eval=TRUE, tidy=FALSE}
+fpSim(fpset[1], fpset, method="Tanimoto") 
+```
+
+Compute an all-against-all bioactivity fingerprint similarity matrix for these compounds.
+
+```{r eval=TRUE, tidy=FALSE}
+simMA <- sapply(cid(fpset), function(x) fpSim(fpset[x], fpset, sorted=FALSE, method="Tanimoto"))
+simMA
+```
+
+Convert similarity matrix to a distance matrix and perform hierarcheal clustering.
+```{r eval=TRUE, tidy=FALSE}
+clusterResults <- hclust(as.dist(1-simMA), method="single")
+plot(clusterResults)
+```
+
+Finally, disconnect from the database.
+
+```{r eval=TRUE, tidy=FALSE}
+disconnectBioassayDB(sampleDB)
+```
+
+Analyze and Load Raw Screening Data
+-------------------------------------
+
+This example demonstrates the basics of analyzing and loading data
+from a high throughput screening experiment with scores for 21,888
+distinct compounds.
+
+This example is based on the cellHTS2 library 
+`r citep(c("Boutros2006"))`. Example data
+is used which is included with cellHTS2. This is actually data from
+screening dsRNA against live cells, however we will treat it as small molecule
+binding data against a protein target as the data format is the same.
+
+First read in the screening data provided with cellHTS2.
+
+```{r eval=TRUE, tidy=FALSE, message=FALSE}
+library(cellHTS2)
+library(bioassayR)
+
+dataPath <- system.file("KcViab", package="cellHTS2")
+x <- readPlateList("Platelist.txt", 
+                   name="KcViab", 
+                   path=dataPath)
+
+x <- configure(x,
+               descripFile="Description.txt", 
+               confFile="Plateconf.txt", 
+               logFile="Screenlog.txt", 
+               path=dataPath)
+
+xn <- normalizePlates(x, 
+                      scale="multiplicative", 
+                      log=FALSE, 
+                      method="median", 
+                      varianceAdjust="none")
+```
+
+Next, score and summarize the replicates.
+
+```{r eval=TRUE, tidy=FALSE}
+xsc <- scoreReplicates(xn, sign="-", method="zscore")
+xsc <- summarizeReplicates(xsc, summary="mean")
+```
+
+Parse the annotation data.
+
+```{r eval=TRUE, tidy=FALSE}
+xsc <- annotate(xsc, geneIDFile="GeneIDs_Dm_HFA_1.1.txt", path=dataPath)
+```
+
+Apply a sigmoidal transformation to generate binary calls.
+
+```{r eval=TRUE, tidy=FALSE}
+y <- scores2calls(xsc, z0=1.5, lambda=2)
+binaryCalls <- round(Data(y))
+```
+
+Convert the binary calls into an activity table that *bioassayR* can parse.
+
+```{r eval=TRUE, tidy=FALSE}
+scoreDataFrame <- cbind(geneAnno(y), binaryCalls)
+rawScores <- as.vector(Data(xsc))
+rawScores <- rawScores[wellAnno(y) == "sample"]
+scoreDataFrame <- scoreDataFrame[wellAnno(y) == "sample",]
+activityTable <- cbind(cid=scoreDataFrame[,1], 
+     activity=scoreDataFrame[,2], score=rawScores)
+activityTable <- as.data.frame(activityTable)
+activityTable[1:10,]
+```
+
+Create a new (temporary in this case) *bioassayR* database to load these data into.
+
+```{r eval=TRUE, tidy=FALSE}
+myDatabaseFilename <- tempfile() 
+mydb <- newBioassayDB(myDatabaseFilename, indexed=F)
+addDataSource(mydb, description="other", version="unknown")
+```
+
+Create an assay object for the new assay.
+
+```{r eval=TRUE, tidy=FALSE}
+myAssay <- new("bioassay",aid="1", source_id="other",
+     assay_type="confirmatory", organism="unknown", scoring="activity rank", 
+     targets="2224444", target_types="protein", scores=activityTable)
+```
+
+Load this assay object into the *bioassayR* database.
+
+```{r eval=TRUE, tidy=FALSE}
+loadBioassay(mydb, myAssay)
+mydb
+```
+
+Now that these data are loaded, you can use them to perform any of the other analysis examples in this document.
+
+Lastly, for the purposes of this example, disconnect from the example database.
+
+```{r eval=TRUE, tidy=FALSE}
+disconnectBioassayDB(mydb)
+```
+
+```{r eval=TRUE, echo=FALSE}
+# delete temporary database
+unlink(myDatabaseFilename)
+```
+
+Custom SQL Queries
+-------------------------------------
+
+While many pre-built queries are provided (see other examples and man pages) 
+advanced users can also build their own SQL queries. 
+As bioassayR uses a SQLite database, you can consult <http://www.sqlite.org> for specifics on building SQL queries. 
+We also reccomend the book "Using SQLite" `r citep(c("Kreibich2010"))`.
+
+To get started first connect to a database. If you downloaded the full PubChem BioAssay
+database from the authors website, the variable *sampleDatabasePath* can be replaced with the filename of the database you downloaded, if you would like to use
+that instead of the small example version included with this software package.
+
+```{r eval=TRUE, tidy=FALSE}
+library(bioassayR)
+extdata_dir <- system.file("extdata", package="bioassayR")
+sampleDatabasePath <- file.path(extdata_dir, "sampleDatabase.sqlite")
+pubChemDatabase <- connectBioassayDB(sampleDatabasePath)  
+```
+
+First you will want to see the structure
+of the database as follows:
+
+```{r eval=TRUE, tidy=FALSE}
+queryBioassayDB(pubChemDatabase, "SELECT * FROM sqlite_master WHERE type='table'")
+```
+
+For example, you can find the first 10 assays a given compound has participated in as follows:
+
+```{r eval=TRUE, tidy=FALSE}
+queryBioassayDB(pubChemDatabase, "SELECT DISTINCT(aid) FROM activity WHERE cid = '2244' LIMIT 10")
+```
+
+This example prints the activity scores from a specified assay:
+
+```{r eval=TRUE, tidy=FALSE}
+queryBioassayDB(pubChemDatabase, "SELECT * FROM activity WHERE aid = '393818'")
+```
+
+A *NATURAL JOIN* automatically merges tables which share common rows, making
+it easier to parse data spread across many tables. Here we merge the activity
+table (raw scores), with the assay table (assay annotation details) and the
+protein targets table:
+
+```{r eval=TRUE, tidy=FALSE}
+queryBioassayDB(pubChemDatabase, "SELECT * FROM activity NATURAL JOIN assays NATURAL JOIN targets WHERE cid = '2244' LIMIT 10")
+```
+
+Lastly, disconnecting from the database after analysis reduces the chances of data corruption. If you are using a pre-built database in read only mode (as demonstrated in the Prebuilt Database Example section) you can optionally skip this step, as only writable databases are prone to corruption from failure to disconnect.
+
+```{r eval=TRUE, tidy=FALSE}
+disconnectBioassayDB(pubChemDatabase)
+```
+
+Building PubChem BioAssay Database
+==================================
+As mentioned in the above examples, a pre-built database containing large 
+quantities of public domain bioactivity data sourced from the PubChem BioAssay database, can be downloaded from <http://chemmine.ucr.edu/bioassayr>. 
+Advanced users can re-build this database from the raw data themselves, by using
+the code provided on GitHub at <https://github.com/TylerBackman/pubchem-bioassay-database>.
+This code is written for Linux systems, but a Dockerfile is included
+to allow it to run on other platforms.
+
+Version Information
+===================
+
+This document was compiled in an R session with the following 
+configuration.
+
+```{r sessionInfo, results='asis'}
+ sessionInfo()
+```
+
+Funding
+=======
+
+This software was developed with funding from the National Science
+Foundation:
+[ABI-0957099](http://www.nsf.gov/awardsearch/showAward.do?AwardNumber=0957099),
+2010-0520325 and IGERT-0504249.
+
+References
+===========
+
+```{r biblio, echo=FALSE, results='asis'}
+    #hack to get rid of latex code returned by certain doi sites (e.g. crosscite.org)
+	fix = function(t)  gsub("\\$\\\\(l|r)brace\\$", "", t)
+	suppressWarnings({
+		sink(tempfile())
+		b<<-bibliography()
+		sink(NULL)
+	})
+
+	for(i in 1:length(b))
+		b[i]$title = fix(b[i]$title)
+#	write.bibtex(file="references.bib")
+	b
+
+```

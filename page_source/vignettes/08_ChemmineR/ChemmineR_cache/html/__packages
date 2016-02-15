@@ -1,0 +1,10 @@
+base
+BiocStyle
+ChemmineR
+ChemmineOB
+fmcsR
+ggplot2
+DBI
+RSQLite
+scatterplot3d
+gplots

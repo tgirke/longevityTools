@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Authors: Tyler Backman, Thomas Girke" />
+
+
+<title>bioassayR - Introduction and Examples</title>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<link href="data:text/css;charset=utf-8,pre%20%2Eoperator%2C%0Apre%20%2Eparen%20%7B%0Acolor%3A%20rgb%28104%2C%20118%2C%20135%29%0A%7D%0Apre%20%2Eliteral%20%7B%0Acolor%3A%20%23990073%0A%7D%0Apre%20%2Enumber%20%7B%0Acolor%3A%20%23099%3B%0A%7D%0Apre%20%2Ecomment%20%7B%0Acolor%3A%20%23998%3B%0Afont%2Dstyle%3A%20italic%0A%7D%0Apre%20%2Ekeyword%20%7B%0Acolor%3A%20%23900%3B%0Afont%2Dweight%3A%20bold%0A%7D%0Apre%20%2Eidentifier%20%7B%0Acolor%3A%20rgb%280%2C%200%2C%200%29%3B%0A%7D%0Apre%20%2Estring%20%7B%0Acolor%3A%20%23d14%3B%0A%7D%0A" rel="stylesheet" type="text/css" />
+<script src="data:application/x-javascript;base64,CnZhciBobGpzPW5ldyBmdW5jdGlvbigpe2Z1bmN0aW9uIG0ocCl7cmV0dXJuIHAucmVwbGFjZSgvJi9nbSwiJmFtcDsiKS5yZXBsYWNlKC88L2dtLCImbHQ7Iil9ZnVuY3Rpb24gZihyLHEscCl7cmV0dXJuIFJlZ0V4cChxLCJtIisoci5jST8iaSI6IiIpKyhwPyJnIjoiIikpfWZ1bmN0aW9uIGIocil7Zm9yKHZhciBwPTA7cDxyLmNoaWxkTm9kZXMubGVuZ3RoO3ArKyl7dmFyIHE9ci5jaGlsZE5vZGVzW3BdO2lmKHEubm9kZU5hbWU9PSJDT0RFIil7cmV0dXJuIHF9aWYoIShxLm5vZGVUeXBlPT0zJiZxLm5vZGVWYWx1ZS5tYXRjaCgvXHMrLykpKXticmVha319fWZ1bmN0aW9uIGgodCxzKXt2YXIgcD0iIjtmb3IodmFyIHI9MDtyPHQuY2hpbGROb2Rlcy5sZW5ndGg7cisrKXtpZih0LmNoaWxkTm9kZXNbcl0ubm9kZVR5cGU9PTMpe3ZhciBxPXQuY2hpbGROb2Rlc1tyXS5ub2RlVmFsdWU7aWYocyl7cT1xLnJlcGxhY2UoL1xuL2csIiIpfXArPXF9ZWxzZXtpZih0LmNoaWxkTm9kZXNbcl0ubm9kZU5hbWU9PSJCUiIpe3ArPSJcbiJ9ZWxzZXtwKz1oKHQuY2hpbGROb2Rlc1tyXSl9fX1pZigvTVNJRSBbNjc4XS8udGVzdChuYXZpZ2F0b3IudXNlckFnZW50KSl7cD1wLnJlcGxhY2UoL1xyL2csIlxuIil9cmV0dXJuIHB9ZnVuY3Rpb24gYShzKXt2YXIgcj1zLmNsYXNzTmFtZS5zcGxpdCgvXHMrLyk7cj1yLmNvbmNhdChzLnBhcmVudE5vZGUuY2xhc3NOYW1lLnNwbGl0KC9ccysvKSk7Zm9yKHZhciBxPTA7cTxyLmxlbmd0aDtxKyspe3ZhciBwPXJbcV0ucmVwbGFjZSgvXmxhbmd1YWdlLS8sIiIpO2lmKGVbcF0pe3JldHVybiBwfX19ZnVuY3Rpb24gYyhxKXt2YXIgcD1bXTsoZnVuY3Rpb24ocyx0KXtmb3IodmFyIHI9MDtyPHMuY2hpbGROb2Rlcy5sZW5ndGg7cisrKXtpZihzLmNoaWxkTm9kZXNbcl0ubm9kZVR5cGU9PTMpe3QrPXMuY2hpbGROb2Rlc1tyXS5ub2RlVmFsdWUubGVuZ3RofWVsc2V7aWYocy5jaGlsZE5vZGVzW3JdLm5vZGVOYW1lPT0iQlIiKXt0Kz0xfWVsc2V7aWYocy5jaGlsZE5vZGVzW3JdLm5vZGVUeXBlPT0xKXtwLnB1c2goe2V2ZW50OiJzdGFydCIsb2Zmc2V0OnQsbm9kZTpzLmNoaWxkTm9kZXNbcl19KTt0PWFyZ3VtZW50cy5jYWxsZWUocy5jaGlsZE5vZGVzW3JdLHQpO3AucHVzaCh7ZXZlbnQ6InN0b3AiLG9mZnNldDp0LG5vZGU6cy5jaGlsZE5vZGVzW3JdfSl9fX19cmV0dXJuIHR9KShxLDApO3JldHVybiBwfWZ1bmN0aW9uIGsoeSx3LHgpe3ZhciBxPTA7dmFyIHo9IiI7dmFyIHM9W107ZnVuY3Rpb24gdSgpe2lmKHkubGVuZ3RoJiZ3Lmxlbmd0aCl7aWYoeVswXS5vZmZzZXQhPXdbMF0ub2Zmc2V0KXtyZXR1cm4oeVswXS5vZmZzZXQ8d1swXS5vZmZzZXQpP3k6d31lbHNle3JldHVybiB3WzBdLmV2ZW50PT0ic3RhcnQiP3k6d319ZWxzZXtyZXR1cm4geS5sZW5ndGg/eTp3fX1mdW5jdGlvbiB0KEQpe3ZhciBBPSI8IitELm5vZGVOYW1lLnRvTG93ZXJDYXNlKCk7Zm9yKHZhciBCPTA7QjxELmF0dHJpYnV0ZXMubGVuZ3RoO0IrKyl7dmFyIEM9RC5hdHRyaWJ1dGVzW0JdO0ErPSIgIitDLm5vZGVOYW1lLnRvTG93ZXJDYXNlKCk7aWYoQy52YWx1ZSE9PXVuZGVmaW5lZCYmQy52YWx1ZSE9PWZhbHNlJiZDLnZhbHVlIT09bnVsbCl7QSs9Jz0iJyttKEMudmFsdWUpKyciJ319cmV0dXJuIEErIj4ifXdoaWxlKHkubGVuZ3RofHx3Lmxlbmd0aCl7dmFyIHY9dSgpLnNwbGljZSgwLDEpWzBdO3orPW0oeC5zdWJzdHIocSx2Lm9mZnNldC1xKSk7cT12Lm9mZnNldDtpZih2LmV2ZW50PT0ic3RhcnQiKXt6Kz10KHYubm9kZSk7cy5wdXNoKHYubm9kZSl9ZWxzZXtpZih2LmV2ZW50PT0ic3RvcCIpe3ZhciBwLHI9cy5sZW5ndGg7ZG97ci0tO3A9c1tyXTt6Kz0oIjwvIitwLm5vZGVOYW1lLnRvTG93ZXJDYXNlKCkrIj4iKX13aGlsZShwIT12Lm5vZGUpO3Muc3BsaWNlKHIsMSk7d2hpbGUocjxzLmxlbmd0aCl7eis9dChzW3JdKTtyKyt9fX19cmV0dXJuIHorbSh4LnN1YnN0cihxKSl9ZnVuY3Rpb24gaigpe2Z1bmN0aW9uIHEoeCx5LHYpe2lmKHguY29tcGlsZWQpe3JldHVybn12YXIgdTt2YXIgcz1bXTtpZih4Lmspe3gubFI9Zih5LHgubHx8aGxqcy5JUix0cnVlKTtmb3IodmFyIHcgaW4geC5rKXtpZigheC5rLmhhc093blByb3BlcnR5KHcpKXtjb250aW51ZX1pZih4Lmtbd10gaW5zdGFuY2VvZiBPYmplY3Qpe3U9eC5rW3ddfWVsc2V7dT14Lms7dz0ia2V5d29yZCJ9Zm9yKHZhciByIGluIHUpe2lmKCF1Lmhhc093blByb3BlcnR5KHIpKXtjb250aW51ZX14Lmtbcl09W3csdVtyXV07cy5wdXNoKHIpfX19aWYoIXYpe2lmKHguYldLKXt4LmI9IlxcYigiK3Muam9pbigifCIpKyIpXFxzIn14LmJSPWYoeSx4LmI/eC5iOiJcXEJ8XFxiIik7aWYoIXguZSYmIXguZVcpe3guZT0iXFxCfFxcYiJ9aWYoeC5lKXt4LmVSPWYoeSx4LmUpfX1pZih4Lmkpe3guaVI9Zih5LHguaSl9aWYoeC5yPT09dW5kZWZpbmVkKXt4LnI9MX1pZigheC5jKXt4LmM9W119eC5jb21waWxlZD10cnVlO2Zvcih2YXIgdD0wO3Q8eC5jLmxlbmd0aDt0Kyspe2lmKHguY1t0XT09InNlbGYiKXt4LmNbdF09eH1xKHguY1t0XSx5LGZhbHNlKX1pZih4LnN0YXJ0cyl7cSh4LnN0YXJ0cyx5LGZhbHNlKX19Zm9yKHZhciBwIGluIGUpe2lmKCFlLmhhc093blByb3BlcnR5KHApKXtjb250aW51ZX1xKGVbcF0uZE0sZVtwXSx0cnVlKX19ZnVuY3Rpb24gZChCLEMpe2lmKCFqLmNhbGxlZCl7aigpO2ouY2FsbGVkPXRydWV9ZnVuY3Rpb24gcShyLE0pe2Zvcih2YXIgTD0wO0w8TS5jLmxlbmd0aDtMKyspe2lmKChNLmNbTF0uYlIuZXhlYyhyKXx8W251bGxdKVswXT09cil7cmV0dXJuIE0uY1tMXX19fWZ1bmN0aW9uIHYoTCxyKXtpZihEW0xdLmUmJkRbTF0uZVIudGVzdChyKSl7cmV0dXJuIDF9aWYoRFtMXS5lVyl7dmFyIE09dihMLTEscik7cmV0dXJuIE0/TSsxOjB9cmV0dXJuIDB9ZnVuY3Rpb24gdyhyLEwpe3JldHVybiBMLmkmJkwuaVIudGVzdChyKX1mdW5jdGlvbiBLKE4sTyl7dmFyIE09W107Zm9yKHZhciBMPTA7TDxOLmMubGVuZ3RoO0wrKyl7TS5wdXNoKE4uY1tMXS5iKX12YXIgcj1ELmxlbmd0aC0xO2Rve2lmKERbcl0uZSl7TS5wdXNoKERbcl0uZSl9ci0tfXdoaWxlKERbcisxXS5lVyk7aWYoTi5pKXtNLnB1c2goTi5pKX1yZXR1cm4gZihPLE0uam9pbigifCIpLHRydWUpfWZ1bmN0aW9uIHAoTSxMKXt2YXIgTj1EW0QubGVuZ3RoLTFdO2lmKCFOLnQpe04udD1LKE4sRSl9Ti50Lmxhc3RJbmRleD1MO3ZhciByPU4udC5leGVjKE0pO3JldHVybiByP1tNLnN1YnN0cihMLHIuaW5kZXgtTCksclswXSxmYWxzZV06W00uc3Vic3RyKEwpLCIiLHRydWVdfWZ1bmN0aW9uIHooTixyKXt2YXIgTD1FLmNJP3JbMF0udG9Mb3dlckNhc2UoKTpyWzBdO3ZhciBNPU4ua1tMXTtpZihNJiZNIGluc3RhbmNlb2YgQXJyYXkpe3JldHVybiBNfXJldHVybiBmYWxzZX1mdW5jdGlvbiBGKEwsUCl7TD1tKEwpO2lmKCFQLmspe3JldHVybiBMfXZhciByPSIiO3ZhciBPPTA7UC5sUi5sYXN0SW5kZXg9MDt2YXIgTT1QLmxSLmV4ZWMoTCk7d2hpbGUoTSl7cis9TC5zdWJzdHIoTyxNLmluZGV4LU8pO3ZhciBOPXooUCxNKTtpZihOKXt4Kz1OWzFdO3IrPSc8c3BhbiBjbGFzcz0iJytOWzBdKyciPicrTVswXSsiPC9zcGFuPiJ9ZWxzZXtyKz1NWzBdfU89UC5sUi5sYXN0SW5kZXg7TT1QLmxSLmV4ZWMoTCl9cmV0dXJuIHIrTC5zdWJzdHIoTyxMLmxlbmd0aC1PKX1mdW5jdGlvbiBKKEwsTSl7aWYoTS5zTCYmZVtNLnNMXSl7dmFyIHI9ZChNLnNMLEwpO3grPXIua2V5d29yZF9jb3VudDtyZXR1cm4gci52YWx1ZX1lbHNle3JldHVybiBGKEwsTSl9fWZ1bmN0aW9uIEkoTSxyKXt2YXIgTD1NLmNOPyc8c3BhbiBjbGFzcz0iJytNLmNOKyciPic6IiI7aWYoTS5yQil7eSs9TDtNLmJ1ZmZlcj0iIn1lbHNle2lmKE0uZUIpe3krPW0ocikrTDtNLmJ1ZmZlcj0iIn1lbHNle3krPUw7TS5idWZmZXI9cn19RC5wdXNoKE0pO0ErPU0ucn1mdW5jdGlvbiBHKE4sTSxRKXt2YXIgUj1EW0QubGVuZ3RoLTFdO2lmKFEpe3krPUooUi5idWZmZXIrTixSKTtyZXR1cm4gZmFsc2V9dmFyIFA9cShNLFIpO2lmKFApe3krPUooUi5idWZmZXIrTixSKTtJKFAsTSk7cmV0dXJuIFAuckJ9dmFyIEw9dihELmxlbmd0aC0xLE0pO2lmKEwpe3ZhciBPPVIuY04/Ijwvc3Bhbj4iOiIiO2lmKFIuckUpe3krPUooUi5idWZmZXIrTixSKStPfWVsc2V7aWYoUi5lRSl7eSs9SihSLmJ1ZmZlcitOLFIpK08rbShNKX1lbHNle3krPUooUi5idWZmZXIrTitNLFIpK099fXdoaWxlKEw+MSl7Tz1EW0QubGVuZ3RoLTJdLmNOPyI8L3NwYW4+IjoiIjt5Kz1PO0wtLTtELmxlbmd0aC0tfXZhciByPURbRC5sZW5ndGgtMV07RC5sZW5ndGgtLTtEW0QubGVuZ3RoLTFdLmJ1ZmZlcj0iIjtpZihyLnN0YXJ0cyl7SShyLnN0YXJ0cywiIil9cmV0dXJuIFIuckV9aWYodyhNLFIpKXt0aHJvdyJJbGxlZ2FsIn19dmFyIEU9ZVtCXTt2YXIgRD1bRS5kTV07dmFyIEE9MDt2YXIgeD0wO3ZhciB5PSIiO3RyeXt2YXIgcyx1PTA7RS5kTS5idWZmZXI9IiI7ZG97cz1wKEMsdSk7dmFyIHQ9RyhzWzBdLHNbMV0sc1syXSk7dSs9c1swXS5sZW5ndGg7aWYoIXQpe3UrPXNbMV0ubGVuZ3RofX13aGlsZSghc1syXSk7aWYoRC5sZW5ndGg+MSl7dGhyb3ciSWxsZWdhbCJ9cmV0dXJue3I6QSxrZXl3b3JkX2NvdW50OngsdmFsdWU6eX19Y2F0Y2goSCl7aWYoSD09IklsbGVnYWwiKXtyZXR1cm57cjowLGtleXdvcmRfY291bnQ6MCx2YWx1ZTptKEMpfX1lbHNle3Rocm93IEh9fX1mdW5jdGlvbiBnKHQpe3ZhciBwPXtrZXl3b3JkX2NvdW50OjAscjowLHZhbHVlOm0odCl9O3ZhciByPXA7Zm9yKHZhciBxIGluIGUpe2lmKCFlLmhhc093blByb3BlcnR5KHEpKXtjb250aW51ZX12YXIgcz1kKHEsdCk7cy5sYW5ndWFnZT1xO2lmKHMua2V5d29yZF9jb3VudCtzLnI+ci5rZXl3b3JkX2NvdW50K3Iucil7cj1zfWlmKHMua2V5d29yZF9jb3VudCtzLnI+cC5rZXl3b3JkX2NvdW50K3Aucil7cj1wO3A9c319aWYoci5sYW5ndWFnZSl7cC5zZWNvbmRfYmVzdD1yfXJldHVybiBwfWZ1bmN0aW9uIGkocixxLHApe2lmKHEpe3I9ci5yZXBsYWNlKC9eKCg8W14+XSs+fFx0KSspL2dtLGZ1bmN0aW9uKHQsdyx2LHUpe3JldHVybiB3LnJlcGxhY2UoL1x0L2cscSl9KX1pZihwKXtyPXIucmVwbGFjZSgvXG4vZywiPGJyPiIpfXJldHVybiByfWZ1bmN0aW9uIG4odCx3LHIpe3ZhciB4PWgodCxyKTt2YXIgdj1hKHQpO3ZhciB5LHM7aWYodil7eT1kKHYseCl9ZWxzZXtyZXR1cm59dmFyIHE9Yyh0KTtpZihxLmxlbmd0aCl7cz1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJwcmUiKTtzLmlubmVySFRNTD15LnZhbHVlO3kudmFsdWU9ayhxLGMocykseCl9eS52YWx1ZT1pKHkudmFsdWUsdyxyKTt2YXIgdT10LmNsYXNzTmFtZTtpZighdS5tYXRjaCgiKFxcc3xeKShsYW5ndWFnZS0pPyIrdisiKFxcc3wkKSIpKXt1PXU/KHUrIiAiK3YpOnZ9aWYoL01TSUUgWzY3OF0vLnRlc3QobmF2aWdhdG9yLnVzZXJBZ2VudCkmJnQudGFnTmFtZT09IkNPREUiJiZ0LnBhcmVudE5vZGUudGFnTmFtZT09IlBSRSIpe3M9dC5wYXJlbnROb2RlO3ZhciBwPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImRpdiIpO3AuaW5uZXJIVE1MPSI8cHJlPjxjb2RlPiIreS52YWx1ZSsiPC9jb2RlPjwvcHJlPiI7dD1wLmZpcnN0Q2hpbGQuZmlyc3RDaGlsZDtwLmZpcnN0Q2hpbGQuY049cy5jTjtzLnBhcmVudE5vZGUucmVwbGFjZUNoaWxkKHAuZmlyc3RDaGlsZCxzKX1lbHNle3QuaW5uZXJIVE1MPXkudmFsdWV9dC5jbGFzc05hbWU9dTt0LnJlc3VsdD17bGFuZ3VhZ2U6dixrdzp5LmtleXdvcmRfY291bnQscmU6eS5yfTtpZih5LnNlY29uZF9iZXN0KXt0LnNlY29uZF9iZXN0PXtsYW5ndWFnZTp5LnNlY29uZF9iZXN0Lmxhbmd1YWdlLGt3Onkuc2Vjb25kX2Jlc3Qua2V5d29yZF9jb3VudCxyZTp5LnNlY29uZF9iZXN0LnJ9fX1mdW5jdGlvbiBvKCl7aWYoby5jYWxsZWQpe3JldHVybn1vLmNhbGxlZD10cnVlO3ZhciByPWRvY3VtZW50LmdldEVsZW1lbnRzQnlUYWdOYW1lKCJwcmUiKTtmb3IodmFyIHA9MDtwPHIubGVuZ3RoO3ArKyl7dmFyIHE9YihyW3BdKTtpZihxKXtuKHEsaGxqcy50YWJSZXBsYWNlKX19fWZ1bmN0aW9uIGwoKXtpZih3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcil7d2luZG93LmFkZEV2ZW50TGlzdGVuZXIoIkRPTUNvbnRlbnRMb2FkZWQiLG8sZmFsc2UpO3dpbmRvdy5hZGRFdmVudExpc3RlbmVyKCJsb2FkIixvLGZhbHNlKX1lbHNle2lmKHdpbmRvdy5hdHRhY2hFdmVudCl7d2luZG93LmF0dGFjaEV2ZW50KCJvbmxvYWQiLG8pfWVsc2V7d2luZG93Lm9ubG9hZD1vfX19dmFyIGU9e307dGhpcy5MQU5HVUFHRVM9ZTt0aGlzLmhpZ2hsaWdodD1kO3RoaXMuaGlnaGxpZ2h0QXV0bz1nO3RoaXMuZml4TWFya3VwPWk7dGhpcy5oaWdobGlnaHRCbG9jaz1uO3RoaXMuaW5pdEhpZ2hsaWdodGluZz1vO3RoaXMuaW5pdEhpZ2hsaWdodGluZ09uTG9hZD1sO3RoaXMuSVI9IlthLXpBLVpdW2EtekEtWjAtOV9dKiI7dGhpcy5VSVI9IlthLXpBLVpfXVthLXpBLVowLTlfXSoiO3RoaXMuTlI9IlxcYlxcZCsoXFwuXFxkKyk/Ijt0aGlzLkNOUj0iXFxiKDBbeFhdW2EtZkEtRjAtOV0rfChcXGQrKFxcLlxcZCopP3xcXC5cXGQrKShbZUVdWy0rXT9cXGQrKT8pIjt0aGlzLkJOUj0iXFxiKDBiWzAxXSspIjt0aGlzLlJTUj0iIXwhPXwhPT18JXwlPXwmfCYmfCY9fFxcKnxcXCo9fFxcK3xcXCs9fCx8XFwufC18LT18L3wvPXw6fDt8PHw8PHw8PD18PD18PXw9PXw9PT18Pnw+PXw+Pnw+Pj18Pj4+fD4+Pj18XFw/fFxcW3xcXHt8XFwofFxcXnxcXF49fFxcfHxcXHw9fFxcfFxcfHx+Ijt0aGlzLkVSPSIoPyFbXFxzXFxTXSkiO3RoaXMuQkU9e2I6IlxcXFwuIixyOjB9O3RoaXMuQVNNPXtjTjoic3RyaW5nIixiOiInIixlOiInIixpOiJcXG4iLGM6W3RoaXMuQkVdLHI6MH07dGhpcy5RU009e2NOOiJzdHJpbmciLGI6JyInLGU6JyInLGk6IlxcbiIsYzpbdGhpcy5CRV0scjowfTt0aGlzLkNMQ009e2NOOiJjb21tZW50IixiOiIvLyIsZToiJCJ9O3RoaXMuQ0JMQ0xNPXtjTjoiY29tbWVudCIsYjoiL1xcKiIsZToiXFwqLyJ9O3RoaXMuSENNPXtjTjoiY29tbWVudCIsYjoiIyIsZToiJCJ9O3RoaXMuTk09e2NOOiJudW1iZXIiLGI6dGhpcy5OUixyOjB9O3RoaXMuQ05NPXtjTjoibnVtYmVyIixiOnRoaXMuQ05SLHI6MH07dGhpcy5CTk09e2NOOiJudW1iZXIiLGI6dGhpcy5CTlIscjowfTt0aGlzLmluaGVyaXQ9ZnVuY3Rpb24ocixzKXt2YXIgcD17fTtmb3IodmFyIHEgaW4gcil7cFtxXT1yW3FdfWlmKHMpe2Zvcih2YXIgcSBpbiBzKXtwW3FdPXNbcV19fXJldHVybiBwfX0oKTtobGpzLkxBTkdVQUdFUy5jcHA9ZnVuY3Rpb24oKXt2YXIgYT17a2V5d29yZDp7ImZhbHNlIjoxLCJpbnQiOjEsImZsb2F0IjoxLCJ3aGlsZSI6MSwicHJpdmF0ZSI6MSwiY2hhciI6MSwiY2F0Y2giOjEsImV4cG9ydCI6MSx2aXJ0dWFsOjEsb3BlcmF0b3I6MixzaXplb2Y6MixkeW5hbWljX2Nhc3Q6Mix0eXBlZGVmOjIsY29uc3RfY2FzdDoyLCJjb25zdCI6MSxzdHJ1Y3Q6MSwiZm9yIjoxLHN0YXRpY19jYXN0OjIsdW5pb246MSxuYW1lc3BhY2U6MSx1bnNpZ25lZDoxLCJsb25nIjoxLCJ0aHJvdyI6MSwidm9sYXRpbGUiOjIsInN0YXRpYyI6MSwicHJvdGVjdGVkIjoxLGJvb2w6MSx0ZW1wbGF0ZToxLG11dGFibGU6MSwiaWYiOjEsInB1YmxpYyI6MSxmcmllbmQ6MiwiZG8iOjEsInJldHVybiI6MSwiZ290byI6MSxhdXRvOjEsInZvaWQiOjIsImVudW0iOjEsImVsc2UiOjEsImJyZWFrIjoxLCJuZXciOjEsZXh0ZXJuOjEsdXNpbmc6MSwidHJ1ZSI6MSwiY2xhc3MiOjEsYXNtOjEsImNhc2UiOjEsdHlwZWlkOjEsInNob3J0IjoxLHJlaW50ZXJwcmV0X2Nhc3Q6MiwiZGVmYXVsdCI6MSwiZG91YmxlIjoxLHJlZ2lzdGVyOjEsZXhwbGljaXQ6MSxzaWduZWQ6MSx0eXBlbmFtZToxLCJ0cnkiOjEsInRoaXMiOjEsInN3aXRjaCI6MSwiY29udGludWUiOjEsd2NoYXJfdDoxLGlubGluZToxLCJkZWxldGUiOjEsYWxpZ25vZjoxLGNoYXIxNl90OjEsY2hhcjMyX3Q6MSxjb25zdGV4cHI6MSxkZWNsdHlwZToxLG5vZXhjZXB0OjEsbnVsbHB0cjoxLHN0YXRpY19hc3NlcnQ6MSx0aHJlYWRfbG9jYWw6MSxyZXN0cmljdDoxLF9Cb29sOjEsY29tcGxleDoxfSxidWlsdF9pbjp7c3RkOjEsc3RyaW5nOjEsY2luOjEsY291dDoxLGNlcnI6MSxjbG9nOjEsc3RyaW5nc3RyZWFtOjEsaXN0cmluZ3N0cmVhbToxLG9zdHJpbmdzdHJlYW06MSxhdXRvX3B0cjoxLGRlcXVlOjEsbGlzdDoxLHF1ZXVlOjEsc3RhY2s6MSx2ZWN0b3I6MSxtYXA6MSxzZXQ6MSxiaXRzZXQ6MSxtdWx0aXNldDoxLG11bHRpbWFwOjEsdW5vcmRlcmVkX3NldDoxLHVub3JkZXJlZF9tYXA6MSx1bm9yZGVyZWRfbXVsdGlzZXQ6MSx1bm9yZGVyZWRfbXVsdGltYXA6MSxhcnJheToxLHNoYXJlZF9wdHI6MX19O3JldHVybntkTTp7azphLGk6IjwvIixjOltobGpzLkNMQ00saGxqcy5DQkxDTE0saGxqcy5RU00se2NOOiJzdHJpbmciLGI6IidcXFxcPy4iLGU6IiciLGk6Ii4ifSx7Y046Im51bWJlciIsYjoiXFxiKFxcZCsoXFwuXFxkKik/fFxcLlxcZCspKHV8VXxsfEx8dWx8VUx8ZnxGKSJ9LGhsanMuQ05NLHtjTjoicHJlcHJvY2Vzc29yIixiOiIjIixlOiIkIn0se2NOOiJzdGxfY29udGFpbmVyIixiOiJcXGIoZGVxdWV8bGlzdHxxdWV1ZXxzdGFja3x2ZWN0b3J8bWFwfHNldHxiaXRzZXR8bXVsdGlzZXR8bXVsdGltYXB8dW5vcmRlcmVkX21hcHx1bm9yZGVyZWRfc2V0fHVub3JkZXJlZF9tdWx0aXNldHx1bm9yZGVyZWRfbXVsdGltYXB8YXJyYXkpXFxzKjwiLGU6Ij4iLGs6YSxyOjEwLGM6WyJzZWxmIl19XX19fSgpO2hsanMuTEFOR1VBR0VTLnI9e2RNOntjOltobGpzLkhDTSx7Y046Im51bWJlciIsYjoiXFxiMFt4WF1bMC05YS1mQS1GXStbTGldP1xcYiIsZTpobGpzLklNTUVESUFURV9SRSxyOjB9LHtjTjoibnVtYmVyIixiOiJcXGJcXGQrKD86W2VFXVsrXFwtXT9cXGQqKT9MXFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MH0se2NOOiJudW1iZXIiLGI6IlxcYlxcZCtcXC4oPyFcXGQpKD86aVxcYik/IixlOmhsanMuSU1NRURJQVRFX1JFLHI6MX0se2NOOiJudW1iZXIiLGI6IlxcYlxcZCsoPzpcXC5cXGQqKT8oPzpbZUVdWytcXC1dP1xcZCopP2k/XFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MH0se2NOOiJudW1iZXIiLGI6IlxcLlxcZCsoPzpbZUVdWytcXC1dP1xcZCopP2k/XFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MX0se2NOOiJrZXl3b3JkIixiOiIoPzp0cnlDYXRjaHxsaWJyYXJ5fHNldEdlbmVyaWN8c2V0R3JvdXBHZW5lcmljKVxcYiIsZTpobGpzLklNTUVESUFURV9SRSxyOjEwfSx7Y046ImtleXdvcmQiLGI6IlxcLlxcLlxcLiIsZTpobGpzLklNTUVESUFURV9SRSxyOjEwfSx7Y046ImtleXdvcmQiLGI6IlxcLlxcLlxcZCsoPyFbXFx3Ll0pIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MTB9LHtjTjoia2V5d29yZCIsYjoiXFxiKD86ZnVuY3Rpb24pIixlOmhsanMuSU1NRURJQVRFX1JFLHI6Mn0se2NOOiJrZXl3b3JkIixiOiIoPzppZnxpbnxicmVha3xuZXh0fHJlcGVhdHxlbHNlfGZvcnxyZXR1cm58c3dpdGNofHdoaWxlfHRyeXxzdG9wfHdhcm5pbmd8cmVxdWlyZXxhdHRhY2h8ZGV0YWNofHNvdXJjZXxzZXRNZXRob2R8c2V0Q2xhc3MpXFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MX0se2NOOiJsaXRlcmFsIixiOiIoPzpOQXxOQV9pbnRlZ2VyX3xOQV9yZWFsX3xOQV9jaGFyYWN0ZXJffE5BX2NvbXBsZXhfKVxcYiIsZTpobGpzLklNTUVESUFURV9SRSxyOjEwfSx7Y046ImxpdGVyYWwiLGI6Iig/Ok5VTEx8VFJVRXxGQUxTRXxUfEZ8SW5mfE5hTilcXGIiLGU6aGxqcy5JTU1FRElBVEVfUkUscjoxfSx7Y046ImlkZW50aWZpZXIiLGI6IlthLXpBLVouXVthLXpBLVowLTkuX10qXFxiIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MH0se2NOOiJvcGVyYXRvciIsYjoiPFxcLSg/IVxccypcXGQpIixlOmhsanMuSU1NRURJQVRFX1JFLHI6Mn0se2NOOiJvcGVyYXRvciIsYjoiXFwtPnw8XFwtIixlOmhsanMuSU1NRURJQVRFX1JFLHI6MX0se2NOOiJvcGVyYXRvciIsYjoiJSV8fiIsZTpobGpzLklNTUVESUFURV9SRX0se2NOOiJvcGVyYXRvciIsYjoiPj18PD18PT18IT18XFx8XFx8fCYmfD18XFwrfFxcLXxcXCp8L3xcXF58Pnw8fCF8JnxcXHx8XFwkfDoiLGU6aGxqcy5JTU1FRElBVEVfUkUscjowfSx7Y046Im9wZXJhdG9yIixiOiIlIixlOiIlIixpOiJcXG4iLHI6MX0se2NOOiJpZGVudGlmaWVyIixiOiJgIixlOiJgIixyOjB9LHtjTjoic3RyaW5nIixiOiciJyxlOiciJyxjOltobGpzLkJFXSxyOjB9LHtjTjoic3RyaW5nIixiOiInIixlOiInIixjOltobGpzLkJFXSxyOjB9LHtjTjoicGFyZW4iLGI6IltbKHtcXF0pfV0iLGU6aGxqcy5JTU1FRElBVEVfUkUscjowfV19fTsKaGxqcy5pbml0SGlnaGxpZ2h0aW5nT25Mb2FkKCk7Cgo="></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link href="data:text/css;charset=utf-8,body%2C%20td%20%7B%0Afont%2Dfamily%3A%20sans%2Dserif%3B%0Abackground%2Dcolor%3A%20white%3B%0Afont%2Dsize%3A%2013px%3B%0A%7D%0Abody%20%7B%0Amax%2Dwidth%3A%20800px%3B%0Amargin%3A%200%20auto%3B%0Apadding%3A%201em%201em%202em%3B%0Aline%2Dheight%3A%2020px%3B%0A%7D%0A%0Adiv%23TOC%20li%20%7B%0Alist%2Dstyle%3Anone%3B%0Abackground%2Dimage%3Anone%3B%0Abackground%2Drepeat%3Anone%3B%0Abackground%2Dposition%3A0%3B%0A%7D%0A%0Ap%2C%20pre%20%7B%20margin%3A%200em%200em%201em%3B%0A%7D%0A%0Aimg%2C%20table%20%7B%0Amargin%3A%200em%20auto%201em%3B%0A%7D%0Ap%20%7B%0Atext%2Dalign%3A%20justify%3B%0A%7D%0Att%2C%20code%2C%20pre%20%7B%0Afont%2Dfamily%3A%20%27DejaVu%20Sans%20Mono%27%2C%20%27Droid%20Sans%20Mono%27%2C%20%27Lucida%20Console%27%2C%20Consolas%2C%20Monaco%2C%20monospace%3B%0A%7D%0Ah1%2C%20h2%2C%20h3%2C%20h4%2C%20h5%2C%20h6%20%7B%20font%2Dfamily%3A%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Amargin%3A%201%2E2em%200em%200%2E6em%200em%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah1%2Etitle%20%7B%0Afont%2Dsize%3A%20250%25%3B%0Afont%2Dweight%3A%20normal%3B%0Acolor%3A%20%2387b13f%3B%0Aline%2Dheight%3A%201%2E1em%3B%0Amargin%2Dtop%3A%200px%3B%0Aborder%2Dbottom%3A%200px%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%20160%25%3B%0Afont%2Dweight%3A%20normal%3B%0Aline%2Dheight%3A%201%2E4em%3B%0Aborder%2Dbottom%3A%201px%20%231a81c2%20solid%3B%0A%7D%0Ah2%20%7B%0Afont%2Dsize%3A%20130%25%3B%20%7D%0Ah1%2C%20h2%2C%20h3%20%7B%0Acolor%3A%20%231a81c2%3B%0A%7D%0Ah3%2C%20h4%2C%20h5%2C%20h6%20%7B%0Afont%2Dsize%3A115%25%3B%0A%7D%20%0A%0Aa%20%7B%20color%3A%20%231a81c2%3B%20%7D%0Aa%3Aactive%20%7B%20outline%3A%20none%3B%20%7D%0Aa%3Avisited%20%7B%20color%3A%20%231a81c2%3B%20%7D%0Aa%3Ahover%20%7B%20color%3A%20%234c94c2%3B%20%7D%0Apre%2C%20img%20%7B%0Amax%2Dwidth%3A%20100%25%3B%0Adisplay%3A%20block%3B%0A%7D%0Apre%20%7B%0Aborder%3A%200px%20none%3B%0Abackground%2Dcolor%3A%20%23F8F8F8%3B%0Awhite%2Dspace%3A%20pre%3B%0Aoverflow%2Dx%3A%20auto%3B%0A%7D%0Apre%20code%20%7B%0Aborder%3A%201px%20%23aaa%20dashed%3B%0Abackground%2Dcolor%3A%20white%3B%0Adisplay%3A%20block%3B%0Apadding%3A%201em%3B%20color%3A%20%23111%3B%0Aoverflow%2Dx%3A%20inherit%3B%0A%7D%0A%0Apre%20code%5Bclass%5D%20%7B%0Abackground%2Dcolor%3A%20inherit%3B%0A%7D%0A%0Apre%5Bclass%5D%20code%20%7B%0Abackground%2Dcolor%3A%20inherit%3B%0A%7D%0A%0Acode%20%7B%20background%2Dcolor%3A%20transparent%3B%0Acolor%3A%20%2387b13f%3B%0Afont%2Dsize%3A%2092%25%3B%0A%7D%0A%0Atable%2C%20td%2C%20th%20%7B%0Aborder%3A%20none%3B%0Apadding%3A%200%200%2E5em%3B%0A%7D%0A%0Atbody%20tr%3Anth%2Dchild%28odd%29%20td%20%7B%0Abackground%2Dcolor%3A%20%23F8F8F8%3B%0A%7D%0Ablockquote%20%7B%0Acolor%3A%23666666%3B%0Amargin%3A0%3B%0Apadding%2Dleft%3A%201em%3B%0Aborder%2Dleft%3A%200%2E5em%20%23EEE%20solid%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%200px%3B%0Aborder%2Dbottom%3A%20none%3B%0Aborder%2Dtop%2Dwidth%3A%20thin%3B%0Aborder%2Dtop%2Dstyle%3A%20dotted%3B%0Aborder%2Dtop%2Dcolor%3A%20%23999999%3B%0A%7D%0Aspan%2Eheader%2Dsection%2Dnumber%20%7B%0Apadding%2Dright%3A%201em%3B%0A%7D%0Aspan%2Etoc%2Dsection%2Dnumber%3A%3Aafter%20%7B%0Acontent%3A%20%22%20%22%3B%0Awhite%2Dspace%3A%20pre%3B%0A%7D%0A%40media%20print%20%7B%0A%2A%20%7B%0Abackground%3A%20transparent%20%21important%3B%0Acolor%3A%20black%20%21important%3B%0Afilter%3Anone%20%21important%3B%0A%2Dms%2Dfilter%3A%20none%20%21important%3B%0A%7D%0Abody%20%7B%0Afont%2Dsize%3A12pt%3B%0Amax%2Dwidth%3A100%25%3B%0A%7D%0Aa%2C%20a%3Avisited%20%7B%0Atext%2Ddecoration%3A%20underline%3B%0A%7D%0Ahr%20%7B%0Avisibility%3A%20hidden%3B%0Apage%2Dbreak%2Dbefore%3A%20always%3B%0A%7D%0Apre%2C%20blockquote%20%7B%0Apadding%2Dright%3A%201em%3B%0Apage%2Dbreak%2Dinside%3A%20avoid%3B%0A%7D%0Atr%2C%20img%20%7B%0Apage%2Dbreak%2Dinside%3A%20avoid%3B%0A%7D%0Aimg%20%7B%0Amax%2Dwidth%3A%20100%25%20%21important%3B%0A%7D%0A%40page%20%3Aleft%20%7B%0Amargin%3A%2015mm%2020mm%2015mm%2010mm%3B%0A%7D%0A%40page%20%3Aright%20%7B%0Amargin%3A%2015mm%2010mm%2015mm%2020mm%3B%0A%7D%0Ap%2C%20h2%2C%20h3%20%7B%0Aorphans%3A%203%3B%20widows%3A%203%3B%0A%7D%0Ah2%2C%20h3%20%7B%0Apage%2Dbreak%2Dafter%3A%20avoid%3B%0A%7D%0A%7D%0A" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+  var links = document.links;  
+  for (var i = 0, linksLength = links.length; i < linksLength; i++)
+    if(links[i].hostname != window.location.hostname)
+      links[i].target = '_blank';
+});
+</script>
+
+</head>
+
+<body>
+
+
+<div id="header">
+<h1 class="title">bioassayR - Introduction and Examples</h1>
+<h4 class="author"><em>Authors: Tyler Backman, Thomas Girke</em></h4>
+<h4 class="date"><em>Last update: 13 February, 2016</em></h4>
+</div>
+
+<h1>Contents</h1>
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#getting-started"><span class="toc-section-number">2</span> Getting Started</a><ul>
+<li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
+<li><a href="#loading-the-package-and-documentation"><span class="toc-section-number">2.2</span> Loading the Package and Documentation</a></li>
+<li><a href="#quick-tutorial"><span class="toc-section-number">2.3</span> Quick Tutorial</a></li>
+</ul></li>
+<li><a href="#examples"><span class="toc-section-number">3</span> Examples</a><ul>
+<li><a href="#loading-user-supplied-pubchem-bioassay-data"><span class="toc-section-number">3.1</span> Loading User Supplied PubChem BioAssay Data</a></li>
+<li><a href="#prebuilt-database-example-investigate-activity-of-a-known-drug"><span class="toc-section-number">3.2</span> Prebuilt Database Example: Investigate Activity of a Known Drug</a></li>
+<li><a href="#identify-target-selective-compounds"><span class="toc-section-number">3.3</span> Identify Target Selective Compounds</a></li>
+<li><a href="#analyze-and-load-raw-screening-data"><span class="toc-section-number">3.4</span> Analyze and Load Raw Screening Data</a></li>
+<li><a href="#custom-sql-queries"><span class="toc-section-number">3.5</span> Custom SQL Queries</a></li>
+</ul></li>
+<li><a href="#building-pubchem-bioassay-database"><span class="toc-section-number">4</span> Building PubChem BioAssay Database</a></li>
+<li><a href="#version-information"><span class="toc-section-number">5</span> Version Information</a></li>
+<li><a href="#funding"><span class="toc-section-number">6</span> Funding</a></li>
+<li><a href="#references"><span class="toc-section-number">7</span> References</a></li>
+</ul>
+</div>
+
+<!--
+%% \VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Introduction and Examples}
+%% \VignettePackage{bioassayR}
+-->
+<p>Alternative formats of this tutorial: <a href="http://girke.bioinformatics.ucr.edu/manuals/vignettes/bioassayR/bioassayR.html"><code>.Rmd HTML</code></a>, <a href="http://girke.bioinformatics.ucr.edu/manuals/vignettes/bioassayR/bioassayR.Rmd"><code>.Rmd Source</code></a>, <a href="http://girke.bioinformatics.ucr.edu/manuals/vignettes/bioassayR/bioassayR.R"><code>.R Source</code></a>, <a href="http://biocluster.ucr.edu/~tbackman/chem_workshop/ht_screen.pdf"><code>PDF Slides</code></a></p>
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p><em>bioassayR</em> is a tool for cross-target analysis of biological screening data. It allows users to store, organize, and systematically analyze data from a large number of small molecule bioactivity experiments of heterogenous design. Users have the option of supplying their own bioactivity data for analysis, or downloading a database from the authors website (<a href="http://chemmine.ucr.edu/bioassayr" class="uri">http://chemmine.ucr.edu/bioassayr</a>) pre-loaded with bioactivity data sourced from NCBI PubChem BioAssay (Backman, et al., 2011; Wang, et al., 2012). The pre-loaded database contains the results of thousands of bioassay experiments, where small molecules were screened against a defined biological target. <em>bioassayR</em> allows users to leverage these data as a reference to identify small molecules active against a protein or organism of interest, identify target selective compounds that may be useful as drugs or chemical genomics probes, and identify and compare the activity profiles of small molecules.</p>
+<p>The design of bioassayR is based around four distinct objects, each which is optimized for investigating bioactivity data in different ways. The <em>bioassay</em> object stores activity data for a single assay, and also acts as a gateway for importing new activity data, and editing the data for a single assay. The <em>bioassayDB</em> object uses a SQL database to store and query thousands of assays, in a time-efficient manner. Often users will wish to further investigate a set of compounds or assays identified with a <em>bioassayDB</em> query by pulling them out into a <em>bioassaySet</em> object. The <em>bioassaySet</em> object stores activity data as a compound vs assay matrix, and can be created from a list of assay ids or compounds of interest. Lastly, the <em>perTargetMatrix</em> is a matrix of compounds vs targets, where replicates (assays hitting the same target) from a <em>bioassaySet</em> object are summarized into a single value. This internally uses a sparse matrix to save system memory, while allowing the user to leverage R language matrix features to further investigate these data.</p>
+</div>
+<div id="getting-started" class="section level1">
+<h1><span class="header-section-number">2</span> Getting Started</h1>
+<div id="installation" class="section level2">
+<h2><span class="header-section-number">2.1</span> Installation</h2>
+<p>The R software for running bioassayR can be downloaded from CRAN (<a href="http://cran.at.r-project.org/" class="uri">http://cran.at.r-project.org/</a>). The <em>bioassayR</em> package can be installed from R using the <em>bioLite</em> install command.</p>
+<pre class="r"><code>source(&quot;http://bioconductor.org/biocLite.R&quot;) # Sources the biocLite.R installation script
+biocLite(&quot;bioassayR&quot;) # Installs the package</code></pre>
+</div>
+<div id="loading-the-package-and-documentation" class="section level2">
+<h2><span class="header-section-number">2.2</span> Loading the Package and Documentation</h2>
+<pre class="r"><code>library(bioassayR) # Loads the package</code></pre>
+<pre class="r"><code>library(help=&quot;bioassayR&quot;) # Lists all functions and classes 
+vignette(&quot;bioassayR&quot;) # Opens this manual from R</code></pre>
+</div>
+<div id="quick-tutorial" class="section level2">
+<h2><span class="header-section-number">2.3</span> Quick Tutorial</h2>
+<p>This example walks you through creating a new empty database, adding example small molecule bioactivity data, and performing queries on these data. If you are interested only in querying a pre-built PubChem BioAssay database, skip to the later section titled “Prebuilt Database Example: Investigate Activity of a Known Drug.”</p>
+<p>This example includes real experimental data from an antibiotics discovery experiment. These data are a “confirmatory bioassay” where 57 small molecules were screened against the mevalonate kinase protein from the <em>Streptococcus pneumonia</em> (SP) bacteria. Mevalonate kinase inhibitors are one possible class of antibiotic drugs that may be effective against this infamous bacteria. These data were published as assay identifier (aid) 1000 in the NCBI PubChem BioAssay database, by Dr. Thomas S. Leyh.</p>
+<p>First, create a new database. For purposes of this manual a temporary file is used, but you can replace the <em>tempfile</em> function call with a filename of your choice if you wish to save the resulting database for later.</p>
+<pre class="r"><code>library(bioassayR)
+myDatabaseFilename &lt;- tempfile() 
+mydb &lt;- newBioassayDB(myDatabaseFilename, indexed=F)</code></pre>
+<p>Next, specify the source and version of the data you plan to load. This is a required step, which makes it easier to track the origin of your data later. Feel free to use the current date for a version number, if your data isn’t versioned.</p>
+<pre class="r"><code>addDataSource(mydb, description=&quot;PubChem BioAssay&quot;, version=&quot;unknown&quot;)</code></pre>
+<p>After adding a data source, create or import a <em>data.frame</em> which contains the activity scores for each of the molecules in your assay. This <em>data.frame</em> must contain three columns which includes a cid (unique compound identifier) for each compound, a binary activity score (1=active, 0=inactive, NA=inconclusive), and a numeric activity score. Consult the <em>bioassay</em> man page for more details on formatting this <em>data.frame</em>. The <em>bioassayR</em> package contains an example activity score data frame that can be accessed as follows:</p>
+<pre class="r"><code>data(samplebioassay)
+samplebioassay[1:10,] # print the first 10 scores</code></pre>
+<pre><code>##         cid activity score
+## 1    730195        0     0
+## 2  16749973        1    80
+## 3  16749974        1    80
+## 4  16749975        1    80
+## 5  16749976        1    80
+## 6  16749977        1    80
+## 7  16749978        1    80
+## 8  16749979        1    80
+## 9  16749980        1    80
+## 10 16749981        1    80</code></pre>
+<p>All bioactivity data is loaded into the database, or retrieved from the database as an <em>bioassay</em> object which contains details on the assay experimental design, molecular targets, and the activity scores. A bioassay object which incorporates activity scores can be created as follows. The source id value must exactly match that loaded earlier by <em>addDataSource</em>. The molecular target(s) for the assay are optional, and an unlimited number can be specified for a single assay as a vector passed to the targets option. The target types field should be a vector of equal length, describing the type of each target in the same order.</p>
+<pre class="r"><code>myAssay &lt;- new(&quot;bioassay&quot;,aid=&quot;1000&quot;, source_id=&quot;PubChem BioAssay&quot;,
+    assay_type=&quot;confirmatory&quot;, organism=&quot;unknown&quot;, scoring=&quot;activity rank&quot;, 
+    targets=&quot;116516899&quot;, target_types=&quot;protein&quot;, scores=samplebioassay)
+myAssay</code></pre>
+<pre><code>## class:        bioassay 
+## aid:      1000 
+## source_id:    PubChem BioAssay 
+## assay_type:   confirmatory 
+## organism:     unknown 
+## scoring:  activity rank 
+## targets:  116516899 
+## target_types:     protein 
+## total scores:     57</code></pre>
+<p>The <em>bioassay</em> object can be loaded into the database with the <em>loadBioassay</em> function. By repeating this step with different data, a large number of distinct assays can be loaded into the database.</p>
+<pre class="r"><code>loadBioassay(mydb, myAssay)</code></pre>
+<p>It is reccomended to use NCBI GI numbers as the label for any biomolecule assay targets, as this is what is used in the pre-built database also supplied with the package. In some cases it is useful to also store identifier translations, which contain the corresponding IDs from other biological databases. For example, in this case the mevalonate kinase target protein GI 116516899 has a corresponding identifier in the UniProt Database of Q8DR51. This can be stored for future reference as follows. Any number of translations from any category of choice can be stored in this way. It can also be used to store annotation data for targets. For example, if you have sequence level clustering data on your targets you could store them in category “sequenceClustering” and store the cluster number as the identifier.</p>
+<pre class="r"><code>loadIdMapping(mydb, target=&quot;116516899&quot;, category=&quot;UniProt&quot;, identifier=&quot;Q8DR51&quot;)</code></pre>
+<p>Wait a minute! We accidentally labeled that assay as organism “unknown” when we know that it’s actually a screen against a protein from <em>Streptococcus pneumonia</em>. After loading an assay into the database, you can later retrieve these data with the <em>getAssay</em> function. By combining this with the ability to delete an assay (the <em>dropBioassay</em> function) one can edit the database by (1) pulling an assay out, (2) deleting it from the database, (3) modifying the pulled out object, and (4) reloading the assay. For example, we can update the species annotation for our assay as follows:</p>
+<pre class="r"><code>tempAssay &lt;- getAssay(mydb, &quot;1000&quot;) # get assay from database
+dropBioassay(mydb, &quot;1000&quot;) # delete assay from database
+organism(tempAssay) &lt;- &quot;Streptococcus pneumonia&quot; # update organism
+loadBioassay(mydb, tempAssay)</code></pre>
+<p>It is recommended to index your database after loading all of your data. This significantly speeds up access to the database, but can also slow down loading of data if indexing is performed before loading.</p>
+<pre class="r"><code>addBioassayIndex(mydb)</code></pre>
+<pre><code>## Creating index: note this may take a long time for a large database</code></pre>
+<p>After indexing, you can query the database. Here are some example queries. First view the database summary provided by <em>bioassayR</em>:</p>
+<pre class="r"><code>mydb</code></pre>
+<pre><code>## class:        BioassayDB 
+## assays:       1 
+## sources:  PubChem BioAssay 
+## writeable:   yes</code></pre>
+<p>Next, you can query the database for active targets for a given compound by cid. In this case, since only one assay has been loaded only a single target can be found. Experiment with loading more assays for a more interesting result! When using the pre-built PubChem BioAssay database, these targets are returned as NCBI Protein identifiers.</p>
+<pre class="r"><code>activeTargets(mydb, 16749979)</code></pre>
+<pre><code>##           fraction_active total_screens
+## 116516899               1             1</code></pre>
+<p>If target translations were loaded in a previous step, these can be accessed with the <em>translateTargetId</em> function as follows. This accepts only a single target, and will return a vector of all corresponding identifiers in the category of choice. In some cases, you may wish to subset this result to only get a single indentifier when the database contains a large number for some targets.</p>
+<p>Here we request the UniProt identifiers for GI 116516899, as stored earlier with the <em>loadIdMapping</em> function.</p>
+<pre class="r"><code>translateTargetId(mydb, target=&quot;116516899&quot;, category=&quot;UniProt&quot;)</code></pre>
+<pre><code>## [1] &quot;Q8DR51&quot;</code></pre>
+<p>Lastly, disconnecting from the database after analysis reduces the chances of data corruption. If you are using a pre-built database in read only mode (as demonstrated in the Prebuilt Database Example section) you can optionally skip this step, as only writable databases are prone to corruption from failure to disconnect.</p>
+<pre class="r"><code>disconnectBioassayDB(mydb)</code></pre>
+</div>
+</div>
+<div id="examples" class="section level1">
+<h1><span class="header-section-number">3</span> Examples</h1>
+<div id="loading-user-supplied-pubchem-bioassay-data" class="section level2">
+<h2><span class="header-section-number">3.1</span> Loading User Supplied PubChem BioAssay Data</h2>
+<p>This section demonstrates the process for creating a new bioactivity database from user supplied data. As an example, we will demonstrate the process of downloading an assay from the NCBI PubChem BioAssay bioactivity data repository, and loading this into a new database (Wang, et al., 2012).</p>
+<p>First, get two files from PubChem BioAssay for the assay of interest: an XML file containing details on how the experiment was performed, and a CSV (comma separated value) file which contains the actual activity scores. For the purposes of this example, we will use the data from assay 1000, which is a confirmatory assay (titration assay) of 57 small molecules against a mevalonate kinase protein. More details on this assay were provided in the “Quick Tutorial,” where the same data is used. These files can be downloaded from PubChem BioAssay at <a href="http://pubchem.ncbi.nlm.nih.gov/" class="uri">http://pubchem.ncbi.nlm.nih.gov/</a> or loaded from the example data repository included in this package as follows:</p>
+<pre class="r"><code>library(bioassayR)
+extdata_dir &lt;- system.file(&quot;extdata&quot;, package=&quot;bioassayR&quot;)
+assayDescriptionFile &lt;- file.path(extdata_dir, &quot;exampleAssay.xml&quot;)
+activityScoresFile &lt;- file.path(extdata_dir, &quot;exampleScores.csv&quot;)</code></pre>
+<p>Next, create a new empty database for loading these data into. This example uses the R <em>tempfile</em> function to create the database in a random location. If you would like to keep your resulting database, replace <em>myDatabaseFilename</em> with your desired path and filename.</p>
+<pre class="r"><code>myDatabaseFilename &lt;- tempfile()
+mydb &lt;- newBioassayDB(myDatabaseFilename, indexed=F)</code></pre>
+<p>We will also add a data source to this database, specifying that our data here mirrors an assay provided by PubChem BioAssay.</p>
+<pre class="r"><code>addDataSource(mydb, description=&quot;PubChem BioAssay&quot;, version=&quot;unknown&quot;)</code></pre>
+<p>The XML file provided by PubChem BioAssay contains extensive details on how the assay was performed, molecular targets, and results scoring methods. You can extract these using the <em>parsePubChemBioassay</em> function as follows. The <em>parsePubChemBioassay</em> function also requires a .csv file which contains the activity scores for each assay, in the standard CSV format provided by PubChem BioAssay. For data from sources other than PubChem BioAssay, you may need to write your own code to parse out the assay details- or type them in manually.</p>
+<pre class="r"><code>myAssay &lt;- parsePubChemBioassay(&quot;1000&quot;, activityScoresFile, assayDescriptionFile)
+myAssay</code></pre>
+<pre><code>## class:        bioassay 
+## aid:      1000 
+## source_id:    PubChem BioAssay 
+## assay_type:   confirmatory 
+## organism:     NA 
+## scoring:  IC50 
+## targets:  116516899 
+## target_types:     protein 
+## total scores:     57</code></pre>
+<p>Next, load the resulting data parsed from the XML and CSV files into the database. This creates records in the database for both the assay itself, and it’s molecular targets.</p>
+<pre class="r"><code>loadBioassay(mydb, myAssay)</code></pre>
+<p>To load additional assays, repeat the above steps. After all data is loaded, you can significantly improve subsequent query performance by adding an index to the database.</p>
+<pre class="r"><code>addBioassayIndex(mydb)</code></pre>
+<pre><code>## Creating index: note this may take a long time for a large database</code></pre>
+<p>After indexing, perform a test query on your database to confirm that the data loaded correctly.</p>
+<pre class="r"><code>activeAgainst(mydb,&quot;116516899&quot;)</code></pre>
+<pre><code>##          fraction_active total_assays
+## 16749973               1            1
+## 16749974               1            1
+## 16749975               1            1
+## 16749976               1            1
+## 16749977               1            1
+## 16749978               1            1
+## 16749979               1            1
+## 16749980               1            1
+## 16749981               1            1
+## 16749982               1            1
+## 16749983               1            1
+## 16749984               1            1
+## 16749985               1            1
+## 16749986               1            1
+## 16749987               1            1
+## 16749988               1            1
+## 16749989               1            1
+## 16749990               1            1
+## 16749991               1            1
+## 16749992               1            1
+## 16749993               1            1
+## 16749994               1            1
+## 16749995               1            1
+## 16749996               1            1
+## 16749997               1            1
+## 16749998               1            1
+## 16749999               1            1
+## 16750000               1            1
+## 16750001               1            1
+## 16750002               1            1
+## 16750003               1            1
+## 16750004               1            1
+## 16750005               1            1
+## 16750006               1            1
+## 16750007               1            1
+## 16750016               1            1</code></pre>
+<p>Lastly, disconnect from the database to prevent data corruption.</p>
+<pre class="r"><code>disconnectBioassayDB(mydb)</code></pre>
+</div>
+<div id="prebuilt-database-example-investigate-activity-of-a-known-drug" class="section level2">
+<h2><span class="header-section-number">3.2</span> Prebuilt Database Example: Investigate Activity of a Known Drug</h2>
+<p>A pre-built database containing large quantities of public domain bioactivity data sourced from the PubChem BioAssay database, can be downloaded from <a href="http://chemmine.ucr.edu/bioassayr" class="uri">http://chemmine.ucr.edu/bioassayr</a>. While downloading the full database is recommended, it is possible to run this example using a small subset of the database, included within the <em>bioassayR</em> package for testing purposes. This example demonstrates the utility of <em>bioassayR</em> for identifying the bioactivity patterns of a small drug-like molecule. In this example, we look at the binding activity patterns for the drug acetylsalicylic acid (aka Aspirin) and compare these binding data to annotated targets in the <a href="http://www.DrugBank.ca">DrugBank</a> drug database (Wishart, et al., 2008).</p>
+<p>The DrugBank database is a valuable resource containing numerous data on drug activity in humans, including known molecular targets. In this exercise, first take a look at the annotated molecular targets for acetylsalicylic acid by searching this name at <a href="http://drugbank.ca" class="uri">http://drugbank.ca</a>. This will provide a point of reference for comparing to the bioactivity data we find in the prebuild PubChem BioAssay database. Note that DrugBank also contains the PubChem CID of this compound, which you can use to query the bioassayR PubChem BioAssay database.</p>
+<p>To get started first connect to the database. The variable <em>sampleDatabasePath</em> can be replaced with the filename of the full test database you downloaded, if you would like to use that instead of the small example version included with this software package.</p>
+<pre class="r"><code>library(bioassayR)
+extdata_dir &lt;- system.file(&quot;extdata&quot;, package=&quot;bioassayR&quot;)
+sampleDatabasePath &lt;- file.path(extdata_dir, &quot;sampleDatabase.sqlite&quot;)
+pubChemDatabase &lt;- connectBioassayDB(sampleDatabasePath)  </code></pre>
+<p>Next, use the <em>activeTargets</em> function to find all protein targets which acetylsalicylic acid shows activity against in the loaded database. These target IDs are NCBI Protein identifiers as provided by PubChem BioAssay (Tatusova, et al., 2014). In which cases do these results agree with or disagree with the annotated targets from DrugBank?</p>
+<pre class="r"><code>drugTargets &lt;- activeTargets(pubChemDatabase, &quot;2244&quot;)
+drugTargets</code></pre>
+<pre><code>##           fraction_active total_screens
+## 116241312            1.00             2
+## 117144               1.00             1
+## 166897622            1.00             1
+## 317373262            1.00             1
+## 3914304              1.00            14
+## 3915797              0.75             8
+## 548481               1.00            21
+## 6686268              1.00             1
+## 84028191             1.00             1</code></pre>
+<p>Now we would like to connect to the UniProt (Universal Protein Resource) database to obtain annotation details on these targets<br />
+(Bateman, et al., 2015). The <em>biomaRt</em> Bioconductor package is an excellent tool for this purpose, but works best with <em>UniProt</em> identifers, instead of the NCBI Protein identifiers we currently have, so we must translate the identifiers first (Durinck, et al., 2009; Durinck, et al., 2005).</p>
+<p>We will use the <em>translateTargetId</em> function in <em>bioassayR</em> to obtain a corresponding UniProt identifier for each NCBI Protein identifier (GI). These identifier translations were obtained from UniProt and come pre-loaded into the database. The <em>translateTargetId</em> takes only a single query and returns one or more UniProt identifiers. Here we call it with <em>sapply</em> which automates calling the function multiple times, one for each protein stored in <em>drugTargets</em>. In many instances, a single query GI will translate into multiple UniProt identifiers. In this case, we keep only the first one as the annotation details we are looking for here will likely be the same for all of them.</p>
+<pre class="r"><code># run translateTargetId on each target identifier
+uniProtIds &lt;- lapply(row.names(drugTargets), translateTargetId, database=pubChemDatabase, category=&quot;UniProt&quot;)
+
+# if any targets had more than one UniProt ID, keep only the first one
+uniProtIds &lt;- sapply(uniProtIds, function(x) x[1])</code></pre>
+<p>Next, we connect to Ensembl via biomaRt to obtain a description for each target that is a <em>Homo sapiens</em> gene. For more information, consult the <em>biomaRt</em> documentation. After retrieving these data, we call the <em>match</em> function to ensure they are in the same order as the query data.</p>
+<pre class="r"><code>library(biomaRt)
+ensembl &lt;- useEnsembl(biomart=&quot;ensembl&quot;,dataset=&quot;hsapiens_gene_ensembl&quot;)
+proteinDetails &lt;- getBM(attributes=c(&quot;description&quot;,&quot;uniprot_swissprot&quot;,&quot;external_gene_name&quot;), filters=c(&quot;uniprot_swissprot&quot;), mart=ensembl, values=uniProtIds)
+proteinDetails &lt;- proteinDetails[match(uniProtIds, proteinDetails$uniprot_swissprot),]</code></pre>
+<p>Now we can view this annotation data. NAs represent proteins not found on the <em>Homo sapiens</em> Ensembl, which may be from other species.</p>
+<pre class="r"><code>proteinDetails</code></pre>
+<pre><code>##                                                                                                                   description
+## 2                                    cytochrome P450, family 3, subfamily A, polypeptide 4 [Source:HGNC Symbol;Acc:HGNC:2637]
+## 1                                    cytochrome P450, family 1, subfamily A, polypeptide 2 [Source:HGNC Symbol;Acc:HGNC:2596]
+## NA                                                                                                                       &lt;NA&gt;
+## 5    prostaglandin-endoperoxide synthase 1 (prostaglandin G/H synthase and cyclooxygenase) [Source:HGNC Symbol;Acc:HGNC:9604]
+## NA.1                                                                                                                     &lt;NA&gt;
+## 6    prostaglandin-endoperoxide synthase 2 (prostaglandin G/H synthase and cyclooxygenase) [Source:HGNC Symbol;Acc:HGNC:9605]
+## NA.2                                                                                                                     &lt;NA&gt;
+## 4                                    cytochrome P450, family 2, subfamily C, polypeptide 9 [Source:HGNC Symbol;Acc:HGNC:2623]
+## 3                                    cytochrome P450, family 2, subfamily D, polypeptide 6 [Source:HGNC Symbol;Acc:HGNC:2625]
+##      uniprot_swissprot external_gene_name
+## 2               P08684             CYP3A4
+## 1               P05177             CYP1A2
+## NA                &lt;NA&gt;               &lt;NA&gt;
+## 5               P23219              PTGS1
+## NA.1              &lt;NA&gt;               &lt;NA&gt;
+## 6               P35354              PTGS2
+## NA.2              &lt;NA&gt;               &lt;NA&gt;
+## 4               P11712             CYP2C9
+## 3               P10635             CYP2D6</code></pre>
+<p>Lastly, let’s again look at our active target list, with the annotation alongside. Note, these only match up in length and order because in the above code we removed all but one UniProt ID for each target protein, and then reordered the biomaRt results with the <em>match</em> function to get them in the correct order.</p>
+<pre class="r"><code>drugTargets &lt;- drugTargets[! is.na(proteinDetails[,1]),]
+proteinDetails &lt;- proteinDetails[!is.na(proteinDetails[,1]),]
+cbind(proteinDetails, drugTargets)</code></pre>
+<pre><code>##                                                                                                                description
+## 2                                 cytochrome P450, family 3, subfamily A, polypeptide 4 [Source:HGNC Symbol;Acc:HGNC:2637]
+## 1                                 cytochrome P450, family 1, subfamily A, polypeptide 2 [Source:HGNC Symbol;Acc:HGNC:2596]
+## 5 prostaglandin-endoperoxide synthase 1 (prostaglandin G/H synthase and cyclooxygenase) [Source:HGNC Symbol;Acc:HGNC:9604]
+## 6 prostaglandin-endoperoxide synthase 2 (prostaglandin G/H synthase and cyclooxygenase) [Source:HGNC Symbol;Acc:HGNC:9605]
+## 4                                 cytochrome P450, family 2, subfamily C, polypeptide 9 [Source:HGNC Symbol;Acc:HGNC:2623]
+## 3                                 cytochrome P450, family 2, subfamily D, polypeptide 6 [Source:HGNC Symbol;Acc:HGNC:2625]
+##   uniprot_swissprot external_gene_name fraction_active total_screens
+## 2            P08684             CYP3A4            1.00             2
+## 1            P05177             CYP1A2            1.00             1
+## 5            P23219              PTGS1            1.00             1
+## 6            P35354              PTGS2            0.75             8
+## 4            P11712             CYP2C9            1.00             1
+## 3            P10635             CYP2D6            1.00             1</code></pre>
+</div>
+<div id="identify-target-selective-compounds" class="section level2">
+<h2><span class="header-section-number">3.3</span> Identify Target Selective Compounds</h2>
+<p>In the previous example, acetylsalicylic acid was found to show binding activity against numerous proteins, including the COX-1 cyclooxygenase enzyme (NCBI Protein ID 166897622). COX-1 activity is theorized to be the key mechanism in this molecules function as a nonsteroidal anti-inflammatory drug (NSAID). In this example, we will look for other small molecules which selectively bind to COX-1, under the assumption that these may be worth further investigation as potential nonsteroidal anti-inflammatory drugs. This example shows how <em>bioassayR</em> can be used identify small molecules which selectively bind to a target of interest, and assist in the discovery of small molecule drugs and molecular probes.</p>
+<p>First, we will start by connecting to a database. Once again, the variable <em>sampleDatabasePath</em> can be replaced with the filename of the full PubChem BioAssay database (downloadable from <a href="http://chemmine.ucr.edu/bioassayr" class="uri">http://chemmine.ucr.edu/bioassayr</a>), if you would like to use that instead of the small example version included with this software package.</p>
+<pre class="r"><code>library(bioassayR)
+extdata_dir &lt;- system.file(&quot;extdata&quot;, package=&quot;bioassayR&quot;) 
+sampleDatabasePath &lt;- file.path(extdata_dir, &quot;sampleDatabase.sqlite&quot;)
+pubChemDatabase &lt;- connectBioassayDB(sampleDatabasePath)  </code></pre>
+<p>The <em>activeAgainst</em> function can be used to show all small molecules in the database which demonstrate activity against COX-1 as follows. Each row name represents a small molecule cid. The column labeled “total assays” shows the total number of times each small molecule has been screened against the target of interest. The column labeled “fraction active” shows the portion of these which were annotated as active as a number between 0 and 1. This function allows users to consider different binding assays from distinct sources as replicates, to assist in distinguishing potentially spurious binding results from those with demonstrated reproducibility.</p>
+<pre class="r"><code>activeCompounds &lt;- activeAgainst(pubChemDatabase, &quot;166897622&quot;)
+activeCompounds[1:10,] # look at the first 10 compounds</code></pre>
+<pre><code>##        fraction_active total_assays
+## 2244                 1            1
+## 2662                 1            3
+## 3033                 1            1
+## 3194                 1            1
+## 3672                 1            1
+## 3715                 1            2
+## 133021               1            2
+## 247704               1            1
+## 444899               1            1
+## 445580               1            1</code></pre>
+<p>Looking only at compounds which show binding to the target of interest is not sufficient for identifying drug candidates, as a portion of these compounds may be target unselective compounds (TUCs) which bind indiscriminately to a large number of distinct protein targets. The R function <em>selectiveAgainst</em> provides the user with a list of compounds that show activity against a target of interest (in at least one assay), while also showing limited activity against other targets.</p>
+<p>The <em>maxCompounds</em> option limits the maximum number of results returned, and the <em>minimumTargets</em> option limits returned compounds to those screened against a specified minimum of distinct targets. Results are formatted as a <em>data.frame</em> whereby each row name represents a distinct compound. The first column shows the number of distinct targets this compound shows activity against, and the second shows the total number of targets it was screened against.</p>
+<pre class="r"><code>selectiveCompounds &lt;- selectiveAgainst(pubChemDatabase, &quot;166897622&quot;, 
+    maxCompounds = 10, minimumTargets = 1)
+selectiveCompounds</code></pre>
+<pre><code>##          active_targets tested_targets
+## 2662                  1              1
+## 3033                  1              1
+## 133021                1              1
+## 11314954              1              1
+## 13015959              1              1
+## 44563999              1              1
+## 44564000              1              1
+## 44564001              1              1
+## 44564002              1              1
+## 44564003              1              1</code></pre>
+<p>In the example database these compounds are only showing one tested target because very few assays are loaded. Users are encouraged to try this example for themselves with the full PubChem BioAssay database downloadable from <a href="http://chemmine.ucr.edu/bioassayr" class="uri">http://chemmine.ucr.edu/bioassayr</a> for a more interesting and informative result.</p>
+<p>Users can combine <em>bioassayR</em> with the <em>ChemmineR</em> library to obtain structural information on these target selective compounds, and then perform further analysis- such as structural clustering, visualization, and computing physicochemical properties.</p>
+<p>The <em>ChemmineR</em> software library can be used to download structural data for any of these compounds, and to visualize these structures as follows (Cao, et al., 2008). This example requires an active internet connection, as the compound structures are obtained from a remote server.</p>
+<pre class="r"><code>library(ChemmineR)
+structures &lt;- getIds(as.numeric(row.names(selectiveCompounds)))</code></pre>
+<p>Here we visualize just the first four compounds found with <em>selectiveAgainst</em>. Consult the vignette supplied with <em>ChemmineR</em> for numerous examples of visualizing and analyzing these structures further.</p>
+<pre class="r"><code>plot(structures[1:4], print=FALSE) # Plots structures to R graphics device</code></pre>
+<p><img src="data:image/png;base64,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" /><br />
+Cluster Compounds by Activity Profile —————————————</p>
+<p>This example demonstrates an example of clustering small molecules by similar bioactivity profiles across several distinct bioassay experiments. In many cases it is too cpu and memory intensive to cluster all compounds in the database, so we first pull just a subset of these data from the database into an <em>bioassaySet</em> object, and then convert that into a compounds vs targets activity matrix for subsequent clustering according to similarities in activity profile. The function <em>getBioassaySetByCids</em> extracts the activity data for a given list of compounds. Alternatively, the entire data for a given list of assay ids can be extracted with the function <em>getAssays</em>.</p>
+<p>First, connect to the included sample database:</p>
+<pre class="r"><code>library(bioassayR)
+extdata_dir &lt;- system.file(&quot;extdata&quot;, package=&quot;bioassayR&quot;) 
+sampleDatabasePath &lt;- file.path(extdata_dir, &quot;sampleDatabase.sqlite&quot;)
+sampleDB &lt;- connectBioassayDB(sampleDatabasePath)  </code></pre>
+<p>Next, select data from just 3 compounds to extract into a <em>bioassaySet</em> object for subsequent analysis.</p>
+<pre class="r"><code>compoundsOfInterest &lt;- c(&quot;2244&quot;, &quot;2662&quot;, &quot;3715&quot;)
+selectedAssayData &lt;- getBioassaySetByCids(sampleDB, compoundsOfInterest)
+selectedAssayData</code></pre>
+<pre><code>## class:        bioassaySet 
+## assays:       1176 
+## compounds:    3 
+## targets:  453 
+## sources:  bioassayR_testdata</code></pre>
+<p>The function <em>perTargetMatrix</em> converts the activity data extracted earlier into a matrix of targets (rows) vs compounds (columns). Data from multiple assays hitting the same target are summarized into a single value in the manner specified by the user. If you choose the <em>summarizeReplicates</em> option <em>activesFirst</em>, any active scores take prescendence over inactives. If you choose the option <em>mode</em> the most abundant of either actives or inactives is stored in the resulting matrix. You can also pass a custom function to decide how replicates are summarized. In the resulting matrix a “2” represents an active compound vs target combination, a “1” represents an inactive combination, and a “0” represents an untested or inconclusive combination. Inactive results can optionally be excluded from consideration by passing the option inactives = FALSE. Here a sparse matrix (which omits actually storing 0 values) is used to save memory. In a sparse matrix a period “.” entry is equal to a zero “0” entry, but is implied without taking extra space in memory.</p>
+<p>Here we create an activity matrix, choosing to include inactive values, and summarize replicates according to the statistical mode:</p>
+<pre class="r"><code>myActivityMatrix &lt;- perTargetMatrix(selectedAssayData, inactives=TRUE, summarizeReplicates = &quot;mode&quot;)</code></pre>
+<pre><code>## Note: in this version active scores now use a 2 instead of a 1</code></pre>
+<pre class="r"><code>myActivityMatrix[1:15,] # print the first 15 rows</code></pre>
+<pre><code>## 15 x 3 sparse Matrix of class &quot;dgCMatrix&quot;
+##           2244 2662 3715
+## 548481       2    .    .
+## 3914304      2    .    .
+## 3915797      2    .    .
+## 166897622    2    2    2
+## 317373262    2    .    .
+## 117144       2    .    .
+## 6686268      2    .    .
+## 84028191     2    .    .
+## 116241312    2    .    .
+## 73915100     1    .    .
+## 160794       1    .    .
+## 21464101     1    .    .
+## 68565074     1    .    .
+## 4325211      1    .    .
+## 66528677     1    .    .</code></pre>
+<p>Next, we will re-create the activity matrix where protein targets that are very similar at the sequence level (such as orthologues from different species) are treated as replicates, and merged.</p>
+<p>The function <em>perTargetMatrix</em> contains an option <em>assayTargets</em> which let’s you specify the targets for each assay instead of taking them from the <em>bioassaySet</em> object. The function <em>assaySetTargets</em> returns a vector of the targets for each assay in a <em>bioassaySet</em> object, where the name of each element corresponds to it’s assay identifier (aid). This is the format that must be passed to <em>perTargetMatrix</em> to specify which assays are treated as replicates to be merged, so first we can obtain these data, and then replace them with a custom merge criteria formatted in the same manner.</p>
+<pre class="r"><code>myAssayTargets &lt;- assaySetTargets(selectedAssayData)
+myAssayTargets[1:5] # print the first 5 targets</code></pre>
+<pre><code>##        410        411     624030        422        436 
+## &quot;73915100&quot;   &quot;160794&quot;   &quot;160794&quot; &quot;21464101&quot; &quot;68565074&quot;</code></pre>
+<p>The pre-built PubChem BioAssay database includes sequence level protein target clustering results generated with the kClust tool (options s=2.93, E-value &lt; 1*10^-4, c=0.8) (Hauser, et al., 2013). Each cluster has a unique number, and targets which cluster together are assigned the same cluster number. These clustering results are stored in the database as target translations under category “kClust”. Now we will access these traslations, and make a compound vs. target cluster matrix as follows.</p>
+<pre class="r"><code># get kClust protein cluster number for a single target
+translateTargetId(database = sampleDB, target = &quot;166897622&quot;, category = &quot;kClust&quot;)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code># get kClust protein cluster numbers for all targets in myAssayTargets
+customMerge &lt;- sapply(myAssayTargets, translateTargetId, database = sampleDB, category = &quot;kClust&quot;)
+customMerge[1:5]</code></pre>
+<pre><code>##    410    411 624030    422    436 
+##     NA     NA     NA     NA     NA</code></pre>
+<pre class="r"><code>mergedActivityMatrix &lt;- perTargetMatrix(selectedAssayData, inactives=TRUE, assayTargets=customMerge)</code></pre>
+<pre><code>## Note: in this version active scores now use a 2 instead of a 1</code></pre>
+<pre class="r"><code>mergedActivityMatrix[1:15,] # print the first 15 rows</code></pre>
+<pre><code>## 15 x 3 sparse Matrix of class &quot;dgCMatrix&quot;
+##           2244 2662 3715
+## 548481       2    .    .
+## 3914304      2    .    .
+## 3915797      2    .    .
+## 166897622    2    2    2
+## 317373262    2    .    .
+## 117144       2    .    .
+## 6686268      2    .    .
+## 84028191     2    .    .
+## 116241312    2    .    .
+## 73915100     1    .    .
+## 160794       1    .    .
+## 21464101     1    .    .
+## 68565074     1    .    .
+## 4325211      1    .    .
+## 66528677     1    .    .</code></pre>
+<p>Note that the merged matrix is smaller, because several similar protein targets have been collapsed into single clusters.</p>
+<pre class="r"><code># get number of rows and columns for unmerged matrix
+dim(myActivityMatrix) </code></pre>
+<pre><code>## [1] 298   3</code></pre>
+<pre class="r"><code># get number of rows and columns for merged matrix
+dim(mergedActivityMatrix)</code></pre>
+<pre><code>## [1] 298   3</code></pre>
+<p>Now, to make it possible to use binary clustering methods, we simplify the matrix into a binary matrix where “1” represents active, and “0” represents either inactive or untested combinations. We caution the user to carefully consider if this makes sense within the context of the specific experiments being analyzed.</p>
+<pre class="r"><code>binaryMatrix &lt;- 1*(mergedActivityMatrix &gt; 1)
+binaryMatrix[1:15,] # print the first 15 rows</code></pre>
+<pre><code>## 15 x 3 sparse Matrix of class &quot;dgCMatrix&quot;
+##           2244 2662 3715
+## 548481       1    .    .
+## 3914304      1    .    .
+## 3915797      1    .    .
+## 166897622    1    1    1
+## 317373262    1    .    .
+## 117144       1    .    .
+## 6686268      1    .    .
+## 84028191     1    .    .
+## 116241312    1    .    .
+## 73915100     0    .    .
+## 160794       0    .    .
+## 21464101     0    .    .
+## 68565074     0    .    .
+## 4325211      0    .    .
+## 66528677     0    .    .</code></pre>
+<p>As mentioned earlier, “0” and “.” entries in a sparse matrix are numerically equivalent.</p>
+<p>Cluster using the built in euclidean clustering functions within R to cluster. This provides a dendrogram which indicates the similarity amongst compounds according to their activity profiles.</p>
+<pre class="r"><code>transposedMatrix &lt;- t(binaryMatrix)
+distanceMatrix &lt;- dist(transposedMatrix)
+clusterResults &lt;- hclust(distanceMatrix, method=&quot;average&quot;)
+plot(clusterResults)</code></pre>
+<p><img src="data:image/png;base64,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" /><br />
+A second way to compare activity profiles and cluster data is to pass the activity matrix to the <em>ChemmineR</em> cheminformatics library as an <em>FPset</em> (binary fingerprint) object. This represents the bioactivity data as a binary fingerprint (bioactivity fingerprint), which is a binary string for each compound, where each bit represents activity (with a 1) or inactivity (with a 0) against the full set of targets these compounds have shown activity against. This allows for pairwise comparison of the bioactivity profile among compounds. See the <em>ChemmineR</em> documentation at <a href="http://bioconductor.org/packages/ChemmineR/" class="uri">http://bioconductor.org/packages/ChemmineR/</a> for additional examples and details.</p>
+<pre class="r"><code>library(ChemmineR)
+fpset &lt;- bioactivityFingerprint(selectedAssayData)</code></pre>
+<pre><code>## Note: in this version active scores now use a 2 instead of a 1</code></pre>
+<pre class="r"><code>fpset</code></pre>
+<pre><code>## An instance of a 453 bit &quot;FPset&quot; of type &quot;bioactivity&quot; with 3 molecules</code></pre>
+<p>Perform activity profile similarity searching with the FPset object, by comparing the first compound to all compounds.</p>
+<pre class="r"><code>fpSim(fpset[1], fpset, method=&quot;Tanimoto&quot;) </code></pre>
+<pre><code>## 2244 2662 3715 
+##  1.0  0.2  0.2</code></pre>
+<p>Compute an all-against-all bioactivity fingerprint similarity matrix for these compounds.</p>
+<pre class="r"><code>simMA &lt;- sapply(cid(fpset), function(x) fpSim(fpset[x], fpset, sorted=FALSE, method=&quot;Tanimoto&quot;))
+simMA</code></pre>
+<pre><code>##      2244 2662 3715
+## 2244  1.0  0.2  0.2
+## 2662  0.2  1.0  1.0
+## 3715  0.2  1.0  1.0</code></pre>
+<p>Convert similarity matrix to a distance matrix and perform hierarcheal clustering.</p>
+<pre class="r"><code>clusterResults &lt;- hclust(as.dist(1-simMA), method=&quot;single&quot;)
+plot(clusterResults)</code></pre>
+<p><img src="data:image/png;base64,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" /><br />
+Finally, disconnect from the database.</p>
+<pre class="r"><code>disconnectBioassayDB(sampleDB)</code></pre>
+</div>
+<div id="analyze-and-load-raw-screening-data" class="section level2">
+<h2><span class="header-section-number">3.4</span> Analyze and Load Raw Screening Data</h2>
+<p>This example demonstrates the basics of analyzing and loading data from a high throughput screening experiment with scores for 21,888 distinct compounds.</p>
+<p>This example is based on the cellHTS2 library (Boutros, et al., 2006). Example data is used which is included with cellHTS2. This is actually data from screening dsRNA against live cells, however we will treat it as small molecule binding data against a protein target as the data format is the same.</p>
+<p>First read in the screening data provided with cellHTS2.</p>
+<pre class="r"><code>library(cellHTS2)
+library(bioassayR)
+
+dataPath &lt;- system.file(&quot;KcViab&quot;, package=&quot;cellHTS2&quot;)
+x &lt;- readPlateList(&quot;Platelist.txt&quot;, 
+                   name=&quot;KcViab&quot;, 
+                   path=dataPath)
+
+x &lt;- configure(x,
+               descripFile=&quot;Description.txt&quot;, 
+               confFile=&quot;Plateconf.txt&quot;, 
+               logFile=&quot;Screenlog.txt&quot;, 
+               path=dataPath)
+
+xn &lt;- normalizePlates(x, 
+                      scale=&quot;multiplicative&quot;, 
+                      log=FALSE, 
+                      method=&quot;median&quot;, 
+                      varianceAdjust=&quot;none&quot;)</code></pre>
+<p>Next, score and summarize the replicates.</p>
+<pre class="r"><code>xsc &lt;- scoreReplicates(xn, sign=&quot;-&quot;, method=&quot;zscore&quot;)
+xsc &lt;- summarizeReplicates(xsc, summary=&quot;mean&quot;)</code></pre>
+<p>Parse the annotation data.</p>
+<pre class="r"><code>xsc &lt;- annotate(xsc, geneIDFile=&quot;GeneIDs_Dm_HFA_1.1.txt&quot;, path=dataPath)</code></pre>
+<p>Apply a sigmoidal transformation to generate binary calls.</p>
+<pre class="r"><code>y &lt;- scores2calls(xsc, z0=1.5, lambda=2)
+binaryCalls &lt;- round(Data(y))</code></pre>
+<p>Convert the binary calls into an activity table that <em>bioassayR</em> can parse.</p>
+<pre class="r"><code>scoreDataFrame &lt;- cbind(geneAnno(y), binaryCalls)
+rawScores &lt;- as.vector(Data(xsc))
+rawScores &lt;- rawScores[wellAnno(y) == &quot;sample&quot;]
+scoreDataFrame &lt;- scoreDataFrame[wellAnno(y) == &quot;sample&quot;,]
+activityTable &lt;- cbind(cid=scoreDataFrame[,1], 
+     activity=scoreDataFrame[,2], score=rawScores)
+activityTable &lt;- as.data.frame(activityTable)
+activityTable[1:10,]</code></pre>
+<pre><code>##        cid activity              score
+## 1  CG11371        1     2.147814893189
+## 2  CG31671        1   4.00105151825918
+## 3  CG11376        0  0.955550327380792
+## 4  CG11723        0  0.768879954745058
+## 5  CG12178        0   1.12105534792054
+## 6   CG7261        0 -0.126481089856157
+## 7   CG2674        0  0.706942495432899
+## 8   CG7263        0  0.920455054477106
+## 9   CG4822        0  0.251440513724104
+## 10  CG4265        0  0.414137389305878</code></pre>
+<p>Create a new (temporary in this case) <em>bioassayR</em> database to load these data into.</p>
+<pre class="r"><code>myDatabaseFilename &lt;- tempfile() 
+mydb &lt;- newBioassayDB(myDatabaseFilename, indexed=F)
+addDataSource(mydb, description=&quot;other&quot;, version=&quot;unknown&quot;)</code></pre>
+<p>Create an assay object for the new assay.</p>
+<pre class="r"><code>myAssay &lt;- new(&quot;bioassay&quot;,aid=&quot;1&quot;, source_id=&quot;other&quot;,
+     assay_type=&quot;confirmatory&quot;, organism=&quot;unknown&quot;, scoring=&quot;activity rank&quot;, 
+     targets=&quot;2224444&quot;, target_types=&quot;protein&quot;, scores=activityTable)</code></pre>
+<p>Load this assay object into the <em>bioassayR</em> database.</p>
+<pre class="r"><code>loadBioassay(mydb, myAssay)
+mydb</code></pre>
+<pre><code>## class:        BioassayDB 
+## assays:       1 
+## sources:  other 
+## writeable:   yes</code></pre>
+<p>Now that these data are loaded, you can use them to perform any of the other analysis examples in this document.</p>
+<p>Lastly, for the purposes of this example, disconnect from the example database.</p>
+<pre class="r"><code>disconnectBioassayDB(mydb)</code></pre>
+</div>
+<div id="custom-sql-queries" class="section level2">
+<h2><span class="header-section-number">3.5</span> Custom SQL Queries</h2>
+<p>While many pre-built queries are provided (see other examples and man pages) advanced users can also build their own SQL queries. As bioassayR uses a SQLite database, you can consult <a href="http://www.sqlite.org" class="uri">http://www.sqlite.org</a> for specifics on building SQL queries. We also reccomend the book “Using SQLite” (Kreibich, 2010).</p>
+<p>To get started first connect to a database. If you downloaded the full PubChem BioAssay database from the authors website, the variable <em>sampleDatabasePath</em> can be replaced with the filename of the database you downloaded, if you would like to use that instead of the small example version included with this software package.</p>
+<pre class="r"><code>library(bioassayR)
+extdata_dir &lt;- system.file(&quot;extdata&quot;, package=&quot;bioassayR&quot;)
+sampleDatabasePath &lt;- file.path(extdata_dir, &quot;sampleDatabase.sqlite&quot;)
+pubChemDatabase &lt;- connectBioassayDB(sampleDatabasePath)  </code></pre>
+<p>First you will want to see the structure of the database as follows:</p>
+<pre class="r"><code>queryBioassayDB(pubChemDatabase, &quot;SELECT * FROM sqlite_master WHERE type='table'&quot;)</code></pre>
+<pre><code>##    type               name           tbl_name rootpage
+## 1 table           activity           activity        2
+## 2 table             assays             assays        3
+## 3 table            domains            domains        4
+## 4 table            sources            sources        5
+## 5 table            targets            targets        6
+## 6 table targetTranslations targetTranslations       99
+##                                                                                                  sql
+## 1     CREATE TABLE activity (aid INTEGER, cid INTEGER, sid INTEGER, activity INTEGER, score INTEGER)
+## 2 CREATE TABLE assays (source_id INTEGER, aid INTEGER, assay_type TEXT, organism TEXT, scoring TEXT)
+## 3                                                CREATE TABLE domains (domain TEXT, ta rget INTEGER)
+## 4           CREATE TABLE sources (source_id INTEGER PRIMARY KEY ASC, description TEXT, version TEXT)
+## 5                                  CREATE TABLE targets (aid INTEGER, target TEXT, target_type TEXT)
+## 6                      CREATE TABLE targetTranslations (target TEXT, category TEXT, identifier TEXT)</code></pre>
+<p>For example, you can find the first 10 assays a given compound has participated in as follows:</p>
+<pre class="r"><code>queryBioassayDB(pubChemDatabase, &quot;SELECT DISTINCT(aid) FROM activity WHERE cid = '2244' LIMIT 10&quot;)</code></pre>
+<pre><code>##    aid
+## 1    1
+## 2  103
+## 3  105
+## 4  107
+## 5  109
+## 6  113
+## 7  115
+## 8  119
+## 9  121
+## 10 123</code></pre>
+<p>This example prints the activity scores from a specified assay:</p>
+<pre class="r"><code>queryBioassayDB(pubChemDatabase, &quot;SELECT * FROM activity WHERE aid = '393818'&quot;)</code></pre>
+<pre><code>##      aid      cid       sid activity score
+## 1 393818     3672 103174500        1    NA
+## 2 393818     2662 103181002        1    NA
+## 3 393818 25258347 103594370       NA    NA
+## 4 393818 25258348 103594371        1    NA
+## 5 393818 25258349 103594372        1    NA
+## 6 393818 25258350 103594373        1    NA</code></pre>
+<p>A <em>NATURAL JOIN</em> automatically merges tables which share common rows, making it easier to parse data spread across many tables. Here we merge the activity table (raw scores), with the assay table (assay annotation details) and the protein targets table:</p>
+<pre class="r"><code>queryBioassayDB(pubChemDatabase, &quot;SELECT * FROM activity NATURAL JOIN assays NATURAL JOIN targets WHERE cid = '2244' LIMIT 10&quot;)</code></pre>
+<pre><code>##    aid  cid      sid activity score source_id   assay_type organism
+## 1  410 2244 11110749        0     0         1 confirmatory     &lt;NA&gt;
+## 2  411 2244 11110749        0     0         1 confirmatory     &lt;NA&gt;
+## 3  422 2244 17404602        0    -6         1    screening     &lt;NA&gt;
+## 4  436 2244 17404602        0     5         1    screening     &lt;NA&gt;
+## 5  445 2244 11110749        0     0         1 confirmatory     &lt;NA&gt;
+## 6  445 2244 11110749        0     0         1 confirmatory     &lt;NA&gt;
+## 7  445 2244 11110749        0     0         1 confirmatory     &lt;NA&gt;
+## 8  445 2244 11110749        0     0         1 confirmatory     &lt;NA&gt;
+## 9  445 2244 11110749        0     0         1 confirmatory     &lt;NA&gt;
+## 10 445 2244 11110749        0     0         1 confirmatory     &lt;NA&gt;
+##    scoring   target target_type
+## 1     &lt;NA&gt; 73915100     protein
+## 2  Potency   160794     protein
+## 3     &lt;NA&gt; 21464101     protein
+## 4     &lt;NA&gt; 68565074     protein
+## 5     &lt;NA&gt; 10092619     protein
+## 6     &lt;NA&gt; 10092619     protein
+## 7     &lt;NA&gt; 10092619     protein
+## 8     &lt;NA&gt; 10092619     protein
+## 9     &lt;NA&gt; 10092619     protein
+## 10    &lt;NA&gt; 10092619     protein</code></pre>
+<p>Lastly, disconnecting from the database after analysis reduces the chances of data corruption. If you are using a pre-built database in read only mode (as demonstrated in the Prebuilt Database Example section) you can optionally skip this step, as only writable databases are prone to corruption from failure to disconnect.</p>
+<pre class="r"><code>disconnectBioassayDB(pubChemDatabase)</code></pre>
+</div>
+</div>
+<div id="building-pubchem-bioassay-database" class="section level1">
+<h1><span class="header-section-number">4</span> Building PubChem BioAssay Database</h1>
+<p>As mentioned in the above examples, a pre-built database containing large quantities of public domain bioactivity data sourced from the PubChem BioAssay database, can be downloaded from <a href="http://chemmine.ucr.edu/bioassayr" class="uri">http://chemmine.ucr.edu/bioassayr</a>. Advanced users can re-build this database from the raw data themselves, by using the code provided on GitHub at <a href="https://github.com/TylerBackman/pubchem-bioassay-database" class="uri">https://github.com/TylerBackman/pubchem-bioassay-database</a>. This code is written for Linux systems, but a Dockerfile is included to allow it to run on other platforms.</p>
+</div>
+<div id="version-information" class="section level1">
+<h1><span class="header-section-number">5</span> Version Information</h1>
+<p>This document was compiled in an R session with the following configuration.</p>
+<pre class="r"><code> sessionInfo()</code></pre>
+<p>R version 3.2.3 (2015-12-10) Platform: x86_64-pc-linux-gnu (64-bit) Running under: Ubuntu 14.04.3 LTS</p>
+<p>locale: [1] LC_CTYPE=en_US.UTF-8 LC_NUMERIC=C<br />
+[3] LC_TIME=en_US.UTF-8 LC_COLLATE=en_US.UTF-8<br />
+[5] LC_MONETARY=en_US.UTF-8 LC_MESSAGES=en_US.UTF-8<br />
+[7] LC_PAPER=en_US.UTF-8 LC_NAME=C<br />
+[9] LC_ADDRESS=C LC_TELEPHONE=C<br />
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C</p>
+<p>attached base packages: [1] grid parallel stats graphics utils datasets grDevices [8] methods base</p>
+<p>other attached packages: [1] cellHTS2_2.34.1 locfit_1.5-9.1 hwriter_1.3.2<br />
+[4] vsn_3.38.0 splots_1.36.0 genefilter_1.52.0<br />
+[7] Biobase_2.30.0 RColorBrewer_1.1-2 ChemmineR_2.23.1<br />
+[10] knitcitations_1.0.7 bioassayR_1.8.13 BiocGenerics_0.16.1 [13] rjson_0.2.15 Matrix_1.2-3 RSQLite_1.0.0<br />
+[16] DBI_0.3.1 BiocStyle_1.8.0</p>
+<p>loaded via a namespace (and not attached): [1] Rcpp_0.12.3 lubridate_1.3.3 mvtnorm_1.0-5<br />
+[4] lattice_0.20-33 digest_0.6.9 R6_2.1.1<br />
+[7] plyr_1.8.3 stats4_3.2.3 pcaPP_1.9-60<br />
+[10] evaluate_0.8 httr_1.0.0 ggplot2_2.0.0<br />
+[13] BiocInstaller_1.20.1 zlibbioc_1.16.0 annotate_1.48.0<br />
+[16] S4Vectors_0.8.3 preprocessCore_1.32.0 rmarkdown_0.9.2<br />
+[19] splines_3.2.3 RefManageR_0.8.63 stringr_1.0.0<br />
+[22] RCurl_1.95-4.7 munsell_0.4.2 htmltools_0.3<br />
+[25] IRanges_2.4.4 XML_3.98-1.3 rrcov_1.3-8<br />
+[28] MASS_7.3-45 bitops_1.0-6 RBGL_1.46.0<br />
+[31] GSEABase_1.32.0 prada_1.46.0 xtable_1.8-0<br />
+[34] gtable_0.1.2 affy_1.48.0 magrittr_1.5<br />
+[37] formatR_1.2.1 scales_0.3.0 graph_1.48.0<br />
+[40] bibtex_0.4.0 stringi_1.0-1 affyio_1.40.0<br />
+[43] limma_3.26.3 robustbase_0.92-5 tools_3.2.3<br />
+[46] RJSONIO_1.3-0 Category_2.36.0 DEoptimR_1.0-4<br />
+[49] survival_2.38-3 yaml_2.1.13 AnnotationDbi_1.32.0 [52] colorspace_1.2-6 cluster_2.0.3 memoise_0.2.1<br />
+[55] knitr_1.12</p>
+</div>
+<div id="funding" class="section level1">
+<h1><span class="header-section-number">6</span> Funding</h1>
+<p>This software was developed with funding from the National Science Foundation: <a href="http://www.nsf.gov/awardsearch/showAward.do?AwardNumber=0957099">ABI-0957099</a>, 2010-0520325 and IGERT-0504249.</p>
+</div>
+<div id="references" class="section level1">
+<h1><span class="header-section-number">7</span> References</h1>
+<p>[1] T. W. Backman, et al. “ChemMine tools: an online service for analyzing and clustering small molecules”. In: <em>Nucleic Acids Res</em> 39.Web Server issue (Jul. 2011), pp. 486-491. URL: <a href="http://www.hubmed.org/display.cgi?uids=21576229" class="uri">http://www.hubmed.org/display.cgi?uids=21576229</a>.</p>
+<p>[2] A. Bateman, et al. “UniProt: a hub for protein information”. In: <em>Nucleic Acids Res.</em> 43.Database issue (Jan. 2015), pp. D204-212.</p>
+<p>[3] M. Boutros, et al. “Analysis of cell-based RNAi screens”. In: <em>Genome Biology</em> 7.7 (2006), p. R66.</p>
+<p>[4] Y. Cao, et al. “ChemmineR: a compound mining framework for R”. In: <em>Bioinformatics</em> 24.15 (Aug. 2008), pp. 1733-1734. URL: <a href="http://www.hubmed.org/display.cgi?uids=18596077" class="uri">http://www.hubmed.org/display.cgi?uids=18596077</a>.</p>
+<p>[5] S. Durinck, et al. “BioMart and Bioconductor: a powerful link between biological databases and microarray data analysis”. In: <em>Bioinformatics</em> 21 (2005), pp. 3439-3440.</p>
+<p>[6] S. Durinck, et al. “Mapping identifiers for the integration of genomic datasets with the R/Bioconductor package biomaRt”. In: <em>Nature Protocols</em> 4 (2009), pp. 1184-1191.</p>
+<p>[7] M. Hauser, et al. “kClust: fast and sensitive clustering of large protein sequence databases”. In: <em>BMC Bioinformatics</em> 14.1 (2013), p. 248.</p>
+<p>[8] J. A. Kreibich. <em>Using SQLite</em>. O’Reilly Media, 2010. ISBN: 0596521189.</p>
+<p>[9] T. Tatusova, et al. “RefSeq microbial genomes database: new representation and annotation strategy”. In: <em>Nucleic Acids Res.</em> 42.Database issue (Jan. 2014), pp. D553-559.</p>
+<p>[10] Y. Wang, et al. “PubChem’s BioAssay Database.”. In: <em>Nucleic acids research</em> 40.Database issue (Jan. 2012), pp. D400-12.</p>
+<p>[11] D. S. Wishart, et al. “DrugBank: a knowledgebase for drugs, drug actions and drug targets.”. In: <em>Nucleic acids research</em> 36.Database issue (Jan. 2008), pp. D901-6.</p>
+<div id="refs" class="references">
+
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

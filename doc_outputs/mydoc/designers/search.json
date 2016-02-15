@@ -1,0 +1,831 @@
+[
+
+
+
+
+
+{
+"title": "_ChemmineR_: Cheminformatics Toolkit for R",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/08_ChemmineR/ChemmineR.Rmd",
+"summary": ""
+},
+
+
+
+
+{
+"title": "_ChemmineR_: Cheminformatics Toolkit for R",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/08_ChemmineR/ChemmineR.knit.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "_ChemmineR_: Cheminformatics Toolkit for R",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/08_ChemmineR/ChemmineR.utf8.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Introduction to R",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/02_Rbasics/Rbasics.Rmd",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Introduction to R",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/02_Rbasics/Rbasics.knit.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Introduction to R",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/02_Rbasics/Rbasics.utf8.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "bioassayR - Introduction and Examples",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/09_bioassayR/bioassayR.Rmd",
+"summary": ""
+},
+
+
+
+
+{
+"title": "bioassayR - Introduction and Examples",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/09_bioassayR/bioassayR.knit.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "bioassayR - Introduction and Examples",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/09_bioassayR/bioassayR.utf8.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Introduction",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/01_Overview/home.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Introduction",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/home.html",
+"summary": ""
+},
+
+
+
+
+
+
+
+{
+"title": "ChemmineR - Cheminformatics Toolkit for R",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_01.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Getting Started",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_02.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "OpenBabel Functions",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_03.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Overview of Classes and Functions",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_04.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Import of Compounds",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_05.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Export of Compounds",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_06.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Format Interconversions",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_07.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Splitting SD Files",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_08.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Streaming Through Large SD Files",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_09.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Storing Compounds in an SQL Database",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_10.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Working with SDF/SDFset Classes",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_11.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Molecular Property Functions (Physicochemical Descriptors)",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_12.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Bond Matrices",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_13.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Charges and Missing Hydrogens",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_14.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Ring Perception and Aromaticity Assignment",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_15.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Rendering Chemical Structure Images",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_16.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Similarity Comparisons and Searching",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_17.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Clustering",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_18.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Searching PubChem",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_19.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "ChemMine Tools R Interface",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_20.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Version Information",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_21.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Funding",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_22.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "References",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_ChemmineR_23.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Overview",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_01.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Look and Feel of R Environment",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_02.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "R Package Repositories",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_03.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Installation of R and Add-on Packages",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_04.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Getting Around",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_05.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Basic Syntax",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_06.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Data Types",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_07.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Data objects",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_08.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Graphics example",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_09.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Overview",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_1.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Session Info",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_10.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "R Package Repositories",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_2.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Installation of R and Add-on Packages",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_3.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Getting Around",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_4.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Basic Syntax",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_5.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Data Types",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_6.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Data objects",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_7.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Graphics example",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_8.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Session Info",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_Rbasics_9.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "bioassayR - Introduction and Examples",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_bioassayR_1.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Getting Started",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_bioassayR_2.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Examples",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_bioassayR_3.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Building PubChem BioAssay Database",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_bioassayR_4.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Version Information",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_bioassayR_5.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Funding",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_bioassayR_6.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "References",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_bioassayR_7.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Class Teaching",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/01_Overview/mydoc_classes.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Class Teaching",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_classes.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Administration of site",
+"tags": "",
+"keywords": "navigation tabs, hide sections, tabbers, interface tabs",
+"url": "../vignettes/12_Internal_notes/mydoc_internal_notes.html",
+"summary": "Internal notes for maintaining this site."
+},
+
+
+
+
+{
+"title": "Administration of site",
+"tags": "",
+"keywords": "navigation tabs, hide sections, tabbers, interface tabs",
+"url": "../mydoc/mydoc_internal_notes.html",
+"summary": "Internal notes for maintaining this site."
+},
+
+
+
+
+{
+"title": "systemPipeR - NGS workflow and report generation environment",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_systemPipeR_1.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Getting Started",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_systemPipeR_2.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Workflow overview",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_systemPipeR_3.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Workflow templates",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_systemPipeR_4.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Version information",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_systemPipeR_5.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "References",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_systemPipeR_6.html",
+"summary": ""
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+"title": "_systemPipeR_: NGS workflow and report generation environment",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/07_systemPipeR/systemPipeR/systemPipeR.Rmd",
+"summary": ""
+},
+
+
+
+
+{
+"title": "_systemPipeR_: NGS workflow and report generation environment",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/07_systemPipeR/systemPipeR/systemPipeR.knit.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "_systemPipeR_: NGS workflow and report generation environment",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/07_systemPipeR/systemPipeR/systemPipeR.utf8.html",
+"summary": ""
+},
+
+
+
+
+
+
+
+
+
+
+
+
+null
+]
