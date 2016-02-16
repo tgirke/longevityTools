@@ -13,7 +13,7 @@ summary: This site describes the analysis tools used and developed by the <a hre
 The `longevityTools` site is part of the [Longevity
 Genomics](http://www.longevitygenomics.org) project that aims to advance
 longevity research by integrating data from a variety of genome-wide profiling
-studies. It provides a technical descriptions of the individual project
+studies. The site provides a technical descriptions of the individual project
 components in form of vignettes containing detailed analysis protocols along
 with well defined objectives, descriptions of findings and downloads of
 relevant results. 
