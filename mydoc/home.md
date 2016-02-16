@@ -29,7 +29,7 @@ help files provided by the R packages (for an example see
 All analysis results can be fully reproduced by rerunning the commands given in
 the vignettes. Instead of regenerating result files from scratch, users can
 also download them via URLs provided in the corresponding sections of the
-vignettes or directly from the [Downloads]({{site.baseurl}}/downloads/)
+vignettes or directly from the [Downloads](http://girke.bioinformatics.ucr.edu/longevityTools/mydoc/mydoc_downloads.html)
 page of this site.
 While improving transparency for external users, the chosen analysis strategy 
 greatly facilitates collaborations among the different teams and members 
