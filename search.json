@@ -184,6 +184,28 @@
 
 
 {
+"title": "Funding",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/06_Funding/mydoc_funding.html",
+"summary": "This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA)."
+},
+
+
+
+
+{
+"title": "Funding",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_funding.html",
+"summary": "This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA)."
+},
+
+
+
+
+{
 "title": "Getting Started",
 "tags": "",
 "keywords": "",
@@ -217,7 +239,7 @@
 
 
 {
-"title": "longevityToolsOverview - Analysis Tools for Longevity Research",
+"title": "longevityTools_Overview - Analysis Tools for Longevity Research",
 "tags": "",
 "keywords": "",
 "url": "../mydoc/mydoc_longevityTools_1.html",
@@ -294,7 +316,7 @@
 
 
 {
-"title": "longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures",
+"title": "longevityToolse_DRUG - Connecting Drug- and Age-related Gene Expression Signatures",
 "tags": "",
 "keywords": "",
 "url": "../mydoc/mydoc_longevityTools_eDRUG_01.html",
@@ -426,7 +448,7 @@
 
 
 {
-"title": "longevityToolseQTL - eSNP and GWAS Analysis",
+"title": "longevityTools_eQTL - eSNP and GWAS Analysis",
 "tags": "",
 "keywords": "",
 "url": "../mydoc/mydoc_longevityTools_eQTL_01.html",
