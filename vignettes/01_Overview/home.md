@@ -6,6 +6,8 @@ homepage: true
 summary: This site describes the analysis tools used and developed by the <a href="http://www.longevitygenomics.org/">Longeveity Genomics</a> project.
 ---
 
+[![Join the chat at https://gitter.im/tgirke/longevityTools](https://badges.gitter.im/tgirke/longevityTools.svg)](https://gitter.im/tgirke/longevityTools?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Overview
 
 An overview of the Longevity Genomics project is given
