@@ -9,8 +9,8 @@ summary: This site describes the analysis tools used and developed by the <a hre
 ## Overview
 
 An overview of the Longevity Genomics project is given
-[here](http://www.longevitygenomics.org/). This site provides links to
-technical descriptions of the individual project components in form of
+[here](http://www.longevitygenomics.org/). The affiliated `longevityTools` site
+provides technical descriptions of the individual project components in form of
 vignettes containing detailed analysis protocols along with well defined
 objectives, descriptions of findings and downloads of relevant results. 
 
