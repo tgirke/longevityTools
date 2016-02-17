@@ -7,6 +7,7 @@ Authors: Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Eva
 
 Last update: 15 February, 2016 
 
+The single-page R markdown vignette of this workflow is [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html).
 
 
 ## Introduction 
