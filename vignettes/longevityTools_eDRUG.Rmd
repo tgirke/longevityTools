@@ -113,7 +113,7 @@ dir.create("data"); dir.create("data/CEL"); dir.create("results")
 
 ## Download data from Connectivity Map project site
 The drug-related expression data are downloaded from the CMAP web site
-[here](http://www.broadinstitute.org/cmap). The `getCmap` function downloads
+[here](http://www.broadinstitute.org/cmap).  The `getCmap` function downloads
 the CMAP rank matrix along with the compound annotations, and `getCmapCEL`
 downloads the corresponding 7,056 CEL files. The functions will write the
 downloaded files to the `data` and `data/CEL` directories within the present 
