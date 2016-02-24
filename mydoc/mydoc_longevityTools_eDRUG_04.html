@@ -77,16 +77,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -155,8 +145,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -258,16 +246,6 @@ window.location.href = uri;
 
 
 
-
-
-
-
-
-
-
-
-
-
         <ul id="mysidebar" class="nav">
 
             <span class="siteTagline"><img src="../common_images/logo.png"></span>
@@ -327,6 +305,76 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_software.html">Software</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolsOverview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_1.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_2.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_3.html">3. Overview of object clases, methods and functions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_4.html">4. Workflow vignettes</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_5.html">5. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_6.html">6. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_7.html">7. References</a></li>
                     
 
                     
@@ -690,23 +738,23 @@ $('#toc').on('click', 'a', function() {
 -->
 <h2 id="download-data-from-connectivity-map-project-site">Download data from Connectivity Map project site</h2>
 <p>The drug-related expression data are downloaded from the CMAP web site
-<a href="http://www.broadinstitute.org/cmap">here</a>. The <code>getCmap</code> function downloads
-the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code>
+<a href="http://www.broadinstitute.org/cmap">here</a>. The <code class="highlighter-rouge">getCmap</code> function downloads
+the CMAP rank matrix along with the compound annotations, and <code class="highlighter-rouge">getCmapCEL</code>
 downloads the corresponding 7,056 CEL files. The functions will write the
-downloaded files to the <code>data</code> and <code>data/CEL</code> directories within the present 
+downloaded files to the <code class="highlighter-rouge">data</code> and <code class="highlighter-rouge">data/CEL</code> directories within the present 
 working directory of the user’s R session. Since some of the raw data sets 
-are large, the functions will only rerun the download if the argument <code>rerun</code> 
-is assigned <code>TRUE</code>. If the raw data are not needed then users can skip this 
+are large, the functions will only rerun the download if the argument <code class="highlighter-rouge">rerun</code> 
+is assigned <code class="highlighter-rouge">TRUE</code>. If the raw data are not needed then users can skip this 
 time consuming download step and work with the preprocessed data 
 obtained in the next section.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">getCmap</span><span class="p">(</span><span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="c1"># Downloads cmap rank matrix and compound annotation files
-</span><span class="n">getCmapCEL</span><span class="p">(</span><span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="err">#</span> <span class="n">Download</span> <span class="n">cmap</span> <span class="n">CEL</span> <span class="n">files.</span> <span class="n">Note</span><span class="p">,</span> <span class="n">this</span> <span class="n">will</span> <span class="n">take</span> <span class="n">some</span> <span class="n">time</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">getCmap</span><span class="p">(</span><span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="c1"># Downloads cmap rank matrix and compound annotation files
+</span><span class="n">getCmapCEL</span><span class="p">(</span><span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="err">#</span> <span class="n">Download</span> <span class="n">cmap</span> <span class="n">CEL</span> <span class="n">files.</span> <span class="n">Note</span><span class="p">,</span> <span class="n">this</span> <span class="n">will</span> <span class="n">take</span> <span class="n">some</span> <span class="n">time</span></code></pre></figure>
 
 <h2 id="overiew-of-cmap-data">Overiew of CMAP data</h2>
 
 <p>The experimental design of the CMAP project is defined in the file
-<code>cmap_instances_02.xls</code>.  Note, this file required some cleaning in LibreOffice
+<code class="highlighter-rouge">cmap_instances_02.xls</code>.  Note, this file required some cleaning in LibreOffice
 (Excel would work for this too). After this it was saved as tab delimited txt
 file named
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>.
@@ -721,22 +769,22 @@ The following count statisitics are extracted from this file.</p>
 Each cell type was subjected to the following number of total treatments and number
 of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">);</span> <span class="n">library</span><span class="p">(</span><span class="n">reshape2</span><span class="p">)</span> 
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">);</span> <span class="n">library</span><span class="p">(</span><span class="n">reshape2</span><span class="p">)</span> 
 <span class="n">cmap</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/cmap_instances_02.txt"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> 
 <span class="n">df</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">cmap</span><span class="p">[,</span> <span class="s2">"cell2"</span><span class="p">]),</span> <span class="n">as.numeric</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">cmap</span><span class="p">[</span><span class="o">!</span><span class="n">duplicated</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">cmap</span><span class="o">$</span><span class="n">cmap_name</span><span class="p">,</span> <span class="n">cmap</span><span class="o">$</span><span class="n">cell2</span><span class="p">)),</span><span class="s2">"cell2"</span><span class="p">])))</span>
 <span class="n">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"Cell_type"</span><span class="p">,</span> <span class="s2">"Treatments"</span><span class="p">,</span> <span class="s2">"Drugs"</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">&lt;-</span> <span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id.vars</span><span class="o">=</span><span class="n">c</span><span class="p">(</span><span class="s2">"Cell_type"</span><span class="p">),</span> <span class="n">variable.name</span> <span class="o">=</span> <span class="s2">"Samples"</span><span class="p">,</span> <span class="n">value.name</span><span class="o">=</span><span class="s2">"Counts"</span><span class="p">)</span>
 <span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">Cell_type</span><span class="p">,</span> <span class="n">Counts</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">Samples</span><span class="p">))</span> <span class="o">+</span> 
        <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">"dodge"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">)</span> <span class="o">+</span> 
-       <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Number of treatments by cell types"</span><span class="p">)</span></code></pre></div>
+       <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Number of treatments by cell types"</span><span class="p">)</span></code></pre></figure>
 
 <p>The number Affymetrix chip used in the experiments is plotted here for each of
 the three chip types used by CMAP:</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">cmap</span><span class="o">$</span><span class="n">array3</span><span class="p">));</span> <span class="n">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"Chip_type"</span><span class="p">,</span> <span class="s2">"Counts"</span><span class="p">)</span> 
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">cmap</span><span class="o">$</span><span class="n">array3</span><span class="p">));</span> <span class="n">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"Chip_type"</span><span class="p">,</span> <span class="s2">"Counts"</span><span class="p">)</span> 
 <span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">Chip_type</span><span class="p">,</span> <span class="n">Counts</span><span class="p">))</span> <span class="o">+</span> 
        <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">"dodge"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"cornflowerblue"</span><span class="p">)</span> <span class="o">+</span> 
-       <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Number of chip types"</span><span class="p">)</span></code></pre></div>
+       <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Number of chip types"</span><span class="p">)</span></code></pre></figure>
 
 
 
@@ -754,7 +802,7 @@ the three chip types used by CMAP:</p>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Mon Feb 15 15:06:28 2016<br/> Site last generated: Feb 23, 2016 <br />
+<p>Page last updated:</span> Mon Feb 15 15:06:28 2016<br/> Site last generated: Feb 24, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

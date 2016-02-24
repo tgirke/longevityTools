@@ -77,16 +77,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -155,8 +145,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -258,16 +246,6 @@ window.location.href = uri;
 
 
 
-
-
-
-
-
-
-
-
-
-
         <ul id="mysidebar" class="nav">
 
             <span class="siteTagline"><img src="../common_images/logo.png"></span>
@@ -327,6 +305,76 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_software.html">Software</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolsOverview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_1.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_2.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_3.html">3. Overview of object clases, methods and functions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_4.html">4. Workflow vignettes</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_5.html">5. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_6.html">6. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_7.html">7. References</a></li>
                     
 
                     
@@ -695,21 +743,21 @@ $('#toc').on('click', 'a', function() {
 <ol>
   <li>
     <p>Create a new project repository on GitHub and give it any name. For instance, the project 
-described here was named <code>manuals</code>. This initial setup will be the project’s <code>master</code> branch. After this is done, clone the new repostitory to your 
+described here was named <code class="highlighter-rouge">manuals</code>. This initial setup will be the project’s <code class="highlighter-rouge">master</code> branch. After this is done, clone the new repostitory to your 
 local computer. If you are new to GitHub <a href="https://guides.github.com/activities/hello-world/">here</a> are some basic instructions for creating 
 and managing GitHub repositories</p>
   </li>
   <li>
     <p>Download or clone the <a href="https://github.com/tomjohnson1492/documentation-theme-jekyll">Jekyll Documentation Theme</a>
-from Tom Johnson. Then copy the directory’s content to your new project repository (here <code>manuals</code> directory).
-Subsequently, commit and push its entire content to the <code>master</code> branch on GitHub.</p>
+from Tom Johnson. Then copy the directory’s content to your new project repository (here <code class="highlighter-rouge">manuals</code> directory).
+Subsequently, commit and push its entire content to the <code class="highlighter-rouge">master</code> branch on GitHub.</p>
   </li>
   <li>
-    <p>Add a <code>gh-pages</code> branch to your newly created GitHub project repository.
-By adding a <code>gh-pages</code> branch to a GitHub project, one can host from this branch 
-a web site (here Jekyll site) for a GitHub project repository. The <code>master</code> branch of this
-project contains the source code of the site and its <code>gh-pages</code> branch the pre-built web 
-site components. Instruction for setting up a <code>gh-pages</code> branch for an existing project 
+    <p>Add a <code class="highlighter-rouge">gh-pages</code> branch to your newly created GitHub project repository.
+By adding a <code class="highlighter-rouge">gh-pages</code> branch to a GitHub project, one can host from this branch 
+a web site (here Jekyll site) for a GitHub project repository. The <code class="highlighter-rouge">master</code> branch of this
+project contains the source code of the site and its <code class="highlighter-rouge">gh-pages</code> branch the pre-built web 
+site components. Instruction for setting up a <code class="highlighter-rouge">gh-pages</code> branch for an existing project 
 are available <a href="https://help.github.com/articles/creating-project-pages-manually/">here</a>.</p>
   </li>
 </ol>
@@ -718,11 +766,11 @@ are available <a href="https://help.github.com/articles/creating-project-pages-m
 
 <h3 id="built-and-test-site-locally">Built and test site locally</h3>
 <p>Run following command within the root directory of the project’s git repository
-(here <code>~/Dropbox/Websites/manuals</code>) and then preview the site at the URL
+(here <code class="highlighter-rouge">~/Dropbox/Websites/manuals</code>) and then preview the site at the URL
 printed to the terminal. Note, all paths are given here relative to this
 directory.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">jekyll serve --config configs/mydoc/config_designers.yml</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">jekyll serve --config configs/mydoc/config_designers.yml</code></pre></figure>
 
 <div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <b>Note: </b> 
 The built directory of the site is '../doc_outputs/mydoc/designers'. The changes are 
@@ -730,92 +778,92 @@ committed automatically when previewing the site with 'jekyll serve' or by execu
 script(s) located in the root directory of the project.
 </div>
 
-<h3 id="edit-site-in-master-branch">Edit site in <code>master</code> branch</h3>
+<h3 id="edit-site-in-master-branch">Edit site in <code class="highlighter-rouge">master</code> branch</h3>
 <p>Edits should be made in the project’s <a href="https://github.com/tgirke/manuals/tree/master">master</a> 
 branch and then committed from there to the corresponding branch on GitHub.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout master
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout master
 vim ./mydoc/mydoc_some_page.md <span class="c"># Make changes to *.md pages in ./mydoc/</span>
-git commit -am <span class="s2">"some edits"</span>; git push -u origin master</code></pre></div>
+git commit -am <span class="s2">"some edits"</span>; git push -u origin master</code></pre></figure>
 
-<h3 id="sync-changes-to-gh-pages-branch">Sync changes to <code>gh-pages</code> branch</h3>
-<p>Currently, the changes to <code>../doc_outputs/mydoc/designers</code> need to be synced into the 
+<h3 id="sync-changes-to-gh-pages-branch">Sync changes to <code class="highlighter-rouge">gh-pages</code> branch</h3>
+<p>Currently, the changes to <code class="highlighter-rouge">../doc_outputs/mydoc/designers</code> need to be synced into the 
 <a href="https://github.com/tgirke/manuals/tree/gh-pages">gh-pages</a> branch of the project repository. The following accomplishes this with
-<code>rsync</code>. The last two lines add, commit and push all changes to the <code>gh-pages</code> branch.
+<code class="highlighter-rouge">rsync</code>. The last two lines add, commit and push all changes to the <code class="highlighter-rouge">gh-pages</code> branch.
 After this the changes should show up in the life version of the web site. Note, prior to
 the syncing, one usually wants to shut down the locally running Jekyell server with
-<code>Ctrl-c</code> in its terminal window.</p>
+<code class="highlighter-rouge">Ctrl-c</code> in its terminal window.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout gh-pages
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout gh-pages
 rsync -avh --stats --progress ~/Dropbox/Websites/doc_outputs/mydoc/designers/ ~/Dropbox/Websites/manuals/
 git add -A :/
 git commit -am <span class="s2">"some edits"</span>; git push -u origin gh-pages
-git checkout master</code></pre></div>
+git checkout master</code></pre></figure>
 
 <h3 id="bash-script-for-automation">Bash script for automation</h3>
-<p>To automate the above workflow, run the following <code>buildAll.sh</code> bash script
+<p>To automate the above workflow, run the following <code class="highlighter-rouge">buildAll.sh</code> bash script
 from the root directory of the repository’s master branch.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">./buildAll.sh</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">./buildAll.sh</code></pre></figure>
 
 <h2 id="adding-a-new-page">Adding a new page</h2>
 
 <h3 id="create-page">Create page</h3>
-<p>The easiest is usually to copy an existing page in <code>\mydoc</code> and then make the necessary 
+<p>The easiest is usually to copy an existing page in <code class="highlighter-rouge">\mydoc</code> and then make the necessary 
 changes to its Jekyll front matter section and content.</p>
 
 <h3 id="sidebar-and-url-configuration">Sidebar and URL configuration</h3>
 <p>Next, the new page needs to be registered properly in the sidebar and URL configuration 
 files.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">vim _data/mydoc/mydoc_sidebar.yml
-vim _data/mydoc/mydoc_urls.yml</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">vim _data/mydoc/mydoc_sidebar.yml
+vim _data/mydoc/mydoc_urls.yml</code></pre></figure>
 
 <p>After this the new page should be viewable in the local preview of your
-browser.  This requires a running session of <code>jekyll serve ...</code> in the root
+browser.  This requires a running session of <code class="highlighter-rouge">jekyll serve ...</code> in the root
 directory of the repository as shown above.</p>
 
 <h3 id="commit-to-github">Commit to GitHub</h3>
-<p>Similar as above add, commit and push changes to the <code>master</code> and <code>gh-pages</code> branches 
-of the local and remote repositories or just run <code>buildAll.sh</code>.</p>
+<p>Similar as above add, commit and push changes to the <code class="highlighter-rouge">master</code> and <code class="highlighter-rouge">gh-pages</code> branches 
+of the local and remote repositories or just run <code class="highlighter-rouge">buildAll.sh</code>.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout master
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout master
 git commit -am <span class="s2">"some edits"</span>; git push -u origin master
 git checkout gh-pages
 rsync -avh --stats --progress ~/Dropbox/Websites/doc_outputs/mydoc/designers/ ~/Dropbox/Websites/manuals/
 git add -A :/
 git commit -am <span class="s2">"some edits"</span>; git push -u origin gh-pages
-git checkout master</code></pre></div>
+git checkout master</code></pre></figure>
 
 <h2 id="r-markdown-integration">R markdown integration</h2>
 
-<p>(1) Write R markdown vignette (<code>*.Rmd</code> file) in <code>./vignettes</code> directory (<em>e.g.</em> <code>./vignettes/Rbasics</code>).</p>
+<p>(1) Write R markdown vignette (<code class="highlighter-rouge">*.Rmd</code> file) in <code class="highlighter-rouge">./vignettes</code> directory (<em>e.g.</em> <code class="highlighter-rouge">./vignettes/Rbasics</code>).</p>
 
-<p>(2) Render vignette to <code>.md</code> and <code>.html</code> files with <code>rmarkdown::render()</code>.</p>
+<p>(2) Render vignette to <code class="highlighter-rouge">.md</code> and <code class="highlighter-rouge">.html</code> files with <code class="highlighter-rouge">rmarkdown::render()</code>.</p>
 
-<p>(3) Append <code>.md</code> file (here <code>Rbasics.knit.md</code>) to corresponding <code>.md</code> file in <code>./mydoc</code> directory.</p>
+<p>(3) Append <code class="highlighter-rouge">.md</code> file (here <code class="highlighter-rouge">Rbasics.knit.md</code>) to corresponding <code class="highlighter-rouge">.md</code> file in <code class="highlighter-rouge">./mydoc</code> directory.</p>
 
 <p>(4) Remove front matter genereted by R markdown, but leave the one required for Jekyll</p>
 
 <p>(5) Replace chode chunk tags to the ones required by Jekyll Doc Theme</p>
 
-<p>(6) Move images into proper directory and adjust their path in the <code>.md</code> file</p>
+<p>(6) Move images into proper directory and adjust their path in the <code class="highlighter-rouge">.md</code> file</p>
 
-<p>Run steps (2)-(6) with one command using the <code>render()</code> function and the <code>md2jekyll.R</code> script:</p>
+<p>Run steps (2)-(6) with one command using the <code class="highlighter-rouge">render()</code> function and the <code class="highlighter-rouge">md2jekyll.R</code> script:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"rmarkdown::render('Rbasics.Rmd', clean=FALSE)"</span> | R --slave; R CMD Stangle Rbasics.Rmd; Rscript ../md2jekyll.R Rbasics.knit.md 3</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"rmarkdown::render('Rbasics.Rmd', clean=FALSE)"</span> | R --slave; R CMD Stangle Rbasics.Rmd; Rscript ../md2jekyll.R Rbasics.knit.md 3</code></pre></figure>
 
 <h2 id="useful-utilities">Useful utilities</h2>
 
 <h3 id="site-wide-configurations">Site-wide configurations</h3>
 <p>Edit this file accordingly.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">configs/mydoc/config_designers.yml</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">configs/mydoc/config_designers.yml</code></pre></figure>
 
 <h3 id="check-differences-in-directories">Check differences in directories</h3>
-<p>One can also double-check by downloading the changes from GitHub and then run <code>diff</code></p>
+<p>One can also double-check by downloading the changes from GitHub and then run <code class="highlighter-rouge">diff</code></p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">diff -r ~/Dropbox/Websites/doc_outputs/mydoc/designers/ ~/Dropbox/Websites/manuals/</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">diff -r ~/Dropbox/Websites/doc_outputs/mydoc/designers/ ~/Dropbox/Websites/manuals/</code></pre></figure>
 
 
 
@@ -833,7 +881,7 @@ git checkout master</code></pre></div>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> February 06, 2016<br/> Site last generated: Feb 23, 2016 <br />
+<p>Page last updated:</span> February 06, 2016<br/> Site last generated: Feb 24, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

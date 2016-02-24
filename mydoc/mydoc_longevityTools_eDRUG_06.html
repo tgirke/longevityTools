@@ -77,16 +77,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -155,8 +145,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -258,16 +246,6 @@ window.location.href = uri;
 
 
 
-
-
-
-
-
-
-
-
-
-
         <ul id="mysidebar" class="nav">
 
             <span class="siteTagline"><img src="../common_images/logo.png"></span>
@@ -327,6 +305,76 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_software.html">Software</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolsOverview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_1.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_2.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_3.html">3. Overview of object clases, methods and functions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_4.html">4. Workflow vignettes</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_5.html">5. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_6.html">6. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_7.html">7. References</a></li>
                     
 
                     
@@ -690,36 +738,36 @@ $('#toc').on('click', 'a', function() {
 -->
 <h2 id="generate-list-of-cel-names-defining-treatment-vs-control-comparisons">Generate list of CEL names defining treatment vs. control comparisons</h2>
 
-<p>The <code>sampleList</code> function extracts the sample comparisons (contrasts) from the
+<p>The <code class="highlighter-rouge">sampleList</code> function extracts the sample comparisons (contrasts) from the
 CMAP annotation table and stores them as a list.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">cmap</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/cmap_instances_02.txt"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> 
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">cmap</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/cmap_instances_02.txt"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> 
 <span class="c1"># comp_list &lt;- sampleList(cmap, myby="CMP")
-</span><span class="n">comp_list</span> <span class="o">&lt;-</span> <span class="n">sampleList</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">myby</span><span class="o">=</span><span class="s2">"CMP_CELL"</span><span class="p">)</span></code></pre></div>
+</span><span class="n">comp_list</span> <span class="o">&lt;-</span> <span class="n">sampleList</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">myby</span><span class="o">=</span><span class="s2">"CMP_CELL"</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="load-normalized-expression-data">Load normalized expression data</h2>
 
-<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. 
-To accelerate the import, the data is read from <code>rds</code> files.</p>
+<p>The following loads the MAS5 normalized expression data into a single <code class="highlighter-rouge">data.frame</code>. 
+To accelerate the import, the data is read from <code class="highlighter-rouge">rds</code> files.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">chiptype_dir</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"./data/chiptype.rds"</span><span class="p">))</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">chiptype_dir</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"./data/chiptype.rds"</span><span class="p">))</span>
 <span class="n">df1</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/"</span><span class="p">,</span> <span class="n">chiptype_dir</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="s2">"/"</span><span class="p">,</span> <span class="s2">"all_mas5exprs.rds"</span><span class="p">))</span>
 <span class="n">df2</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/"</span><span class="p">,</span> <span class="n">chiptype_dir</span><span class="p">[</span><span class="m">2</span><span class="p">],</span> <span class="s2">"/"</span><span class="p">,</span> <span class="s2">"all_mas5exprs.rds"</span><span class="p">))</span>
 <span class="n">df3</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/"</span><span class="p">,</span> <span class="n">chiptype_dir</span><span class="p">[</span><span class="m">3</span><span class="p">],</span> <span class="s2">"/"</span><span class="p">,</span> <span class="s2">"all_mas5exprs.rds"</span><span class="p">))</span>
 <span class="n">affyid</span> <span class="o">&lt;-</span> <span class="n">rownames</span><span class="p">(</span><span class="n">df1</span><span class="p">)[</span><span class="n">rownames</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">df2</span><span class="p">)];</span> <span class="n">affyid</span> <span class="o">&lt;-</span> <span class="n">affyid</span><span class="p">[</span><span class="n">affyid</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">df3</span><span class="p">)]</span>
-<span class="n">mas5df</span> <span class="o">&lt;-</span> <span class="n">cbind</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="n">affyid</span><span class="p">,],</span> <span class="n">df2</span><span class="p">[</span><span class="n">affyid</span><span class="p">,],</span> <span class="n">df3</span><span class="p">[</span><span class="n">affyid</span><span class="p">,])</span></code></pre></div>
+<span class="n">mas5df</span> <span class="o">&lt;-</span> <span class="n">cbind</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="n">affyid</span><span class="p">,],</span> <span class="n">df2</span><span class="p">[</span><span class="n">affyid</span><span class="p">,],</span> <span class="n">df3</span><span class="p">[</span><span class="n">affyid</span><span class="p">,])</span></code></pre></figure>
 
-<h2 id="deg-analysis-with-limma">DEG analysis with <code>limma</code></h2>
+<h2 id="deg-analysis-with-limma">DEG analysis with <code class="highlighter-rouge">limma</code></h2>
 
-<p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package.
+<p>The analysis of differentially expressed genes (DEGs) is performed with the <code class="highlighter-rouge">limma</code> package.
 Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and 
 a minimum fold change of 2). The DEG matrix is written to a file named 
-<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code class="highlighter-rouge">degMA.xls</code></a>.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">degMA</span> <span class="o">&lt;-</span> <span class="n">runLimma</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">mas5df</span><span class="p">,</span> <span class="n">comp_list</span><span class="p">,</span> <span class="n">fdr</span><span class="o">=</span><span class="m">0.10</span><span class="p">,</span> <span class="n">foldchange</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">TRUE</span><span class="p">,</span> <span class="n">affyid</span><span class="o">=</span><span class="n">NULL</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">degMA</span> <span class="o">&lt;-</span> <span class="n">runLimma</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">mas5df</span><span class="p">,</span> <span class="n">comp_list</span><span class="p">,</span> <span class="n">fdr</span><span class="o">=</span><span class="m">0.10</span><span class="p">,</span> <span class="n">foldchange</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">TRUE</span><span class="p">,</span> <span class="n">affyid</span><span class="o">=</span><span class="n">NULL</span><span class="p">)</span>
 <span class="n">degMA</span> <span class="o">&lt;-</span> <span class="n">degMA</span><span class="p">[</span> <span class="p">,</span> <span class="o">!</span><span class="n">is.na</span><span class="p">(</span><span class="n">colSums</span><span class="p">(</span><span class="n">degMA</span><span class="p">))]</span> <span class="c1"># Remove columns where DEG analysis was not possible
 </span><span class="n">write.table</span><span class="p">(</span><span class="n">degMA</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/degMA.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
-<span class="n">saveRDS</span><span class="p">(</span><span class="n">degMA</span><span class="p">,</span> <span class="s2">"./results/degMA.rds"</span><span class="p">)</span></code></pre></div>
+<span class="n">saveRDS</span><span class="p">(</span><span class="n">degMA</span><span class="p">,</span> <span class="s2">"./results/degMA.rds"</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="obtain-annotation-information">Obtain annotation information</h2>
 <p>The following generates annotation information for the Affymetirx probe set
@@ -727,55 +775,55 @@ identifiers.  Note, the three different Affymetrix chip types used by CMAP
 share most probe set ids (&gt;95%), meaning it is possible to combine the data
 after normalization and use the same annotation package for all of them. The
 annotation libraries for the chip types HG-U133A and HT_HG-U133A are
-<code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation 
+<code class="highlighter-rouge">hgu133a.db</code> and <code class="highlighter-rouge">hthgu133a.db</code>, respectively. However, there is no annotation 
 library (e.g. CDF) available for U133AAofAv2.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">hgu133a.db</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">hgu133a.db</span><span class="p">)</span>
 <span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">ACCNUM</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aACCNUM</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
                              <span class="n">SYMBOL</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aSYMBOL</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
                              <span class="n">UNIGENE</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aUNIGENE</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
                              <span class="n">ENTREZID</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aENTREZID</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
                              <span class="n">ENSEMBL</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aENSEMBL</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
                              <span class="n">DESC</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aGENENAME</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">))</span>
-<span class="n">saveRDS</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">,</span> <span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span></code></pre></div>
+<span class="n">saveRDS</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">,</span> <span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="transform-probe-set-to-gene-level-data">Transform probe set to gene level data</h2>
 
-<p>The <code>probeset2gene</code> function translates a binary DEG matrix from the probe level (<code>row.names</code> are
-Affy IDs) to the gene level (<code>row.names</code> are gene IDs). Genes represented by several probe
+<p>The <code class="highlighter-rouge">probeset2gene</code> function translates a binary DEG matrix from the probe level (<code class="highlighter-rouge">row.names</code> are
+Affy IDs) to the gene level (<code class="highlighter-rouge">row.names</code> are gene IDs). Genes represented by several probe
 sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are
-supported: <code>summary_rule=1L</code> will consider a gene as a DEG for a specific treatment if at 
-least one of several probe sets supports this assignment, while <code>summary_rule=2L</code> requires 
+supported: <code class="highlighter-rouge">summary_rule=1L</code> will consider a gene as a DEG for a specific treatment if at 
+least one of several probe sets supports this assignment, while <code class="highlighter-rouge">summary_rule=2L</code> requires 
 support from at least 2 probe sets.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span> 
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span> 
 <span class="n">degMA</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degMA.rds"</span><span class="p">)</span> <span class="c1"># Faster than read.delim()
 </span><span class="n">degMAgene</span> <span class="o">&lt;-</span> <span class="n">probeset2gene</span><span class="p">(</span><span class="n">degMA</span><span class="p">,</span> <span class="n">myAnnot</span><span class="p">,</span> <span class="n">geneIDtype</span><span class="o">=</span><span class="s2">"ENTREZID"</span><span class="p">,</span> <span class="n">summary_rule</span><span class="o">=</span><span class="m">1L</span><span class="p">)</span>
-<span class="n">saveRDS</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">,</span> <span class="s2">"./results/degMAgene.rds"</span><span class="p">)</span></code></pre></div>
+<span class="n">saveRDS</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">,</span> <span class="s2">"./results/degMAgene.rds"</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="number-of-degs-per-drug-treatment">Number of DEGs per drug treatment</h2>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">degMAgene</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degMAgene.rds"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">degMAgene</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degMAgene.rds"</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">&lt;-</span> <span class="n">as.numeric</span><span class="p">(</span><span class="n">colSums</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">))</span>
 <span class="n">interval</span> <span class="o">&lt;-</span> <span class="n">table</span><span class="p">(</span><span class="n">cut</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">dig.lab</span><span class="o">=</span><span class="m">5</span><span class="p">,</span>  <span class="n">breaks</span><span class="o">=</span><span class="n">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">50</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">500</span><span class="p">,</span> <span class="m">1000</span><span class="p">,</span> <span class="m">10000</span><span class="p">)))</span>
 <span class="n">df</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">interval</span><span class="p">);</span> <span class="n">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"Bins"</span><span class="p">,</span> <span class="s2">"Counts"</span><span class="p">)</span>
 <span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">Bins</span><span class="p">,</span> <span class="n">Counts</span><span class="p">))</span> <span class="o">+</span> 
        <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">"dodge"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"cornflowerblue"</span><span class="p">)</span> <span class="o">+</span> 
-       <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"DEG numbers by bins"</span><span class="p">)</span></code></pre></div>
+       <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"DEG numbers by bins"</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="identify-deg-overlaps-with-peters-et-al--peters2015-fc">Identify DEG overlaps with Peters et al. [-@Peters2015-fc]</h2>
 
 <p>Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression
-signatures.  The <code>intersectStats</code> function computes their intersects with each
+signatures.  The <code class="highlighter-rouge">intersectStats</code> function computes their intersects with each
 of the 3,318 drug-responsive DEG sets from CMAP. The result includes the
 Jaccard index as a simple similarity metric for gene sets as well as the raw
 and adjusted p-values based on the hypergeometric distribution expressing how
 likely it is to observe the observed intersect sizes just by chance. The
 results for the 20 top scoring drugs are given below and the full data set is
 written to a file named
-<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code class="highlighter-rouge">degOL_PMID26490707.xls</code></a>.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span> 
 <span class="n">geneid</span> <span class="o">&lt;-</span> <span class="n">as.character</span><span class="p">(</span><span class="n">PMID26490707</span><span class="o">$</span><span class="s2">"NEW.Entrez.ID"</span><span class="p">)</span>
 <span class="n">degMAgene</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degMAgene.rds"</span><span class="p">)</span> <span class="c1"># Faster than read.delim()
@@ -783,19 +831,19 @@ written to a file named
 <span class="n">degOL_PMID26490707</span> <span class="o">&lt;-</span> <span class="n">intersectStats</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">,</span> <span class="n">degMAsub</span><span class="p">)</span>
 <span class="n">write.table</span><span class="p">(</span><span class="n">degOL_PMID26490707</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/degOL_PMID26490707.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
 <span class="n">sum</span><span class="p">(</span><span class="n">degOL_PMID26490707</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="c1"># Drugs with any overlap
-</span><span class="n">degOL_PMID26490707</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
+</span><span class="n">degOL_PMID26490707</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></figure>
 
 <h2 id="identify-deg-overlaps-with-sood-et-al--sood2015-pb">Identify DEG overlaps with Sood et al. [-@Sood2015-pb]</h2>
 
 <p>Sood et al. [-@Sood2015-pb] reported 150 age-related gene expression signatures. 
-The <code>intersectStats</code> function computes their intersects with each of the 3,318 
+The <code class="highlighter-rouge">intersectStats</code> function computes their intersects with each of the 3,318 
 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple 
 similarity metric for gene sets as well as the raw and adjusted p-values based on the 
 hypergeometric distribution expressing how likely it is to observe the observed intersect 
 sizes just by chance. The results for the 20 top scoring drugs are given below and the full
-data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
+data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code class="highlighter-rouge">degOL_PMID26343147.xls</code></a>.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">PMID26343147</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26343147_S1T1.xls"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">PMID26343147</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26343147_S1T1.xls"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
 <span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span> 
 <span class="n">affyid</span> <span class="o">&lt;-</span> <span class="n">row.names</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[</span><span class="n">myAnnot</span><span class="p">[,</span><span class="s2">"SYMBOL"</span><span class="p">]</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">PMID26343147</span><span class="p">[,</span><span class="s2">"Gene Symbol"</span><span class="p">],</span> <span class="p">])</span> 
 <span class="n">degMA</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degMA.rds"</span><span class="p">)</span> <span class="c1"># Faster then read.delim()
@@ -804,14 +852,14 @@ data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/p
 <span class="n">degOL_PMID26343147</span> <span class="o">&lt;-</span> <span class="n">intersectStats</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">,</span> <span class="n">degMAsub</span><span class="p">)</span>
 <span class="n">write.table</span><span class="p">(</span><span class="n">degOL_PMID26343147</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/degOL_PMID26343147.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
 <span class="n">sum</span><span class="p">(</span><span class="n">degOL_PMID26343147</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="c1"># Drugs with any overlap
-</span><span class="n">degOL_PMID26343147</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span> <span class="err">#</span> <span class="n">Top</span> <span class="m">20</span> <span class="n">scoring</span> <span class="n">drugs</span></code></pre></div>
+</span><span class="n">degOL_PMID26343147</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span> <span class="err">#</span> <span class="n">Top</span> <span class="m">20</span> <span class="n">scoring</span> <span class="n">drugs</span></code></pre></figure>
 
 <h2 id="drugs-affecting-known-longevity-genes">Drugs affecting known longevity genes</h2>
 
 <p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.
-The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
+The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code class="highlighter-rouge">deg_IGF1.xls</code></a>.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">genesymbols</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"IGF1"</span><span class="p">,</span> <span class="s2">"IGF1R"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">genesymbols</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"IGF1"</span><span class="p">,</span> <span class="s2">"IGF1R"</span><span class="p">)</span>
 <span class="n">geneids</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">as.character</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[</span><span class="n">myAnnot</span><span class="o">$</span><span class="n">SYMBOL</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">genesymbols</span><span class="p">,</span><span class="s2">"ENTREZID"</span><span class="p">]))</span>
 <span class="n">names</span><span class="p">(</span><span class="n">geneids</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">as.character</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[</span><span class="n">myAnnot</span><span class="o">$</span><span class="n">SYMBOL</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">genesymbols</span><span class="p">,</span><span class="s2">"SYMBOL"</span><span class="p">]))</span>
 <span class="n">degMAgene</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degMAgene.rds"</span><span class="p">)</span> <span class="c1"># Faster than read.delim()
@@ -819,12 +867,12 @@ The final result is written to a file named <a href="http://biocluster.ucr.edu/~
 <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="n">seq_along</span><span class="p">(</span><span class="n">geneids</span><span class="p">))</span> <span class="n">df</span> <span class="o">&lt;-</span> <span class="n">cbind</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">as.numeric</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">[</span><span class="n">geneids</span><span class="p">[</span><span class="n">i</span><span class="p">],]))</span>
 <span class="n">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">names</span><span class="p">(</span><span class="n">geneids</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">&lt;-</span> <span class="n">df</span><span class="p">[</span><span class="n">rowSums</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">&gt;</span><span class="m">0</span><span class="p">,]</span>
-<span class="n">nrow</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="err">#</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">drugs</span> <span class="n">affecting</span> <span class="n">at</span> <span class="n">least</span> <span class="n">one</span> <span class="n">of</span><span class="o">:</span> <span class="n">IGF1</span> <span class="n">or</span> <span class="n">IGF1R</span></code></pre></div>
+<span class="n">nrow</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="err">#</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">drugs</span> <span class="n">affecting</span> <span class="n">at</span> <span class="n">least</span> <span class="n">one</span> <span class="n">of</span><span class="o">:</span> <span class="n">IGF1</span> <span class="n">or</span> <span class="n">IGF1R</span></code></pre></figure>
 
-<p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) 
+<p>The following computes the <code class="highlighter-rouge">limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) 
 and drug treatments.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">affyids2</span> <span class="o">&lt;-</span> <span class="n">row.names</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[</span><span class="n">myAnnot</span><span class="o">$</span><span class="n">SYMBOL</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">genesymbols</span><span class="p">,])</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">affyids2</span> <span class="o">&lt;-</span> <span class="n">row.names</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[</span><span class="n">myAnnot</span><span class="o">$</span><span class="n">SYMBOL</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">genesymbols</span><span class="p">,])</span>
 <span class="n">affyids</span> <span class="o">&lt;-</span> <span class="n">as.character</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[</span><span class="n">myAnnot</span><span class="o">$</span><span class="n">SYMBOL</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">genesymbols</span><span class="p">,</span><span class="s2">"SYMBOL"</span><span class="p">])</span>
 <span class="n">names</span><span class="p">(</span><span class="n">affyids</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">affyids2</span>
 <span class="n">cmap</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/cmap_instances_02.txt"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> 
@@ -834,12 +882,12 @@ and drug treatments.</p>
 <span class="n">pvalDF</span> <span class="o">&lt;-</span> <span class="n">sapply</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="n">affyids</span><span class="p">),</span> <span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">sapply</span><span class="p">(</span><span class="n">rownames</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="k">function</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="n">min</span><span class="p">(</span><span class="n">degList</span><span class="p">[[</span><span class="n">y</span><span class="p">]][</span><span class="n">affyids</span><span class="o">==</span><span class="n">x</span><span class="p">,</span><span class="s2">"adj.P.Val"</span><span class="p">])))</span>
 <span class="n">colnames</span><span class="p">(</span><span class="n">pvalDF</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">paste0</span><span class="p">(</span><span class="n">colnames</span><span class="p">(</span><span class="n">pvalDF</span><span class="p">),</span> <span class="s2">"_FDR"</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">&lt;-</span> <span class="n">cbind</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pvalDF</span><span class="p">)</span>
-<span class="n">write.table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/deg_IGF1.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span></code></pre></div>
+<span class="n">write.table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/deg_IGF1.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> </code></pre></figure>
 
-<p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
+<p>Now the final <code class="highlighter-rouge">data.frame</code> can be sorted by increasing mean FDR values.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">igfDF</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./results/deg_IGF1.xls"</span><span class="p">,</span> <span class="n">row.names</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
-<span class="n">igfDF</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">rowMeans</span><span class="p">(</span><span class="n">igfDF</span><span class="p">[,</span><span class="m">3</span><span class="o">:</span><span class="m">4</span><span class="p">])),][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">igfDF</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./results/deg_IGF1.xls"</span><span class="p">,</span> <span class="n">row.names</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+<span class="n">igfDF</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">rowMeans</span><span class="p">(</span><span class="n">igfDF</span><span class="p">[,</span><span class="m">3</span><span class="o">:</span><span class="m">4</span><span class="p">])),][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></figure>
 
 
 
@@ -857,7 +905,7 @@ and drug treatments.</p>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Mon Feb 15 15:06:28 2016<br/> Site last generated: Feb 23, 2016 <br />
+<p>Page last updated:</span> Mon Feb 15 15:06:28 2016<br/> Site last generated: Feb 24, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

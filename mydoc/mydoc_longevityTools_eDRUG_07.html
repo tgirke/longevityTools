@@ -77,16 +77,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -155,8 +145,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -258,16 +246,6 @@ window.location.href = uri;
 
 
 
-
-
-
-
-
-
-
-
-
-
         <ul id="mysidebar" class="nav">
 
             <span class="siteTagline"><img src="../common_images/logo.png"></span>
@@ -327,6 +305,76 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_software.html">Software</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolsOverview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_1.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_2.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_3.html">3. Overview of object clases, methods and functions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_4.html">4. Workflow vignettes</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_5.html">5. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_6.html">6. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_7.html">7. References</a></li>
                     
 
                     
@@ -697,9 +745,9 @@ down-regulated genes at the top and bottom of sorted (ranked) gene lists.</p>
 <p>The following uses the 1,497 age-related gene expression signatures from Peters et al. 
 [-@Peters2015-fc] as a query against the CMAP signatures. The results are sorted by the
 ES Distance and the top scoring 20 drugs are given below. The full result table is<br />
-written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
+written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code class="highlighter-rouge">drugcmap2.xls</code></a>.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">DrugVsDisease</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">DrugVsDisease</span><span class="p">)</span>
 <span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
 <span class="n">data</span><span class="p">(</span><span class="n">drugRL</span><span class="p">)</span>
 <span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">PMID26490707</span><span class="p">[</span><span class="n">PMID26490707</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">]</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">drugRL</span><span class="p">),]</span>
@@ -710,15 +758,15 @@ written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/long
                             <span class="n">pvalues</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">cytoout</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s2">"dynamic"</span><span class="p">,</span> 
                             <span class="n">dynamic.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">0.05</span><span class="p">,</span> <span class="n">adj</span><span class="o">=</span><span class="s2">"BH"</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">100</span><span class="p">)</span>
 <span class="n">write.table</span><span class="p">(</span><span class="n">drugcmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/drugcmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
-<span class="n">drugcmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
+<span class="n">drugcmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></figure>
 
 <h2 id="query-disease-signatures">Query disease signatures</h2>
 
 <p>The same query is performed against a reference set of disease expression signatures.
 The results are sorted by the ES Distance and the top scoring 20 drugs are given below. 
-The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code>diseasecmap2.xls</code></a>.</p>
+The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code class="highlighter-rouge">diseasecmap2.xls</code></a>.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
 <span class="n">data</span><span class="p">(</span><span class="n">diseaseRL</span><span class="p">)</span>
 <span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">PMID26490707</span><span class="p">[</span><span class="n">PMID26490707</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">]</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">diseaseRL</span><span class="p">),]</span>
 <span class="n">testprofiles</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">(</span><span class="n">ranklist</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">Zscore</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])),</span> 
@@ -728,7 +776,7 @@ The full result table is written to a file named <a href="http://biocluster.ucr.
                             <span class="n">pvalues</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">cytoout</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s2">"dynamic"</span><span class="p">,</span> 
                             <span class="n">dynamic.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">adj</span><span class="o">=</span><span class="s2">"BH"</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">100</span><span class="p">)</span>
 <span class="n">write.table</span><span class="p">(</span><span class="n">diseasecmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/diseasecmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
-<span class="n">diseasecmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
+<span class="n">diseasecmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></figure>
 
 
 
@@ -746,7 +794,7 @@ The full result table is written to a file named <a href="http://biocluster.ucr.
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Mon Feb 15 15:06:28 2016<br/> Site last generated: Feb 23, 2016 <br />
+<p>Page last updated:</span> Mon Feb 15 15:06:28 2016<br/> Site last generated: Feb 24, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

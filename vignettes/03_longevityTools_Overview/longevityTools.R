@@ -12,12 +12,20 @@ suppressPackageStartupMessages({
 
 ## ----install, eval=FALSE-------------------------------------------------
 ## source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script
-## biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+## biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub
 
 ## ----documentation, eval=FALSE-------------------------------------------
 ## library("longevityTools") # Loads the package
 ## library(help="longevityTools") # Lists package info
 ## vignette("longevityTools") # Opens vignette
+
+## ----github_usage, eval=FALSE, engine="sh"-------------------------------
+## git clone git@github.com:tgirke/longevityTools.git
+## cd longevityTools
+## git pull # Get updates from remote
+## git branch # Check whether you are in the master branch
+## ## do some work, commit/push changes to local and remote ##
+## git commit -am "some edits"; git push -u origin master
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()

@@ -77,16 +77,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -155,8 +145,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -258,16 +246,6 @@ window.location.href = uri;
 
 
 
-
-
-
-
-
-
-
-
-
-
         <ul id="mysidebar" class="nav">
 
             <span class="siteTagline"><img src="../common_images/logo.png"></span>
@@ -327,6 +305,76 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_software.html">Software</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityToolsOverview</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_1.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_2.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_3.html">3. Overview of object clases, methods and functions</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_4.html">4. Workflow vignettes</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_5.html">5. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_6.html">6. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_7.html">7. References</a></li>
                     
 
                     
@@ -690,7 +738,7 @@ $('#toc').on('click', 'a', function() {
 -->
 <p>GTEx V6 analysis results are based on genotypes imputed to 1000 Genomes (1KG) Phase I version 3. Thus, significant results could be LD-filtered using Phase I data. However, to make use of the larger sample size in later projects, 1KG Phase 3 genotypes will be used.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1">#genotypes
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1">#genotypes
 </span><span class="n">download.file</span><span class="p">(</span><span class="s2">"ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"</span><span class="p">,</span> <span class="s2">"./ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"</span><span class="p">)</span>
 <span class="n">untar</span><span class="p">(</span><span class="s2">"ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"</span><span class="p">)</span>
 
@@ -706,25 +754,25 @@ $('#toc').on('click', 'a', function() {
 
 <span class="n">samples1KG</span> <span class="o">&lt;-</span> <span class="n">filter_1KGsamples</span><span class="p">(</span><span class="s2">"EUR"</span><span class="p">,</span><span class="n">ped2</span><span class="p">,</span><span class="n">ped3</span><span class="p">)</span>
 <span class="n">samples1KG_ID</span> <span class="o">&lt;-</span> <span class="n">samples1KG</span><span class="p">[,</span><span class="s2">"Individual.ID"</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="n">F</span><span class="p">]</span>
-<span class="n">write.table</span><span class="p">(</span><span class="n">samples1KG_ID</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">"data/samples1KG.txt"</span><span class="p">,</span><span class="n">quote</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">row.names</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">col.names</span><span class="o">=</span><span class="n">F</span><span class="p">)</span></code></pre></div>
+<span class="n">write.table</span><span class="p">(</span><span class="n">samples1KG_ID</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">"data/samples1KG.txt"</span><span class="p">,</span><span class="n">quote</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">row.names</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">col.names</span><span class="o">=</span><span class="n">F</span><span class="p">)</span></code></pre></figure>
 
 <p>Create region file to use with bcftools for LD.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">regions</span><span class="o">&lt;-</span><span class="n">data.frame</span><span class="p">(</span><span class="n">chr</span><span class="o">=</span><span class="s2">"chr1"</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">pos_to</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="n">F</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">regions</span><span class="o">&lt;-</span><span class="n">data.frame</span><span class="p">(</span><span class="n">chr</span><span class="o">=</span><span class="s2">"chr1"</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">pos_to</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="n">F</span><span class="p">)</span>
 <span class="n">regions</span><span class="o">$</span><span class="n">chr</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="o">&lt;-</span><span class="n">result</span><span class="o">$</span><span class="n">snp_chrom</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
 <span class="n">regions</span><span class="o">$</span><span class="n">pos</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="o">&lt;-</span><span class="n">min</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">snp_pos</span><span class="p">)</span>
 <span class="n">regions</span><span class="o">$</span><span class="n">pos_to</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="o">&lt;-</span><span class="n">max</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">snp_pos</span><span class="p">)</span>
-<span class="n">write.table</span><span class="p">(</span><span class="n">regions</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">"data/regions.txt"</span><span class="p">,</span><span class="n">quote</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">row.names</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">col.names</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">)</span></code></pre></div>
+<span class="n">write.table</span><span class="p">(</span><span class="n">regions</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">"data/regions.txt"</span><span class="p">,</span><span class="n">quote</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">row.names</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">col.names</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">)</span></code></pre></figure>
 
 <p>Filter 1KG genotypes to only include EUR unrelated individuals and eQTL region.
 Using bcftools v.1.2, htslib v1.2.1
 Output compressed BCF2.</p>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">bcftools view -Ob -o results/1KGgeno.bgzf -S data/samples1KG.txt data/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz -R data/regions.txt</code></pre></div>
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">bcftools view -Ob -o results/1KGgeno.bgzf -S data/samples1KG.txt data/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz -R data/regions.txt</code></pre></figure>
 
 <p>Run PLINK clump command using default settings, but might want to change with different nominal significance thresholds.</p>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">plink -bcf results/1KGgeno.bgzf --clump data/eSNP.assoc</code></pre></div>
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">plink -bcf results/1KGgeno.bgzf --clump data/eSNP.assoc </code></pre></figure>
 
 <p>Output from PLINK clump command will be set of independent eSNPs in the region.</p>
 
@@ -746,7 +794,7 @@ Output compressed BCF2.</p>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Mon Feb 15 14:59:07 2016<br/> Site last generated: Feb 23, 2016 <br />
+<p>Page last updated:</span> Mon Feb 15 14:59:07 2016<br/> Site last generated: Feb 24, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>
