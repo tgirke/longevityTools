@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
 <li><a href="#github-workflow"><span class="toc-section-number">2.3</span> GitHub workflow</a></li>
+<li><a href="#building-and-checking-package"><span class="toc-section-number">2.4</span> Building and checking package</a></li>
 </ul></li>
 <li><a href="#overview-of-object-clases-methods-and-functions"><span class="toc-section-number">3</span> Overview of object clases, methods and functions</a></li>
 <li><a href="#workflow-vignettes"><span class="toc-section-number">4</span> Workflow vignettes</a></li>
@@ -137,6 +138,15 @@ git pull # Get updates from remote
 git branch # Check whether you are in the master branch 
 ## do some work, commit/push changes to local and remote ##
 git commit -am &quot;some edits&quot;; git push -u origin master</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="building-and-checking-package" class="section level2">
+<h2><span class="header-section-number">2.4</span> Building and checking package</h2>
+<pre class="sh"><code>R CMD build longevityTools # Run from parent directory of longevityTools directory
+R CMD check longevityTools_1.0.3.tar.gz
+install.package(&quot;longevityTools_1.0.3.tar.gz&quot;, repos=NULL, type=&quot;source&quot;)</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>

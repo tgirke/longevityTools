@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 keywords: 
-last_updated: Wed Feb 24 13:37:47 2016
+last_updated: Wed Feb 24 13:44:11 2016
 ---
 
 ## Installation
@@ -34,6 +34,16 @@ git pull # Get updates from remote
 git branch # Check whether you are in the master branch 
 ## do some work, commit/push changes to local and remote ##
 git commit -am "some edits"; git push -u origin master
+{% endhighlight %}
+
+
+## Building and checking package
+
+
+{% highlight sh %}
+R CMD build longevityTools # Run from parent directory of longevityTools directory
+R CMD check longevityTools_1.0.3.tar.gz
+install.package("longevityTools_1.0.3.tar.gz", repos=NULL, type="source")
 {% endhighlight %}
 
 

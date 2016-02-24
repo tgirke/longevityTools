@@ -84,13 +84,23 @@ vignette("longevityTools") # Opens vignette
 
 ## GitHub workflow
 
-```{sh documentation, eval=FALSE}
+```{sh github_usage, eval=FALSE}
 git clone git@github.com:tgirke/longevityTools.git
 cd longevityTools
 git pull # Get updates from remote
 git branch # Check whether you are in the master branch 
 ## do some work, commit/push changes to local and remote ##
 git commit -am "some edits"; git push -u origin master
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
+## Building and checking package
+
+```{sh package_build, eval=FALSE}
+R CMD build longevityTools # Run from parent directory of longevityTools directory
+R CMD check longevityTools_1.0.3.tar.gz
+install.package("longevityTools_1.0.3.tar.gz", repos=NULL, type="source")
 ```
 
 <div align="right">[Back to Table of Contents]()</div>

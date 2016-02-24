@@ -1,7 +1,7 @@
 ---
 title: Workflow vignettes
 keywords: 
-last_updated: Wed Feb 24 13:37:47 2016
+last_updated: Wed Feb 24 13:44:11 2016
 ---
 
 Currently, this package includes the following analysis workflow vignettes:
