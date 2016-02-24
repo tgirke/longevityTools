@@ -1,7 +1,7 @@
 Package: longevityTools
 Type: Package
 Title: Analysis tools for longevity research
-Version: 1.0.4
+Version: 1.0.5
 Date: 2016-02-24
 Author: Thomas Girke, Tyler Backman, Daniel Evans
 Maintainer: Thomas Girke <thomas.girke@ucr.edu>
