@@ -27,6 +27,11 @@ suppressPackageStartupMessages({
 ## ## do some work, commit/push changes to local and remote ##
 ## git commit -am "some edits"; git push -u origin master
 
+## ----package_build, eval=FALSE, engine="sh"------------------------------
+## R CMD build longevityTools # Run from parent directory of longevityTools directory
+## R CMD check longevityTools_1.0.3.tar.gz
+## install.package("longevityTools_1.0.3.tar.gz", repos=NULL, type="source")
+
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
 
