@@ -8,41 +8,6 @@ mydoc_classes:
   url: "../mydoc_current_projects.html"
   link: "<a href='../mydoc_current_projects.html'>Support</a>"
 
-mydoc_longevityTools_1:
-  title: "Introduction "
-  url: "../mydoc/mydoc_longevityTools_1.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_1.html'>Introduction </a>"
-
-mydoc_longevityTools_2:
-  title: "Getting Started"
-  url: "../mydoc/mydoc_longevityTools_2.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_2.html'>Getting Started</a>"
-
-mydoc_longevityTools_3:
-  title: "Overview of object clases, methods and functions"
-  url: "../mydoc/mydoc_longevityTools_3.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_3.html'>Overview of object clases, methods and functions</a>"
-
-mydoc_longevityTools_4:
-  title: "Workflow vignettes"
-  url: "../mydoc/mydoc_longevityTools_4.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_4.html'>Workflow vignettes</a>"
-
-mydoc_longevityTools_5:
-  title: "Funding"
-  url: "../mydoc/mydoc_longevityTools_5.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_5.html'>Funding</a>"
-
-mydoc_longevityTools_6:
-  title: "Version information"
-  url: "../mydoc/mydoc_longevityTools_6.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_6.html'>Version information</a>"
-
-mydoc_longevityTools_7:
-  title: "References"
-  url: "../mydoc/mydoc_longevityTools_7.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_7.html'>References</a>"
-
 mydoc_longevityTools_eQTL_01:
   title: "Introduction "
   url: "../mydoc/mydoc_longevityTools_eQTL_01.html"
@@ -152,4 +117,39 @@ mydoc_longevityTools_eDRUG_12:
   title: "References"
   url: "../mydoc/mydoc_longevityTools_eDRUG_12.html"
   link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_12.html'>References</a>"
+
+mydoc_longevityTools_1:
+  title: "Introduction "
+  url: "../mydoc/mydoc_longevityTools_1.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_1.html'>Introduction </a>"
+
+mydoc_longevityTools_2:
+  title: "Getting Started"
+  url: "../mydoc/mydoc_longevityTools_2.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_2.html'>Getting Started</a>"
+
+mydoc_longevityTools_3:
+  title: "Overview of object clases, methods and functions"
+  url: "../mydoc/mydoc_longevityTools_3.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_3.html'>Overview of object clases, methods and functions</a>"
+
+mydoc_longevityTools_4:
+  title: "Workflow vignettes"
+  url: "../mydoc/mydoc_longevityTools_4.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_4.html'>Workflow vignettes</a>"
+
+mydoc_longevityTools_5:
+  title: "Funding"
+  url: "../mydoc/mydoc_longevityTools_5.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_5.html'>Funding</a>"
+
+mydoc_longevityTools_6:
+  title: "Version information"
+  url: "../mydoc/mydoc_longevityTools_6.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_6.html'>Version information</a>"
+
+mydoc_longevityTools_7:
+  title: "References"
+  url: "../mydoc/mydoc_longevityTools_7.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_7.html'>References</a>"
 

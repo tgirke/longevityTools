@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title">longevityToolsOverview - Analysis Tools for Longevity Research</h1>
 <h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 15 February, 2016</em></h4>
+<h4 class="date"><em>Last update: 24 February, 2016</em></h4>
 </div>
-<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.3</span></h4>
+<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.0</span></h4>
 
 <h1>Contents</h1>
 <div id="TOC">
@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#getting-started"><span class="toc-section-number">2</span> Getting Started</a><ul>
 <li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
 <li><a href="#loading-package-and-documentation"><span class="toc-section-number">2.2</span> Loading package and documentation</a></li>
+<li><a href="#github-workflow"><span class="toc-section-number">2.3</span> GitHub workflow</a></li>
 </ul></li>
 <li><a href="#overview-of-object-clases-methods-and-functions"><span class="toc-section-number">3</span> Overview of object clases, methods and functions</a></li>
 <li><a href="#workflow-vignettes"><span class="toc-section-number">4</span> Workflow vignettes</a></li>
@@ -114,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <h2><span class="header-section-number">2.1</span> Installation</h2>
 <p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
 <pre class="r"><code>source(&quot;http://bioconductor.org/biocLite.R&quot;) # Sources the biocLite.R installation script 
-biocLite(&quot;tgirke/longevityTools&quot;, build_vignettes=FALSE) # Installs package from GitHub</code></pre>
+biocLite(&quot;tgirke/longevityTools&quot;, build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -124,6 +125,18 @@ biocLite(&quot;tgirke/longevityTools&quot;, build_vignettes=FALSE) # Installs pa
 <pre class="r"><code>library(&quot;longevityTools&quot;) # Loads the package
 library(help=&quot;longevityTools&quot;) # Lists package info
 vignette(&quot;longevityTools&quot;) # Opens vignette</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
+<div id="github-workflow" class="section level2">
+<h2><span class="header-section-number">2.3</span> GitHub workflow</h2>
+<pre class="sh"><code>git clone git@github.com:tgirke/longevityTools.git
+cd longevityTools
+git pull # Get updates from remote
+git branch # Check whether you are in the master branch 
+## do some work, commit/push changes to local and remote ##
+git commit -am &quot;some edits&quot;; git push -u origin master</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -184,18 +197,16 @@ vignette(&quot;longevityTools&quot;) # Opens vignette</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
-<div id="references" class="section level1 unnumbered">
+<div id="references" class="section level1 references unnumbered">
 <h1>References</h1>
-<div id="refs" class="references">
 <div id="ref-Lamb2006-uv">
-<p>Lamb, J, E D Crawford, D Peck, J W Modell, I C Blat, M J Wrobel, J Lerner, et al. 2006. “The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease.” <em>Science</em> 313 (5795): 1929–35. doi:<a href="https://doi.org/10.1126/science.1132939">10.1126/science.1132939</a>.</p>
+<p>Lamb, J, E D Crawford, D Peck, J W Modell, I C Blat, M J Wrobel, J Lerner, et al. 2006. “The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease.” <em>Science</em> 313 (5795): 1929–35. <a href="http://doi.org/10.1126/science.1132939">doi:10.1126/science.1132939</a>.</p>
 </div>
 <div id="ref-Peters2015-fc">
-<p>Peters, Marjolein J, Roby Joehanes, Luke C Pilling, Claudia Schurmann, Karen N Conneely, Joseph Powell, Eva Reinmaa, George L Sutphin,..., and Andrew D Johnson. 2015. “The Transcriptional Landscape of Age in Human Peripheral Blood.” <em>Nat. Commun.</em> 6 (22~oct): 8570. doi:<a href="https://doi.org/10.1038/ncomms9570">10.1038/ncomms9570</a>.</p>
+<p>Peters, Marjolein J, Roby Joehanes, Luke C Pilling, Claudia Schurmann, Karen N Conneely, Joseph Powell, Eva Reinmaa, George L Sutphin,..., and Andrew D Johnson. 2015. “The Transcriptional Landscape of Age in Human Peripheral Blood.” <em>Nat. Commun.</em> 6 (22~oct): 8570. <a href="http://doi.org/10.1038/ncomms9570">doi:10.1038/ncomms9570</a>.</p>
 </div>
 <div id="ref-Sood2015-pb">
-<p>Sood, Sanjana, Iain Gallagher, Katie Lunnon, Eric Rullman, Aoife Keohane, Hannah Crossland, Bethan Phillips, et al. 2015. “A Novel Multi-Tissue RNA Diagnostic of Healthy Ageing Relates to Cognitive Health Status.” <em>Genome Biology</em>. doi:<a href="https://doi.org/10.1186/s13059-015-0750-x">10.1186/s13059-015-0750-x</a>.</p>
-</div>
+<p>Sood, Sanjana, Iain Gallagher, Katie Lunnon, Eric Rullman, Aoife Keohane, Hannah Crossland, Bethan Phillips, et al. 2015. “A Novel Multi-Tissue RNA Diagnostic of Healthy Ageing Relates to Cognitive Health Status.” <em>Genome Biology</em>. <a href="http://doi.org/10.1186/s13059-015-0750-x">doi:10.1186/s13059-015-0750-x</a>.</p>
 </div>
 </div>
 

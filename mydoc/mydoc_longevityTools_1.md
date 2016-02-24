@@ -1,13 +1,13 @@
 ---
-title: longevityTools_Overview - Analysis Tools for Longevity Research 
+title: longevityToolsOverview - Analysis Tools for Longevity Research 
 keywords: 
-last_updated: Mon Feb 15 14:51:24 2016
+last_updated: Wed Feb 24 13:37:47 2016
 ---
 Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans
 
-Last update: 16 February, 2016 
+Last update: 24 February, 2016 
 
-The single-page R markdown vignette of this workflow is [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html).
+
 
 ## Introduction 
 This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 

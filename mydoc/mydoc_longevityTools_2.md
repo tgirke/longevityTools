@@ -1,7 +1,7 @@
 ---
 title: Getting Started
 keywords: 
-last_updated: Mon Feb 15 14:51:24 2016
+last_updated: Wed Feb 24 13:37:47 2016
 ---
 
 ## Installation
@@ -11,7 +11,7 @@ The R software for running [_`longevityTools`_](https://github.com/tgirke/longev
 
 {% highlight r %}
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
-biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub
 {% endhighlight %}
 
 ## Loading package and documentation
@@ -21,6 +21,19 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from
 library("longevityTools") # Loads the package
 library(help="longevityTools") # Lists package info
 vignette("longevityTools") # Opens vignette
+{% endhighlight %}
+
+
+## GitHub workflow
+
+
+{% highlight sh %}
+git clone git@github.com:tgirke/longevityTools.git
+cd longevityTools
+git pull # Get updates from remote
+git branch # Check whether you are in the master branch 
+## do some work, commit/push changes to local and remote ##
+git commit -am "some edits"; git push -u origin master
 {% endhighlight %}
 
 

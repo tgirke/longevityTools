@@ -1,8 +1,8 @@
 ---
 title: "longevityToolsOverview - Analysis Tools for Longevity Research" 
 author: "Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans"
-date: "Last update: 15 February, 2016" 
-package: "longevityTools 1.0.3"
+date: "Last update: 24 February, 2016" 
+package: "longevityTools 1.0.0"
 output:
   BiocStyle::html_document:
     toc: true
@@ -71,7 +71,7 @@ The R software for running [_`longevityTools`_](https://github.com/tgirke/longev
 
 ```r
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
-biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -82,6 +82,20 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from
 library("longevityTools") # Loads the package
 library(help="longevityTools") # Lists package info
 vignette("longevityTools") # Opens vignette
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
+## GitHub workflow
+
+
+```sh
+git clone git@github.com:tgirke/longevityTools.git
+cd longevityTools
+git pull # Get updates from remote
+git branch # Check whether you are in the master branch 
+## do some work, commit/push changes to local and remote ##
+git commit -am "some edits"; git push -u origin master
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
