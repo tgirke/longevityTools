@@ -6,6 +6,7 @@
 <p><img src="{{site.footer_image_location}}/></p>
                 </div>
             </div>
+<script src="{{ site.baseurl }}/MathJax/MathJax.js"></script>
 </footer>
 
 
