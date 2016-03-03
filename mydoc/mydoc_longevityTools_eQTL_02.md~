@@ -4,8 +4,6 @@ keywords:
 last_updated: Mon Feb 15 14:59:07 2016
 ---
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
 ## Construction of MR eSNP risk score
 
 File sood-2015-fileS1.xls reports the expression direction relative to age for each probe from the 150 probe set. See Top 150 worksheet. A gene marked as 'down' in column 'Ratio of Y:O muscle' means that the expression of the gene is lower in young vs old muscle. 
