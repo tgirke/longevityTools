@@ -77,6 +77,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
                 
                 
                 
@@ -145,6 +155,8 @@
                 <!-- special insertion -->
 
                
+                
+                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -237,6 +249,16 @@ window.location.href = uri;
 
 
         
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -669,18 +691,18 @@ $('#toc').on('click', 'a', function() {
 <h2 id="import-custom-functions">Import custom functions</h2>
 
 <p>Preliminary functions that are still under developement, or not fully tested and documented 
-can be imported with the <code class="highlighter-rouge">source</code> command from the <code class="highlighter-rouge">inst/extdata</code> directory of the package.</p>
+can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">fctpath</span> <span class="o">&lt;-</span> <span class="n">system.file</span><span class="p">(</span><span class="s2">"extdata"</span><span class="p">,</span> <span class="s2">"longevityTools_eQTL_Fct.R"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span>
-<span class="n">source</span><span class="p">(</span><span class="n">fctpath</span><span class="p">)</span></code></pre></figure>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">fctpath</span> <span class="o">&lt;-</span> <span class="n">system.file</span><span class="p">(</span><span class="s2">"extdata"</span><span class="p">,</span> <span class="s2">"longevityTools_eQTL_Fct.R"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span>
+<span class="n">source</span><span class="p">(</span><span class="n">fctpath</span><span class="p">)</span></code></pre></div>
 
 <h2 id="create-expected-directory-structure">Create expected directory structure</h2>
 
 <p>The following creates the directory structure expected by this workflow. Input data
-will be stored in the <code class="highlighter-rouge">data</code> directory and results will be written to the <code class="highlighter-rouge">results</code> directory.
+will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory.
 All paths are given relative to the present working directory of the user’s R session.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dir.create</span><span class="p">(</span><span class="s2">"data"</span><span class="p">);</span> <span class="n">dir.create</span><span class="p">(</span><span class="s2">"results"</span><span class="p">)</span> </code></pre></figure>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">dir.create</span><span class="p">(</span><span class="s2">"data"</span><span class="p">);</span> <span class="n">dir.create</span><span class="p">(</span><span class="s2">"results"</span><span class="p">)</span></code></pre></div>
 
 
 
@@ -698,7 +720,7 @@ All paths are given relative to the present working directory of the user’s R 
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Mon Feb 15 14:59:07 2016<br/> Site last generated: Feb 24, 2016 <br />
+<p>Page last updated:</span> Mon Feb 15 14:59:07 2016<br/> Site last generated: Mar 3, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>
