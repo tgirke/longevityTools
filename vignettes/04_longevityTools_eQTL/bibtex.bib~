@@ -1,0 +1,20 @@
+@ARTICLE{Lamb2006-uv,
+  title   = {The Connectivity Map: using gene-expression signatures to connect
+             small molecules, genes, and disease},
+  author  = "Lamb, J and Crawford, E D and Peck, D and Modell, J W and Blat, I
+             C and Wrobel, M J and Lerner, J and Brunet, J P and Subramanian, A
+             and Ross, K N and Reich, M and Hieronymus, H and Wei, G and
+             Armstrong, S A and Haggarty, S J and Clemons, P A and Wei, R and
+             Carr, S A and Lander, E S and Golub, T R",
+  journal = "Science",
+  volume  =  313,
+  number  =  5795,
+  pages   = "1929--1935",
+  month   =  sep,
+  year    =  2006,
+  url     = "http://dx.doi.org/10.1126/science.1132939",
+  issn    = "0036-8075",
+  pmid    = "17008526",
+  doi     = "10.1126/science.1132939"
+}
+

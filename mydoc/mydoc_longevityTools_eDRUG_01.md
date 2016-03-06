@@ -1,13 +1,11 @@
 ---
-title: longevityToolse_DRUG - Connecting Drug- and Age-related Gene Expression Signatures 
+title: longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures 
 keywords: 
-last_updated: Mon Feb 15 15:06:28 2016
+last_updated: Sun Mar  6 12:53:27 2016
 ---
 Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans
 
-Last update: 16 February, 2016 
-
-The single-page R markdown vignette of this workflow is [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html).
+Last update: 06 March, 2016 
 
 
 
@@ -22,9 +20,9 @@ genome-wide expression data from public microarray and RNA-Seq experiments. One
 of the main objective is the identification drug candidates modulating the
 expression of longevity genes and pathways. For this, we compare age-related
 expression signatures with those from drug treamtments. The age-related query
-signatures are from recent publications such as Peters et al. [-@Peters2015-fc]
-and Sood et al. [-@Sood2015-pb], while the drug-related reference signatures
-are from the Connectivity Map (CMAP) and LINCS projects [@Lamb2006-uv].
+signatures are from recent publications such as Peters et al. (2015)
+and Sood et al. (2015), while the drug-related reference signatures
+are from the Connectivity Map (CMAP) and LINCS projects (Lamb et al., 2006).
 
 
 

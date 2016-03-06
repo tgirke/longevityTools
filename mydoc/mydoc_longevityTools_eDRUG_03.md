@@ -1,7 +1,7 @@
 ---
 title: Setup of working environment
 keywords: 
-last_updated: Mon Feb 15 15:06:28 2016
+last_updated: Sun Mar  6 12:53:27 2016
 ---
 
 ## Import custom functions 

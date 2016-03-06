@@ -30,21 +30,21 @@ source(fctpath)
 ## getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 ## getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 
-## ----overview_cmap_drugs, eval=FALSE-------------------------------------
-## library(ggplot2); library(reshape2)
-## cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE)
-## df <- data.frame(table(cmap[, "cell2"]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])))
-## colnames(df) <- c("Cell_type", "Treatments", "Drugs")
-## df <- melt(df, id.vars=c("Cell_type"), variable.name = "Samples", value.name="Counts")
-## ggplot(df, aes(Cell_type, Counts, fill=Samples)) +
-##        geom_bar(position="dodge", stat="identity") +
-##        ggtitle("Number of treatments by cell types")
+## ----overview_cmap_drugs, eval=TRUE--------------------------------------
+library(ggplot2); library(reshape2) 
+cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
+df <- data.frame(table(cmap[, "cell2"]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])))
+colnames(df) <- c("Cell_type", "Treatments", "Drugs")
+df <- melt(df, id.vars=c("Cell_type"), variable.name = "Samples", value.name="Counts")
+ggplot(df, aes(Cell_type, Counts, fill=Samples)) + 
+       geom_bar(position="dodge", stat="identity") + 
+       ggtitle("Number of treatments by cell types")
 
-## ----overview_cmap_chip_type, eval=FALSE---------------------------------
-## df <- data.frame(table(cmap$array3)); colnames(df) <- c("Chip_type", "Counts")
-## ggplot(df, aes(Chip_type, Counts)) +
-##        geom_bar(position="dodge", stat="identity", fill="cornflowerblue") +
-##        ggtitle("Number of chip types")
+## ----overview_cmap_chip_type, eval=TRUE----------------------------------
+df <- data.frame(table(cmap$array3)); colnames(df) <- c("Chip_type", "Counts") 
+ggplot(df, aes(Chip_type, Counts)) + 
+       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
+       ggtitle("Number of chip types")
 
 ## ----get_cel_type, eval=FALSE--------------------------------------------
 ## celfiles <- list.files("./data/CEL", pattern=".CEL$")
@@ -100,48 +100,48 @@ source(fctpath)
 ## degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
 ## saveRDS(degMAgene, "./results/degMAgene.rds")
 
-## ----deg_distr, eval=FALSE, message=TRUE---------------------------------
-## degMAgene <- readRDS("./results/degMAgene.rds")
-## y <- as.numeric(colSums(degMAgene))
-## interval <- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
-## df <- data.frame(interval); colnames(df) <- c("Bins", "Counts")
-## ggplot(df, aes(Bins, Counts)) +
-##        geom_bar(position="dodge", stat="identity", fill="cornflowerblue") +
-##        ggtitle("DEG numbers by bins")
+## ----deg_distr, eval=TRUE, message=TRUE----------------------------------
+degMAgene <- readRDS("./results/degMAgene.rds")
+y <- as.numeric(colSums(degMAgene))
+interval <- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
+df <- data.frame(interval); colnames(df) <- c("Bins", "Counts")
+ggplot(df, aes(Bins, Counts)) + 
+       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
+       ggtitle("DEG numbers by bins")
 
-## ----deg_overlaps_PMID26490707, eval=FALSE-------------------------------
-## PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
-## myAnnot <- readRDS("./results/myAnnot.rds")
-## geneid <- as.character(PMID26490707$"NEW.Entrez.ID")
-## degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
-## degMAsub <- degMAgene[rownames(degMAgene) %in% geneid,]
-## degOL_PMID26490707 <- intersectStats(degMAgene, degMAsub)
-## write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA)
-## sum(degOL_PMID26490707[,1] > 0) # Drugs with any overlap
-## degOL_PMID26490707[1:20,]
+## ----deg_overlaps_PMID26490707, eval=TRUE--------------------------------
+PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
+myAnnot <- readRDS("./results/myAnnot.rds") 
+geneid <- as.character(PMID26490707$"NEW.Entrez.ID")
+degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+degMAsub <- degMAgene[rownames(degMAgene) %in% geneid,]
+degOL_PMID26490707 <- intersectStats(degMAgene, degMAsub)
+write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
+sum(degOL_PMID26490707[,1] > 0) # Drugs with any overlap
+degOL_PMID26490707[1:20,]
 
-## ----deg_overlaps_PMID26343147, eval=FALSE-------------------------------
-## PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
-## myAnnot <- readRDS("./results/myAnnot.rds")
-## affyid <- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ])
-## degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
-## degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-## degMAsub <- degMA[affyid,]
-## degOL_PMID26343147 <- intersectStats(degMAgene, degMAsub)
-## write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA)
-## sum(degOL_PMID26343147[,1] > 0) # Drugs with any overlap
-## degOL_PMID26343147[1:20,] # Top 20 scoring drugs
+## ----deg_overlaps_PMID26343147, eval=TRUE--------------------------------
+PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
+myAnnot <- readRDS("./results/myAnnot.rds") 
+affyid <- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
+degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
+degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
+degMAsub <- degMA[affyid,]
+degOL_PMID26343147 <- intersectStats(degMAgene, degMAsub)
+write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
+sum(degOL_PMID26343147[,1] > 0) # Drugs with any overlap
+degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 
-## ----deg_queries, eval=FALSE---------------------------------------------
-## genesymbols <- c("IGF1", "IGF1R")
-## geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
-## names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
-## degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
-## df <- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
-## for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
-## colnames(df) <- names(geneids)
-## df <- df[rowSums(df)>0,]
-## nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
+## ----deg_queries, eval=TRUE----------------------------------------------
+genesymbols <- c("IGF1", "IGF1R")
+geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
+names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
+degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+df <- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
+for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
+colnames(df) <- names(geneids)
+df <- df[rowSums(df)>0,]
+nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
 
 ## ----add_pvalue, eval=FALSE----------------------------------------------
 ## affyids2 <- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
@@ -156,36 +156,36 @@ source(fctpath)
 ## df <- cbind(df, pvalDF)
 ## write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA)
 
-## ----sort_pvalue, eval=FALSE---------------------------------------------
-## igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
-## igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
+## ----sort_pvalue, eval=TRUE----------------------------------------------
+igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
+igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
 
-## ----drug_enrichment, eval=FALSE, message=FALSE--------------------------
-## library(DrugVsDisease)
-## PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
-## data(drugRL)
-## PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(drugRL),]
-## testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])),
-##                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
-## drugcmap <- classifyprofile(data=testprofiles$ranklist, case="disease", signif.fdr=0.5, no.signif=20)
-## drugcmap2 <- classifyprofile(data=testprofiles$ranklist, case="disease",
-##                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic",
-##                             dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
-## write.table(drugcmap2, file="./results/drugcmap2.xls", quote=FALSE, sep="\t", col.names = NA)
-## drugcmap2[[1]][1:20,]
+## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
+library(DrugVsDisease)
+PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
+data(drugRL)
+PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(drugRL),]
+testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
+                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
+drugcmap <- classifyprofile(data=testprofiles$ranklist, case="disease", signif.fdr=0.5, no.signif=20)
+drugcmap2 <- classifyprofile(data=testprofiles$ranklist, case="disease", 
+                            pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
+                            dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
+write.table(drugcmap2, file="./results/drugcmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
+drugcmap2[[1]][1:20,]
 
-## ----disease_enrichment, eval=FALSE, message=TRUE------------------------
-## PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
-## data(diseaseRL)
-## PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
-## testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])),
-##                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
-## diseasecmap <- classifyprofile(data=testprofiles$ranklist, case="drug", signif.fdr=0.5, no.signif=20)
-## diseasecmap2 <- classifyprofile(data=testprofiles$ranklist, case="drug",
-##                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic",
-##                             dynamic.fdr=0.5, adj="BH", no.signif=100)
-## write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\t", col.names = NA)
-## diseasecmap2[[1]][1:20,]
+## ----disease_enrichment, eval=TRUE, message=TRUE-------------------------
+PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
+data(diseaseRL)
+PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
+testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
+                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
+diseasecmap <- classifyprofile(data=testprofiles$ranklist, case="drug", signif.fdr=0.5, no.signif=20)
+diseasecmap2 <- classifyprofile(data=testprofiles$ranklist, case="drug", 
+                            pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
+                            dynamic.fdr=0.5, adj="BH", no.signif=100)
+write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
+diseasecmap2[[1]][1:20,]
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()

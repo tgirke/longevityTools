@@ -237,7 +237,15 @@ entries:
       version: all
       output: web
 
-  - title: longevityTools_eDRUG
+    - title: Funding
+      url: /mydoc/mydoc_funding.html
+      audience: writers, designers
+      platform: all
+      product: all
+      version: all
+      output: web
+
+  - title: longevityToolseDRUG
     audience: writers, designers
     platform: all
     product: all
@@ -340,7 +348,7 @@ entries:
       product: all
       version: all
       output: web
-  
+
   - title: Funding
     audience: writers, designers
     platform: all
@@ -356,4 +364,5 @@ entries:
       product: all
       version: all
       output: web
+
 

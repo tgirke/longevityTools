@@ -1,7 +1,7 @@
 ---
 title: "longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures" 
 author: "Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans"
-date: "Last update: 15 February, 2016" 
+date: "Last update: 06 March, 2016" 
 package: "longevityTools 1.0.3"
 output:
   BiocStyle::html_document:

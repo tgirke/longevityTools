@@ -1,12 +1,12 @@
 ---
 title: Data downloads
 keywords: 
-last_updated: Mon Feb 15 15:06:28 2016
+last_updated: Sun Mar  6 12:53:27 2016
 ---
 
 ## Download data from Connectivity Map project site
 The drug-related expression data are downloaded from the CMAP web site
-[here](http://www.broadinstitute.org/cmap). The `getCmap` function downloads
+[here](http://www.broadinstitute.org/cmap).  The `getCmap` function downloads
 the CMAP rank matrix along with the compound annotations, and `getCmapCEL`
 downloads the corresponding 7,056 CEL files. The functions will write the
 downloaded files to the `data` and `data/CEL` directories within the present 
@@ -53,6 +53,8 @@ ggplot(df, aes(Cell_type, Counts, fill=Samples)) +
        ggtitle("Number of treatments by cell types")
 {% endhighlight %}
 
+![](longevityTools_eDRUG_files/overview_cmap_drugs-1.png)
+
 The number Affymetrix chip used in the experiments is plotted here for each of
 the three chip types used by CMAP:
 
@@ -63,5 +65,7 @@ ggplot(df, aes(Chip_type, Counts)) +
        geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
        ggtitle("Number of chip types")
 {% endhighlight %}
+
+![](longevityTools_eDRUG_files/overview_cmap_chip_type-1.png)
 
 

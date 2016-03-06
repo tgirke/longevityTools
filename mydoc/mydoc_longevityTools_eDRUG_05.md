@@ -1,7 +1,7 @@
 ---
 title: Pre-processing of CEL files
 keywords: 
-last_updated: Mon Feb 15 15:06:28 2016
+last_updated: Sun Mar  6 12:53:27 2016
 ---
 
 ## Determine chip type from CEL files 

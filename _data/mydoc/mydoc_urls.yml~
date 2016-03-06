@@ -8,41 +8,6 @@ mydoc_classes:
   url: "../mydoc_current_projects.html"
   link: "<a href='../mydoc_current_projects.html'>Support</a>"
 
-mydoc_longevityTools_1:
-  title: "Introduction "
-  url: "../mydoc/mydoc_longevityTools_1.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_1.html'>Introduction </a>"
-
-mydoc_longevityTools_2:
-  title: "Getting Started"
-  url: "../mydoc/mydoc_longevityTools_2.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_2.html'>Getting Started</a>"
-
-mydoc_longevityTools_3:
-  title: "Overview of object clases, methods and functions"
-  url: "../mydoc/mydoc_longevityTools_3.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_3.html'>Overview of object clases, methods and functions</a>"
-
-mydoc_longevityTools_4:
-  title: "Workflow vignettes"
-  url: "../mydoc/mydoc_longevityTools_4.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_4.html'>Workflow vignettes</a>"
-
-mydoc_longevityTools_5:
-  title: "Funding"
-  url: "../mydoc/mydoc_longevityTools_5.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_5.html'>Funding</a>"
-
-mydoc_longevityTools_6:
-  title: "Version information"
-  url: "../mydoc/mydoc_longevityTools_6.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_6.html'>Version information</a>"
-
-mydoc_longevityTools_7:
-  title: "References"
-  url: "../mydoc/mydoc_longevityTools_7.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_7.html'>References</a>"
-
 mydoc_longevityTools_eQTL_01:
   title: "Introduction "
   url: "../mydoc/mydoc_longevityTools_eQTL_01.html"
@@ -93,63 +58,39 @@ mydoc_longevityTools_eQTL_10:
   url: "../mydoc/mydoc_longevityTools_eQTL_10.html"
   link: "<a href='../mydoc/mydoc_longevityTools_eQTL_10.html'>References</a>"
 
-mydoc_longevityTools_eDRUG_01:
+mydoc_longevityTools_1:
   title: "Introduction "
-  url: "../mydoc/mydoc_longevityTools_eDRUG_01.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_01.html'>Introduction </a>"
+  url: "../mydoc/mydoc_longevityTools_1.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_1.html'>Introduction </a>"
 
-mydoc_longevityTools_eDRUG_02:
+mydoc_longevityTools_2:
   title: "Getting Started"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_02.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_02.html'>Getting Started</a>"
+  url: "../mydoc/mydoc_longevityTools_2.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_2.html'>Getting Started</a>"
 
-mydoc_longevityTools_eDRUG_03:
-  title: "Setup of working environment"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_03.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_03.html'>Setup of working environment</a>"
+mydoc_longevityTools_3:
+  title: "Overview of object clases, methods and functions"
+  url: "../mydoc/mydoc_longevityTools_3.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_3.html'>Overview of object clases, methods and functions</a>"
 
-mydoc_longevityTools_eDRUG_04:
-  title: "Data downloads"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_04.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_04.html'>Data downloads</a>"
+mydoc_longevityTools_4:
+  title: "Workflow vignettes"
+  url: "../mydoc/mydoc_longevityTools_4.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_4.html'>Workflow vignettes</a>"
 
-mydoc_longevityTools_eDRUG_05:
-  title: "Pre-processing of CEL files"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_05.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_05.html'>Pre-processing of CEL files</a>"
-
-mydoc_longevityTools_eDRUG_06:
-  title: "DEG analysis with `limma`"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_06.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_06.html'>DEG analysis with `limma`</a>"
-
-mydoc_longevityTools_eDRUG_07:
-  title: "Connectivity maps enrichment analysis"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_07.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_07.html'>Connectivity maps enrichment analysis</a>"
-
-mydoc_longevityTools_eDRUG_08:
-  title: "Age-drug network analysis"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_08.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_08.html'>Age-drug network analysis</a>"
-
-mydoc_longevityTools_eDRUG_09:
-  title: "Age-disease network analysis"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_09.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_09.html'>Age-disease network analysis</a>"
-
-mydoc_longevityTools_eDRUG_10:
+mydoc_longevityTools_5:
   title: "Funding"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_10.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_10.html'>Funding</a>"
+  url: "../mydoc/mydoc_longevityTools_5.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_5.html'>Funding</a>"
 
-mydoc_longevityTools_eDRUG_11:
+mydoc_longevityTools_6:
   title: "Version information"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_11.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_11.html'>Version information</a>"
+  url: "../mydoc/mydoc_longevityTools_6.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_6.html'>Version information</a>"
 
-mydoc_longevityTools_eDRUG_12:
+mydoc_longevityTools_7:
   title: "References"
-  url: "../mydoc/mydoc_longevityTools_eDRUG_12.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_12.html'>References</a>"
+  url: "../mydoc/mydoc_longevityTools_7.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_7.html'>References</a>"
+
 
