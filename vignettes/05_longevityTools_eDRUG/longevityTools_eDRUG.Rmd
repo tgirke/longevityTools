@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures  | Manuals</title>
+<title>longevityToolseDRUG: Connecting Drug- and Age-related Gene Expression Signatures  | Manuals</title>
 <link rel="stylesheet" type="text/css" href="../css/syntax.css">
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 <!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">-->
@@ -163,7 +163,7 @@
 <script>
 function SendLinkByMail(href) {
 var subject= "Manuals feedback";
-var body = "I have some feedback about the longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures page: ";
+var body = "I have some feedback about the longevityToolseDRUG: Connecting Drug- and Age-related Gene Expression Signatures page: ";
 body += window.location.href;
 body += "";
 var uri = "mailto:?subject=";
@@ -190,7 +190,7 @@ window.location.href = uri;
                             searchInput: document.getElementById('search-input'),
                             resultsContainer: document.getElementById('results-container'),
                             dataSource: '../search.json',
-                            searchResultTemplate: '<li><a href="{url}" title="longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures">{title}</a></li>',
+                            searchResultTemplate: '<li><a href="{url}" title="longevityToolseDRUG: Connecting Drug- and Age-related Gene Expression Signatures">{title}</a></li>',
                         noResultsText: 'No results found.',
                                 limit: 10,
                                 fuzzy: true,
@@ -502,11 +502,20 @@ window.location.href = uri;
 
                     
                     
+                    
+                    
+                    <li><a href="../mydoc/mydoc_funding.html">Funding</a></li>
+                    
+
+                    
+
+                    
+                    
                 </ul>
                 
                 
             
-            <li><a href="#">longevityTools_eDRUG</a>
+            <li><a href="#">longevityToolseDRUG</a>
                 <ul>
                     
                     
@@ -655,7 +664,7 @@ window.location.href = uri;
             <div class="col-md-9">
                 
                 <div class="post-header">
-   <h1 class="post-title-main">longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures</h1>
+   <h1 class="post-title-main">longevityToolseDRUG: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 </div>
 
 <div class="post-content">
@@ -700,7 +709,7 @@ $('#toc').on('click', 'a', function() {
 
 <!---
 - Compile from command-line
-echo "rmarkdown::render('longevityTools_eDRUG.Rmd', clean=F)" | R -slave; R CMD Stangle longevityTools_eDRUG.Rmd; Rscript ../md2jekyll.R longevityTools_eDRUG.knit.md 5
+echo "rmarkdown::render('longevityTools_eDRUG.Rmd', clean=F)" | R -slave; R CMD Stangle longevityTools_eDRUG.Rmd
 
 - Commit to github
 git commit -am "some edits"; git push -u origin master
@@ -791,7 +800,7 @@ dir.create("data"); dir.create("data/CEL"); dir.create("results")
 
 ## Download data from Connectivity Map project site
 The drug-related expression data are downloaded from the CMAP web site
-[here](http://www.broadinstitute.org/cmap). The `getCmap` function downloads
+[here](http://www.broadinstitute.org/cmap).  The `getCmap` function downloads
 the CMAP rank matrix along with the compound annotations, and `getCmapCEL`
 downloads the corresponding 7,056 CEL files. The functions will write the
 downloaded files to the `data` and `data/CEL` directories within the present 
@@ -826,7 +835,7 @@ The panel of cell lines used by CMAP includes
 Each cell type was subjected to the following number of total treatments and number
 of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.
 
-```{r overview_cmap_drugs, eval=FALSE}
+```{r overview_cmap_drugs, eval=TRUE}
 library(ggplot2); library(reshape2) 
 cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
 df <- data.frame(table(cmap[, "cell2"]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])))
@@ -840,7 +849,7 @@ ggplot(df, aes(Cell_type, Counts, fill=Samples)) +
 The number Affymetrix chip used in the experiments is plotted here for each of
 the three chip types used by CMAP:
 
-```{r overview_cmap_chip_type, eval=FALSE}
+```{r overview_cmap_chip_type, eval=TRUE}
 df <- data.frame(table(cmap$array3)); colnames(df) <- c("Chip_type", "Counts") 
 ggplot(df, aes(Chip_type, Counts)) + 
        geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
@@ -999,7 +1008,7 @@ saveRDS(degMAgene, "./results/degMAgene.rds")
 
 ## Number of DEGs per drug treatment
 
-```{r deg_distr, eval=FALSE, message=TRUE}
+```{r deg_distr, eval=TRUE, message=TRUE}
 degMAgene <- readRDS("./results/degMAgene.rds")
 y <- as.numeric(colSums(degMAgene))
 interval <- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
@@ -1023,7 +1032,7 @@ results for the 20 top scoring drugs are given below and the full data set is
 written to a file named
 [`degOL_PMID26490707.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls).
 
-```{r deg_overlaps_PMID26490707, eval=FALSE}
+```{r deg_overlaps_PMID26490707, eval=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 geneid <- as.character(PMID26490707$"NEW.Entrez.ID")
@@ -1047,7 +1056,7 @@ hypergeometric distribution expressing how likely it is to observe the observed 
 sizes just by chance. The results for the 20 top scoring drugs are given below and the full
 data set is written to a file named [`degOL_PMID26343147.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls).
 
-```{r deg_overlaps_PMID26343147, eval=FALSE}
+```{r deg_overlaps_PMID26343147, eval=TRUE}
 PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 affyid <- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
@@ -1066,7 +1075,7 @@ degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.
 The final result is written to a file named [`deg_IGF1.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls).
 
-```{r deg_queries, eval=FALSE}
+```{r deg_queries, eval=TRUE}
 genesymbols <- c("IGF1", "IGF1R")
 geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
 names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
@@ -1095,7 +1104,7 @@ write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names 
 ```
 
 Now the final `data.frame` can be sorted by increasing mean FDR values. 
-```{r sort_pvalue, eval=FALSE}
+```{r sort_pvalue, eval=TRUE}
 igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
 igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
 ```
@@ -1115,7 +1124,7 @@ The following uses the 1,497 age-related gene expression signatures from Peters 
 ES Distance and the top scoring 20 drugs are given below. The full result table is  
 written to a file named [`drugcmap2.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls).
 
-```{r drug_enrichment, eval=FALSE, message=FALSE}
+```{r drug_enrichment, eval=TRUE, message=FALSE}
 library(DrugVsDisease)
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(drugRL)
@@ -1138,7 +1147,7 @@ The same query is performed against a reference set of disease expression signat
 The results are sorted by the ES Distance and the top scoring 20 drugs are given below. 
 The full result table is written to a file named [`diseasecmap2.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls).
 
-```{r disease_enrichment, eval=FALSE, message=TRUE}
+```{r disease_enrichment, eval=TRUE, message=TRUE}
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(diseaseRL)
 PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
@@ -1195,7 +1204,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: Mar 3, 2016 <br />
+ Site last generated: Mar 6, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

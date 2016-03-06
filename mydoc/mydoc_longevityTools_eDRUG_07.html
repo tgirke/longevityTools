@@ -502,11 +502,20 @@ window.location.href = uri;
 
                     
                     
+                    
+                    
+                    <li><a href="../mydoc/mydoc_funding.html">Funding</a></li>
+                    
+
+                    
+
+                    
+                    
                 </ul>
                 
                 
             
-            <li><a href="#">longevityTools_eDRUG</a>
+            <li><a href="#">longevityToolseDRUG</a>
                 <ul>
                     
                     
@@ -690,14 +699,14 @@ $('#toc').on('click', 'a', function() {
     <a target="_blank" href="https://github.com/tgirke/manuals/tree/master/mydoc/" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
     
 -->
-<p>The connectivity maps approach is a rank-based enrichment method utilizing the KS test [@Lamb2006-uv]. 
+<p>The connectivity maps approach is a rank-based enrichment method utilizing the KS test (Lamb et al., 2006). 
 It measures the similarities of expression signatures based on the enrichment of up- and 
 down-regulated genes at the top and bottom of sorted (ranked) gene lists.</p>
 
 <h2 id="query-drug-signatures">Query drug signatures</h2>
 
 <p>The following uses the 1,497 age-related gene expression signatures from Peters et al. 
-[-@Peters2015-fc] as a query against the CMAP signatures. The results are sorted by the
+(2015) as a query against the CMAP signatures. The results are sorted by the
 ES Distance and the top scoring 20 drugs are given below. The full result table is<br />
 written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
 
@@ -714,6 +723,28 @@ written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/long
 <span class="n">write.table</span><span class="p">(</span><span class="n">drugcmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/drugcmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
 <span class="n">drugcmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
 
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">##                              Drug ES Distance Cluster RPS
+## mebendazole           mebendazole   0.8322685      62   1
+## cloperastine         cloperastine   0.8457056      98   1
+## fenoterol               fenoterol   0.8467810      62   1
+## (-)-isoprenaline (-)-isoprenaline   0.8476601      41   1
+## (+)-chelidonine   (+)-chelidonine   0.8510637       1   1
+## etacrynic_acid     etacrynic_acid   0.8514834     103   1
+## oxedrine                 oxedrine   0.8561747      62   1
+## suloctidil             suloctidil   0.8586264      93   1
+## noscapine               noscapine   0.8595356      70   1
+## trifluridine         trifluridine   0.8621584       4   1
+## trifluoperazine   trifluoperazine   0.8624640      98   1
+## etilefrine             etilefrine   0.8644660      40   1
+## remoxipride           remoxipride   0.8655620      76   1
+## etoposide               etoposide   0.8690638       4   1
+## ethoxyquin             ethoxyquin   0.8695707      27   1
+## albendazole           albendazole   0.8699840      93   1
+## scoulerine             scoulerine   0.8705162       1   1
+## bromopride             bromopride   0.8709264      91   1
+## milrinone               milrinone   0.8712986      83   1
+## terfenadine           terfenadine   0.8718878      93   1</code></pre></div>
+
 <h2 id="query-disease-signatures">Query disease signatures</h2>
 
 <p>The same query is performed against a reference set of disease expression signatures.
@@ -725,12 +756,37 @@ The full result table is written to a file named <a href="http://biocluster.ucr.
 <span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">PMID26490707</span><span class="p">[</span><span class="n">PMID26490707</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">]</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">diseaseRL</span><span class="p">),]</span>
 <span class="n">testprofiles</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">(</span><span class="n">ranklist</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">Zscore</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])),</span> 
                      <span class="n">pvalues</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">P</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])))</span>
-<span class="n">diseasecmap</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
-<span class="n">diseasecmap2</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> 
+<span class="n">diseasecmap</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">20</span><span class="p">)</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">## Number of Significant results greater than 20 Using top 20 hits - consider using average linkage instead</code></pre></div>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">diseasecmap2</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> 
                             <span class="n">pvalues</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">cytoout</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s2">"dynamic"</span><span class="p">,</span> 
                             <span class="n">dynamic.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">adj</span><span class="o">=</span><span class="s2">"BH"</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">100</span><span class="p">)</span>
 <span class="n">write.table</span><span class="p">(</span><span class="n">diseasecmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/diseasecmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
 <span class="n">diseasecmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">##                                                     Disease ES Distance Cluster RPS
+## sarcoidosis                                     sarcoidosis   0.3630021       2   1
+## sepsis                                               sepsis   0.4779160       5  -1
+## aseptic-necrosis                           aseptic-necrosis   0.5624186       2   1
+## inflammatory-bowel-disease       inflammatory-bowel-disease   0.5738416       2   1
+## myelodysplastic-syndrome           myelodysplastic-syndrome   0.6118810       5  -1
+## acute-nonlymphocytic-leukemia acute-nonlymphocytic-leukemia   0.6428131       2   1
+## colorectal-cancer                         colorectal-cancer   0.6824003       3  -1
+## small-cell-lung-cancer               small-cell-lung-cancer   0.7086938       4  -1
+## periodontitis                                 periodontitis   0.7562997       1   1
+## soft-tissue-sarcoma                     soft-tissue-sarcoma   0.7610299       4  -1
+## schizophrenia                                 schizophrenia   0.7628188       6   1
+## multiple-sclerosis                       multiple-sclerosis   0.7704229       5  -1
+## juvenile-rheumatoid-arthritis juvenile-rheumatoid-arthritis   0.7825401       2   1
+## interstitial-cystitis                 interstitial-cystitis   0.7862240       3   1
+## osteoporosis                                   osteoporosis   0.7889821       5  -1
+## ulcerative-colitis                       ulcerative-colitis   0.7930566       3   1
+## parkinson-s-disease                     parkinson-s-disease   0.7952601       6   1
+## mania                                                 mania   0.8068711       6   1
+## prostate-cancer                             prostate-cancer   0.8263851       4  -1
+## bladder-cancer                               bladder-cancer   0.8314094       4  -1</code></pre></div>
 
 
 
@@ -748,7 +804,7 @@ The full result table is written to a file named <a href="http://biocluster.ucr.
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Mon Feb 15 15:06:28 2016<br/> Site last generated: Mar 3, 2016 <br />
+<p>Page last updated:</span> Sun Mar  6 12:53:27 2016<br/> Site last generated: Mar 6, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

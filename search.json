@@ -77,6 +77,17 @@
 "title": "longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures",
 "tags": "",
 "keywords": "",
+"url": "../vignettes/05_longevityTools_eDRUG/back/longevityTools_eDRUG.Rmd",
+"summary": ""
+},
+
+
+
+
+{
+"title": "longevityToolseDRUG: Connecting Drug- and Age-related Gene Expression Signatures",
+"tags": "",
+"keywords": "",
 "url": "../vignettes/05_longevityTools_eDRUG/longevityTools_eDRUG.Rmd",
 "summary": ""
 },
@@ -316,7 +327,7 @@
 
 
 {
-"title": "longevityToolse_DRUG - Connecting Drug- and Age-related Gene Expression Signatures",
+"title": "longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures",
 "tags": "",
 "keywords": "",
 "url": "../mydoc/mydoc_longevityTools_eDRUG_01.html",

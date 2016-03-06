@@ -502,11 +502,20 @@ window.location.href = uri;
 
                     
                     
+                    
+                    
+                    <li><a href="../mydoc/mydoc_funding.html">Funding</a></li>
+                    
+
+                    
+
+                    
+                    
                 </ul>
                 
                 
             
-            <li><a href="#">longevityTools_eDRUG</a>
+            <li><a href="#">longevityToolseDRUG</a>
                 <ul>
                     
                     
@@ -765,9 +774,11 @@ support from at least 2 probe sets.</p>
        <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">"dodge"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"cornflowerblue"</span><span class="p">)</span> <span class="o">+</span> 
        <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"DEG numbers by bins"</span><span class="p">)</span></code></pre></div>
 
-<h2 id="identify-deg-overlaps-with-peters-et-al--peters2015-fc">Identify DEG overlaps with Peters et al. [-@Peters2015-fc]</h2>
+<p><img src="longevityTools_eDRUG_files/deg_distr-1.png" alt="" /></p>
 
-<p>Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression
+<h2 id="identify-deg-overlaps-with-peters-et-al-2015">Identify DEG overlaps with Peters et al. (2015)</h2>
+
+<p>Peters et al. (2015) reported 1,497 age-related gene expression
 signatures.  The <code>intersectStats</code> function computes their intersects with each
 of the 3,318 drug-responsive DEG sets from CMAP. The result includes the
 Jaccard index as a simple similarity metric for gene sets as well as the raw
@@ -784,12 +795,58 @@ written to a file named
 </span><span class="n">degMAsub</span> <span class="o">&lt;-</span> <span class="n">degMAgene</span><span class="p">[</span><span class="n">rownames</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">)</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">geneid</span><span class="p">,]</span>
 <span class="n">degOL_PMID26490707</span> <span class="o">&lt;-</span> <span class="n">intersectStats</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">,</span> <span class="n">degMAsub</span><span class="p">)</span>
 <span class="n">write.table</span><span class="p">(</span><span class="n">degOL_PMID26490707</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/degOL_PMID26490707.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
-<span class="n">sum</span><span class="p">(</span><span class="n">degOL_PMID26490707</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="c1"># Drugs with any overlap
-</span><span class="n">degOL_PMID26490707</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
+<span class="n">sum</span><span class="p">(</span><span class="n">degOL_PMID26490707</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="err">#</span> <span class="n">Drugs</span> <span class="n">with</span> <span class="n">any</span> <span class="n">overlap</span></code></pre></div>
 
-<h2 id="identify-deg-overlaps-with-sood-et-al--sood2015-pb">Identify DEG overlaps with Sood et al. [-@Sood2015-pb]</h2>
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">## [1] 880</code></pre></div>
 
-<p>Sood et al. [-@Sood2015-pb] reported 150 age-related gene expression signatures. 
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">degOL_PMID26490707</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">##                                Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
+## anisomycin_HL60                   0.11933973          1192     3826       535 2.344725e-27
+## alprostadil_HL60                  0.11186805          1192     1909       312 1.394157e-24
+## (-)-isoprenaline_HL60             0.10475352          1192     1318       238 3.108024e-24
+## mebendazole_HL60                  0.11033210          1192     1817       299 6.281549e-24
+## tretinoin_HL60                    0.09301104          1192      888       177 1.302556e-22
+## pergolide_HL60                    0.11107955          1192     2719       391 2.203268e-20
+## bromocriptine_HL60                0.08947368          1192      878       170 2.543364e-20
+## dihydroergotamine_HL60            0.09692237          1192     1196       211 4.395981e-20
+## lycorine_HL60                     0.11291316          1192     4229       550 4.475942e-20
+## tanespimycin_HL60                 0.11140654          1192     2988       419 5.549520e-20
+## co-dergocrine mesilate_HL60       0.10228137          1192     1707       269 1.428828e-18
+## trichostatin A_HL60               0.11127691          1192     4021       522 1.895076e-18
+## Prestwick-983_HL60                0.09537572          1192     1461       231 5.536597e-16
+## methylergometrine_HL60            0.07056695          1192      583       117 2.678052e-15
+## clonidine_HL60                    0.06911315          1192      556       113 3.297109e-15
+## isotretinoin_HL60                 0.07020649          1192      622       119 5.581359e-14
+## puromycin_HL60                    0.09287430          1192     1538       232 1.067668e-13
+## monorden_HL60                     0.04433140          1192      245        61 1.493799e-12
+## podophyllotoxin_HL60              0.08635961          1192     1261       195 1.573915e-12
+## 15-delta prostaglandin J2_HL60    0.09484610          1192     1867       265 1.727186e-12
+##                                    adj_Pval
+## anisomycin_HL60                8.154954e-24
+## alprostadil_HL60               4.848876e-21
+## (-)-isoprenaline_HL60          1.080971e-20
+## mebendazole_HL60               2.184723e-20
+## tretinoin_HL60                 4.530291e-19
+## pergolide_HL60                 7.662964e-17
+## bromocriptine_HL60             8.845821e-17
+## dihydroergotamine_HL60         1.528922e-16
+## lycorine_HL60                  1.556732e-16
+## tanespimycin_HL60              1.930123e-16
+## co-dergocrine mesilate_HL60    4.969462e-15
+## trichostatin A_HL60            6.591075e-15
+## Prestwick-983_HL60             1.925628e-12
+## methylergometrine_HL60         9.314264e-12
+## clonidine_HL60                 1.146735e-11
+## isotretinoin_HL60              1.941197e-10
+## puromycin_HL60                 3.713349e-10
+## monorden_HL60                  5.195432e-09
+## podophyllotoxin_HL60           5.474077e-09
+## 15-delta prostaglandin J2_HL60 6.007155e-09</code></pre></div>
+
+<h2 id="identify-deg-overlaps-with-sood-et-al-2015">Identify DEG overlaps with Sood et al. (2015)</h2>
+
+<p>Sood et al. (2015) reported 150 age-related gene expression signatures. 
 The <code>intersectStats</code> function computes their intersects with each of the 3,318 
 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple 
 similarity metric for gene sets as well as the raw and adjusted p-values based on the 
@@ -805,8 +862,33 @@ data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/p
 </span><span class="n">degMAsub</span> <span class="o">&lt;-</span> <span class="n">degMA</span><span class="p">[</span><span class="n">affyid</span><span class="p">,]</span>
 <span class="n">degOL_PMID26343147</span> <span class="o">&lt;-</span> <span class="n">intersectStats</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">,</span> <span class="n">degMAsub</span><span class="p">)</span>
 <span class="n">write.table</span><span class="p">(</span><span class="n">degOL_PMID26343147</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/degOL_PMID26343147.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
-<span class="n">sum</span><span class="p">(</span><span class="n">degOL_PMID26343147</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="c1"># Drugs with any overlap
-</span><span class="n">degOL_PMID26343147</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span> <span class="err">#</span> <span class="n">Top</span> <span class="m">20</span> <span class="n">scoring</span> <span class="n">drugs</span></code></pre></div>
+<span class="n">sum</span><span class="p">(</span><span class="n">degOL_PMID26343147</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="err">#</span> <span class="n">Drugs</span> <span class="n">with</span> <span class="n">any</span> <span class="n">overlap</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">## [1] 407</code></pre></div>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">degOL_PMID26343147</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span> <span class="err">#</span> <span class="n">Top</span> <span class="m">20</span> <span class="n">scoring</span> <span class="n">drugs</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">##                               Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
+## idoxuridine_MCF7                0.009478673           211        2         2 0.0002862571 0.9956022
+## cinchonidine_MCF7               0.009389671           211        4         2 0.0016793094 1.0000000
+## papaverine_MCF7                 0.009090909           211       11         2 0.0142342625 1.0000000
+## trichlormethiazide_HL60         0.004739336           211        1         1 0.0169586883 1.0000000
+## beclometasone_HL60              0.016129032           211      104         5 0.0318882201 1.0000000
+## papaverine_HL60                 0.018648019           211      226         8 0.0388976900 1.0000000
+## nimodipine_HL60                 0.008695652           211       21         2 0.0486620004 1.0000000
+## midodrine_PC3                   0.004694836           211        3         1 0.0500221030 1.0000000
+## syrosingopine_HL60              0.015243902           211      122         5 0.0565837628 1.0000000
+## Prestwick-920_PC3               0.004672897           211        4         1 0.0661363675 1.0000000
+## sulfamethizole_MCF7             0.004672897           211        4         1 0.0661363675 1.0000000
+## zardaverine_HL60                0.018547141           211      448        12 0.0794990573 1.0000000
+## pyrvinium_PC3                   0.013201320           211       96         4 0.0803067056 1.0000000
+## etomidate_MCF7                  0.004651163           211        5         1 0.0819785629 1.0000000
+## nimesulide_MCF7                 0.004651163           211        5         1 0.0819785629 1.0000000
+## nordihydroguaiaretic acid_PC3   0.004651163           211        5         1 0.0819785629 1.0000000
+## procaine_PC3                    0.004651163           211        5         1 0.0819785629 1.0000000
+## remoxipride_MCF7                0.004651163           211        5         1 0.0819785629 1.0000000
+## tobramycin_HL60                 0.004651163           211        5         1 0.0819785629 1.0000000
+## triamcinolone_PC3               0.004651163           211        5         1 0.0819785629 1.0000000</code></pre></div>
 
 <h2 id="drugs-affecting-known-longevity-genes">Drugs affecting known longevity genes</h2>
 
@@ -822,6 +904,8 @@ The final result is written to a file named <a href="http://biocluster.ucr.edu/~
 <span class="n">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">names</span><span class="p">(</span><span class="n">geneids</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">&lt;-</span> <span class="n">df</span><span class="p">[</span><span class="n">rowSums</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">&gt;</span><span class="m">0</span><span class="p">,]</span>
 <span class="n">nrow</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="err">#</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">drugs</span> <span class="n">affecting</span> <span class="n">at</span> <span class="n">least</span> <span class="n">one</span> <span class="n">of</span><span class="o">:</span> <span class="n">IGF1</span> <span class="n">or</span> <span class="n">IGF1R</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">## [1] 89</code></pre></div>
 
 <p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) 
 and drug treatments.</p>
@@ -843,6 +927,28 @@ and drug treatments.</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">igfDF</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./results/deg_IGF1.xls"</span><span class="p">,</span> <span class="n">row.names</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
 <span class="n">igfDF</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">rowMeans</span><span class="p">(</span><span class="n">igfDF</span><span class="p">[,</span><span class="m">3</span><span class="o">:</span><span class="m">4</span><span class="p">])),][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
 
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">##                        IGF1R IGF1    IGF1R_FDR    IGF1_FDR
+## clindamycin_HL60           1    1 6.092100e-03 0.019806975
+## chlorzoxazone_HL60         1    1 1.504907e-02 0.012048534
+## trichostatin A_MCF7        1    1 7.034883e-70 0.064635337
+## lobeline_HL60              1    1 5.806638e-02 0.009620433
+## sirolimus_PC3              1    1 1.275160e-03 0.069531082
+## danazol_HL60               1    1 1.841954e-02 0.062206588
+## metformin_MCF7             1    1 3.828423e-02 0.057888354
+## camptothecin_MCF7          1    0 1.197152e-05 0.102505584
+## anisomycin_HL60            1    1 5.853122e-02 0.044227001
+## cicloheximide_HL60         1    1 2.332200e-02 0.080773276
+## chlortetracycline_HL60     1    0 5.247463e-03 0.123157328
+## meclofenoxate_HL60         0    1 1.032619e-01 0.027735684
+## dirithromycin_HL60         1    1 6.354512e-02 0.068276953
+## lanatoside C_HL60          1    1 9.528609e-02 0.045103831
+## verteporfin_HL60           1    1 9.319481e-02 0.049425440
+## glibenclamide_HL60         1    1 6.094179e-02 0.088000986
+## emetine_HL60               1    0 8.857805e-04 0.155084082
+## puromycin_MCF7             1    0 1.497782e-02 0.143499225
+## sanguinarine_MCF7          0    1 1.246229e-01 0.034384079
+## proscillaridin_MCF7        1    0 4.432492e-02 0.121900908</code></pre></div>
+
 
 
 <div class="tags">
@@ -859,7 +965,7 @@ and drug treatments.</p>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Mon Feb 15 15:06:28 2016<br/> Site last generated: Mar 3, 2016 <br />
+<p>Page last updated:</span> Sun Mar  6 12:53:27 2016<br/> Site last generated: Mar 6, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

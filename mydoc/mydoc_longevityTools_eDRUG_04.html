@@ -502,11 +502,20 @@ window.location.href = uri;
 
                     
                     
+                    
+                    
+                    <li><a href="../mydoc/mydoc_funding.html">Funding</a></li>
+                    
+
+                    
+
+                    
+                    
                 </ul>
                 
                 
             
-            <li><a href="#">longevityTools_eDRUG</a>
+            <li><a href="#">longevityToolseDRUG</a>
                 <ul>
                     
                     
@@ -692,7 +701,7 @@ $('#toc').on('click', 'a', function() {
 -->
 <h2 id="download-data-from-connectivity-map-project-site">Download data from Connectivity Map project site</h2>
 <p>The drug-related expression data are downloaded from the CMAP web site
-<a href="http://www.broadinstitute.org/cmap">here</a>. The <code>getCmap</code> function downloads
+<a href="http://www.broadinstitute.org/cmap">here</a>.  The <code>getCmap</code> function downloads
 the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code>
 downloads the corresponding 7,056 CEL files. The functions will write the
 downloaded files to the <code>data</code> and <code>data/CEL</code> directories within the present 
@@ -732,6 +741,8 @@ of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309
        <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">"dodge"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">)</span> <span class="o">+</span> 
        <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Number of treatments by cell types"</span><span class="p">)</span></code></pre></div>
 
+<p><img src="longevityTools_eDRUG_files/overview_cmap_drugs-1.png" alt="" /></p>
+
 <p>The number Affymetrix chip used in the experiments is plotted here for each of
 the three chip types used by CMAP:</p>
 
@@ -739,6 +750,8 @@ the three chip types used by CMAP:</p>
 <span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">Chip_type</span><span class="p">,</span> <span class="n">Counts</span><span class="p">))</span> <span class="o">+</span> 
        <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">"dodge"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"cornflowerblue"</span><span class="p">)</span> <span class="o">+</span> 
        <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Number of chip types"</span><span class="p">)</span></code></pre></div>
+
+<p><img src="longevityTools_eDRUG_files/overview_cmap_chip_type-1.png" alt="" /></p>
 
 
 
@@ -756,7 +769,7 @@ the three chip types used by CMAP:</p>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Mon Feb 15 15:06:28 2016<br/> Site last generated: Mar 3, 2016 <br />
+<p>Page last updated:</span> Sun Mar  6 12:53:27 2016<br/> Site last generated: Mar 6, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>
