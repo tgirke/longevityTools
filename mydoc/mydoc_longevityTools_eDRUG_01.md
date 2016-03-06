@@ -1,5 +1,5 @@
 ---
-title: longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures 
+title: longevityTools_eDRUG - Connecting Drug- and Age-related Gene Expression Signatures 
 keywords: 
 last_updated: Sun Mar  6 12:53:27 2016
 ---
@@ -7,7 +7,7 @@ Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison Mc
 
 Last update: 06 March, 2016 
 
-
+The single-page R markdown vignette of this workflow is [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html).
 
 ## Introduction 
 This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
