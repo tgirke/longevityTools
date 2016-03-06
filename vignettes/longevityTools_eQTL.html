@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: eQTL, eSNP and GWAS Analysis</h1>
 <h4 class="author"><em>Authors: Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 16 February, 2016</em></h4>
+<h4 class="date"><em>Last update: 06 March, 2016</em></h4>
 </div>
-<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.3</span></h4>
+<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.4</span></h4>
 
 <h1>Contents</h1>
 <div id="TOC">
@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
 %% \VignetteKeywords{compute cluster, pipeline, reports}
 %% \VignettePackage{longevityTools}
 -->
+
 <!---
 - Compile from command-line
 echo "rmarkdown::render('longevityTools_eQTL.Rmd')" | R -slave; R CMD Stangle longevityTools_eQTL.Rmd
@@ -94,6 +95,7 @@ git commit -am "some edits"; git push -u origin master
 - To customize font size and other style features, add this line to output section in preamble:  
     css: style.css
 -->
+
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
   document.querySelector("h1").className = "title";
@@ -107,6 +109,9 @@ document.addEventListener("DOMContentLoaded", function() {
       links[i].target = '_blank';
 });
 </script>
+
+
+
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html">here</a>.</p>
@@ -261,33 +266,30 @@ There is NO WARRANTY, to the extent permitted by law.
 <div id="version-information" class="section level1">
 <h1><span class="header-section-number">9</span> Version information</h1>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 3.2.3 (2015-12-10)
+<pre><code>## R version 3.2.2 (2015-08-14)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 14.04.3 LTS
+## Running under: CentOS Linux 7 (Core)
 ## 
 ## locale:
-##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8       
-##  [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
-##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
-## [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## [1] C
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] stats     graphics  utils     datasets  grDevices methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_2.0.0        longevityTools_1.0.3 BiocStyle_1.8.0     
+## [1] ggplot2_2.0.0        longevityTools_1.0.1 BiocStyle_1.8.0     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.3      codetools_0.2-14 digest_0.6.9     plyr_1.8.3       grid_3.2.3      
+##  [1] Rcpp_0.12.3      codetools_0.2-14 digest_0.6.9     plyr_1.8.3       grid_3.2.2      
 ##  [6] gtable_0.1.2     formatR_1.2.1    magrittr_1.5     evaluate_0.8     scales_0.3.0    
-## [11] stringi_1.0-1    rmarkdown_0.9.2  tools_3.2.3      stringr_1.0.0    munsell_0.4.2   
+## [11] stringi_1.0-1    rmarkdown_0.9.2  tools_3.2.2      stringr_1.0.0    munsell_0.4.2   
 ## [16] yaml_2.1.13      colorspace_1.2-6 htmltools_0.3    knitr_1.12.3</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 <div class="references">
-<h1>References</h1>
-<p>Sood, Sanjana, Iain Gallagher, Katie Lunnon, Eric Rullman, Aoife Keohane, Hannah Crossland, Bethan Phillips, et al. 2015. “A Novel Multi-Tissue RNA Diagnostic of Healthy Ageing Relates to Cognitive Health Status.” <em>Genome Biology</em>. doi:<a href="http://dx.doi.org/10.1186/s13059-015-0750-x">10.1186/s13059-015-0750-x</a>.</p>
+<h1><span class="header-section-number">9</span> References</h1>
+<p>Sood, Sanjana, Iain Gallagher, Katie Lunnon, Eric Rullman, Aoife Keohane, Hannah Crossland, Bethan Phillips, et al. 2015. “A Novel Multi-Tissue RNA Diagnostic of Healthy Ageing Relates to Cognitive Health Status.” <em>Genome Biology</em>. doi:<a href="http://dx.doi.org/10.1186/s13059-015-0750-x">10.1186/s13059-015-0750-x</a>. <a href="http://genomebiology.com/2015/16/1/185">http://genomebiology.com/2015/16/1/185</a>.</p>
 </div>
 </div>
 

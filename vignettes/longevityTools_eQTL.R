@@ -36,7 +36,39 @@ samplepath <- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package
 dat <- read.delim(samplepath)
 myGenes <- c("TXNRD2")
 result <- geneGrep(dat, myGenes)
-result
+head(result[order(result$p_value),])
+#output results in PLINK format
+result2<-result[,c("snp_id_1kg_project_phaseI_v3","p_value")]
+names(result2)<-c("SNP","P")
+#write.table(result2,file="data/eSNP.assoc",quote=F,row.names=F)
+
+
+## ----1KG_download_filter, eval=FALSE-------------------------------------
+## #genotypes
+## download.file("ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz", "./ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz")
+## untar("ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz")
+## 
+## #sample ped file
+## download.file("ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v2.20130502.ALL.ped", "./integrated_call_samples_v2.20130502.ALL.ped")
+## 
+## #sample super population file
+## download.file("ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v3.20130502.ALL.panel", "./integrated_call_samples_v3.20130502.ALL.panel")
+## 
+## #identify EUR unrelated samples from 1KG phase 3
+## ped2<-read.table("data/integrated_call_samples_v2.20130502.ALL.ped", stringsAsFactors = F, header = T, sep="\t")
+## ped3<-read.table("data/integrated_call_samples_v3.20130502.ALL.panel", stringsAsFactors = F, header = T, sep="\t")
+## 
+## samples1KG <- filter_1KGsamples("EUR",ped2,ped3)
+## samples1KG_ID <- samples1KG[,"Individual.ID",drop=F]
+## write.table(samples1KG_ID,file="data/samples1KG.txt",quote=F,row.names=F,col.names=F)
+## 
+
+## ----regionsFile, eval=FALSE---------------------------------------------
+## regions<-data.frame(chr="chr1",pos=0,pos_to=0,stringsAsFactors = F)
+## regions$chr[1]<-gsub("chr","",result$snp_chrom[1]) #1KG genotype files do not have chr
+## regions$pos[1]<-min(result$snp_pos)
+## regions$pos_to[1]<-max(result$snp_pos)
+## write.table(regions,file="data/regions.txt",quote=F,row.names=F,col.names=F,sep="\t")
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()

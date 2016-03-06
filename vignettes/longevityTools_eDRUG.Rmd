@@ -22,7 +22,7 @@ bibliography: bibtex.bib
 
 <!---
 - Compile from command-line
-echo "rmarkdown::render('longevityTools_eDRUG.Rmd')" | R -slave; R CMD Stangle longevityTools_eDRUG.Rmd
+echo "rmarkdown::render('longevityTools_eDRUG.Rmd', clean=F)" | R -slave; R CMD Stangle longevityTools_eDRUG.Rmd
 
 - Commit to github
 git commit -am "some edits"; git push -u origin master
