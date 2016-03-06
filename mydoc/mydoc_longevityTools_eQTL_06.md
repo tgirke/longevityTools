@@ -1,7 +1,7 @@
 ---
 title: Utilities
 keywords: 
-last_updated: Mon Feb 15 14:59:07 2016
+last_updated: Sun Mar  6 13:09:00 2016
 ---
 The _`geneGrep`_ function takes GTEx results and gene list as arguments,
 returns GTEx eSNP results for genes in gene list. Genes without significant

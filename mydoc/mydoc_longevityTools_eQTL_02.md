@@ -1,7 +1,7 @@
 ---
 title: General Analytical Approach
 keywords: 
-last_updated: Mon Feb 15 14:59:07 2016
+last_updated: Sun Mar  6 13:09:00 2016
 ---
 
 ## Construction of MR eSNP risk score
