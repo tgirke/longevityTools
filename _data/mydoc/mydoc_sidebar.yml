@@ -245,7 +245,7 @@ entries:
       version: all
       output: web
 
-  - title: longevityToolseDRUG
+  - title: longevityTools_eDRUG
     audience: writers, designers
     platform: all
     product: all
