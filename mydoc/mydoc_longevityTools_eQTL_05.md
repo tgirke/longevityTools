@@ -1,7 +1,7 @@
 ---
 title: Sample data from GTEx
 keywords: 
-last_updated: Sun Mar  6 13:09:00 2016
+last_updated: Sun Mar  6 19:48:46 2016
 ---
 The eQTL data used in this vignette can be downloaded from the [GTEx site](http://www.gtexportal.org/home/datasets).
 Note, the following downloads a 1.3GB file, which will take some time.

@@ -1,7 +1,7 @@
 ---
 title: Data downloads
 keywords: 
-last_updated: Sun Mar  6 12:53:27 2016
+last_updated: Sun Mar  6 19:54:26 2016
 ---
 
 ## Download data from Connectivity Map project site

@@ -1,13 +1,16 @@
 ---
 title: longevityTools_eQTL - eQTL, eSNP and GWAS Analysis 
 keywords: 
-last_updated: Sun Mar  6 13:09:00 2016
+last_updated: Sun Mar  6 19:48:46 2016
 ---
 Authors: Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans
 
 Last update: 06 March, 2016 
 
-The single-page R markdown vignette of this workflow is [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html)
+Alternative formats of this vignette:
+[`Single-page .Rmd HTML`](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eQTL.html),
+[`.Rmd`](https://raw.githubusercontent.com/tgirke/longevityTools/master/vignettes/longevityTools_eQTL.Rmd),
+[`.R`](https://raw.githubusercontent.com/tgirke/longevityTools/master/vignettes/longevityTools_eQTL.R)
 
 ## Introduction 
 This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 

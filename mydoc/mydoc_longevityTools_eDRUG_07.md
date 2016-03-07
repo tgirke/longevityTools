@@ -1,7 +1,7 @@
 ---
 title: Connectivity maps enrichment analysis
 keywords: 
-last_updated: Sun Mar  6 12:53:27 2016
+last_updated: Sun Mar  6 19:54:26 2016
 ---
 
 The connectivity maps approach is a rank-based enrichment method utilizing the KS test (Lamb et al., 2006). 

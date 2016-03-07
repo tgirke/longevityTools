@@ -1,7 +1,7 @@
 ---
 title: SNP clumping using PLINK
 keywords: 
-last_updated: Sun Mar  6 13:09:00 2016
+last_updated: Sun Mar  6 19:48:46 2016
 ---
 GTEx V6 analysis results are based on genotypes imputed to 1000 Genomes (1KG) Phase I version 3. Thus, significant results could be LD-filtered using Phase I data. However, to make use of the larger sample size in later projects, 1KG Phase 3 genotypes will be used.
 

@@ -44,6 +44,56 @@ mydoc_longevityTools_7:
   link: "<a href='../mydoc/mydoc_longevityTools_7.html'>References</a>"
 
 
+mydoc_longevityTools_eQTL_01:
+  title: "Introduction "
+  url: "../mydoc/mydoc_longevityTools_eQTL_01.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_01.html'>Introduction </a>"
+
+mydoc_longevityTools_eQTL_02:
+  title: "General Analytical Approach"
+  url: "../mydoc/mydoc_longevityTools_eQTL_02.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_02.html'>General Analytical Approach</a>"
+
+mydoc_longevityTools_eQTL_03:
+  title: "Getting Started"
+  url: "../mydoc/mydoc_longevityTools_eQTL_03.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_03.html'>Getting Started</a>"
+
+mydoc_longevityTools_eQTL_04:
+  title: "Setup of working environment"
+  url: "../mydoc/mydoc_longevityTools_eQTL_04.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_04.html'>Setup of working environment</a>"
+
+mydoc_longevityTools_eQTL_05:
+  title: "Sample data from GTEx"
+  url: "../mydoc/mydoc_longevityTools_eQTL_05.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_05.html'>Sample data from GTEx</a>"
+
+mydoc_longevityTools_eQTL_06:
+  title: "Utilities"
+  url: "../mydoc/mydoc_longevityTools_eQTL_06.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_06.html'>Utilities</a>"
+
+mydoc_longevityTools_eQTL_07:
+  title: "SNP clumping using PLINK"
+  url: "../mydoc/mydoc_longevityTools_eQTL_07.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_07.html'>SNP clumping using PLINK</a>"
+
+mydoc_longevityTools_eQTL_08:
+  title: "Funding"
+  url: "../mydoc/mydoc_longevityTools_eQTL_08.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_08.html'>Funding</a>"
+
+mydoc_longevityTools_eQTL_09:
+  title: "Version information"
+  url: "../mydoc/mydoc_longevityTools_eQTL_09.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_09.html'>Version information</a>"
+
+mydoc_longevityTools_eQTL_10:
+  title: "References"
+  url: "../mydoc/mydoc_longevityTools_eQTL_10.html"
+  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_10.html'>References</a>"
+
 mydoc_longevityTools_eDRUG_01:
   title: "Introduction "
   url: "../mydoc/mydoc_longevityTools_eDRUG_01.html"
@@ -103,54 +153,4 @@ mydoc_longevityTools_eDRUG_12:
   title: "References"
   url: "../mydoc/mydoc_longevityTools_eDRUG_12.html"
   link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_12.html'>References</a>"
-
-mydoc_longevityTools_eQTL_01:
-  title: "Introduction "
-  url: "../mydoc/mydoc_longevityTools_eQTL_01.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_01.html'>Introduction </a>"
-
-mydoc_longevityTools_eQTL_02:
-  title: "General Analytical Approach"
-  url: "../mydoc/mydoc_longevityTools_eQTL_02.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_02.html'>General Analytical Approach</a>"
-
-mydoc_longevityTools_eQTL_03:
-  title: "Getting Started"
-  url: "../mydoc/mydoc_longevityTools_eQTL_03.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_03.html'>Getting Started</a>"
-
-mydoc_longevityTools_eQTL_04:
-  title: "Setup of working environment"
-  url: "../mydoc/mydoc_longevityTools_eQTL_04.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_04.html'>Setup of working environment</a>"
-
-mydoc_longevityTools_eQTL_05:
-  title: "Sample data from GTEx"
-  url: "../mydoc/mydoc_longevityTools_eQTL_05.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_05.html'>Sample data from GTEx</a>"
-
-mydoc_longevityTools_eQTL_06:
-  title: "Utilities"
-  url: "../mydoc/mydoc_longevityTools_eQTL_06.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_06.html'>Utilities</a>"
-
-mydoc_longevityTools_eQTL_07:
-  title: "SNP clumping using PLINK"
-  url: "../mydoc/mydoc_longevityTools_eQTL_07.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_07.html'>SNP clumping using PLINK</a>"
-
-mydoc_longevityTools_eQTL_08:
-  title: "Funding"
-  url: "../mydoc/mydoc_longevityTools_eQTL_08.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_08.html'>Funding</a>"
-
-mydoc_longevityTools_eQTL_09:
-  title: "Version information"
-  url: "../mydoc/mydoc_longevityTools_eQTL_09.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_09.html'>Version information</a>"
-
-mydoc_longevityTools_eQTL_10:
-  title: "References"
-  url: "../mydoc/mydoc_longevityTools_eQTL_10.html"
-  link: "<a href='../mydoc/mydoc_longevityTools_eQTL_10.html'>References</a>"
 

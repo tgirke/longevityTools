@@ -1,13 +1,16 @@
 ---
 title: longevityTools_eDRUG - Connecting Drug- and Age-related Gene Expression Signatures 
 keywords: 
-last_updated: Sun Mar  6 12:53:27 2016
+last_updated: Sun Mar  6 19:54:26 2016
 ---
 Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans
 
 Last update: 06 March, 2016 
 
-The single-page R markdown vignette of this workflow is [here](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html).
+Alternative formats of this vignette:
+[`Single-page .Rmd HTML`](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html),
+[`.Rmd`](https://raw.githubusercontent.com/tgirke/longevityTools/master/vignettes/longevityTools_eDRUG.Rmd),
+[`.R`](https://raw.githubusercontent.com/tgirke/longevityTools/master/vignettes/longevityTools_eDRUG.R)
 
 ## Introduction 
 This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
