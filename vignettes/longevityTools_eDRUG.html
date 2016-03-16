@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 <h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 15 March, 2016</em></h4>
+<h4 class="date"><em>Last update: 16 March, 2016</em></h4>
 </div>
-<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.4</span></h4>
+<h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.6</span></h4>
 
 <h1>Contents</h1>
 <div id="TOC">
@@ -75,17 +75,17 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="#normalization-of-cel-files"><span class="toc-section-number">5.2</span> Normalization of CEL files</a></li>
 <li><a href="#combine-results-from-same-chip-type-in-single-data-frame"><span class="toc-section-number">5.3</span> Combine results from same chip type in single data frame</a></li>
 <li><a href="#clean-up-of-intermediate-files"><span class="toc-section-number">5.4</span> Clean-up of intermediate files</a></li>
+<li><a href="#obtain-annotation-information"><span class="toc-section-number">5.5</span> Obtain annotation information</a></li>
 </ul></li>
 <li><a href="#deg-analysis-with-limma"><span class="toc-section-number">6</span> DEG analysis with <code>limma</code></a><ul>
 <li><a href="#generate-list-of-cel-names-defining-treatment-vs.control-comparisons"><span class="toc-section-number">6.1</span> Generate list of CEL names defining treatment vs. control comparisons</a></li>
 <li><a href="#load-normalized-expression-data"><span class="toc-section-number">6.2</span> Load normalized expression data</a></li>
-<li><a href="#deg-analysis-with-limma-1"><span class="toc-section-number">6.3</span> DEG analysis with <code>limma</code></a></li>
-<li><a href="#obtain-annotation-information"><span class="toc-section-number">6.4</span> Obtain annotation information</a></li>
-<li><a href="#transform-probe-set-to-gene-level-data"><span class="toc-section-number">6.5</span> Transform probe set to gene level data</a></li>
-<li><a href="#number-of-degs-per-drug-treatment"><span class="toc-section-number">6.6</span> Number of DEGs per drug treatment</a></li>
-<li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.7</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
-<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">6.8</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
-<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.9</span> Drugs affecting known longevity genes</a></li>
+<li><a href="#transform-probe-set-to-gene-level-data"><span class="toc-section-number">6.3</span> Transform probe set to gene level data</a></li>
+<li><a href="#deg-analysis-with-limma-1"><span class="toc-section-number">6.4</span> DEG analysis with <code>limma</code></a></li>
+<li><a href="#number-of-degs-across-drug-treatments"><span class="toc-section-number">6.5</span> Number of DEGs across drug treatments</a></li>
+<li><a href="#identify-deg-overlaps-with-peters-et-al.--peters2015-fc"><span class="toc-section-number">6.6</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#identify-deg-overlaps-with-sood-et-al.--sood2015-pb"><span class="toc-section-number">6.7</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></a></li>
+<li><a href="#drugs-affecting-known-longevity-genes"><span class="toc-section-number">6.8</span> Drugs affecting known longevity genes</a></li>
 </ul></li>
 <li><a href="#connectivity-maps-enrichment-analysis"><span class="toc-section-number">7</span> Connectivity maps enrichment analysis</a><ul>
 <li><a href="#query-drug-signatures"><span class="toc-section-number">7.1</span> Query drug signatures</a></li>
@@ -257,6 +257,22 @@ unlink(&quot;data/CEL/*.CEL&quot;) # Deletes downloaded CEL files</code></pre>
 <a href>Back to Table of Contents</a>
 </div>
 </div>
+<div id="obtain-annotation-information" class="section level2">
+<h2><span class="header-section-number">5.5</span> Obtain annotation information</h2>
+<p>The following generates annotation information for the Affymetirx probe set identifiers. Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The annotation libraries for the chip types HG-U133A and HT_HG-U133A are <code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls"><code>myAnnot.xls</code></a>.</p>
+<pre class="r"><code>library(hgu133a.db)
+myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
+                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 
+                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=&quot;, &quot;), 
+                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=&quot;, &quot;), 
+                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=&quot;, &quot;), 
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))
+write.table(myAnnot, file=&quot;./results/myAnnot.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
+<div align="right">
+<a href>Back to Table of Contents</a>
+</div>
+</div>
 </div>
 <div id="deg-analysis-with-limma" class="section level1">
 <h1><span class="header-section-number">6</span> DEG analysis with <code>limma</code></h1>
@@ -279,12 +295,21 @@ df2 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[2], &quot;/&quot;, &quo
 df3 &lt;- readRDS(paste0(&quot;data/&quot;, chiptype_dir[3], &quot;/&quot;, &quot;all_mas5exprs.rds&quot;))
 affyid &lt;- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid &lt;- affyid[affyid %in% rownames(df3)]
 mas5df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
+</div>
+<div id="transform-probe-set-to-gene-level-data" class="section level2">
+<h2><span class="header-section-number">6.3</span> Transform probe set to gene level data</h2>
+<p>The next step generates gene level expression values. If genes are represented by several probe sets then their mean intensities are used. This is necessary because the U133 chip contains many genes with duplicated probe sets. Probe sets not matching any gene are removed.</p>
+<pre class="r"><code>myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
+myAnnot &lt;- myAnnot[as.character(myAnnot[,&quot;ENTREZID&quot;]) != &quot;NA&quot;,]
+mas5df &lt;- mas5df[rownames(myAnnot),]
+idlist &lt;- tapply(row.names(myAnnot), as.character(myAnnot$ENTREZID), c)
+mas5df &lt;- t(sapply(names(idlist), function(x) colMeans(mas5df[idlist[[x]], ])))</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="deg-analysis-with-limma-1" class="section level2">
-<h2><span class="header-section-number">6.3</span> DEG analysis with <code>limma</code></h2>
+<h2><span class="header-section-number">6.4</span> DEG analysis with <code>limma</code></h2>
 <p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package. Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and a minimum fold change of 2). The DEG matrix is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
 <pre class="r"><code>degList &lt;- runLimma(df=log2(mas5df), comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
 write.table(degList$DEG, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
@@ -293,200 +318,222 @@ saveRDS(degList, &quot;./results/degList.rds&quot;) # saves entire degList</code
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
+<!-- Not neceassary anymore since intensities of genes with multiple probe sets are averaged
+## Transform probe set to gene level data
+
+The `probeset2gene` function translates a binary DEG matrix from the probe level (`row.names` are
+Affy IDs) to the gene level (`row.names` are gene IDs). Genes represented by several probe
+sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are
+supported: `summary_rule=1L` will consider a gene as a DEG for a specific treatment if at 
+least one of several probe sets supports this assignment, while `summary_rule=2L` requires 
+support from at least 2 probe sets.
+
+
+```r
+myAnnot <- readRDS("./results/myAnnot.rds") 
+degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
+degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
+saveRDS(degMAgene, "./results/degMAgene.rds")
+```
+<div align="right">[Back to Table of Contents]()</div>
+--> 
+
 </div>
-<div id="obtain-annotation-information" class="section level2">
-<h2><span class="header-section-number">6.4</span> Obtain annotation information</h2>
-<p>The following generates annotation information for the Affymetirx probe set identifiers. Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The annotation libraries for the chip types HG-U133A and HT_HG-U133A are <code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls"><code>myAnnot.xls</code></a>.</p>
-<pre class="r"><code>library(hgu133a.db)
-myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
-                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 
-                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=&quot;, &quot;), 
-                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=&quot;, &quot;), 
-                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=&quot;, &quot;), 
-                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))
-write.table(myAnnot, file=&quot;./results/myAnnot.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
-saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
-<div align="right">
-<a href>Back to Table of Contents</a>
-</div>
-</div>
-<div id="transform-probe-set-to-gene-level-data" class="section level2">
-<h2><span class="header-section-number">6.5</span> Transform probe set to gene level data</h2>
-<p>The <code>probeset2gene</code> function translates a binary DEG matrix from the probe level (<code>row.names</code> are Affy IDs) to the gene level (<code>row.names</code> are gene IDs). Genes represented by several probe sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are supported: <code>summary_rule=1L</code> will consider a gene as a DEG for a specific treatment if at least one of several probe sets supports this assignment, while <code>summary_rule=2L</code> requires support from at least 2 probe sets.</p>
-<pre class="r"><code>myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
-degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
-degMAgene &lt;- probeset2gene(degMA, myAnnot, geneIDtype=&quot;ENTREZID&quot;, summary_rule=1L)
-saveRDS(degMAgene, &quot;./results/degMAgene.rds&quot;)</code></pre>
-<div align="right">
-<a href>Back to Table of Contents</a>
-</div>
-</div>
-<div id="number-of-degs-per-drug-treatment" class="section level2">
-<h2><span class="header-section-number">6.6</span> Number of DEGs per drug treatment</h2>
-<pre class="r"><code>degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;)
+<div id="number-of-degs-across-drug-treatments" class="section level2">
+<h2><span class="header-section-number">6.5</span> Number of DEGs across drug treatments</h2>
+<p>The following plots the number of drug treatments (y-axis) for increasing bin sizes (x-axis) of DEGs.</p>
+<pre class="r"><code>degMAgene &lt;- readRDS(&quot;./results/degMA.rds&quot;)
 y &lt;- as.numeric(colSums(degMAgene))
 interval &lt;- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
 df &lt;- data.frame(interval); colnames(df) &lt;- c(&quot;Bins&quot;, &quot;Counts&quot;)
 ggplot(df, aes(Bins, Counts)) + 
        geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;, fill=&quot;cornflowerblue&quot;) + 
        ggtitle(&quot;DEG numbers by bins&quot;)</code></pre>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
-<h2><span class="header-section-number">6.7</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
+<h2><span class="header-section-number">6.6</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
 <p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to obtain the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
 geneid &lt;- as.character(PMID26490707$&quot;NEW.Entrez.ID&quot;)
-degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
+degMAgene &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster than read.delim()
 degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
 degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap</code></pre>
-<pre><code>## [1] 1540</code></pre>
+<pre><code>## [1] 1137</code></pre>
 <pre class="r"><code>degOL_PMID26490707[1:20,]</code></pre>
 <pre><code>##                                Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
-## alprostadil_HL60                  0.09841917          1192      962       193 4.587462e-25
-## Prestwick-983_HL60                0.06270200          1192      452        97 1.005593e-14
-## (-)-isoprenaline_HL60             0.04608632          1192      238        63 3.104262e-14
-## pergolide_HL60                    0.07883598          1192      847       149 4.299617e-14
-## lycorine_HL60                     0.09725906          1192     2531       330 9.635668e-11
-## dihydroergotamine_HL60            0.05325444          1192      410        81 1.464480e-10
-## mebendazole_HL60                  0.05116279          1192      390        77 4.370190e-10
-## anisomycin_HL60                   0.09783198          1192     2859       361 5.420542e-10
-## nocodazole_HL60                   0.04366197          1192      290        62 8.988632e-10
-## 15-delta prostaglandin J2_HL60    0.05173543          1192      414        79 1.370764e-09
-## co-dergocrine mesilate_HL60       0.05606901          1192      522        91 8.811695e-09
-## tretinoin_HL60                    0.04051173          1192      272        57 9.303262e-09
-## geldanamycin_HL60                 0.03581871          1192      225        49 2.852475e-08
-## monorden_HL60                     0.01235585          1192       37        15 5.920557e-07
-## 8-azaguanine_HL60                 0.08344924          1192     1924       240 3.298779e-06
-## methylergometrine_HL60            0.02897474          1192      193        39 5.144245e-06
-## sanguinarine_HL60                 0.07168299          1192     1215       161 7.143904e-06
-## apigenin_HL60                     0.06761905          1192     1050       142 9.198927e-06
-## thiostrepton_HL60                 0.05913692          1192      796       111 2.540821e-05
-## puromycin_HL60                    0.03887399          1192      358        58 4.353723e-05
+## alprostadil_HL60                  0.10272537          1192      912       196 1.706881e-29
+## dihydroergotamine_HL60            0.06187625          1192      404        93 3.698500e-16
+## pergolide_HL60                    0.07815080          1192      767       142 2.631561e-15
+## (-)-isoprenaline_HL60             0.05113636          1192      288        72 1.087773e-14
+## Prestwick-983_HL60                0.05948447          1192      411        90 2.785586e-14
+## nocodazole_HL60                   0.06384324          1192      491       101 4.863951e-14
+## anisomycin_HL60                   0.09790419          1192     2475       327 2.312553e-11
+## tetryzoline_HL60                  0.03366488          1192      159        44 4.993036e-11
+## mebendazole_HL60                  0.06041924          1192      528        98 6.663275e-11
+## methylergometrine_HL60            0.04436620          1192      291        63 3.825164e-10
+## lycorine_HL60                     0.09093994          1192     2023       268 2.411922e-09
+## podophyllotoxin_HL60              0.04175513          1192      280        59 4.108204e-09
+## colchicine_HL60                   0.03181818          1192      170        42 5.960591e-09
+## co-dergocrine mesilate_HL60       0.05239617          1192      455        82 1.062344e-08
+## puromycin_HL60                    0.05060858          1192      448        79 5.282895e-08
+## tretinoin_HL60                    0.03738318          1192      251        52 6.182212e-08
+## 15-delta prostaglandin J2_HL60    0.04560698          1192      367        68 6.583181e-08
+## geldanamycin_HL60                 0.03068862          1192      185        41 2.331048e-07
+## bromocriptine_HL60                0.02739726          1192      158        36 6.194257e-07
+## apigenin_HL60                     0.06292967          1192      818       119 1.601978e-06
 ##                                    adj_Pval
-## alprostadil_HL60               1.595519e-21
-## Prestwick-983_HL60             3.497452e-11
-## (-)-isoprenaline_HL60          1.079662e-10
-## pergolide_HL60                 1.495407e-10
-## lycorine_HL60                  3.351285e-07
-## dihydroergotamine_HL60         5.093462e-07
-## mebendazole_HL60               1.519952e-06
-## anisomycin_HL60                1.885265e-06
-## nocodazole_HL60                3.126246e-06
-## 15-delta prostaglandin J2_HL60 4.767517e-06
-## co-dergocrine mesilate_HL60    3.064708e-05
-## tretinoin_HL60                 3.235675e-05
-## geldanamycin_HL60              9.920908e-05
-## monorden_HL60                  2.059170e-03
-## 8-azaguanine_HL60              1.147316e-02
-## methylergometrine_HL60         1.789168e-02
-## sanguinarine_HL60              2.484650e-02
-## apigenin_HL60                  3.199387e-02
-## thiostrepton_HL60              8.836976e-02
-## puromycin_HL60                 1.514225e-01</code></pre>
+## alprostadil_HL60               5.936533e-26
+## dihydroergotamine_HL60         1.286338e-12
+## pergolide_HL60                 9.152569e-12
+## (-)-isoprenaline_HL60          3.783276e-11
+## Prestwick-983_HL60             9.688270e-11
+## nocodazole_HL60                1.691682e-10
+## anisomycin_HL60                8.043059e-08
+## tetryzoline_HL60               1.736578e-07
+## mebendazole_HL60               2.317487e-07
+## methylergometrine_HL60         1.330392e-06
+## lycorine_HL60                  8.388664e-06
+## podophyllotoxin_HL60           1.428833e-05
+## colchicine_HL60                2.073093e-05
+## co-dergocrine mesilate_HL60    3.694832e-05
+## puromycin_HL60                 1.837391e-04
+## tretinoin_HL60                 2.150173e-04
+## 15-delta prostaglandin J2_HL60 2.289630e-04
+## geldanamycin_HL60              8.107384e-04
+## bromocriptine_HL60             2.154363e-03
+## apigenin_HL60                  5.571679e-03</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="identify-deg-overlaps-with-sood-et-al.--sood2015-pb" class="section level2">
-<h2><span class="header-section-number">6.8</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
+<h2><span class="header-section-number">6.7</span> Identify DEG overlaps with Sood et al. <span class="citation">(2015)</span></h2>
 <p>Sood et al. <span class="citation">(2015)</span> reported 150 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to observe the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
 <pre class="r"><code>PMID26343147 &lt;- read.delim(&quot;./data/PMID26343147_S1T1.xls&quot;, check.names=FALSE, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
-affyid &lt;- row.names(myAnnot[myAnnot[,&quot;SYMBOL&quot;] %in% PMID26343147[,&quot;Gene Symbol&quot;], ]) 
+geneid &lt;- as.character(myAnnot[rownames(myAnnot) %in% as.character(PMID26343147[,1]), &quot;ENTREZID&quot;])
+geneid &lt;- geneid[geneid!=&quot;NA&quot;]
 degMA &lt;- readRDS(&quot;./results/degMA.rds&quot;) # Faster then read.delim()
 degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-degMAsub &lt;- degMA[affyid,]
+degMAsub &lt;- degMA[geneid,]
 degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file=&quot;./results/degOL_PMID26343147.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap</code></pre>
-<pre><code>## [1] 578</code></pre>
+<pre><code>## [1] 223</code></pre>
 <pre class="r"><code>degOL_PMID26343147[1:20,] # Top 20 scoring drugs</code></pre>
-<pre><code>##                           Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
-## cinchonidine_MCF7           0.009478673           211        2         2 0.0002862571 0.9956022
-## halofantrine_MCF7           0.009345794           211        5         2 0.0027675858 1.0000000
-## hydroquinine_MCF7           0.009345794           211        5         2 0.0027675858 1.0000000
-## quinidine_MCF7              0.009302326           211        6         2 0.0041050712 1.0000000
-## levopropoxyphene_PC3        0.013043478           211       22         3 0.0058373517 1.0000000
-## ramipril_MCF7               0.009174312           211        9         2 0.0095270257 1.0000000
-## phthalylsulfathiazole_PC3   0.015503876           211       51         4 0.0107857517 1.0000000
-## pyrazinamide_MCF7           0.004739336           211        1         1 0.0169586883 1.0000000
-## levamisole_HL60             0.014869888           211       62         4 0.0208634665 1.0000000
-## bemegride_HL60              0.008968610           211       14         2 0.0227793297 1.0000000
-## roxarsone_PC3               0.012048193           211       41         3 0.0319682148 1.0000000
-## clebopride_PC3              0.008849558           211       17         2 0.0329327087 1.0000000
-## sulfadimidine_PC3           0.004716981           211        2         1 0.0336311195 1.0000000
-## tinidazole_PC3              0.004716981           211        2         1 0.0336311195 1.0000000
-## dihydroergocristine_HL60    0.008810573           211       18         2 0.0366429223 1.0000000
-## velnacrine_PC3              0.008771930           211       19         2 0.0405052980 1.0000000
-## vorinostat_PC3              0.020651311           211     1074        26 0.0408886313 1.0000000
-## methocarbamol_PC3           0.008695652           211       21         2 0.0486620004 1.0000000
-## rolipram_HL60               0.008695652           211       21         2 0.0486620004 1.0000000
-## trichostatin A_PC3          0.020344288           211     1093        26 0.0488111154 1.0000000</code></pre>
+<pre><code>##                        Jaccard_Index longevity_DEG cmap_DEG Intersect        Pval adj_Pval
+## colecalciferol_MCF7      0.017857143            55        2         1 0.008821835        1
+## esculin_HL60             0.017857143            55        2         1 0.008821835        1
+## flecainide_MCF7          0.017857143            55        2         1 0.008821835        1
+## ribostamycin_MCF7        0.017857143            55        2         1 0.008821835        1
+## withaferin A_MCF7        0.016000000            55      199         4 0.011470972        1
+## dexamethasone_HL60       0.022222222            55       37         2 0.011573654        1
+## lobeline_HL60            0.007987220            55     1838        15 0.011600566        1
+## idoxuridine_MCF7         0.017543860            55        3         1 0.013204054        1
+## metronidazole_MCF7       0.017543860            55        3         1 0.013204054        1
+## sulpiride_MCF7           0.017543860            55        3         1 0.013204054        1
+## ampyrone_HL60            0.008880995            55     1081        10 0.018769135        1
+## chlortetracycline_HL60   0.008080808            55     1442        12 0.021597597        1
+## estropipate_MCF7         0.016949153            55        5         1 0.021911500        1
+## flunixin_PC3             0.016949153            55        5         1 0.021911500        1
+## sulfafurazole_HL60       0.018867925            55       53         2 0.022894704        1
+## (-)-MK-801_MCF7          0.016666667            55        6         1 0.026236889        1
+## carbarsone_PC3           0.016666667            55        6         1 0.026236889        1
+## famprofazone_HL60        0.016666667            55        6         1 0.026236889        1
+## guanethidine_HL60        0.016666667            55        6         1 0.026236889        1
+## cefalotin_MCF7           0.016393443            55        7         1 0.030543497        1</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="drugs-affecting-known-longevity-genes" class="section level2">
-<h2><span class="header-section-number">6.9</span> Drugs affecting known longevity genes</h2>
+<h2><span class="header-section-number">6.8</span> Drugs affecting known longevity genes</h2>
 <p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes. The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
 <pre class="r"><code>genesymbols &lt;- c(&quot;IGF1&quot;, &quot;IGF1R&quot;)
 geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;ENTREZID&quot;]))
 names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;]))
-degMAgene &lt;- readRDS(&quot;./results/degMAgene.rds&quot;) # Faster than read.delim()
-df &lt;- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
-for(i in seq_along(geneids)) df &lt;- cbind(df, as.numeric(degMAgene[geneids[i],]))
-colnames(df) &lt;- names(geneids)
-df &lt;- df[rowSums(df)&gt;0,]
-nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R</code></pre>
-<pre><code>## [1] 62</code></pre>
-<p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) and drug treatments.</p>
-<pre class="r"><code>affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
-affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;])
-names(affyids) &lt;- affyids2
-cmap &lt;- read.delim(&quot;./data/cmap_instances_02.txt&quot;, check.names=FALSE) 
-comp_list &lt;- sampleList(cmap, myby=&quot;CMP_CELL&quot;)
-comp_list &lt;- comp_list[row.names(df)]
-degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
-pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,&quot;adj.P.Val&quot;])))
-colnames(pvalDF) &lt;- paste0(colnames(pvalDF), &quot;_FDR&quot;)
-df &lt;- cbind(df, pvalDF)
+degList &lt;- readRDS(&quot;./results/degList.rds&quot;) 
+df &lt;- data.frame(row.names=colnames(degList$DEG), check.names=FALSE)
+index &lt;- which(colSums(degList$DEG[geneids,])&gt;= 1) 
+for(i in seq_along(geneids)) {
+    tmp &lt;- data.frame(DEG=degList$DEG[geneids[i],index], logFC=degList$logFC[geneids[i],index], FDR=degList$FDR[geneids[i],index])
+    colnames(tmp) &lt;- paste0(names(geneids)[i], &quot;_&quot;, colnames(tmp))
+    df &lt;- cbind(df, tmp[rownames(df),] )    
+}
+df &lt;- df[names(index),]
 write.table(df, file=&quot;./results/deg_IGF1.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
 <p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
-<pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)</code></pre>
-<pre><code>## Warning in read.table(file = file, header = header, sep = sep, quote = quote, : incomplete final
-## line found by readTableHeader on './results/deg_IGF1.xls'</code></pre>
-<pre class="r"><code>igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]</code></pre>
-<pre><code>##                   IGF1 IGF1_logFC IGF1_adj.P.Val IGFR_logFC IGFR_adj.P.Val
-## 0175029-0000_MCF7    1          0             NA         NA             NA
-## NA                  NA         NA             NA         NA             NA
-## NA.1                NA         NA             NA         NA             NA
-## NA.2                NA         NA             NA         NA             NA
-## NA.3                NA         NA             NA         NA             NA
-## NA.4                NA         NA             NA         NA             NA
-## NA.5                NA         NA             NA         NA             NA
-## NA.6                NA         NA             NA         NA             NA
-## NA.7                NA         NA             NA         NA             NA
-## NA.8                NA         NA             NA         NA             NA
-## NA.9                NA         NA             NA         NA             NA
-## NA.10               NA         NA             NA         NA             NA
-## NA.11               NA         NA             NA         NA             NA
-## NA.12               NA         NA             NA         NA             NA
-## NA.13               NA         NA             NA         NA             NA
-## NA.14               NA         NA             NA         NA             NA
-## NA.15               NA         NA             NA         NA             NA
-## NA.16               NA         NA             NA         NA             NA
-## NA.17               NA         NA             NA         NA             NA
-## NA.18               NA         NA             NA         NA             NA</code></pre>
+<pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)
+igfDF[order(rowMeans(igfDF[,c(3,6)])),][1:20,]</code></pre>
+<pre><code>##                                IGF1R_DEG IGF1R_logFC     IGF1R_FDR IGF1_DEG  IGF1_logFC   IGF1_FDR
+## camptothecin_MCF7                      1 -1.48180690  4.867357e-07        0  0.94295576 0.07821138
+## 0175029-0000_MCF7                      0 -0.62026588  1.193479e-01        1 -1.01210916 0.04295254
+## cicloheximide_HL60                     1 -1.29607754  2.054384e-02        0  1.67183429 0.16908728
+## emetine_HL60                           1 -1.23843896  3.085463e-03        0  1.03812083 0.26576009
+## digoxigenin_PC3                        0  0.54850849  2.488776e-01        1 -1.27142976 0.04219010
+## anisomycin_HL60                        1 -2.85399433  1.481347e-03        0  0.66701644 0.44025263
+## vorinostat_MCF7                        1 -1.50640830  3.143781e-17        0  0.37179771 0.45437384
+## irinotecan_MCF7                        1 -2.26588384  9.895790e-02        0 -1.05446828 0.41746319
+## tyrphostin AG-825_MCF7                 1 -1.03570748  3.440048e-02        0  1.57208567 0.51400841
+## trichostatin A_MCF7                    1 -1.27541131 6.943847e-127        0  0.07335895 0.55046789
+## baclofen_HL60                          1  1.14379132  8.226627e-02        0 -1.00641253 0.53322529
+## 8-azaguanine_PC3                       1 -1.04668136  7.466879e-02        0 -0.97679589 0.65221001
+## verteporfin_MCF7                       1 -1.11136304  1.226251e-03        0  0.64194152 0.78463681
+## piperlongumine_MCF7                    1 -1.03214332  1.088011e-02        0  0.53820854 0.78914488
+## verteporfin_HL60                       1 -1.17232840  4.923492e-02        0  1.09438523 0.75358370
+## cephaeline_HL60                        1 -1.13448661  1.479635e-02        0 -0.19882135 0.86619935
+## lycorine_HL60                          1 -1.93807396  1.390079e-03        0 -0.23062131 0.88748758
+## doxorubicin_MCF7                       1 -1.08389932  4.035039e-04        0  0.12613722 0.92452703
+## anisomycin_MCF7                        0  0.06265744  8.938603e-01        1 -1.55915713 0.04355888
+## 15-delta prostaglandin J2_MCF7         0  0.01396391  9.774076e-01        1  1.03626957 0.09233156</code></pre>
+<!-- old version
+
+```r
+genesymbols <- c("IGF1", "IGF1R")
+geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
+names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
+degMAgene <- readRDS("./results/degMA.rds") # Faster than read.delim()
+df <- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
+for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
+colnames(df) <- names(geneids)
+df <- df[rowSums(df)>0,]
+nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
+```
+
+```
+## [1] 20
+```
+
+The following computes the `limma` FDR values for the corresponding genes (here IGF1 and IGF1R) 
+and drug treatments.
+
+```r
+affyids2 <- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
+affyids <- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"])
+names(affyids) <- affyids2
+cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
+comp_list <- sampleList(cmap, myby="CMP_CELL")
+comp_list <- comp_list[row.names(df)]
+degList <- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
+pvalDF <- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,"adj.P.Val"])))
+colnames(pvalDF) <- paste0(colnames(pvalDF), "_FDR")
+df <- cbind(df, pvalDF)
+write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
+```
+
+--> 
+
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
+
 </div>
 </div>
 <div id="connectivity-maps-enrichment-analysis" class="section level1">
