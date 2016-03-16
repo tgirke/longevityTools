@@ -1,0 +1,109 @@
+---
+title: "longevityDrugs: Database of Longevity-Associated Drugs (LAD)" 
+author: "Authors: Thomas Girke, Tyler Backman, Dan Evans"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
+package: "`r pkg_ver('longevityTools')`"
+output:
+  BiocStyle::html_document:
+    toc: true
+    toc_depth: 3
+    fig_caption: yes
+
+fontsize: 14pt
+bibliography: bibtex.bib
+---
+<!--
+%% \VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Overview Vignette}
+%% \VignetteDepends{methods}
+%% \VignetteKeywords{compute cluster, pipeline, reports}
+%% \VignettePackage{longevityTools}
+-->
+
+<!---
+- Compile from command-line
+echo "rmarkdown::render('longevityDrugs.Rmd', clean=F)" | R -slave; R CMD Stangle longevityDrugs.Rmd
+
+- Commit to github
+git commit -am "some edits"; git push -u origin master
+
+- To customize font size and other style features, add this line to output section in preamble:  
+    css: style.css
+-->
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+options(width=100, max.print=1000)
+knitr::opts_chunk$set(
+    eval=as.logical(Sys.getenv("KNITR_EVAL", "TRUE")),
+    cache=as.logical(Sys.getenv("KNITR_CACHE", "TRUE")))
+```
+
+```{r setup, echo=FALSE, messages=FALSE, warnings=FALSE}
+suppressPackageStartupMessages({
+    library(longevityTools) 
+    library(ggplot2) }) 
+```
+
+# Introduction 
+This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
+website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
+is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
+vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityDrugs.html">here</a>.
+
+The data package `longevityDrugs` contains molecular structures and annotation information
+of longevity-associated drugs (LADs). An iterative process will be used to assemble, update and 
+curate this data set long-term [@Backman2011-uw, @Cao2008-zo]. Most small molecules will be identified by integrating several
+large-scale community data sources such as data from drug databases (e.g.
+Drugbank), bioassay databases (e.g. PubChem Bioassay, ChEMBL), literature,
+drug-related gene expression fingerprints (e.g. LINCS), genetic (e.g. GWAS) and
+phenotype resources. This will also include nearest neighbors of LADs sharing
+with them structural, physicochemical or biological properties.
+
+
+<div align="right">[Back to Table of Contents]()</div>
+
+
+# Getting Started
+
+## Installation
+
+The R software for running [_`longevityTools`_](https://github.com/tgirke/longevityTools) can be downloaded from [_CRAN_](http://cran.at.r-project.org/). The _`longevityTools`_ package can be installed from the R console using the following _`biocLite`_ install command. 
+
+```{r install, eval=FALSE}
+source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
+biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+```
+<div align="right">[Back to Table of Contents]()</div>
+
+## Loading of required packages
+
+```{r documentation, eval=FALSE}
+library("longevityTools") 
+library("ChemmineR") 
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
+# Load database
+
+```{r load_sdf, eval=FALSE}
+sdfset <- read.SDFset("inst/ext/longevityDrugs.sdf")
+plot(sdfset)
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
+# Funding
+This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA).
+
+<div align="right">[Back to Table of Contents]()</div>
+
+# Version information
+
+```{r sessionInfo}
+sessionInfo()
+```
+<div align="right">[Back to Table of Contents]()</div>
+
+# References

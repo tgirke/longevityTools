@@ -233,6 +233,30 @@ unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
 
 <div align="right">[Back to Table of Contents]()</div>
 
+## Obtain annotation information
+The following generates annotation information for the Affymetirx probe set
+identifiers. Note, the three different Affymetrix chip types used by CMAP
+share most probe set ids (>95%), meaning it is possible to combine the data
+after normalization and use the same annotation package for all of them. The
+annotation libraries for the chip types HG-U133A and HT_HG-U133A are
+`hgu133a.db` and `hthgu133a.db`, respectively. However, there is no annotation 
+library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded
+from here: [`myAnnot.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls).
+
+```{r affyid_annotations, eval=FALSE, message=FALSE}
+library(hgu133a.db)
+myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
+                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
+                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
+                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
+                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+write.table(myAnnot, file="./results/myAnnot.xls", quote=FALSE, sep="\t", col.names = NA) 
+saveRDS(myAnnot, "./results/myAnnot.rds")
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
 # DEG analysis with `limma`
 
 ## Generate list of CEL names defining treatment vs. control comparisons
@@ -262,6 +286,20 @@ affyid <- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid <- affyid[affy
 mas5df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
 ```
 
+## Transform probe set to gene level data
+The next step generates gene level expression values. If genes are represented by several
+probe sets then their mean intensities are used. This is necessary because 
+the U133 chip contains many genes with duplicated probe sets. Probe sets not matching 
+any gene are removed.
+
+```{r mean_mas5_data, eval=FALSE} 
+myAnnot <- readRDS("./results/myAnnot.rds") 
+myAnnot <- myAnnot[as.character(myAnnot[,"ENTREZID"]) != "NA",]
+mas5df <- mas5df[rownames(myAnnot),]
+idlist <- tapply(row.names(myAnnot), as.character(myAnnot$ENTREZID), c)
+mas5df <- t(sapply(names(idlist), function(x) colMeans(mas5df[idlist[[x]], ])))
+```
+
 <div align="right">[Back to Table of Contents]()</div>
 
 ## DEG analysis with `limma`
@@ -280,30 +318,7 @@ saveRDS(degList, "./results/degList.rds") # saves entire degList
 
 <div align="right">[Back to Table of Contents]()</div>
 
-## Obtain annotation information
-The following generates annotation information for the Affymetirx probe set
-identifiers. Note, the three different Affymetrix chip types used by CMAP
-share most probe set ids (>95%), meaning it is possible to combine the data
-after normalization and use the same annotation package for all of them. The
-annotation libraries for the chip types HG-U133A and HT_HG-U133A are
-`hgu133a.db` and `hthgu133a.db`, respectively. However, there is no annotation 
-library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded
-from here: [`myAnnot.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls).
-
-```{r affyid_annotations, eval=FALSE, message=FALSE}
-library(hgu133a.db)
-myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
-                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
-                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
-                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
-                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
-                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
-write.table(myAnnot, file="./results/myAnnot.xls", quote=FALSE, sep="\t", col.names = NA) 
-saveRDS(myAnnot, "./results/myAnnot.rds")
-```
-
-<div align="right">[Back to Table of Contents]()</div>
-
+<!-- Not neceassary anymore since intensities of genes with multiple probe sets are averaged
 ## Transform probe set to gene level data
 
 The `probeset2gene` function translates a binary DEG matrix from the probe level (`row.names` are
@@ -320,6 +335,7 @@ degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1
 saveRDS(degMAgene, "./results/degMAgene.rds")
 ```
 <div align="right">[Back to Table of Contents]()</div>
+--> 
 
 ## Number of DEGs per drug treatment
 
