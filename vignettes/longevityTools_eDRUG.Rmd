@@ -460,10 +460,21 @@ colnames(pvalDF) <- paste0(colnames(pvalDF), "_FDR")
 df <- cbind(df, pvalDF)
 write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
 ```
-
 --> 
-
 <div align="right">[Back to Table of Contents]()</div>
+
+
+## Plot structures of compounds
+
+```{r plot_sdf, eval=TRUE}
+library(ChemmineR)
+#mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+mypath <- "../inst/extdata/longevitydrugs.sdf"
+sdfset <- read.SDFset(mypath)
+plot(sdfset[1:2], print=FALSE)
+```
+<div align="right">[Back to Table of Contents]()</div>
+
 
 # Connectivity maps enrichment analysis
 

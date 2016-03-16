@@ -184,6 +184,13 @@ nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
 ## df <- cbind(df, pvalDF)
 ## write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA)
 
+## ----plot_sdf, eval=TRUE-------------------------------------------------
+library(ChemmineR)
+#mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+mypath <- "../inst/extdata/longevitydrugs.sdf"
+sdfset <- read.SDFset(mypath)
+plot(sdfset[1:2], print=FALSE)
+
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
 library(DrugVsDisease)
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
