@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 <h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 06 March, 2016</em></h4>
+<h4 class="date"><em>Last update: 15 March, 2016</em></h4>
 </div>
 <h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.4</span></h4>
 
@@ -286,17 +286,17 @@ mas5df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])</code></pre>
 <div id="deg-analysis-with-limma-1" class="section level2">
 <h2><span class="header-section-number">6.3</span> DEG analysis with <code>limma</code></h2>
 <p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package. Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and a minimum fold change of 2). The DEG matrix is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
-<pre class="r"><code>degMA &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
-degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-write.table(degMA, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
-saveRDS(degMA, &quot;./results/degMA.rds&quot;)</code></pre>
+<pre class="r"><code>degList &lt;- runLimma(df=log2(mas5df), comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
+write.table(degList$DEG, file=&quot;./results/degMA.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+saveRDS(degList$DEG, &quot;./results/degMA.rds&quot;) # saves binary matrix 
+saveRDS(degList, &quot;./results/degList.rds&quot;) # saves entire degList</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
 </div>
 <div id="obtain-annotation-information" class="section level2">
 <h2><span class="header-section-number">6.4</span> Obtain annotation information</h2>
-<p>The following generates annotation information for the Affymetirx probe set identifiers. Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The annotation libraries for the chip types HG-U133A and HT_HG-U133A are <code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation library (e.g. CDF) available for U133AAofAv2.</p>
+<p>The following generates annotation information for the Affymetirx probe set identifiers. Note, the three different Affymetrix chip types used by CMAP share most probe set ids (&gt;95%), meaning it is possible to combine the data after normalization and use the same annotation package for all of them. The annotation libraries for the chip types HG-U133A and HT_HG-U133A are <code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls"><code>myAnnot.xls</code></a>.</p>
 <pre class="r"><code>library(hgu133a.db)
 myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=&quot;, &quot;), 
                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=&quot;, &quot;), 
@@ -304,6 +304,7 @@ myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=
                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=&quot;, &quot;), 
                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=&quot;, &quot;), 
                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=&quot;, &quot;))
+write.table(myAnnot, file=&quot;./results/myAnnot.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 saveRDS(myAnnot, &quot;./results/myAnnot.rds&quot;)</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
@@ -336,7 +337,7 @@ ggplot(df, aes(Bins, Counts)) +
 </div>
 <div id="identify-deg-overlaps-with-peters-et-al.--peters2015-fc" class="section level2">
 <h2><span class="header-section-number">6.7</span> Identify DEG overlaps with Peters et al. <span class="citation">(2015)</span></h2>
-<p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to observe the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
+<p>Peters et al. <span class="citation">(2015)</span> reported 1,497 age-related gene expression signatures. The <code>intersectStats</code> function computes their intersects with each of the 3,318 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple similarity metric for gene sets as well as the raw and adjusted p-values based on the hypergeometric distribution expressing how likely it is to obtain the observed intersect sizes just by chance. The results for the 20 top scoring drugs are given below and the full data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
 <pre class="r"><code>PMID26490707 &lt;- read.delim(&quot;./data/PMID26490707_S1.xls&quot;, comment=&quot;#&quot;)
 myAnnot &lt;- readRDS(&quot;./results/myAnnot.rds&quot;) 
 geneid &lt;- as.character(PMID26490707$&quot;NEW.Entrez.ID&quot;)

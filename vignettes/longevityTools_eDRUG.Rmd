@@ -272,22 +272,23 @@ a minimum fold change of 2). The DEG matrix is written to a file named
 [`degMA.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls).
 
 ```{r deg_limma, eval=FALSE}
-degMA <- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
-degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
-saveRDS(degMA, "./results/degMA.rds")
+degList <- runLimma(df=log2(mas5df), comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
+write.table(degList$DEG, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
+saveRDS(degList$DEG, "./results/degMA.rds") # saves binary matrix 
+saveRDS(degList, "./results/degList.rds") # saves entire degList
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
 
 ## Obtain annotation information
 The following generates annotation information for the Affymetirx probe set
-identifiers.  Note, the three different Affymetrix chip types used by CMAP
+identifiers. Note, the three different Affymetrix chip types used by CMAP
 share most probe set ids (>95%), meaning it is possible to combine the data
 after normalization and use the same annotation package for all of them. The
 annotation libraries for the chip types HG-U133A and HT_HG-U133A are
 `hgu133a.db` and `hthgu133a.db`, respectively. However, there is no annotation 
-library (e.g. CDF) available for U133AAofAv2. 
+library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded
+from here: [`myAnnot.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls).
 
 ```{r affyid_annotations, eval=FALSE, message=FALSE}
 library(hgu133a.db)
@@ -297,6 +298,7 @@ myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", 
                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+write.table(myAnnot, file="./results/myAnnot.xls", quote=FALSE, sep="\t", col.names = NA) 
 saveRDS(myAnnot, "./results/myAnnot.rds")
 ```
 
@@ -340,7 +342,7 @@ signatures.  The `intersectStats` function computes their intersects with each
 of the 3,318 drug-responsive DEG sets from CMAP. The result includes the
 Jaccard index as a simple similarity metric for gene sets as well as the raw
 and adjusted p-values based on the hypergeometric distribution expressing how
-likely it is to observe the observed intersect sizes just by chance. The
+likely it is to obtain the observed intersect sizes just by chance. The
 results for the 20 top scoring drugs are given below and the full data set is
 written to a file named
 [`degOL_PMID26490707.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls).

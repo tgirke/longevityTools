@@ -49,10 +49,12 @@ the cell types used in the assyas.
 \value{
 Function \code{sampleList} returns a \code{list} of \code{character} vectors.
 
-If \code{affyid=NULL}, the function \code{runLimma} returns a binary matrix
-where DEGs meeting the cutoff settings are indicated by 1s. If \code{affyid} is
-assigned a character vector of Affy IDs, then the function returns a list
-containing for each treatment the \code{topTable} output subsetted by the 
+If \code{affyid=NULL}, the function \code{runLimma} returns a list with the
+following three components. \code{DEG}: binary matrix where DEGs meeting the
+cutoff settings are indicated by 1s; \code{logFC}: matrix with corresponding
+logFC values; \code{FDR} matrix with corresponding FDR values. If \code{affyid}
+is assigned a character vector of Affy IDs, then the function returns a list
+containing for each treatment the \code{topTable} output subsetted by the
 corresponding Affy IDs.
 }
 

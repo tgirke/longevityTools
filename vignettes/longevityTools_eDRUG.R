@@ -79,10 +79,10 @@ ggplot(df, aes(Chip_type, Counts)) +
 ## mas5df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
 
 ## ----deg_limma, eval=FALSE-----------------------------------------------
-## degMA <- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
-## degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
-## saveRDS(degMA, "./results/degMA.rds")
+## degList <- runLimma(df=log2(mas5df), comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
+## write.table(degList$DEG, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
+## saveRDS(degList$DEG, "./results/degMA.rds") # saves binary matrix
+## saveRDS(degList, "./results/degList.rds") # saves entire degList
 
 ## ----affyid_annotations, eval=FALSE, message=FALSE-----------------------
 ## library(hgu133a.db)
@@ -92,6 +92,7 @@ ggplot(df, aes(Chip_type, Counts)) +
 ##                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "),
 ##                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "),
 ##                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+## write.table(myAnnot, file="./results/myAnnot.xls", quote=FALSE, sep="\t", col.names = NA)
 ## saveRDS(myAnnot, "./results/myAnnot.rds")
 
 ## ----affyid2gene, eval=FALSE, message=FALSE------------------------------

@@ -176,6 +176,8 @@ runLimma <- function(df, comp_list, fdr=0.05, foldchange=1, verbose=TRUE, affyid
     deg <- matrix(0, nrow=nrow(df), ncol=length(comp_list), dimnames = list(rownames(df, names(comp_list))))
     colnames(deg) <- names(comp_list)
     deg_list <- NULL # only used if affyid not NULL
+    logfc_ma <- deg
+    pvalue_ma <- deg
     ## Run limma
     for(i in seq_along(comp_list)) {
         sample_set <- unlist(comp_list[[i]])
@@ -200,7 +202,7 @@ runLimma <- function(df, comp_list, fdr=0.05, foldchange=1, verbose=TRUE, affyid
             contrast.matrix <- limma::makeContrasts(contrasts="t-c", levels=design)
             fit2 <- limma::contrasts.fit(fit, contrast.matrix)
             fit2 <- limma::eBayes(fit2) # Computes moderated t-statistics and log-odds of differential expression by empirical Bayes shrinkage of the standard errors towards a common value.
-            limmaDF <- limma::topTable(fit2, coef=1, adjust="fdr", sort.by="B", number=Inf)
+            limmaDF <- limma::topTable(fit2, coef=1, adjust="fdr", sort.by="none", number=Inf)
             if(!is.null(affyid)) {
                 tmp_list <- list(limmaDF[affyid,])
                 names(tmp_list) <- names(comp_list[i])
@@ -210,6 +212,8 @@ runLimma <- function(df, comp_list, fdr=0.05, foldchange=1, verbose=TRUE, affyid
             fold <- (limmaDF$logFC >= foldchange | limmaDF$logFC <= -foldchange) # Fold change 2
             affyids <- rownames(limmaDF[pval & fold,])
             deg[affyids, i] <- 1
+            pvalue_ma[ , i] <- limmaDF[, "adj.P.Val"]
+            logfc_ma[ , i] <- limmaDF[,"logFC"]
             if(verbose==TRUE) {
                 cat("Sample", i, "of", paste0(length(comp_list), ":"), "identified", length(affyids), paste0("DEGs (", repcounts, ")."), "\n")
             }
@@ -218,7 +222,8 @@ runLimma <- function(df, comp_list, fdr=0.05, foldchange=1, verbose=TRUE, affyid
     if(!is.null(affyid)) {
         return(deg_list)
     } else {
-        return(deg)
+        col_index <- !is.na(colSums(deg)) # Remove columns where DEG analysis was not possible
+        return(list(DEG=deg[, col_index], logFC=logfc_ma[, col_index], FDR=pvalue_ma[, col_index]))
     }
 }
 ## Usage:
