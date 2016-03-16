@@ -78,7 +78,7 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from
 
 ## Loading of required packages
 
-```{r documentation, eval=FALSE}
+```{r documentation, eval=TRUE}
 library("longevityTools") 
 library("ChemmineR") 
 ```

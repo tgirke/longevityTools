@@ -14,9 +14,9 @@ suppressPackageStartupMessages({
 ## source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script
 ## biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
 
-## ----documentation, eval=FALSE-------------------------------------------
-## library("longevityTools")
-## library("ChemmineR")
+## ----documentation, eval=TRUE--------------------------------------------
+library("longevityTools") 
+library("ChemmineR") 
 
 ## ----load_sdf, eval=FALSE------------------------------------------------
 ## mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
