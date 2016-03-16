@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>longevityToolseDRUG: Connecting Drug- and Age-related Gene Expression Signatures  | Manuals</title>
+<title>_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures  | Manuals</title>
 <link rel="stylesheet" type="text/css" href="../css/syntax.css">
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 <!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">-->
@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,13 +141,11 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
 var subject= "Manuals feedback";
-var body = "I have some feedback about the longevityToolseDRUG: Connecting Drug- and Age-related Gene Expression Signatures page: ";
+var body = "I have some feedback about the _longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures page: ";
 body += window.location.href;
 body += "";
 var uri = "mailto:?subject=";
@@ -184,7 +172,7 @@ window.location.href = uri;
                             searchInput: document.getElementById('search-input'),
                             resultsContainer: document.getElementById('results-container'),
                             dataSource: '../search.json',
-                            searchResultTemplate: '<li><a href="{url}" title="longevityToolseDRUG: Connecting Drug- and Age-related Gene Expression Signatures">{title}</a></li>',
+                            searchResultTemplate: '<li><a href="{url}" title="_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures">{title}</a></li>',
                         noResultsText: 'No results found.',
                                 limit: 10,
                                 fuzzy: true,
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -710,7 +688,7 @@ window.location.href = uri;
             <div class="col-md-9">
                 
                 <div class="post-header">
-   <h1 class="post-title-main">longevityToolseDRUG: Connecting Drug- and Age-related Gene Expression Signatures</h1>
+   <h1 class="post-title-main">_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 </div>
 
 <div class="post-content">
@@ -966,6 +944,30 @@ unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
 
 <div align="right">[Back to Table of Contents]()</div>
 
+## Obtain annotation information
+The following generates annotation information for the Affymetirx probe set
+identifiers. Note, the three different Affymetrix chip types used by CMAP
+share most probe set ids (>95%), meaning it is possible to combine the data
+after normalization and use the same annotation package for all of them. The
+annotation libraries for the chip types HG-U133A and HT_HG-U133A are
+`hgu133a.db` and `hthgu133a.db`, respectively. However, there is no annotation 
+library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded
+from here: [`myAnnot.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls).
+
+```{r affyid_annotations, eval=FALSE, message=FALSE}
+library(hgu133a.db)
+myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
+                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
+                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
+                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
+                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+write.table(myAnnot, file="./results/myAnnot.xls", quote=FALSE, sep="\t", col.names = NA) 
+saveRDS(myAnnot, "./results/myAnnot.rds")
+```
+
+<div align="right">[Back to Table of Contents]()</div>
+
 # DEG analysis with `limma`
 
 ## Generate list of CEL names defining treatment vs. control comparisons
@@ -995,6 +997,20 @@ affyid <- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid <- affyid[affy
 mas5df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
 ```
 
+## Transform probe set to gene level data
+The next step generates gene level expression values. If genes are represented by several
+probe sets then their mean intensities are used. This is necessary because 
+the U133 chip contains many genes with duplicated probe sets. Probe sets not matching 
+any gene are removed.
+
+```{r mean_mas5_data, eval=FALSE} 
+myAnnot <- readRDS("./results/myAnnot.rds") 
+myAnnot <- myAnnot[as.character(myAnnot[,"ENTREZID"]) != "NA",]
+mas5df <- mas5df[rownames(myAnnot),]
+idlist <- tapply(row.names(myAnnot), as.character(myAnnot$ENTREZID), c)
+mas5df <- t(sapply(names(idlist), function(x) colMeans(mas5df[idlist[[x]], ])))
+```
+
 <div align="right">[Back to Table of Contents]()</div>
 
 ## DEG analysis with `limma`
@@ -1005,36 +1021,15 @@ a minimum fold change of 2). The DEG matrix is written to a file named
 [`degMA.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls).
 
 ```{r deg_limma, eval=FALSE}
-degMA <- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
-degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
-saveRDS(degMA, "./results/degMA.rds")
+degList <- runLimma(df=log2(mas5df), comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
+write.table(degList$DEG, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
+saveRDS(degList$DEG, "./results/degMA.rds") # saves binary matrix 
+saveRDS(degList, "./results/degList.rds") # saves entire degList
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
 
-## Obtain annotation information
-The following generates annotation information for the Affymetirx probe set
-identifiers.  Note, the three different Affymetrix chip types used by CMAP
-share most probe set ids (>95%), meaning it is possible to combine the data
-after normalization and use the same annotation package for all of them. The
-annotation libraries for the chip types HG-U133A and HT_HG-U133A are
-`hgu133a.db` and `hthgu133a.db`, respectively. However, there is no annotation 
-library (e.g. CDF) available for U133AAofAv2. 
-
-```{r affyid_annotations, eval=FALSE, message=FALSE}
-library(hgu133a.db)
-myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
-                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
-                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
-                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
-                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
-                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
-saveRDS(myAnnot, "./results/myAnnot.rds")
-```
-
-<div align="right">[Back to Table of Contents]()</div>
-
+<!-- Not neceassary anymore since intensities of genes with multiple probe sets are averaged
 ## Transform probe set to gene level data
 
 The `probeset2gene` function translates a binary DEG matrix from the probe level (`row.names` are
@@ -1051,11 +1046,15 @@ degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1
 saveRDS(degMAgene, "./results/degMAgene.rds")
 ```
 <div align="right">[Back to Table of Contents]()</div>
+--> 
 
-## Number of DEGs per drug treatment
+## Number of DEGs across drug treatments
+
+The following plots the number of drug treatments (y-axis) for increasing bin sizes (x-axis) 
+of DEGs. 
 
 ```{r deg_distr, eval=TRUE, message=TRUE}
-degMAgene <- readRDS("./results/degMAgene.rds")
+degMAgene <- readRDS("./results/degMA.rds")
 y <- as.numeric(colSums(degMAgene))
 interval <- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
 df <- data.frame(interval); colnames(df) <- c("Bins", "Counts")
@@ -1073,7 +1072,7 @@ signatures.  The `intersectStats` function computes their intersects with each
 of the 3,318 drug-responsive DEG sets from CMAP. The result includes the
 Jaccard index as a simple similarity metric for gene sets as well as the raw
 and adjusted p-values based on the hypergeometric distribution expressing how
-likely it is to observe the observed intersect sizes just by chance. The
+likely it is to obtain the observed intersect sizes just by chance. The
 results for the 20 top scoring drugs are given below and the full data set is
 written to a file named
 [`degOL_PMID26490707.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls).
@@ -1082,7 +1081,7 @@ written to a file named
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 geneid <- as.character(PMID26490707$"NEW.Entrez.ID")
-degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+degMAgene <- readRDS("./results/degMA.rds") # Faster than read.delim()
 degMAsub <- degMAgene[rownames(degMAgene) %in% geneid,]
 degOL_PMID26490707 <- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
@@ -1105,10 +1104,11 @@ data set is written to a file named [`degOL_PMID26343147.xls`](http://biocluster
 ```{r deg_overlaps_PMID26343147, eval=TRUE}
 PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
-affyid <- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
+geneid <- as.character(myAnnot[rownames(myAnnot) %in% as.character(PMID26343147[,1]), "ENTREZID"])
+geneid <- geneid[geneid!="NA"]
 degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
 degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-degMAsub <- degMA[affyid,]
+degMAsub <- degMA[geneid,]
 degOL_PMID26343147 <- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
 sum(degOL_PMID26343147[,1] > 0) # Drugs with any overlap
@@ -1125,7 +1125,30 @@ The final result is written to a file named [`deg_IGF1.xls`](http://biocluster.u
 genesymbols <- c("IGF1", "IGF1R")
 geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
 names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
-degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+degList <- readRDS("./results/degList.rds") 
+df <- data.frame(row.names=colnames(degList$DEG), check.names=FALSE)
+index <- which(colSums(degList$DEG[geneids,])>= 1) 
+for(i in seq_along(geneids)) {
+    tmp <- data.frame(DEG=degList$DEG[geneids[i],index], logFC=degList$logFC[geneids[i],index], FDR=degList$FDR[geneids[i],index])
+    colnames(tmp) <- paste0(names(geneids)[i], "_", colnames(tmp))
+    df <- cbind(df, tmp[rownames(df),] )    
+}
+df <- df[names(index),]
+write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
+```
+
+Now the final `data.frame` can be sorted by increasing mean FDR values. 
+```{r sort_pvalue, eval=TRUE}
+igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
+igfDF[order(rowMeans(igfDF[,c(3,6)])),][1:20,]
+```
+
+<!-- old version
+```{r deg_queries2, eval=TRUE}
+genesymbols <- c("IGF1", "IGF1R")
+geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
+names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
+degMAgene <- readRDS("./results/degMA.rds") # Faster than read.delim()
 df <- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
 for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
 colnames(df) <- names(geneids)
@@ -1148,14 +1171,23 @@ colnames(pvalDF) <- paste0(colnames(pvalDF), "_FDR")
 df <- cbind(df, pvalDF)
 write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
 ```
-
-Now the final `data.frame` can be sorted by increasing mean FDR values. 
-```{r sort_pvalue, eval=TRUE}
-igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
-igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
-```
-
+--> 
 <div align="right">[Back to Table of Contents]()</div>
+
+
+## Plot structures of compounds
+
+```{r plot_sdf, eval=TRUE}
+library(ChemmineR)
+mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+mypath <- "../inst/extdata/longevitydrugs.sdf"
+sdfset <- read.SDFset(mypath)
+data(sdfsample)
+sdfsample
+plot(sdfsample[1:4], print=FALSE)
+```
+<div align="right">[Back to Table of Contents]()</div>
+
 
 # Connectivity maps enrichment analysis
 
@@ -1250,7 +1282,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: Mar 15, 2016 <br />
+ Site last generated: Mar 16, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

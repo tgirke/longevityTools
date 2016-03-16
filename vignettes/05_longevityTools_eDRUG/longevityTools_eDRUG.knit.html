@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures  | Manuals</title>
+<title>_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures  | Manuals</title>
 <link rel="stylesheet" type="text/css" href="../css/syntax.css">
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 <!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">-->
@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,13 +141,11 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
 var subject= "Manuals feedback";
-var body = "I have some feedback about the longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures page: ";
+var body = "I have some feedback about the _longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures page: ";
 body += window.location.href;
 body += "";
 var uri = "mailto:?subject=";
@@ -184,7 +172,7 @@ window.location.href = uri;
                             searchInput: document.getElementById('search-input'),
                             resultsContainer: document.getElementById('results-container'),
                             dataSource: '../search.json',
-                            searchResultTemplate: '<li><a href="{url}" title="longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures">{title}</a></li>',
+                            searchResultTemplate: '<li><a href="{url}" title="_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures">{title}</a></li>',
                         noResultsText: 'No results found.',
                                 limit: 10,
                                 fuzzy: true,
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -710,7 +688,7 @@ window.location.href = uri;
             <div class="col-md-9">
                 
                 <div class="post-header">
-   <h1 class="post-title-main">longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures</h1>
+   <h1 class="post-title-main">_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 </div>
 
 <div class="post-content">
@@ -779,8 +757,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<p>The single-page R markdown vignette of this workflow is <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html">here</a>.</p>
-
 <h1 id="introduction">Introduction</h1>
 <p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
 website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package 
@@ -802,9 +778,9 @@ are from the Connectivity Map (CMAP) and LINCS projects [@Lamb2006-uv].</p>
 
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
 biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
 </code></p>
@@ -812,7 +788,7 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from
 
 <h2 id="loading-package-and-documentation">Loading package and documentation</h2>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 library("longevityTools") # Loads the package
 library(help="longevityTools") # Lists package info
 vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignette
@@ -824,9 +800,9 @@ vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignett
 <h2 id="import-custom-functions">Import custom functions</h2>
 
 <p>Preliminary functions that are still under developement, or not fully tested and documented 
-can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
+can be imported with the <code class="highlighter-rouge">source</code> command from the <code class="highlighter-rouge">inst/extdata</code> directory of the package.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 fctpath &lt;- system.file("extdata", "longevityTools_eDRUG_Fct.R", package="longevityTools")
 source(fctpath)
 </code></p>
@@ -835,10 +811,10 @@ source(fctpath)
 <h2 id="create-expected-directory-structure">Create expected directory structure</h2>
 
 <p>The following creates the directory structure expected by this workflow. Input data
-will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory.
+will be stored in the <code class="highlighter-rouge">data</code> directory and results will be written to the <code class="highlighter-rouge">results</code> directory.
 All paths are given relative to the present working directory of the user’s R session.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 dir.create("data"); dir.create("data/CEL"); dir.create("results") 
 </code></p>
 
@@ -848,17 +824,17 @@ dir.create("data"); dir.create("data/CEL"); dir.create("results")
 
 <h2 id="download-data-from-connectivity-map-project-site">Download data from Connectivity Map project site</h2>
 <p>The drug-related expression data are downloaded from the CMAP web site
-<a href="http://www.broadinstitute.org/cmap">here</a>.  The <code>getCmap</code> function downloads
-the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code>
+<a href="http://www.broadinstitute.org/cmap">here</a>.  The <code class="highlighter-rouge">getCmap</code> function downloads
+the CMAP rank matrix along with the compound annotations, and <code class="highlighter-rouge">getCmapCEL</code>
 downloads the corresponding 7,056 CEL files. The functions will write the
-downloaded files to the <code>data</code> and <code>data/CEL</code> directories within the present 
+downloaded files to the <code class="highlighter-rouge">data</code> and <code class="highlighter-rouge">data/CEL</code> directories within the present 
 working directory of the user’s R session. Since some of the raw data sets 
-are large, the functions will only rerun the download if the argument <code>rerun</code> 
-is assigned <code>TRUE</code>. If the raw data are not needed then users can skip this 
+are large, the functions will only rerun the download if the argument <code class="highlighter-rouge">rerun</code> 
+is assigned <code class="highlighter-rouge">TRUE</code>. If the raw data are not needed then users can skip this 
 time consuming download step and work with the preprocessed data 
 obtained in the next section.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 </code></p>
@@ -868,7 +844,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 <h2 id="overiew-of-cmap-data">Overiew of CMAP data</h2>
 
 <p>The experimental design of the CMAP project is defined in the file
-<code>cmap_instances_02.xls</code>.  Note, this file required some cleaning in LibreOffice
+<code class="highlighter-rouge">cmap_instances_02.xls</code>.  Note, this file required some cleaning in LibreOffice
 (Excel would work for this too). After this it was saved as tab delimited txt
 file named
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>.
@@ -883,7 +859,7 @@ The following count statisitics are extracted from this file.</p>
 Each cell type was subjected to the following number of total treatments and number
 of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 library(ggplot2); library(reshape2) 
 cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
 df &lt;- data.frame(table(cmap[, "cell2"]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])))
@@ -899,7 +875,7 @@ ggplot(df, aes(Cell_type, Counts, fill=Samples)) +
 <p>The number Affymetrix chip used in the experiments is plotted here for each of
 the three chip types used by CMAP:</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 df &lt;- data.frame(table(cmap$array3)); colnames(df) &lt;- c("Chip_type", "Counts") 
 ggplot(df, aes(Chip_type, Counts)) + 
        geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
@@ -915,11 +891,11 @@ ggplot(df, aes(Chip_type, Counts)) +
 <h2 id="determine-chip-type-from-cel-files">Determine chip type from CEL files</h2>
 <p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A,
 HT_HG-U133A and U133AAofAv2). The following extracts the chip type information
-from the CEL files and stores the result in an <code>rds</code> file with the path 
-<code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can
+from the CEL files and stores the result in an <code class="highlighter-rouge">rds</code> file with the path 
+<code class="highlighter-rouge">./data/chiptype.rds</code>. Users who skipped the download of the CEL files can
 download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 celfiles &lt;- list.files("./data/CEL", pattern=".CEL$")
 chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
 if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this line from accidental execution!
@@ -931,18 +907,18 @@ if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this lin
 
 <p>The follwoing processes the CEL files from each chip type separately using the
 MAS5 normalization algorithm. The results will be written to 3 subdirectores
-under <code>data</code> that are named after the chip type names.  To save time, the
-processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a
+under <code class="highlighter-rouge">data</code> that are named after the chip type names.  To save time, the
+processing is parallelized with <code class="highlighter-rouge">BiocParallel</code> to run on 100 CPU cores of a
 computer cluster with a scheduler (<em>e.g.</em> Torque). The number of CEL files from
 each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from
 HT_HG-U133A, and 220 CEL files from U133AAofAv2. Note, these numbers are slightly
-different than those reported in the <code>cmap_instances_02.txt</code> file. The MAS5 normalized data
+different than those reported in the <code class="highlighter-rouge">cmap_instances_02.txt</code> file. The MAS5 normalized data
 sets can be downloaded here: 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds">HG-U133A</a>, 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds">HT_HG-U133A</a>, 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/U133AAofAv2/all_mas5exprs.rds">U133AAofAv2</a>.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 library(BiocParallel); library(BatchJobs); library(affy)
 chiptype &lt;- readRDS("./data/chiptype.rds")
 chiptype_list &lt;- split(names(chiptype), as.character(chiptype))
@@ -953,7 +929,7 @@ normalizeCel(chiptype_list, rerun=FALSE)
 
 <h2 id="combine-results-from-same-chip-type-in-single-data-frame">Combine results from same chip type in single data frame</h2>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 chiptype_dir &lt;- unique(readRDS("./data/chiptype.rds"))
 combineResults(chiptype_dir, rerun=FALSE)
 </code></p>
@@ -964,21 +940,45 @@ combineResults(chiptype_dir, rerun=FALSE)
 
 <p>This deletes intermediate files. Before executing these lines, please make sure that this is what you want.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
 unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
 </code></p>
 
 <div align="right">[Back to Table of Contents]()</div>
 
-<h1 id="deg-analysis-with-limma">DEG analysis with <code>limma</code></h1>
+<h2 id="obtain-annotation-information">Obtain annotation information</h2>
+<p>The following generates annotation information for the Affymetirx probe set
+identifiers. Note, the three different Affymetrix chip types used by CMAP
+share most probe set ids (&gt;95%), meaning it is possible to combine the data
+after normalization and use the same annotation package for all of them. The
+annotation libraries for the chip types HG-U133A and HT_HG-U133A are
+<code class="highlighter-rouge">hgu133a.db</code> and <code class="highlighter-rouge">hthgu133a.db</code>, respectively. However, there is no annotation 
+library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded
+from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls"><code class="highlighter-rouge">myAnnot.xls</code></a>.</p>
+
+<p><code class="highlighter-rouge">r
+library(hgu133a.db)
+myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
+                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
+                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
+                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
+                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+write.table(myAnnot, file="./results/myAnnot.xls", quote=FALSE, sep="\t", col.names = NA) 
+saveRDS(myAnnot, "./results/myAnnot.rds")
+</code></p>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="deg-analysis-with-limma">DEG analysis with <code class="highlighter-rouge">limma</code></h1>
 
 <h2 id="generate-list-of-cel-names-defining-treatment-vs-control-comparisons">Generate list of CEL names defining treatment vs. control comparisons</h2>
 
-<p>The <code>sampleList</code> function extracts the sample comparisons (contrasts) from the
+<p>The <code class="highlighter-rouge">sampleList</code> function extracts the sample comparisons (contrasts) from the
 CMAP annotation table and stores them as a list.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
 # comp_list &lt;- sampleList(cmap, myby="CMP")
 comp_list &lt;- sampleList(cmap, myby="CMP_CELL")
@@ -988,10 +988,10 @@ comp_list &lt;- sampleList(cmap, myby="CMP_CELL")
 
 <h2 id="load-normalized-expression-data">Load normalized expression data</h2>
 
-<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. 
-To accelerate the import, the data is read from <code>rds</code> files.</p>
+<p>The following loads the MAS5 normalized expression data into a single <code class="highlighter-rouge">data.frame</code>. 
+To accelerate the import, the data is read from <code class="highlighter-rouge">rds</code> files.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 chiptype_dir &lt;- unique(readRDS("./data/chiptype.rds"))
 df1 &lt;- readRDS(paste0("data/", chiptype_dir[1], "/", "all_mas5exprs.rds"))
 df2 &lt;- readRDS(paste0("data/", chiptype_dir[2], "/", "all_mas5exprs.rds"))
@@ -1000,67 +1000,65 @@ affyid &lt;- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid &lt;- affyi
 mas5df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
 </code></p>
 
+<h2 id="transform-probe-set-to-gene-level-data">Transform probe set to gene level data</h2>
+<p>The next step generates gene level expression values. If genes are represented by several
+probe sets then their mean intensities are used. This is necessary because 
+the U133 chip contains many genes with duplicated probe sets. Probe sets not matching 
+any gene are removed.</p>
+
+<p><code class="highlighter-rouge">r
+myAnnot &lt;- readRDS("./results/myAnnot.rds") 
+myAnnot &lt;- myAnnot[as.character(myAnnot[,"ENTREZID"]) != "NA",]
+mas5df &lt;- mas5df[rownames(myAnnot),]
+idlist &lt;- tapply(row.names(myAnnot), as.character(myAnnot$ENTREZID), c)
+mas5df &lt;- t(sapply(names(idlist), function(x) colMeans(mas5df[idlist[[x]], ])))
+</code></p>
+
 <div align="right">[Back to Table of Contents]()</div>
 
-<h2 id="deg-analysis-with-limma-1">DEG analysis with <code>limma</code></h2>
+<h2 id="deg-analysis-with-limma-1">DEG analysis with <code class="highlighter-rouge">limma</code></h2>
 
-<p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package.
+<p>The analysis of differentially expressed genes (DEGs) is performed with the <code class="highlighter-rouge">limma</code> package.
 Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and 
 a minimum fold change of 2). The DEG matrix is written to a file named 
-<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code class="highlighter-rouge">degMA.xls</code></a>.</p>
 
-<p><code>r
-degMA &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
-degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
-saveRDS(degMA, "./results/degMA.rds")
+<p><code class="highlighter-rouge">r
+degList &lt;- runLimma(df=log2(mas5df), comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
+write.table(degList$DEG, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
+saveRDS(degList$DEG, "./results/degMA.rds") # saves binary matrix 
+saveRDS(degList, "./results/degList.rds") # saves entire degList
 </code></p>
 
 <div align="right">[Back to Table of Contents]()</div>
 
-<h2 id="obtain-annotation-information">Obtain annotation information</h2>
-<p>The following generates annotation information for the Affymetirx probe set
-identifiers.  Note, the three different Affymetrix chip types used by CMAP
-share most probe set ids (&gt;95%), meaning it is possible to combine the data
-after normalization and use the same annotation package for all of them. The
-annotation libraries for the chip types HG-U133A and HT_HG-U133A are
-<code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation 
-library (e.g. CDF) available for U133AAofAv2.</p>
+<!-- Not neceassary anymore since intensities of genes with multiple probe sets are averaged
+## Transform probe set to gene level data
 
-<p><code>r
-library(hgu133a.db)
-myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
-                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
-                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
-                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
-                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
-                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
-saveRDS(myAnnot, "./results/myAnnot.rds")
-</code></p>
-
-<div align="right">[Back to Table of Contents]()</div>
-
-<h2 id="transform-probe-set-to-gene-level-data">Transform probe set to gene level data</h2>
-
-<p>The <code>probeset2gene</code> function translates a binary DEG matrix from the probe level (<code>row.names</code> are
-Affy IDs) to the gene level (<code>row.names</code> are gene IDs). Genes represented by several probe
+The `probeset2gene` function translates a binary DEG matrix from the probe level (`row.names` are
+Affy IDs) to the gene level (`row.names` are gene IDs). Genes represented by several probe
 sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are
-supported: <code>summary_rule=1L</code> will consider a gene as a DEG for a specific treatment if at 
-least one of several probe sets supports this assignment, while <code>summary_rule=2L</code> requires 
-support from at least 2 probe sets.</p>
+supported: `summary_rule=1L` will consider a gene as a DEG for a specific treatment if at 
+least one of several probe sets supports this assignment, while `summary_rule=2L` requires 
+support from at least 2 probe sets.
 
-<p><code>r
-myAnnot &lt;- readRDS("./results/myAnnot.rds") 
-degMA &lt;- readRDS("./results/degMA.rds") # Faster than read.delim()
-degMAgene &lt;- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
+
+```r
+myAnnot <- readRDS("./results/myAnnot.rds") 
+degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
+degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
 saveRDS(degMAgene, "./results/degMAgene.rds")
-</code></p>
+```
 <div align="right">[Back to Table of Contents]()</div>
+-->
 
-<h2 id="number-of-degs-per-drug-treatment">Number of DEGs per drug treatment</h2>
+<h2 id="number-of-degs-across-drug-treatments">Number of DEGs across drug treatments</h2>
 
-<p><code>r
-degMAgene &lt;- readRDS("./results/degMAgene.rds")
+<p>The following plots the number of drug treatments (y-axis) for increasing bin sizes (x-axis) 
+of DEGs.</p>
+
+<p><code class="highlighter-rouge">r
+degMAgene &lt;- readRDS("./results/degMA.rds")
 y &lt;- as.numeric(colSums(degMAgene))
 interval &lt;- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
 df &lt;- data.frame(interval); colnames(df) &lt;- c("Bins", "Counts")
@@ -1076,77 +1074,77 @@ ggplot(df, aes(Bins, Counts)) +
 <h2 id="identify-deg-overlaps-with-peters-et-al--peters2015-fc">Identify DEG overlaps with Peters et al. [-@Peters2015-fc]</h2>
 
 <p>Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression
-signatures.  The <code>intersectStats</code> function computes their intersects with each
+signatures.  The <code class="highlighter-rouge">intersectStats</code> function computes their intersects with each
 of the 3,318 drug-responsive DEG sets from CMAP. The result includes the
 Jaccard index as a simple similarity metric for gene sets as well as the raw
 and adjusted p-values based on the hypergeometric distribution expressing how
-likely it is to observe the observed intersect sizes just by chance. The
+likely it is to obtain the observed intersect sizes just by chance. The
 results for the 20 top scoring drugs are given below and the full data set is
 written to a file named
-<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code class="highlighter-rouge">degOL_PMID26490707.xls</code></a>.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot &lt;- readRDS("./results/myAnnot.rds") 
 geneid &lt;- as.character(PMID26490707$"NEW.Entrez.ID")
-degMAgene &lt;- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+degMAgene &lt;- readRDS("./results/degMA.rds") # Faster than read.delim()
 degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
 degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
 sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap
 </code></p>
 
-<p><code>
-## [1] 880
+<p><code class="highlighter-rouge">
+## [1] 1137
 </code></p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 degOL_PMID26490707[1:20,]
 </code></p>
 
-<p><code>
+<p><code class="highlighter-rouge">
 ##                                Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
-## anisomycin_HL60                   0.11933973          1192     3826       535 2.344725e-27
-## alprostadil_HL60                  0.11186805          1192     1909       312 1.394157e-24
-## (-)-isoprenaline_HL60             0.10475352          1192     1318       238 3.108024e-24
-## mebendazole_HL60                  0.11033210          1192     1817       299 6.281549e-24
-## tretinoin_HL60                    0.09301104          1192      888       177 1.302556e-22
-## pergolide_HL60                    0.11107955          1192     2719       391 2.203268e-20
-## bromocriptine_HL60                0.08947368          1192      878       170 2.543364e-20
-## dihydroergotamine_HL60            0.09692237          1192     1196       211 4.395981e-20
-## lycorine_HL60                     0.11291316          1192     4229       550 4.475942e-20
-## tanespimycin_HL60                 0.11140654          1192     2988       419 5.549520e-20
-## co-dergocrine mesilate_HL60       0.10228137          1192     1707       269 1.428828e-18
-## trichostatin A_HL60               0.11127691          1192     4021       522 1.895076e-18
-## Prestwick-983_HL60                0.09537572          1192     1461       231 5.536597e-16
-## methylergometrine_HL60            0.07056695          1192      583       117 2.678052e-15
-## clonidine_HL60                    0.06911315          1192      556       113 3.297109e-15
-## isotretinoin_HL60                 0.07020649          1192      622       119 5.581359e-14
-## puromycin_HL60                    0.09287430          1192     1538       232 1.067668e-13
-## monorden_HL60                     0.04433140          1192      245        61 1.493799e-12
-## podophyllotoxin_HL60              0.08635961          1192     1261       195 1.573915e-12
-## 15-delta prostaglandin J2_HL60    0.09484610          1192     1867       265 1.727186e-12
+## alprostadil_HL60                  0.10272537          1192      912       196 1.706881e-29
+## dihydroergotamine_HL60            0.06187625          1192      404        93 3.698500e-16
+## pergolide_HL60                    0.07815080          1192      767       142 2.631561e-15
+## (-)-isoprenaline_HL60             0.05113636          1192      288        72 1.087773e-14
+## Prestwick-983_HL60                0.05948447          1192      411        90 2.785586e-14
+## nocodazole_HL60                   0.06384324          1192      491       101 4.863951e-14
+## anisomycin_HL60                   0.09790419          1192     2475       327 2.312553e-11
+## tetryzoline_HL60                  0.03366488          1192      159        44 4.993036e-11
+## mebendazole_HL60                  0.06041924          1192      528        98 6.663275e-11
+## methylergometrine_HL60            0.04436620          1192      291        63 3.825164e-10
+## lycorine_HL60                     0.09093994          1192     2023       268 2.411922e-09
+## podophyllotoxin_HL60              0.04175513          1192      280        59 4.108204e-09
+## colchicine_HL60                   0.03181818          1192      170        42 5.960591e-09
+## co-dergocrine mesilate_HL60       0.05239617          1192      455        82 1.062344e-08
+## puromycin_HL60                    0.05060858          1192      448        79 5.282895e-08
+## tretinoin_HL60                    0.03738318          1192      251        52 6.182212e-08
+## 15-delta prostaglandin J2_HL60    0.04560698          1192      367        68 6.583181e-08
+## geldanamycin_HL60                 0.03068862          1192      185        41 2.331048e-07
+## bromocriptine_HL60                0.02739726          1192      158        36 6.194257e-07
+## apigenin_HL60                     0.06292967          1192      818       119 1.601978e-06
 ##                                    adj_Pval
-## anisomycin_HL60                8.154954e-24
-## alprostadil_HL60               4.848876e-21
-## (-)-isoprenaline_HL60          1.080971e-20
-## mebendazole_HL60               2.184723e-20
-## tretinoin_HL60                 4.530291e-19
-## pergolide_HL60                 7.662964e-17
-## bromocriptine_HL60             8.845821e-17
-## dihydroergotamine_HL60         1.528922e-16
-## lycorine_HL60                  1.556732e-16
-## tanespimycin_HL60              1.930123e-16
-## co-dergocrine mesilate_HL60    4.969462e-15
-## trichostatin A_HL60            6.591075e-15
-## Prestwick-983_HL60             1.925628e-12
-## methylergometrine_HL60         9.314264e-12
-## clonidine_HL60                 1.146735e-11
-## isotretinoin_HL60              1.941197e-10
-## puromycin_HL60                 3.713349e-10
-## monorden_HL60                  5.195432e-09
-## podophyllotoxin_HL60           5.474077e-09
-## 15-delta prostaglandin J2_HL60 6.007155e-09
+## alprostadil_HL60               5.936533e-26
+## dihydroergotamine_HL60         1.286338e-12
+## pergolide_HL60                 9.152569e-12
+## (-)-isoprenaline_HL60          3.783276e-11
+## Prestwick-983_HL60             9.688270e-11
+## nocodazole_HL60                1.691682e-10
+## anisomycin_HL60                8.043059e-08
+## tetryzoline_HL60               1.736578e-07
+## mebendazole_HL60               2.317487e-07
+## methylergometrine_HL60         1.330392e-06
+## lycorine_HL60                  8.388664e-06
+## podophyllotoxin_HL60           1.428833e-05
+## colchicine_HL60                2.073093e-05
+## co-dergocrine mesilate_HL60    3.694832e-05
+## puromycin_HL60                 1.837391e-04
+## tretinoin_HL60                 2.150173e-04
+## 15-delta prostaglandin J2_HL60 2.289630e-04
+## geldanamycin_HL60              8.107384e-04
+## bromocriptine_HL60             2.154363e-03
+## apigenin_HL60                  5.571679e-03
 </code></p>
 
 <div align="right">[Back to Table of Contents]()</div>
@@ -1154,127 +1152,168 @@ degOL_PMID26490707[1:20,]
 <h2 id="identify-deg-overlaps-with-sood-et-al--sood2015-pb">Identify DEG overlaps with Sood et al. [-@Sood2015-pb]</h2>
 
 <p>Sood et al. [-@Sood2015-pb] reported 150 age-related gene expression signatures. 
-The <code>intersectStats</code> function computes their intersects with each of the 3,318 
+The <code class="highlighter-rouge">intersectStats</code> function computes their intersects with each of the 3,318 
 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple 
 similarity metric for gene sets as well as the raw and adjusted p-values based on the 
 hypergeometric distribution expressing how likely it is to observe the observed intersect 
 sizes just by chance. The results for the 20 top scoring drugs are given below and the full
-data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
+data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code class="highlighter-rouge">degOL_PMID26343147.xls</code></a>.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 PMID26343147 &lt;- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
 myAnnot &lt;- readRDS("./results/myAnnot.rds") 
-affyid &lt;- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
+geneid &lt;- as.character(myAnnot[rownames(myAnnot) %in% as.character(PMID26343147[,1]), "ENTREZID"])
+geneid &lt;- geneid[geneid!="NA"]
 degMA &lt;- readRDS("./results/degMA.rds") # Faster then read.delim()
 degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-degMAsub &lt;- degMA[affyid,]
+degMAsub &lt;- degMA[geneid,]
 degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
 sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap
 </code></p>
 
-<p><code>
-## [1] 407
+<p><code class="highlighter-rouge">
+## [1] 223
 </code></p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 </code></p>
 
-<p><code>
-##                               Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
-## idoxuridine_MCF7                0.009478673           211        2         2 0.0002862571 0.9956022
-## cinchonidine_MCF7               0.009389671           211        4         2 0.0016793094 1.0000000
-## papaverine_MCF7                 0.009090909           211       11         2 0.0142342625 1.0000000
-## trichlormethiazide_HL60         0.004739336           211        1         1 0.0169586883 1.0000000
-## beclometasone_HL60              0.016129032           211      104         5 0.0318882201 1.0000000
-## papaverine_HL60                 0.018648019           211      226         8 0.0388976900 1.0000000
-## nimodipine_HL60                 0.008695652           211       21         2 0.0486620004 1.0000000
-## midodrine_PC3                   0.004694836           211        3         1 0.0500221030 1.0000000
-## syrosingopine_HL60              0.015243902           211      122         5 0.0565837628 1.0000000
-## Prestwick-920_PC3               0.004672897           211        4         1 0.0661363675 1.0000000
-## sulfamethizole_MCF7             0.004672897           211        4         1 0.0661363675 1.0000000
-## zardaverine_HL60                0.018547141           211      448        12 0.0794990573 1.0000000
-## pyrvinium_PC3                   0.013201320           211       96         4 0.0803067056 1.0000000
-## etomidate_MCF7                  0.004651163           211        5         1 0.0819785629 1.0000000
-## nimesulide_MCF7                 0.004651163           211        5         1 0.0819785629 1.0000000
-## nordihydroguaiaretic acid_PC3   0.004651163           211        5         1 0.0819785629 1.0000000
-## procaine_PC3                    0.004651163           211        5         1 0.0819785629 1.0000000
-## remoxipride_MCF7                0.004651163           211        5         1 0.0819785629 1.0000000
-## tobramycin_HL60                 0.004651163           211        5         1 0.0819785629 1.0000000
-## triamcinolone_PC3               0.004651163           211        5         1 0.0819785629 1.0000000
+<p><code class="highlighter-rouge">
+##                        Jaccard_Index longevity_DEG cmap_DEG Intersect        Pval adj_Pval
+## colecalciferol_MCF7      0.017857143            55        2         1 0.008821835        1
+## esculin_HL60             0.017857143            55        2         1 0.008821835        1
+## flecainide_MCF7          0.017857143            55        2         1 0.008821835        1
+## ribostamycin_MCF7        0.017857143            55        2         1 0.008821835        1
+## withaferin A_MCF7        0.016000000            55      199         4 0.011470972        1
+## dexamethasone_HL60       0.022222222            55       37         2 0.011573654        1
+## lobeline_HL60            0.007987220            55     1838        15 0.011600566        1
+## idoxuridine_MCF7         0.017543860            55        3         1 0.013204054        1
+## metronidazole_MCF7       0.017543860            55        3         1 0.013204054        1
+## sulpiride_MCF7           0.017543860            55        3         1 0.013204054        1
+## ampyrone_HL60            0.008880995            55     1081        10 0.018769135        1
+## chlortetracycline_HL60   0.008080808            55     1442        12 0.021597597        1
+## estropipate_MCF7         0.016949153            55        5         1 0.021911500        1
+## flunixin_PC3             0.016949153            55        5         1 0.021911500        1
+## sulfafurazole_HL60       0.018867925            55       53         2 0.022894704        1
+## (-)-MK-801_MCF7          0.016666667            55        6         1 0.026236889        1
+## carbarsone_PC3           0.016666667            55        6         1 0.026236889        1
+## famprofazone_HL60        0.016666667            55        6         1 0.026236889        1
+## guanethidine_HL60        0.016666667            55        6         1 0.026236889        1
+## cefalotin_MCF7           0.016393443            55        7         1 0.030543497        1
 </code></p>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="drugs-affecting-known-longevity-genes">Drugs affecting known longevity genes</h2>
 
 <p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.
-The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
+The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code class="highlighter-rouge">deg_IGF1.xls</code></a>.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 genesymbols &lt;- c("IGF1", "IGF1R")
 geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
 names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
-degMAgene &lt;- readRDS("./results/degMAgene.rds") # Faster than read.delim()
-df &lt;- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
-for(i in seq_along(geneids)) df &lt;- cbind(df, as.numeric(degMAgene[geneids[i],]))
-colnames(df) &lt;- names(geneids)
-df &lt;- df[rowSums(df)&gt;0,]
-nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
-</code></p>
-
-<p><code>
-## [1] 89
-</code></p>
-
-<p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) 
-and drug treatments.</p>
-
-<p><code>r
-affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
-affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"])
-names(affyids) &lt;- affyids2
-cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
-comp_list &lt;- sampleList(cmap, myby="CMP_CELL")
-comp_list &lt;- comp_list[row.names(df)]
-degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
-pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,"adj.P.Val"])))
-colnames(pvalDF) &lt;- paste0(colnames(pvalDF), "_FDR")
-df &lt;- cbind(df, pvalDF)
+degList &lt;- readRDS("./results/degList.rds") 
+df &lt;- data.frame(row.names=colnames(degList$DEG), check.names=FALSE)
+index &lt;- which(colSums(degList$DEG[geneids,])&gt;= 1) 
+for(i in seq_along(geneids)) {
+    tmp &lt;- data.frame(DEG=degList$DEG[geneids[i],index], logFC=degList$logFC[geneids[i],index], FDR=degList$FDR[geneids[i],index])
+    colnames(tmp) &lt;- paste0(names(geneids)[i], "_", colnames(tmp))
+    df &lt;- cbind(df, tmp[rownames(df),] )    
+}
+df &lt;- df[names(index),]
 write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
 </code></p>
 
-<p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
+<p>Now the final <code class="highlighter-rouge">data.frame</code> can be sorted by increasing mean FDR values.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 igfDF &lt;- read.delim("./results/deg_IGF1.xls", row.names=1)
-igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
+igfDF[order(rowMeans(igfDF[,c(3,6)])),][1:20,]
 </code></p>
 
-<p><code>
-##                        IGF1R IGF1    IGF1R_FDR    IGF1_FDR
-## clindamycin_HL60           1    1 6.092100e-03 0.019806975
-## chlorzoxazone_HL60         1    1 1.504907e-02 0.012048534
-## trichostatin A_MCF7        1    1 7.034883e-70 0.064635337
-## lobeline_HL60              1    1 5.806638e-02 0.009620433
-## sirolimus_PC3              1    1 1.275160e-03 0.069531082
-## danazol_HL60               1    1 1.841954e-02 0.062206588
-## metformin_MCF7             1    1 3.828423e-02 0.057888354
-## camptothecin_MCF7          1    0 1.197152e-05 0.102505584
-## anisomycin_HL60            1    1 5.853122e-02 0.044227001
-## cicloheximide_HL60         1    1 2.332200e-02 0.080773276
-## chlortetracycline_HL60     1    0 5.247463e-03 0.123157328
-## meclofenoxate_HL60         0    1 1.032619e-01 0.027735684
-## dirithromycin_HL60         1    1 6.354512e-02 0.068276953
-## lanatoside C_HL60          1    1 9.528609e-02 0.045103831
-## verteporfin_HL60           1    1 9.319481e-02 0.049425440
-## glibenclamide_HL60         1    1 6.094179e-02 0.088000986
-## emetine_HL60               1    0 8.857805e-04 0.155084082
-## puromycin_MCF7             1    0 1.497782e-02 0.143499225
-## sanguinarine_MCF7          0    1 1.246229e-01 0.034384079
-## proscillaridin_MCF7        1    0 4.432492e-02 0.121900908
+<p><code class="highlighter-rouge">
+##                                IGF1R_DEG IGF1R_logFC     IGF1R_FDR IGF1_DEG  IGF1_logFC   IGF1_FDR
+## camptothecin_MCF7                      1 -1.48180690  4.867357e-07        0  0.94295576 0.07821138
+## 0175029-0000_MCF7                      0 -0.62026588  1.193479e-01        1 -1.01210916 0.04295254
+## cicloheximide_HL60                     1 -1.29607754  2.054384e-02        0  1.67183429 0.16908728
+## emetine_HL60                           1 -1.23843896  3.085463e-03        0  1.03812083 0.26576009
+## digoxigenin_PC3                        0  0.54850849  2.488776e-01        1 -1.27142976 0.04219010
+## anisomycin_HL60                        1 -2.85399433  1.481347e-03        0  0.66701644 0.44025263
+## vorinostat_MCF7                        1 -1.50640830  3.143781e-17        0  0.37179771 0.45437384
+## irinotecan_MCF7                        1 -2.26588384  9.895790e-02        0 -1.05446828 0.41746319
+## tyrphostin AG-825_MCF7                 1 -1.03570748  3.440048e-02        0  1.57208567 0.51400841
+## trichostatin A_MCF7                    1 -1.27541131 6.943847e-127        0  0.07335895 0.55046789
+## baclofen_HL60                          1  1.14379132  8.226627e-02        0 -1.00641253 0.53322529
+## 8-azaguanine_PC3                       1 -1.04668136  7.466879e-02        0 -0.97679589 0.65221001
+## verteporfin_MCF7                       1 -1.11136304  1.226251e-03        0  0.64194152 0.78463681
+## piperlongumine_MCF7                    1 -1.03214332  1.088011e-02        0  0.53820854 0.78914488
+## verteporfin_HL60                       1 -1.17232840  4.923492e-02        0  1.09438523 0.75358370
+## cephaeline_HL60                        1 -1.13448661  1.479635e-02        0 -0.19882135 0.86619935
+## lycorine_HL60                          1 -1.93807396  1.390079e-03        0 -0.23062131 0.88748758
+## doxorubicin_MCF7                       1 -1.08389932  4.035039e-04        0  0.12613722 0.92452703
+## anisomycin_MCF7                        0  0.06265744  8.938603e-01        1 -1.55915713 0.04355888
+## 15-delta prostaglandin J2_MCF7         0  0.01396391  9.774076e-01        1  1.03626957 0.09233156
 </code></p>
 
+<!-- old version
+
+```r
+genesymbols <- c("IGF1", "IGF1R")
+geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
+names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
+degMAgene <- readRDS("./results/degMA.rds") # Faster than read.delim()
+df <- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
+for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
+colnames(df) <- names(geneids)
+df <- df[rowSums(df)>0,]
+nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
+```
+
+```
+## [1] 20
+```
+
+The following computes the `limma` FDR values for the corresponding genes (here IGF1 and IGF1R) 
+and drug treatments.
+
+```r
+affyids2 <- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
+affyids <- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"])
+names(affyids) <- affyids2
+cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
+comp_list <- sampleList(cmap, myby="CMP_CELL")
+comp_list <- comp_list[row.names(df)]
+degList <- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
+pvalDF <- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,"adj.P.Val"])))
+colnames(pvalDF) <- paste0(colnames(pvalDF), "_FDR")
+df <- cbind(df, pvalDF)
+write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
+```
+-->
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="plot-structures-of-compounds">Plot structures of compounds</h2>
+
+<p><code class="highlighter-rouge">r
+library(ChemmineR)
+mypath &lt;- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+mypath &lt;- "../inst/extdata/longevitydrugs.sdf"
+sdfset &lt;- read.SDFset(mypath)
+data(sdfsample)
+sdfsample
+</code></p>
+
+<p><code class="highlighter-rouge">
+## An instance of "SDFset" with 100 molecules
+</code></p>
+
+<p><code class="highlighter-rouge">r
+plot(sdfsample[1:4], print=FALSE)
+</code></p>
+
+<p><img src="longevityTools_eDRUG_files/figure-html/plot_sdf-1.png" alt="" /><!-- --></p>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h1 id="connectivity-maps-enrichment-analysis">Connectivity maps enrichment analysis</h1>
@@ -1288,9 +1327,9 @@ down-regulated genes at the top and bottom of sorted (ranked) gene lists.</p>
 <p>The following uses the 1,497 age-related gene expression signatures from Peters et al. 
 [-@Peters2015-fc] as a query against the CMAP signatures. The results are sorted by the
 ES Distance and the top scoring 20 drugs are given below. The full result table is<br />
-written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
+written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code class="highlighter-rouge">drugcmap2.xls</code></a>.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 library(DrugVsDisease)
 PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(drugRL)
@@ -1301,11 +1340,18 @@ drugcmap &lt;- classifyprofile(data=testprofiles$ranklist, case="disease", signi
 drugcmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case="disease", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
                             dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
+</code></p>
+
+<p><code class="highlighter-rouge">
+## Number of Significant results greater than 100 Using top 100 hits - consider using average linkage instead
+</code></p>
+
+<p><code class="highlighter-rouge">r
 write.table(drugcmap2, file="./results/drugcmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
 drugcmap2[[1]][1:20,]
 </code></p>
 
-<p><code>
+<p><code class="highlighter-rouge">
 ##                              Drug ES Distance Cluster RPS
 ## mebendazole           mebendazole   0.8322685      62   1
 ## cloperastine         cloperastine   0.8457056      98   1
@@ -1335,22 +1381,15 @@ drugcmap2[[1]][1:20,]
 
 <p>The same query is performed against a reference set of disease expression signatures.
 The results are sorted by the ES Distance and the top scoring 20 drugs are given below. 
-The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code>diseasecmap2.xls</code></a>.</p>
+The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code class="highlighter-rouge">diseasecmap2.xls</code></a>.</p>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(diseaseRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
 diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case="drug", signif.fdr=0.5, no.signif=20)
-</code></p>
-
-<p><code>
-## Number of Significant results greater than 20 Using top 20 hits - consider using average linkage instead
-</code></p>
-
-<p><code>r
 diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case="drug", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
                             dynamic.fdr=0.5, adj="BH", no.signif=100)
@@ -1358,7 +1397,7 @@ write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\
 diseasecmap2[[1]][1:20,]
 </code></p>
 
-<p><code>
+<p><code class="highlighter-rouge">
 ##                                                     Disease ES Distance Cluster RPS
 ## sarcoidosis                                     sarcoidosis   0.3630021       2   1
 ## sepsis                                               sepsis   0.4779160       5  -1
@@ -1403,11 +1442,11 @@ diseasecmap2[[1]][1:20,]
 
 <h1 id="version-information">Version information</h1>
 
-<p><code>r
+<p><code class="highlighter-rouge">r
 sessionInfo()
 </code></p>
 
-<p><code>
+<p><code class="highlighter-rouge">
 ## R version 3.2.2 (2015-08-14)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: CentOS Linux 7 (Core)
@@ -1421,26 +1460,26 @@ sessionInfo()
 ## other attached packages:
 ##  [1] DrugVsDisease_2.10.2    qvalue_2.2.2            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
 ##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.5           
-##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     ggplot2_2.0.0          
-## [13] longevityTools_1.0.3    BiocStyle_1.8.0        
+##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     reshape2_1.4.1         
+## [13] ggplot2_2.0.0           longevityTools_1.0.4    BiocStyle_1.8.0        
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.3                XVector_0.10.0             GenomeInfoDb_1.6.3        
-##  [4] BiocInstaller_1.20.1       formatR_1.2.1              plyr_1.8.3                
-##  [7] iterators_1.0.8            bitops_1.0-6               tools_3.2.2               
-## [10] zlibbioc_1.16.0            bit_1.1-12                 digest_0.6.9              
-## [13] evaluate_0.8               RSQLite_1.0.0              preprocessCore_1.32.0     
-## [16] gtable_0.1.2               ff_2.2-13                  foreach_1.4.3             
-## [19] DBI_0.3.1                  yaml_2.1.13                affxparser_1.42.0         
-## [22] stringr_1.0.0              knitr_1.12.3               Biostrings_2.38.1         
-## [25] S4Vectors_0.8.7            IRanges_2.4.3              stats4_3.2.2              
-## [28] grid_3.2.2                 AnnotationDbi_1.32.3       XML_3.98-1.3              
-## [31] rmarkdown_0.9.2            oligo_1.34.2               reshape2_1.4.1            
-## [34] magrittr_1.5               splines_3.2.2              GenomicRanges_1.22.1      
-## [37] oligoClasses_1.32.0        scales_0.3.0               codetools_0.2-14          
-## [40] htmltools_0.3              SummarizedExperiment_1.0.2 colorspace_1.2-6          
-## [43] stringi_1.0-1              RCurl_1.95-4.7             munsell_0.4.2             
-## [46] affyio_1.40.0
+##  [1] SummarizedExperiment_1.0.2 oligo_1.34.2               splines_3.2.2             
+##  [4] colorspace_1.2-6           htmltools_0.3              stats4_3.2.2              
+##  [7] yaml_2.1.13                XML_3.98-1.3               DBI_0.3.1                 
+## [10] affyio_1.40.0              foreach_1.4.3              plyr_1.8.3                
+## [13] stringr_1.0.0              zlibbioc_1.16.0            Biostrings_2.38.1         
+## [16] munsell_0.4.3              gtable_0.1.2               codetools_0.2-14          
+## [19] evaluate_0.8               labeling_0.3               knitr_1.12.3              
+## [22] ff_2.2-13                  IRanges_2.4.3              BiocInstaller_1.20.1      
+## [25] GenomeInfoDb_1.6.3         AnnotationDbi_1.32.3       preprocessCore_1.32.0     
+## [28] Rcpp_0.12.3                scales_0.3.0               formatR_1.2.1             
+## [31] S4Vectors_0.8.7            XVector_0.10.0             affxparser_1.42.0         
+## [34] bit_1.1-12                 oligoClasses_1.32.0        digest_0.6.9              
+## [37] stringi_1.0-1              GenomicRanges_1.22.1       grid_3.2.2                
+## [40] tools_3.2.2                bitops_1.0-6               magrittr_1.5              
+## [43] RCurl_1.95-4.7             RSQLite_1.0.0              rmarkdown_0.9.2           
+## [46] iterators_1.0.8
 </code></p>
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -1461,7 +1500,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: Mar 15, 2016 <br />
+ Site last generated: Mar 16, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>
