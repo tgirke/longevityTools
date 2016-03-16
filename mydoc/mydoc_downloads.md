@@ -19,6 +19,7 @@ them are provided in the corresponding analysis vignettes.
     * MAS5 normalized expression data: [HG-U133A](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds),
       [HT_HG-U133A](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds),
       [U133AAofAv2](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/U133AAofAv2/all_mas5exprs.rds)
+    * Annotation file for Affymetirx probe sets: [myAnnot.xls](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls)
     * DEG Results for 3,587 contrasts of 7,056 CEL files: [degMA.xls](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls)
     * DEG overlaps with Peters et al. (2015): [degOL_PMID26490707.xls](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls)
     * DEG overlaps with Sood et al. (2015): [degOL_PMID26343147.xls](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls)
