@@ -468,10 +468,11 @@ write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names 
 
 ```{r plot_sdf, eval=TRUE}
 library(ChemmineR)
-#mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
 mypath <- "../inst/extdata/longevitydrugs.sdf"
 sdfset <- read.SDFset(mypath)
 data(sdfsample)
+sdfsample
 plot(sdfsample[1:4], print=FALSE)
 ```
 <div align="right">[Back to Table of Contents]()</div>

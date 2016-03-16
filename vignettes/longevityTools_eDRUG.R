@@ -186,10 +186,11 @@ nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
 
 ## ----plot_sdf, eval=TRUE-------------------------------------------------
 library(ChemmineR)
-#mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
 mypath <- "../inst/extdata/longevitydrugs.sdf"
 sdfset <- read.SDFset(mypath)
 data(sdfsample)
+sdfsample
 plot(sdfsample[1:4], print=FALSE)
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
