@@ -2,7 +2,7 @@
 title: "longevityDrugs: Database of Longevity-Associated Drugs (LAD)" 
 author: "Authors: Thomas Girke, Tyler Backman, Dan Evans"
 date: "Last update: 15 March, 2016" 
-package: "longevityTools 1.0.4"
+package: "longevityTools 1.0.6"
 output:
   BiocStyle::html_document:
     toc: true
