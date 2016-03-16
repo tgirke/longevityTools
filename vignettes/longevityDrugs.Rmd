@@ -87,7 +87,7 @@ library("ChemmineR")
 
 # Load database
 
-```{r load_sdf, eval=FALSE}
+```{r load_sdf, eval=TRUE}
 mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
 sdfset <- read.SDFset(mypath)
 data(sdfsample)

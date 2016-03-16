@@ -18,12 +18,12 @@ suppressPackageStartupMessages({
 library("longevityTools") 
 library("ChemmineR") 
 
-## ----load_sdf, eval=FALSE------------------------------------------------
-## mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
-## sdfset <- read.SDFset(mypath)
-## data(sdfsample)
-## sdfsample
-## plot(sdfsample[1:4], print=FALSE)
+## ----load_sdf, eval=TRUE-------------------------------------------------
+mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+sdfset <- read.SDFset(mypath)
+data(sdfsample)
+sdfsample
+plot(sdfsample[1:4], print=FALSE)
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()
