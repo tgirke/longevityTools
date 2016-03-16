@@ -41,6 +41,39 @@
 
 
 {
+"title": "longevityDrugs: Database of Longevity-Associated Drugs (LAD)",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/06_longevityDrugs/longevityDrugs.Rmd",
+"summary": ""
+},
+
+
+
+
+{
+"title": "longevityDrugs: Database of Longevity-Associated Drugs (LAD)",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/06_longevityDrugs/longevityDrugs.knit.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "longevityDrugs: Database of Longevity-Associated Drugs (LAD)",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/06_longevityDrugs/longevityDrugs.utf8.html",
+"summary": ""
+},
+
+
+
+
+{
 "title": "longevityToolsOverview - Analysis Tools for Longevity Research",
 "tags": "",
 "keywords": "",
@@ -187,7 +220,7 @@
 "title": "Funding",
 "tags": "",
 "keywords": "",
-"url": "../vignettes/06_Funding/mydoc_funding.html",
+"url": "../vignettes/07_Funding/mydoc_funding.html",
 "summary": "This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA)."
 },
 
@@ -233,6 +266,72 @@
 "keywords": "navigation tabs, hide sections, tabbers, interface tabs",
 "url": "../mydoc/mydoc_internal_notes.html",
 "summary": "Internal notes for maintaining this site."
+},
+
+
+
+
+{
+"title": "longevityDrugs - Database of Longevity-Associated Drugs (LAD)",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_longevityDrugs_1.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Getting Started",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_longevityDrugs_2.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Load database",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_longevityDrugs_3.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Funding",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_longevityDrugs_4.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "Version information",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_longevityDrugs_5.html",
+"summary": ""
+},
+
+
+
+
+{
+"title": "References",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_longevityDrugs_6.html",
+"summary": ""
 },
 
 
