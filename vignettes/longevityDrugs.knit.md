@@ -55,7 +55,7 @@ vignette can be found <a href="https://htmlpreview.github.io/?https://github.com
 
 The data package `longevityDrugs` contains molecular structures and annotation information
 of longevity-associated drugs (LADs). An iterative process will be used to assemble, update and 
-curate this data set long-term [@Backman2011-uw, @Cao2008-zo]. Most small molecules will be identified by integrating several
+curate this data set long-term [@Backman2011-uw, Cao2008-zo]. Most small molecules will be identified by integrating several
 large-scale community data sources such as data from drug databases (e.g.
 Drugbank), bioassay databases (e.g. PubChem Bioassay, ChEMBL), literature,
 drug-related gene expression fingerprints (e.g. LINCS), genetic (e.g. GWAS) and
