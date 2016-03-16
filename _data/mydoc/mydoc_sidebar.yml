@@ -340,7 +340,7 @@ entries:
       product: all
       version: all
       output: web
-
+  
   - title: longevityDrugs
     audience: writers, designers
     platform: all

@@ -1,7 +1,7 @@
 ---
 title: References
 keywords: 
-last_updated: Sun Mar  6 19:54:26 2016
+last_updated: Wed Mar 16 12:35:34 2016
 ---
  
 1. Lamb, J, Crawford, E D, Peck, D, Modell, J W, Blat, I C, Wrobel, M J, Lerner, J, Brunet, J P, Subramanian, A, Ross, K N, Reich, M, Hieronymus, H, Wei, G, Armstrong, S A, Haggarty, S J, Clemons, P A, Wei, R, Carr, S A, Lander, E S, Golub, T R (2006) The Connectivity Map: using gene-expression signatures to connect small molecules, genes, and disease. Science, 313: 1929--1935; [URL](http://dx.doi.org/10.1126/science.1132939)

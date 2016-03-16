@@ -237,110 +237,6 @@ entries:
       version: all
       output: web
 
-  - title: longevityToolseDRUG
-    audience: writers, designers
-    platform: all
-    product: all
-    version: all
-    output: web, pdf
-    items:
-
-    - title: 1. Introduction 
-      url: /mydoc/mydoc_longevityTools_eDRUG_01.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 2. Getting Started
-      url: /mydoc/mydoc_longevityTools_eDRUG_02.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 3. Setup of working environment
-      url: /mydoc/mydoc_longevityTools_eDRUG_03.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 4. Data downloads
-      url: /mydoc/mydoc_longevityTools_eDRUG_04.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 5. Pre-processing of CEL files
-      url: /mydoc/mydoc_longevityTools_eDRUG_05.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 6. DEG analysis with `limma`
-      url: /mydoc/mydoc_longevityTools_eDRUG_06.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 7. Connectivity maps enrichment analysis
-      url: /mydoc/mydoc_longevityTools_eDRUG_07.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 8. Age-drug network analysis
-      url: /mydoc/mydoc_longevityTools_eDRUG_08.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 9. Age-disease network analysis
-      url: /mydoc/mydoc_longevityTools_eDRUG_09.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 10. Funding
-      url: /mydoc/mydoc_longevityTools_eDRUG_10.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 11. Version information
-      url: /mydoc/mydoc_longevityTools_eDRUG_11.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
-    - title: 12. References
-      url: /mydoc/mydoc_longevityTools_eDRUG_12.html
-      audience: writers, designers
-      platform: all
-      product: all
-      version: all
-      output: web
-
   - title: longevityTools_eDRUG
     audience: writers, designers
     platform: all
@@ -439,6 +335,62 @@ entries:
 
     - title: 12. References
       url: /mydoc/mydoc_longevityTools_eDRUG_12.html
+      audience: writers, designers
+      platform: all
+      product: all
+      version: all
+      output: web
+  
+  - title: longevityDrugs
+    audience: writers, designers
+    platform: all
+    product: all
+    version: all
+    output: web, pdf
+    items:
+
+    - title: 1. Introduction 
+      url: /mydoc/mydoc_longevityDrugs_1.html
+      audience: writers, designers
+      platform: all
+      product: all
+      version: all
+      output: web
+
+    - title: 2. Getting Started
+      url: /mydoc/mydoc_longevityDrugs_2.html
+      audience: writers, designers
+      platform: all
+      product: all
+      version: all
+      output: web
+
+    - title: 3. Load database
+      url: /mydoc/mydoc_longevityDrugs_3.html
+      audience: writers, designers
+      platform: all
+      product: all
+      version: all
+      output: web
+
+    - title: 4. Funding
+      url: /mydoc/mydoc_longevityDrugs_4.html
+      audience: writers, designers
+      platform: all
+      product: all
+      version: all
+      output: web
+
+    - title: 5. Version information
+      url: /mydoc/mydoc_longevityDrugs_5.html
+      audience: writers, designers
+      platform: all
+      product: all
+      version: all
+      output: web
+
+    - title: 6. References
+      url: /mydoc/mydoc_longevityDrugs_6.html
       audience: writers, designers
       platform: all
       product: all

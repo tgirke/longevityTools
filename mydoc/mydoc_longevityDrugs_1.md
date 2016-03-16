@@ -1,11 +1,11 @@
 ---
 title: longevityDrugs - Database of Longevity-Associated Drugs (LAD) 
 keywords: 
-last_updated: Tue Mar 15 23:03:27 2016
+last_updated: Wed Mar 16 12:37:57 2016
 ---
 Authors: Thomas Girke, Tyler Backman, Dan Evans
 
-Last update: 15 March, 2016 
+Last update: 16 March, 2016 
 
 Alternative formats of this vignette:
 [`Single-page .Rmd HTML`](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityDrugs.html),

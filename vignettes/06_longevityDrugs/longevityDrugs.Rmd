@@ -78,7 +78,7 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from
 
 ## Loading of required packages
 
-```{r documentation, eval=FALSE}
+```{r documentation, eval=TRUE}
 library("longevityTools") 
 library("ChemmineR") 
 ```
@@ -87,9 +87,12 @@ library("ChemmineR")
 
 # Load database
 
-```{r load_sdf, eval=FALSE}
-sdfset <- read.SDFset("inst/ext/longevityDrugs.sdf")
-plot(sdfset)
+```{r load_sdf, eval=TRUE}
+mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+sdfset <- read.SDFset(mypath)
+data(sdfsample)
+sdfsample
+plot(sdfsample[1:4], print=FALSE)
 ```
 
 <div align="right">[Back to Table of Contents]()</div>

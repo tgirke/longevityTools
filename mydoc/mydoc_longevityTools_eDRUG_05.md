@@ -1,7 +1,7 @@
 ---
 title: Pre-processing of CEL files
 keywords: 
-last_updated: Sun Mar  6 19:54:26 2016
+last_updated: Wed Mar 16 12:35:34 2016
 ---
 
 ## Determine chip type from CEL files 
@@ -61,6 +61,30 @@ This deletes intermediate files. Before executing these lines, please make sure 
 {% highlight r %}
 for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
 unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
+{% endhighlight %}
+
+
+## Obtain annotation information
+The following generates annotation information for the Affymetirx probe set
+identifiers. Note, the three different Affymetrix chip types used by CMAP
+share most probe set ids (>95%), meaning it is possible to combine the data
+after normalization and use the same annotation package for all of them. The
+annotation libraries for the chip types HG-U133A and HT_HG-U133A are
+`hgu133a.db` and `hthgu133a.db`, respectively. However, there is no annotation 
+library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded
+from here: [`myAnnot.xls`](http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls).
+
+
+{% highlight r %}
+library(hgu133a.db)
+myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
+                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
+                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
+                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
+                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
+                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+write.table(myAnnot, file="./results/myAnnot.xls", quote=FALSE, sep="\t", col.names = NA) 
+saveRDS(myAnnot, "./results/myAnnot.rds")
 {% endhighlight %}
 
 
