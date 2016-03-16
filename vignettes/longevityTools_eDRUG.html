@@ -330,7 +330,7 @@ df &lt;- data.frame(interval); colnames(df) &lt;- c(&quot;Bins&quot;, &quot;Coun
 ggplot(df, aes(Bins, Counts)) + 
        geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;, fill=&quot;cornflowerblue&quot;) + 
        ggtitle(&quot;DEG numbers by bins&quot;)</code></pre>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -346,50 +346,50 @@ degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
 degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file=&quot;./results/degOL_PMID26490707.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap</code></pre>
-<pre><code>## [1] 880</code></pre>
+<pre><code>## [1] 1540</code></pre>
 <pre class="r"><code>degOL_PMID26490707[1:20,]</code></pre>
 <pre><code>##                                Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
-## anisomycin_HL60                   0.11933973          1192     3826       535 2.344725e-27
-## alprostadil_HL60                  0.11186805          1192     1909       312 1.394157e-24
-## (-)-isoprenaline_HL60             0.10475352          1192     1318       238 3.108024e-24
-## mebendazole_HL60                  0.11033210          1192     1817       299 6.281549e-24
-## tretinoin_HL60                    0.09301104          1192      888       177 1.302556e-22
-## pergolide_HL60                    0.11107955          1192     2719       391 2.203268e-20
-## bromocriptine_HL60                0.08947368          1192      878       170 2.543364e-20
-## dihydroergotamine_HL60            0.09692237          1192     1196       211 4.395981e-20
-## lycorine_HL60                     0.11291316          1192     4229       550 4.475942e-20
-## tanespimycin_HL60                 0.11140654          1192     2988       419 5.549520e-20
-## co-dergocrine mesilate_HL60       0.10228137          1192     1707       269 1.428828e-18
-## trichostatin A_HL60               0.11127691          1192     4021       522 1.895076e-18
-## Prestwick-983_HL60                0.09537572          1192     1461       231 5.536597e-16
-## methylergometrine_HL60            0.07056695          1192      583       117 2.678052e-15
-## clonidine_HL60                    0.06911315          1192      556       113 3.297109e-15
-## isotretinoin_HL60                 0.07020649          1192      622       119 5.581359e-14
-## puromycin_HL60                    0.09287430          1192     1538       232 1.067668e-13
-## monorden_HL60                     0.04433140          1192      245        61 1.493799e-12
-## podophyllotoxin_HL60              0.08635961          1192     1261       195 1.573915e-12
-## 15-delta prostaglandin J2_HL60    0.09484610          1192     1867       265 1.727186e-12
+## alprostadil_HL60                  0.09841917          1192      962       193 4.587462e-25
+## Prestwick-983_HL60                0.06270200          1192      452        97 1.005593e-14
+## (-)-isoprenaline_HL60             0.04608632          1192      238        63 3.104262e-14
+## pergolide_HL60                    0.07883598          1192      847       149 4.299617e-14
+## lycorine_HL60                     0.09725906          1192     2531       330 9.635668e-11
+## dihydroergotamine_HL60            0.05325444          1192      410        81 1.464480e-10
+## mebendazole_HL60                  0.05116279          1192      390        77 4.370190e-10
+## anisomycin_HL60                   0.09783198          1192     2859       361 5.420542e-10
+## nocodazole_HL60                   0.04366197          1192      290        62 8.988632e-10
+## 15-delta prostaglandin J2_HL60    0.05173543          1192      414        79 1.370764e-09
+## co-dergocrine mesilate_HL60       0.05606901          1192      522        91 8.811695e-09
+## tretinoin_HL60                    0.04051173          1192      272        57 9.303262e-09
+## geldanamycin_HL60                 0.03581871          1192      225        49 2.852475e-08
+## monorden_HL60                     0.01235585          1192       37        15 5.920557e-07
+## 8-azaguanine_HL60                 0.08344924          1192     1924       240 3.298779e-06
+## methylergometrine_HL60            0.02897474          1192      193        39 5.144245e-06
+## sanguinarine_HL60                 0.07168299          1192     1215       161 7.143904e-06
+## apigenin_HL60                     0.06761905          1192     1050       142 9.198927e-06
+## thiostrepton_HL60                 0.05913692          1192      796       111 2.540821e-05
+## puromycin_HL60                    0.03887399          1192      358        58 4.353723e-05
 ##                                    adj_Pval
-## anisomycin_HL60                8.154954e-24
-## alprostadil_HL60               4.848876e-21
-## (-)-isoprenaline_HL60          1.080971e-20
-## mebendazole_HL60               2.184723e-20
-## tretinoin_HL60                 4.530291e-19
-## pergolide_HL60                 7.662964e-17
-## bromocriptine_HL60             8.845821e-17
-## dihydroergotamine_HL60         1.528922e-16
-## lycorine_HL60                  1.556732e-16
-## tanespimycin_HL60              1.930123e-16
-## co-dergocrine mesilate_HL60    4.969462e-15
-## trichostatin A_HL60            6.591075e-15
-## Prestwick-983_HL60             1.925628e-12
-## methylergometrine_HL60         9.314264e-12
-## clonidine_HL60                 1.146735e-11
-## isotretinoin_HL60              1.941197e-10
-## puromycin_HL60                 3.713349e-10
-## monorden_HL60                  5.195432e-09
-## podophyllotoxin_HL60           5.474077e-09
-## 15-delta prostaglandin J2_HL60 6.007155e-09</code></pre>
+## alprostadil_HL60               1.595519e-21
+## Prestwick-983_HL60             3.497452e-11
+## (-)-isoprenaline_HL60          1.079662e-10
+## pergolide_HL60                 1.495407e-10
+## lycorine_HL60                  3.351285e-07
+## dihydroergotamine_HL60         5.093462e-07
+## mebendazole_HL60               1.519952e-06
+## anisomycin_HL60                1.885265e-06
+## nocodazole_HL60                3.126246e-06
+## 15-delta prostaglandin J2_HL60 4.767517e-06
+## co-dergocrine mesilate_HL60    3.064708e-05
+## tretinoin_HL60                 3.235675e-05
+## geldanamycin_HL60              9.920908e-05
+## monorden_HL60                  2.059170e-03
+## 8-azaguanine_HL60              1.147316e-02
+## methylergometrine_HL60         1.789168e-02
+## sanguinarine_HL60              2.484650e-02
+## apigenin_HL60                  3.199387e-02
+## thiostrepton_HL60              8.836976e-02
+## puromycin_HL60                 1.514225e-01</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -406,29 +406,29 @@ degMAsub &lt;- degMA[affyid,]
 degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file=&quot;./results/degOL_PMID26343147.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap</code></pre>
-<pre><code>## [1] 407</code></pre>
+<pre><code>## [1] 578</code></pre>
 <pre class="r"><code>degOL_PMID26343147[1:20,] # Top 20 scoring drugs</code></pre>
-<pre><code>##                               Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
-## idoxuridine_MCF7                0.009478673           211        2         2 0.0002862571 0.9956022
-## cinchonidine_MCF7               0.009389671           211        4         2 0.0016793094 1.0000000
-## papaverine_MCF7                 0.009090909           211       11         2 0.0142342625 1.0000000
-## trichlormethiazide_HL60         0.004739336           211        1         1 0.0169586883 1.0000000
-## beclometasone_HL60              0.016129032           211      104         5 0.0318882201 1.0000000
-## papaverine_HL60                 0.018648019           211      226         8 0.0388976900 1.0000000
-## nimodipine_HL60                 0.008695652           211       21         2 0.0486620004 1.0000000
-## midodrine_PC3                   0.004694836           211        3         1 0.0500221030 1.0000000
-## syrosingopine_HL60              0.015243902           211      122         5 0.0565837628 1.0000000
-## Prestwick-920_PC3               0.004672897           211        4         1 0.0661363675 1.0000000
-## sulfamethizole_MCF7             0.004672897           211        4         1 0.0661363675 1.0000000
-## zardaverine_HL60                0.018547141           211      448        12 0.0794990573 1.0000000
-## pyrvinium_PC3                   0.013201320           211       96         4 0.0803067056 1.0000000
-## etomidate_MCF7                  0.004651163           211        5         1 0.0819785629 1.0000000
-## nimesulide_MCF7                 0.004651163           211        5         1 0.0819785629 1.0000000
-## nordihydroguaiaretic acid_PC3   0.004651163           211        5         1 0.0819785629 1.0000000
-## procaine_PC3                    0.004651163           211        5         1 0.0819785629 1.0000000
-## remoxipride_MCF7                0.004651163           211        5         1 0.0819785629 1.0000000
-## tobramycin_HL60                 0.004651163           211        5         1 0.0819785629 1.0000000
-## triamcinolone_PC3               0.004651163           211        5         1 0.0819785629 1.0000000</code></pre>
+<pre><code>##                           Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval  adj_Pval
+## cinchonidine_MCF7           0.009478673           211        2         2 0.0002862571 0.9956022
+## halofantrine_MCF7           0.009345794           211        5         2 0.0027675858 1.0000000
+## hydroquinine_MCF7           0.009345794           211        5         2 0.0027675858 1.0000000
+## quinidine_MCF7              0.009302326           211        6         2 0.0041050712 1.0000000
+## levopropoxyphene_PC3        0.013043478           211       22         3 0.0058373517 1.0000000
+## ramipril_MCF7               0.009174312           211        9         2 0.0095270257 1.0000000
+## phthalylsulfathiazole_PC3   0.015503876           211       51         4 0.0107857517 1.0000000
+## pyrazinamide_MCF7           0.004739336           211        1         1 0.0169586883 1.0000000
+## levamisole_HL60             0.014869888           211       62         4 0.0208634665 1.0000000
+## bemegride_HL60              0.008968610           211       14         2 0.0227793297 1.0000000
+## roxarsone_PC3               0.012048193           211       41         3 0.0319682148 1.0000000
+## clebopride_PC3              0.008849558           211       17         2 0.0329327087 1.0000000
+## sulfadimidine_PC3           0.004716981           211        2         1 0.0336311195 1.0000000
+## tinidazole_PC3              0.004716981           211        2         1 0.0336311195 1.0000000
+## dihydroergocristine_HL60    0.008810573           211       18         2 0.0366429223 1.0000000
+## velnacrine_PC3              0.008771930           211       19         2 0.0405052980 1.0000000
+## vorinostat_PC3              0.020651311           211     1074        26 0.0408886313 1.0000000
+## methocarbamol_PC3           0.008695652           211       21         2 0.0486620004 1.0000000
+## rolipram_HL60               0.008695652           211       21         2 0.0486620004 1.0000000
+## trichostatin A_PC3          0.020344288           211     1093        26 0.0488111154 1.0000000</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -445,7 +445,7 @@ for(i in seq_along(geneids)) df &lt;- cbind(df, as.numeric(degMAgene[geneids[i],
 colnames(df) &lt;- names(geneids)
 df &lt;- df[rowSums(df)&gt;0,]
 nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R</code></pre>
-<pre><code>## [1] 89</code></pre>
+<pre><code>## [1] 62</code></pre>
 <p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) and drug treatments.</p>
 <pre class="r"><code>affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
 affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,&quot;SYMBOL&quot;])
@@ -459,29 +459,31 @@ colnames(pvalDF) &lt;- paste0(colnames(pvalDF), &quot;_FDR&quot;)
 df &lt;- cbind(df, pvalDF)
 write.table(df, file=&quot;./results/deg_IGF1.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) </code></pre>
 <p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
-<pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)
-igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]</code></pre>
-<pre><code>##                        IGF1R IGF1    IGF1R_FDR    IGF1_FDR
-## clindamycin_HL60           1    1 6.092100e-03 0.019806975
-## chlorzoxazone_HL60         1    1 1.504907e-02 0.012048534
-## trichostatin A_MCF7        1    1 7.034883e-70 0.064635337
-## lobeline_HL60              1    1 5.806638e-02 0.009620433
-## sirolimus_PC3              1    1 1.275160e-03 0.069531082
-## danazol_HL60               1    1 1.841954e-02 0.062206588
-## metformin_MCF7             1    1 3.828423e-02 0.057888354
-## camptothecin_MCF7          1    0 1.197152e-05 0.102505584
-## anisomycin_HL60            1    1 5.853122e-02 0.044227001
-## cicloheximide_HL60         1    1 2.332200e-02 0.080773276
-## chlortetracycline_HL60     1    0 5.247463e-03 0.123157328
-## meclofenoxate_HL60         0    1 1.032619e-01 0.027735684
-## dirithromycin_HL60         1    1 6.354512e-02 0.068276953
-## lanatoside C_HL60          1    1 9.528609e-02 0.045103831
-## verteporfin_HL60           1    1 9.319481e-02 0.049425440
-## glibenclamide_HL60         1    1 6.094179e-02 0.088000986
-## emetine_HL60               1    0 8.857805e-04 0.155084082
-## puromycin_MCF7             1    0 1.497782e-02 0.143499225
-## sanguinarine_MCF7          0    1 1.246229e-01 0.034384079
-## proscillaridin_MCF7        1    0 4.432492e-02 0.121900908</code></pre>
+<pre class="r"><code>igfDF &lt;- read.delim(&quot;./results/deg_IGF1.xls&quot;, row.names=1)</code></pre>
+<pre><code>## Warning in read.table(file = file, header = header, sep = sep, quote = quote, : incomplete final
+## line found by readTableHeader on './results/deg_IGF1.xls'</code></pre>
+<pre class="r"><code>igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]</code></pre>
+<pre><code>##                   IGF1 IGF1_logFC IGF1_adj.P.Val IGFR_logFC IGFR_adj.P.Val
+## 0175029-0000_MCF7    1          0             NA         NA             NA
+## NA                  NA         NA             NA         NA             NA
+## NA.1                NA         NA             NA         NA             NA
+## NA.2                NA         NA             NA         NA             NA
+## NA.3                NA         NA             NA         NA             NA
+## NA.4                NA         NA             NA         NA             NA
+## NA.5                NA         NA             NA         NA             NA
+## NA.6                NA         NA             NA         NA             NA
+## NA.7                NA         NA             NA         NA             NA
+## NA.8                NA         NA             NA         NA             NA
+## NA.9                NA         NA             NA         NA             NA
+## NA.10               NA         NA             NA         NA             NA
+## NA.11               NA         NA             NA         NA             NA
+## NA.12               NA         NA             NA         NA             NA
+## NA.13               NA         NA             NA         NA             NA
+## NA.14               NA         NA             NA         NA             NA
+## NA.15               NA         NA             NA         NA             NA
+## NA.16               NA         NA             NA         NA             NA
+## NA.17               NA         NA             NA         NA             NA
+## NA.18               NA         NA             NA         NA             NA</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
@@ -502,8 +504,9 @@ testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PM
 drugcmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;disease&quot;, signif.fdr=0.5, no.signif=20)
 drugcmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;disease&quot;, 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
-                            dynamic.fdr=0.5, signif.fdr=0.05, adj=&quot;BH&quot;, no.signif=100)
-write.table(drugcmap2, file=&quot;./results/drugcmap2.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
+                            dynamic.fdr=0.5, signif.fdr=0.05, adj=&quot;BH&quot;, no.signif=100)</code></pre>
+<pre><code>## Number of Significant results greater than 100 Using top 100 hits - consider using average linkage instead</code></pre>
+<pre class="r"><code>write.table(drugcmap2, file=&quot;./results/drugcmap2.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
 drugcmap2[[1]][1:20,]</code></pre>
 <pre><code>##                              Drug ES Distance Cluster RPS
 ## mebendazole           mebendazole   0.8322685      62   1
@@ -538,9 +541,8 @@ data(diseaseRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,&quot;NEW-Gene-ID&quot;] %in% rownames(diseaseRL),]
 testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,&quot;NEW-Gene-ID&quot;])))
-diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)</code></pre>
-<pre><code>## Number of Significant results greater than 20 Using top 20 hits - consider using average linkage instead</code></pre>
-<pre class="r"><code>diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
+diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, signif.fdr=0.5, no.signif=20)
+diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case=&quot;drug&quot;, 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type=&quot;dynamic&quot;, 
                             dynamic.fdr=0.5, adj=&quot;BH&quot;, no.signif=100)
 write.table(diseasecmap2, file=&quot;./results/diseasecmap2.xls&quot;, quote=FALSE, sep=&quot;\t&quot;, col.names = NA) 
@@ -608,26 +610,26 @@ diseasecmap2[[1]][1:20,]</code></pre>
 ## other attached packages:
 ##  [1] DrugVsDisease_2.10.2    qvalue_2.2.2            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
 ##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.5           
-##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     ggplot2_2.0.0          
-## [13] longevityTools_1.0.3    BiocStyle_1.8.0        
+##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     reshape2_1.4.1         
+## [13] ggplot2_2.0.0           longevityTools_1.0.4    BiocStyle_1.8.0        
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.3                XVector_0.10.0             GenomeInfoDb_1.6.3        
-##  [4] BiocInstaller_1.20.1       formatR_1.2.1              plyr_1.8.3                
-##  [7] iterators_1.0.8            bitops_1.0-6               tools_3.2.2               
-## [10] zlibbioc_1.16.0            bit_1.1-12                 digest_0.6.9              
-## [13] evaluate_0.8               RSQLite_1.0.0              preprocessCore_1.32.0     
-## [16] gtable_0.1.2               ff_2.2-13                  foreach_1.4.3             
-## [19] DBI_0.3.1                  yaml_2.1.13                affxparser_1.42.0         
-## [22] stringr_1.0.0              knitr_1.12.3               Biostrings_2.38.1         
-## [25] S4Vectors_0.8.7            IRanges_2.4.3              stats4_3.2.2              
-## [28] grid_3.2.2                 AnnotationDbi_1.32.3       XML_3.98-1.3              
-## [31] rmarkdown_0.9.2            oligo_1.34.2               reshape2_1.4.1            
-## [34] magrittr_1.5               splines_3.2.2              GenomicRanges_1.22.1      
-## [37] oligoClasses_1.32.0        scales_0.3.0               codetools_0.2-14          
-## [40] htmltools_0.3              SummarizedExperiment_1.0.2 colorspace_1.2-6          
-## [43] stringi_1.0-1              RCurl_1.95-4.7             munsell_0.4.2             
-## [46] affyio_1.40.0</code></pre>
+##  [1] SummarizedExperiment_1.0.2 oligo_1.34.2               splines_3.2.2             
+##  [4] colorspace_1.2-6           htmltools_0.3              stats4_3.2.2              
+##  [7] yaml_2.1.13                XML_3.98-1.3               DBI_0.3.1                 
+## [10] affyio_1.40.0              foreach_1.4.3              plyr_1.8.3                
+## [13] stringr_1.0.0              zlibbioc_1.16.0            Biostrings_2.38.1         
+## [16] munsell_0.4.3              gtable_0.1.2               codetools_0.2-14          
+## [19] evaluate_0.8               labeling_0.3               knitr_1.12.3              
+## [22] ff_2.2-13                  IRanges_2.4.3              BiocInstaller_1.20.1      
+## [25] GenomeInfoDb_1.6.3         AnnotationDbi_1.32.3       preprocessCore_1.32.0     
+## [28] Rcpp_0.12.3                scales_0.3.0               formatR_1.2.1             
+## [31] S4Vectors_0.8.7            XVector_0.10.0             affxparser_1.42.0         
+## [34] bit_1.1-12                 oligoClasses_1.32.0        digest_0.6.9              
+## [37] stringi_1.0-1              GenomicRanges_1.22.1       grid_3.2.2                
+## [40] tools_3.2.2                bitops_1.0-6               magrittr_1.5              
+## [43] RCurl_1.95-4.7             RSQLite_1.0.0              rmarkdown_0.9.2           
+## [46] iterators_1.0.8</code></pre>
 <div align="right">
 <a href>Back to Table of Contents</a>
 </div>
