@@ -1,7 +1,7 @@
 ---
 title: "longevityDrugs: Database of Longevity-Associated Drugs (LAD)" 
 author: "Authors: Thomas Girke, Tyler Backman, Dan Evans"
-date: "Last update: 15 March, 2016" 
+date: "Last update: 16 March, 2016" 
 package: "longevityTools 1.0.6"
 output:
   BiocStyle::html_document:
@@ -93,8 +93,11 @@ library("ChemmineR")
 
 
 ```r
-sdfset <- read.SDFset("inst/ext/longevityDrugs.sdf")
-plot(sdfset)
+mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+sdfset <- read.SDFset(mypath)
+data(sdfsample)
+sdfsample
+plot(sdfsample[1:4], print=FALSE)
 ```
 
 <div align="right">[Back to Table of Contents]()</div>

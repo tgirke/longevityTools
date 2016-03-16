@@ -91,6 +91,7 @@ library("ChemmineR")
 mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
 sdfset <- read.SDFset(mypath)
 data(sdfsample)
+sdfsample
 plot(sdfsample[1:4], print=FALSE)
 ```
 
