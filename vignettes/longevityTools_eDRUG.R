@@ -189,7 +189,8 @@ library(ChemmineR)
 #mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
 mypath <- "../inst/extdata/longevitydrugs.sdf"
 sdfset <- read.SDFset(mypath)
-plot(sdfset[1:2], print=FALSE)
+data(sdfsample)
+plot(sdfsample[1:4], print=FALSE)
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
 library(DrugVsDisease)
