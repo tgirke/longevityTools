@@ -154,3 +154,33 @@ mydoc_longevityTools_eDRUG_12:
   url: "../mydoc/mydoc_longevityTools_eDRUG_12.html"
   link: "<a href='../mydoc/mydoc_longevityTools_eDRUG_12.html'>References</a>"
 
+mydoc_longevityDrugs_1:
+  title: "Introduction "
+  url: "../mydoc/mydoc_longevityDrugs_1.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs_1.html'>Introduction </a>"
+
+mydoc_longevityDrugs_2:
+  title: "Getting Started"
+  url: "../mydoc/mydoc_longevityDrugs_2.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs_2.html'>Getting Started</a>"
+
+mydoc_longevityDrugs_3:
+  title: "Load database"
+  url: "../mydoc/mydoc_longevityDrugs_3.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs_3.html'>Load database</a>"
+
+mydoc_longevityDrugs_4:
+  title: "Funding"
+  url: "../mydoc/mydoc_longevityDrugs_4.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs_4.html'>Funding</a>"
+
+mydoc_longevityDrugs_5:
+  title: "Version information"
+  url: "../mydoc/mydoc_longevityDrugs_5.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs_5.html'>Version information</a>"
+
+mydoc_longevityDrugs_6:
+  title: "References"
+  url: "../mydoc/mydoc_longevityDrugs_6.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs_6.html'>References</a>"
+
