@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 <h4 class="author"><em>Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 16 March, 2016</em></h4>
+<h4 class="date"><em>Last update: 05 April, 2016</em></h4>
 </div>
 <h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.6</span></h4>
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul></li>
 <li><a href="#data-downloads"><span class="toc-section-number">4</span> Data downloads</a><ul>
 <li><a href="#download-data-from-connectivity-map-project-site"><span class="toc-section-number">4.1</span> Download data from Connectivity Map project site</a></li>
-<li><a href="#overiew-of-cmap-data"><span class="toc-section-number">4.2</span> Overiew of CMAP data</a></li>
+<li><a href="#overview-of-cmap-data"><span class="toc-section-number">4.2</span> Overview of CMAP data</a></li>
 </ul></li>
 <li><a href="#pre-processing-of-cel-files"><span class="toc-section-number">5</span> Pre-processing of CEL files</a><ul>
 <li><a href="#determine-chip-type-from-cel-files"><span class="toc-section-number">5.1</span> Determine chip type from CEL files</a></li>
@@ -194,8 +194,8 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 <a href>Back to Table of Contents</a>
 </div>
 </div>
-<div id="overiew-of-cmap-data" class="section level2">
-<h2><span class="header-section-number">4.2</span> Overiew of CMAP data</h2>
+<div id="overview-of-cmap-data" class="section level2">
+<h2><span class="header-section-number">4.2</span> Overview of CMAP data</h2>
 <p>The experimental design of the CMAP project is defined in the file <code>cmap_instances_02.xls</code>. Note, this file required some cleaning in LibreOffice (Excel would work for this too). After this it was saved as tab delimited txt file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>. The following count statisitics are extracted from this file.</p>
 <p>The panel of cell lines used by CMAP includes <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7">MCF7</a>, <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#mcf7">ssMCF7</a>, <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#hl60">HL60</a>, <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#pc3">PC3</a> and <a href="http://www.broadinstitute.org/cmap/help_topics_linkified.jsp#skmel5">SKMEL5</a>. Each cell type was subjected to the following number of total treatments and number of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.</p>
 <pre class="r"><code>library(ggplot2); library(reshape2) 
