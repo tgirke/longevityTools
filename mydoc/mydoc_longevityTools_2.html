@@ -79,6 +79,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
                 
                 
                 
@@ -141,6 +151,8 @@
                 <!-- special insertion -->
 
                
+                
+                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -233,6 +245,16 @@ window.location.href = uri;
 
 
         
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -725,31 +747,31 @@ $('#toc').on('click', 'a', function() {
 -->
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">source</span><span class="p">(</span><span class="s2">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span> <span class="c1"># Sources the biocLite.R installation script 
-</span><span class="n">biocLite</span><span class="p">(</span><span class="s2">"tgirke/longevityTools"</span><span class="p">,</span> <span class="n">build_vignettes</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="err">#</span> <span class="n">Installs</span> <span class="n">package</span> <span class="n">from</span> <span class="n">GitHub</span></code></pre></figure>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">source</span><span class="p">(</span><span class="s2">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span> <span class="c1"># Sources the biocLite.R installation script 
+</span><span class="n">biocLite</span><span class="p">(</span><span class="s2">"tgirke/longevityTools"</span><span class="p">,</span> <span class="n">build_vignettes</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="err">#</span> <span class="n">Installs</span> <span class="n">package</span> <span class="n">from</span> <span class="n">GitHub</span></code></pre></div>
 
 <h2 id="loading-package-and-documentation">Loading package and documentation</h2>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Loads the package
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Loads the package
 </span><span class="n">library</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Lists package info
-</span><span class="n">vignette</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="err">#</span> <span class="n">Opens</span> <span class="n">vignette</span></code></pre></figure>
+</span><span class="n">vignette</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="err">#</span> <span class="n">Opens</span> <span class="n">vignette</span></code></pre></div>
 
 <h2 id="github-workflow">GitHub workflow</h2>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">git clone git@github.com:tgirke/longevityTools.git
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">git clone git@github.com:tgirke/longevityTools.git
 <span class="nb">cd </span>longevityTools
 git pull <span class="c"># Get updates from remote</span>
 git branch <span class="c"># Check whether you are in the master branch </span>
 <span class="c">## do some work, commit/push changes to local and remote ##</span>
-git commit -am <span class="s2">"some edits"</span>; git push -u origin master</code></pre></figure>
+git commit -am <span class="s2">"some edits"</span>; git push -u origin master</code></pre></div>
 
 <h2 id="building-and-checking-package">Building and checking package</h2>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh">R CMD build longevityTools <span class="c"># Run from parent directory of longevityTools directory</span>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">R CMD build longevityTools <span class="c"># Run from parent directory of longevityTools directory</span>
 R CMD check longevityTools_1.0.3.tar.gz
-install.package<span class="o">(</span><span class="s2">"longevityTools_1.0.3.tar.gz"</span>, <span class="nv">repos</span><span class="o">=</span>NULL, <span class="nb">type</span><span class="o">=</span><span class="s2">"source"</span><span class="o">)</span></code></pre></figure>
+install.package<span class="o">(</span><span class="s2">"longevityTools_1.0.3.tar.gz"</span>, <span class="nv">repos</span><span class="o">=</span>NULL, <span class="nb">type</span><span class="o">=</span><span class="s2">"source"</span><span class="o">)</span></code></pre></div>
 
 
 
@@ -767,7 +789,7 @@ install.package<span class="o">(</span><span class="s2">"longevityTools_1.0.3.ta
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Wed Feb 24 13:44:11 2016<br/> Site last generated: Mar 16, 2016 <br />
+<p>Page last updated:</span> Wed Feb 24 13:44:11 2016<br/> Site last generated: May 4, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

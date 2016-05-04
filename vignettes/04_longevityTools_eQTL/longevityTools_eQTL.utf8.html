@@ -79,6 +79,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
                 
                 
                 
@@ -141,6 +151,8 @@
                 <!-- special insertion -->
 
                
+                
+                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -233,6 +245,16 @@ window.location.href = uri;
 
 
         
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -789,9 +811,9 @@ vignette can be found <a href="https://htmlpreview.github.io/?https://github.com
 
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
 biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
 </code></p>
@@ -799,7 +821,7 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from
 
 <h2 id="loading-package-and-documentation">Loading package and documentation</h2>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library("longevityTools") # Loads the package
 library(help="longevityTools") # Lists package info
 vignette("longevityTools") # Opens vignette
@@ -811,9 +833,9 @@ vignette("longevityTools") # Opens vignette
 <h2 id="import-custom-functions">Import custom functions</h2>
 
 <p>Preliminary functions that are still under developement, or not fully tested and documented 
-can be imported with the <code class="highlighter-rouge">source</code> command from the <code class="highlighter-rouge">inst/extdata</code> directory of the package.</p>
+can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 fctpath &lt;- system.file("extdata", "longevityTools_eQTL_Fct.R", package="longevityTools")
 source(fctpath)
 </code></p>
@@ -822,10 +844,10 @@ source(fctpath)
 <h2 id="create-expected-directory-structure">Create expected directory structure</h2>
 
 <p>The following creates the directory structure expected by this workflow. Input data
-will be stored in the <code class="highlighter-rouge">data</code> directory and results will be written to the <code class="highlighter-rouge">results</code> directory.
+will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory.
 All paths are given relative to the present working directory of the user’s R session.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 dir.create("data"); dir.create("results") 
 </code></p>
 
@@ -835,17 +857,17 @@ dir.create("data"); dir.create("results")
 <p>The eQTL data used in this vignette can be downloaded from the <a href="http://www.gtexportal.org/home/datasets">GTEx site</a>.
 Note, the following downloads a 1.3GB file, which will take some time.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 download.file("http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz", "./GTEx_Analysis_V6_eQTLs.tar.gz")
 untar("GTEx_Analysis_V6_eQTLs.tar.gz")
 </code></p>
 
 <h1 id="utilities">Utilities</h1>
-<p>The <em><code class="highlighter-rouge">geneGrep</code></em> function takes GTEx results and gene list as arguments,
+<p>The <em><code>geneGrep</code></em> function takes GTEx results and gene list as arguments,
 returns GTEx eSNP results for genes in gene list. Genes without significant
 eSNPs are removed from results. The following sample file <em>Thyroid_Analysis.snpgenes.TXNRD2</em> has been subsetted to include eSNPs for TXNRD2.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library(longevityTools)
 samplepath &lt;- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package="longevityTools") 
 dat &lt;- read.delim(samplepath)
@@ -854,7 +876,7 @@ result &lt;- geneGrep(dat, myGenes)
 head(result[order(result$p_value),])
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ##                    snp       beta      p_value ref alt gene_name   nom_thresh snp_chrom  snp_pos
 ## 83 22_19867771_C_T_b37 -0.4596489 6.598661e-21   C   T    TXNRD2 1.215557e-05        22 19867771
 ## 86 22_19868678_T_C_b37 -0.4522136 1.109763e-20   T   C    TXNRD2 1.215557e-05        22 19868678
@@ -871,7 +893,7 @@ head(result[order(result$p_value),])
 ## 91                    rs8141451                rs8141451
 </code></p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 #output results in PLINK format
 result2&lt;-result[,c("snp_id_1kg_project_phaseI_v3","p_value")]
 names(result2)&lt;-c("SNP","P")
@@ -905,7 +927,7 @@ write.table(samples1KG_ID,file=”data/samples1KG.txt”,quote=F,row.names=F,col
 
 <p>Create region file to use with bcftools for LD.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 regions&lt;-data.frame(chr="chr1",pos=0,pos_to=0,stringsAsFactors = F)
 regions$chr[1]&lt;-result$snp_chrom[1]
 regions$pos[1]&lt;-min(result$snp_pos)
@@ -924,7 +946,7 @@ bcftools view -Ob -o results/1KGgeno.bgzf -S data/samples1KG.txt data/ALL.chr22.
 
 <p>Run PLINK clump command using default settings, but might want to change with different nominal significance thresholds.</p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 plink -bcf results/1KGgeno.bgzf --clump data/eSNP.assoc 
 </code></p>
 
@@ -941,11 +963,11 @@ plink -bcf results/1KGgeno.bgzf --clump data/eSNP.assoc
 
 <h1 id="version-information">Version information</h1>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 sessionInfo()
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ## R version 3.2.3 (2015-12-10)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 14.04.3 LTS
@@ -987,7 +1009,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: Mar 16, 2016 <br />
+ Site last generated: May 4, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

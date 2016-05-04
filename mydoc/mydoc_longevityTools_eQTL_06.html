@@ -79,6 +79,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
                 
                 
                 
@@ -141,6 +151,8 @@
                 <!-- special insertion -->
 
                
+                
+                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -233,6 +245,16 @@ window.location.href = uri;
 
 
         
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -723,18 +745,18 @@ $('#toc').on('click', 'a', function() {
     <a target="_blank" href="https://github.com/tgirke/manuals/tree/master/mydoc/" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
     
 -->
-<p>The <em><code class="highlighter-rouge">geneGrep</code></em> function takes GTEx results and gene list as arguments,
+<p>The <em><code>geneGrep</code></em> function takes GTEx results and gene list as arguments,
 returns GTEx eSNP results for genes in gene list. Genes without significant
 eSNPs are removed from results. The following sample file <em>Thyroid_Analysis.snpgenes.TXNRD2</em> has been subsetted to include eSNPs for TXNRD2.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">longevityTools</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">longevityTools</span><span class="p">)</span>
 <span class="n">samplepath</span> <span class="o">&lt;-</span> <span class="n">system.file</span><span class="p">(</span><span class="s2">"extdata"</span><span class="p">,</span> <span class="s2">"Thyroid_Analysis.snpgenes.TXNRD2"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> 
 <span class="n">dat</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="n">samplepath</span><span class="p">)</span>
 <span class="n">myGenes</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"TXNRD2"</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">&lt;-</span> <span class="n">geneGrep</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">myGenes</span><span class="p">)</span>
-<span class="n">head</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">p_value</span><span class="p">),])</span></code></pre></figure>
+<span class="n">head</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">p_value</span><span class="p">),])</span></code></pre></div>
 
-<figure class="highlight"><pre><code class="language-txt" data-lang="txt">##                    snp       beta      p_value ref alt gene_name   nom_thresh snp_chrom  snp_pos
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">##                    snp       beta      p_value ref alt gene_name   nom_thresh snp_chrom  snp_pos
 ## 83 22_19867771_C_T_b37 -0.4596489 6.598661e-21   C   T    TXNRD2 1.215557e-05        22 19867771
 ## 86 22_19868678_T_C_b37 -0.4522136 1.109763e-20   T   C    TXNRD2 1.215557e-05        22 19868678
 ## 82 22_19867276_T_C_b37 -0.4527145 5.145122e-20   T   C    TXNRD2 1.215557e-05        22 19867276
@@ -747,12 +769,12 @@ eSNPs are removed from results. The following sample file <em>Thyroid_Analysis.s
 ## 82                   rs34175429               rs34175429
 ## 80                    rs5993849                rs5993849
 ## 95                   rs12158214               rs12158214
-## 91                    rs8141451                rs8141451</code></pre></figure>
+## 91                    rs8141451                rs8141451</code></pre></div>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1">#output results in PLINK format
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1">#output results in PLINK format
 </span><span class="n">result2</span><span class="o">&lt;-</span><span class="n">result</span><span class="p">[,</span><span class="n">c</span><span class="p">(</span><span class="s2">"snp_id_1kg_project_phaseI_v3"</span><span class="p">,</span><span class="s2">"p_value"</span><span class="p">)]</span>
 <span class="n">names</span><span class="p">(</span><span class="n">result2</span><span class="p">)</span><span class="o">&lt;-</span><span class="n">c</span><span class="p">(</span><span class="s2">"SNP"</span><span class="p">,</span><span class="s2">"P"</span><span class="p">)</span>
-<span class="err">#</span><span class="n">write.table</span><span class="p">(</span><span class="n">result2</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">"data/eSNP.assoc"</span><span class="p">,</span><span class="n">quote</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">row.names</span><span class="o">=</span><span class="n">F</span><span class="p">)</span></code></pre></figure>
+<span class="err">#</span><span class="n">write.table</span><span class="p">(</span><span class="n">result2</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">"data/eSNP.assoc"</span><span class="p">,</span><span class="n">quote</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">row.names</span><span class="o">=</span><span class="n">F</span><span class="p">)</span></code></pre></div>
 
 <p>There are 139 eSNPs.</p>
 
@@ -772,7 +794,7 @@ eSNPs are removed from results. The following sample file <em>Thyroid_Analysis.s
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Sun Mar  6 19:48:46 2016<br/> Site last generated: Mar 16, 2016 <br />
+<p>Page last updated:</span> Sun Mar  6 19:48:46 2016<br/> Site last generated: May 4, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

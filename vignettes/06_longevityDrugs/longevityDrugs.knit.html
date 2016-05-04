@@ -79,6 +79,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
                 
                 
                 
@@ -141,6 +151,8 @@
                 <!-- special insertion -->
 
                
+                
+                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -233,6 +245,16 @@ window.location.href = uri;
 
 
         
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -763,7 +785,7 @@ website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHu
 is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
 vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityDrugs.html">here</a>.</p>
 
-<p>The data package <code class="highlighter-rouge">longevityDrugs</code> contains molecular structures and annotation information
+<p>The data package <code>longevityDrugs</code> contains molecular structures and annotation information
 of longevity-associated drugs (LADs). An iterative process will be used to assemble, update and 
 curate this data set long-term [@Backman2011-uw; @Cao2008-zo]. Most small molecules will be identified by integrating several
 large-scale community data sources such as data from drug databases (e.g.
@@ -778,9 +800,9 @@ with them structural, physicochemical or biological properties.</p>
 
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
 biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
 </code></p>
@@ -788,7 +810,7 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from
 
 <h2 id="loading-of-required-packages">Loading of required packages</h2>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library("longevityTools") 
 library("ChemmineR") 
 </code></p>
@@ -797,18 +819,18 @@ library("ChemmineR")
 
 <h1 id="load-database">Load database</h1>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 mypath &lt;- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
 sdfset &lt;- read.SDFset(mypath)
 data(sdfsample)
 sdfsample
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ## An instance of "SDFset" with 100 molecules
 </code></p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 plot(sdfsample[1:4], print=FALSE)
 </code></p>
 
@@ -823,11 +845,11 @@ plot(sdfsample[1:4], print=FALSE)
 
 <h1 id="version-information">Version information</h1>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 sessionInfo()
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ## R version 3.2.2 (2015-08-14)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: CentOS Linux 7 (Core)
@@ -867,7 +889,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: Mar 16, 2016 <br />
+ Site last generated: May 4, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

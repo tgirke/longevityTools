@@ -79,6 +79,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
                 
                 
                 
@@ -141,6 +151,8 @@
                 <!-- special insertion -->
 
                
+                
+                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -233,6 +245,16 @@ window.location.href = uri;
 
 
         
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -763,9 +785,9 @@ website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHu
 is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
 vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.</p>
 
-<p>This overview tutorial provides general information about the <code class="highlighter-rouge">longevityTools</code> package.
+<p>This overview tutorial provides general information about the <code>longevityTools</code> package.
 This includes an introduction into the objects, data structures, methods and
-functions defined by <code class="highlighter-rouge">longevityTools</code>. The development of <code class="highlighter-rouge">longevityTools</code> is part of the 
+functions defined by <code>longevityTools</code>. The development of <code>longevityTools</code> is part of the 
 <a href="http://www.longevitygenomics.org/">Longevity Genomics</a> project. 
 The analysis workflows used by this project are documented in its companion vignettes listed below.</p>
 
@@ -775,9 +797,9 @@ The analysis workflows used by this project are documented in its companion vign
 
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
 biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub
 </code></p>
@@ -785,7 +807,7 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # I
 
 <h2 id="loading-package-and-documentation">Loading package and documentation</h2>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library("longevityTools") # Loads the package
 library(help="longevityTools") # Lists package info
 vignette("longevityTools") # Opens vignette
@@ -795,7 +817,7 @@ vignette("longevityTools") # Opens vignette
 
 <h2 id="github-workflow">GitHub workflow</h2>
 
-<p><code class="highlighter-rouge">sh
+<p><code>sh
 git clone git@github.com:tgirke/longevityTools.git
 cd longevityTools
 git pull # Get updates from remote
@@ -808,7 +830,7 @@ git commit -am "some edits"; git push -u origin master
 
 <h2 id="building-and-checking-package">Building and checking package</h2>
 
-<p><code class="highlighter-rouge">sh
+<p><code>sh
 R CMD build longevityTools # Run from parent directory of longevityTools directory
 R CMD check longevityTools_1.0.3.tar.gz
 install.package("longevityTools_1.0.3.tar.gz", repos=NULL, type="source")
@@ -842,11 +864,11 @@ install.package("longevityTools_1.0.3.tar.gz", repos=NULL, type="source")
 
 <h1 id="version-information">Version information</h1>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 sessionInfo()
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ## R version 3.2.3 (2015-12-10)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 14.04.3 LTS
@@ -888,7 +910,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: Mar 16, 2016 <br />
+ Site last generated: May 4, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

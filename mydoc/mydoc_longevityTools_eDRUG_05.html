@@ -79,6 +79,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
                 
                 
                 
@@ -141,6 +151,8 @@
                 <!-- special insertion -->
 
                
+                
+                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -233,6 +245,16 @@ window.location.href = uri;
 
 
         
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -726,45 +748,45 @@ $('#toc').on('click', 'a', function() {
 <h2 id="determine-chip-type-from-cel-files">Determine chip type from CEL files</h2>
 <p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A,
 HT_HG-U133A and U133AAofAv2). The following extracts the chip type information
-from the CEL files and stores the result in an <code class="highlighter-rouge">rds</code> file with the path 
-<code class="highlighter-rouge">./data/chiptype.rds</code>. Users who skipped the download of the CEL files can
+from the CEL files and stores the result in an <code>rds</code> file with the path 
+<code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can
 download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">celfiles</span> <span class="o">&lt;-</span> <span class="n">list.files</span><span class="p">(</span><span class="s2">"./data/CEL"</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">".CEL$"</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">celfiles</span> <span class="o">&lt;-</span> <span class="n">list.files</span><span class="p">(</span><span class="s2">"./data/CEL"</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">".CEL$"</span><span class="p">)</span>
 <span class="n">chiptype</span> <span class="o">&lt;-</span> <span class="n">sapply</span><span class="p">(</span><span class="n">celfiles</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">affxparser</span><span class="o">::</span><span class="n">readCelHeader</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/CEL/"</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span><span class="o">$</span><span class="n">chiptype</span><span class="p">)</span>
-<span class="k">if</span><span class="p">(</span><span class="n">FALSE</span><span class="p">)</span> <span class="n">saveRDS</span><span class="p">(</span><span class="n">chiptype</span><span class="p">,</span> <span class="s2">"./data/chiptype.rds"</span><span class="p">)</span> <span class="err">#</span> <span class="k">if</span><span class="p">(</span><span class="n">FALSE</span><span class="p">)</span> <span class="n">protects</span> <span class="n">this</span> <span class="n">line</span> <span class="n">from</span> <span class="n">accidental</span> <span class="n">execution</span><span class="o">!</span></code></pre></figure>
+<span class="k">if</span><span class="p">(</span><span class="n">FALSE</span><span class="p">)</span> <span class="n">saveRDS</span><span class="p">(</span><span class="n">chiptype</span><span class="p">,</span> <span class="s2">"./data/chiptype.rds"</span><span class="p">)</span> <span class="err">#</span> <span class="k">if</span><span class="p">(</span><span class="n">FALSE</span><span class="p">)</span> <span class="n">protects</span> <span class="n">this</span> <span class="n">line</span> <span class="n">from</span> <span class="n">accidental</span> <span class="n">execution</span><span class="o">!</span></code></pre></div>
 
 <h2 id="normalization-of-cel-files">Normalization of CEL files</h2>
 
 <p>The follwoing processes the CEL files from each chip type separately using the
 MAS5 normalization algorithm. The results will be written to 3 subdirectores
-under <code class="highlighter-rouge">data</code> that are named after the chip type names.  To save time, the
-processing is parallelized with <code class="highlighter-rouge">BiocParallel</code> to run on 100 CPU cores of a
+under <code>data</code> that are named after the chip type names.  To save time, the
+processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a
 computer cluster with a scheduler (<em>e.g.</em> Torque). The number of CEL files from
 each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from
 HT_HG-U133A, and 220 CEL files from U133AAofAv2. Note, these numbers are slightly
-different than those reported in the <code class="highlighter-rouge">cmap_instances_02.txt</code> file. The MAS5 normalized data
+different than those reported in the <code>cmap_instances_02.txt</code> file. The MAS5 normalized data
 sets can be downloaded here: 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds">HG-U133A</a>, 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds">HT_HG-U133A</a>, 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/U133AAofAv2/all_mas5exprs.rds">U133AAofAv2</a>.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">BiocParallel</span><span class="p">);</span> <span class="n">library</span><span class="p">(</span><span class="n">BatchJobs</span><span class="p">);</span> <span class="n">library</span><span class="p">(</span><span class="n">affy</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">BiocParallel</span><span class="p">);</span> <span class="n">library</span><span class="p">(</span><span class="n">BatchJobs</span><span class="p">);</span> <span class="n">library</span><span class="p">(</span><span class="n">affy</span><span class="p">)</span>
 <span class="n">chiptype</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./data/chiptype.rds"</span><span class="p">)</span>
 <span class="n">chiptype_list</span> <span class="o">&lt;-</span> <span class="n">split</span><span class="p">(</span><span class="n">names</span><span class="p">(</span><span class="n">chiptype</span><span class="p">),</span> <span class="n">as.character</span><span class="p">(</span><span class="n">chiptype</span><span class="p">))</span>
-<span class="n">normalizeCel</span><span class="p">(</span><span class="n">chiptype_list</span><span class="p">,</span> <span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> </code></pre></figure>
+<span class="n">normalizeCel</span><span class="p">(</span><span class="n">chiptype_list</span><span class="p">,</span> <span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span></code></pre></div>
 
 <h2 id="combine-results-from-same-chip-type-in-single-data-frame">Combine results from same chip type in single data frame</h2>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">chiptype_dir</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"./data/chiptype.rds"</span><span class="p">))</span>
-<span class="n">combineResults</span><span class="p">(</span><span class="n">chiptype_dir</span><span class="p">,</span> <span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span></code></pre></figure>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">chiptype_dir</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"./data/chiptype.rds"</span><span class="p">))</span>
+<span class="n">combineResults</span><span class="p">(</span><span class="n">chiptype_dir</span><span class="p">,</span> <span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span></code></pre></div>
 
 <h2 id="clean-up-of-intermediate-files">Clean-up of intermediate files</h2>
 
 <p>This deletes intermediate files. Before executing these lines, please make sure that this is what you want.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="n">seq_along</span><span class="p">(</span><span class="n">chiptype_dir</span><span class="p">))</span> <span class="n">unlink</span><span class="p">(</span><span class="n">list.files</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/"</span><span class="p">,</span> <span class="n">chiptype_dir</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"cellbatch"</span><span class="p">,</span> <span class="n">full.names</span><span class="o">=</span><span class="n">TRUE</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="n">TRUE</span><span class="p">)</span>
-<span class="n">unlink</span><span class="p">(</span><span class="s2">"data/CEL/*.CEL"</span><span class="p">)</span> <span class="err">#</span> <span class="n">Deletes</span> <span class="n">downloaded</span> <span class="n">CEL</span> <span class="n">files</span></code></pre></figure>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="n">seq_along</span><span class="p">(</span><span class="n">chiptype_dir</span><span class="p">))</span> <span class="n">unlink</span><span class="p">(</span><span class="n">list.files</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/"</span><span class="p">,</span> <span class="n">chiptype_dir</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"cellbatch"</span><span class="p">,</span> <span class="n">full.names</span><span class="o">=</span><span class="n">TRUE</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="n">TRUE</span><span class="p">)</span>
+<span class="n">unlink</span><span class="p">(</span><span class="s2">"data/CEL/*.CEL"</span><span class="p">)</span> <span class="err">#</span> <span class="n">Deletes</span> <span class="n">downloaded</span> <span class="n">CEL</span> <span class="n">files</span></code></pre></div>
 
 <h2 id="obtain-annotation-information">Obtain annotation information</h2>
 <p>The following generates annotation information for the Affymetirx probe set
@@ -772,11 +794,11 @@ identifiers. Note, the three different Affymetrix chip types used by CMAP
 share most probe set ids (&gt;95%), meaning it is possible to combine the data
 after normalization and use the same annotation package for all of them. The
 annotation libraries for the chip types HG-U133A and HT_HG-U133A are
-<code class="highlighter-rouge">hgu133a.db</code> and <code class="highlighter-rouge">hthgu133a.db</code>, respectively. However, there is no annotation 
+<code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation 
 library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded
-from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls"><code class="highlighter-rouge">myAnnot.xls</code></a>.</p>
+from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls"><code>myAnnot.xls</code></a>.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">hgu133a.db</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">hgu133a.db</span><span class="p">)</span>
 <span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">ACCNUM</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aACCNUM</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
                              <span class="n">SYMBOL</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aSYMBOL</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
                              <span class="n">UNIGENE</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aUNIGENE</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
@@ -784,7 +806,7 @@ from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/re
                              <span class="n">ENSEMBL</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aENSEMBL</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
                              <span class="n">DESC</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aGENENAME</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">))</span>
 <span class="n">write.table</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/myAnnot.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
-<span class="n">saveRDS</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">,</span> <span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span></code></pre></figure>
+<span class="n">saveRDS</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">,</span> <span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span></code></pre></div>
 
 
 
@@ -802,7 +824,7 @@ from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/re
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Wed Mar 16 12:35:34 2016<br/> Site last generated: Mar 16, 2016 <br />
+<p>Page last updated:</span> Wed Mar 16 12:35:34 2016<br/> Site last generated: May 4, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

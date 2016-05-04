@@ -79,6 +79,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
                 
                 
                 
@@ -141,6 +151,8 @@
                 <!-- special insertion -->
 
                
+                
+                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -233,6 +245,16 @@ window.location.href = uri;
 
 
         
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -778,9 +800,9 @@ are from the Connectivity Map (CMAP) and LINCS projects [@Lamb2006-uv].</p>
 
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
 biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
 </code></p>
@@ -788,7 +810,7 @@ biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from
 
 <h2 id="loading-package-and-documentation">Loading package and documentation</h2>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library("longevityTools") # Loads the package
 library(help="longevityTools") # Lists package info
 vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignette
@@ -800,9 +822,9 @@ vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignett
 <h2 id="import-custom-functions">Import custom functions</h2>
 
 <p>Preliminary functions that are still under developement, or not fully tested and documented 
-can be imported with the <code class="highlighter-rouge">source</code> command from the <code class="highlighter-rouge">inst/extdata</code> directory of the package.</p>
+can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 fctpath &lt;- system.file("extdata", "longevityTools_eDRUG_Fct.R", package="longevityTools")
 source(fctpath)
 </code></p>
@@ -811,10 +833,10 @@ source(fctpath)
 <h2 id="create-expected-directory-structure">Create expected directory structure</h2>
 
 <p>The following creates the directory structure expected by this workflow. Input data
-will be stored in the <code class="highlighter-rouge">data</code> directory and results will be written to the <code class="highlighter-rouge">results</code> directory.
+will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory.
 All paths are given relative to the present working directory of the user’s R session.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 dir.create("data"); dir.create("data/CEL"); dir.create("results") 
 </code></p>
 
@@ -824,17 +846,17 @@ dir.create("data"); dir.create("data/CEL"); dir.create("results")
 
 <h2 id="download-data-from-connectivity-map-project-site">Download data from Connectivity Map project site</h2>
 <p>The drug-related expression data are downloaded from the CMAP web site
-<a href="http://www.broadinstitute.org/cmap">here</a>.  The <code class="highlighter-rouge">getCmap</code> function downloads
-the CMAP rank matrix along with the compound annotations, and <code class="highlighter-rouge">getCmapCEL</code>
+<a href="http://www.broadinstitute.org/cmap">here</a>.  The <code>getCmap</code> function downloads
+the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code>
 downloads the corresponding 7,056 CEL files. The functions will write the
-downloaded files to the <code class="highlighter-rouge">data</code> and <code class="highlighter-rouge">data/CEL</code> directories within the present 
+downloaded files to the <code>data</code> and <code>data/CEL</code> directories within the present 
 working directory of the user’s R session. Since some of the raw data sets 
-are large, the functions will only rerun the download if the argument <code class="highlighter-rouge">rerun</code> 
-is assigned <code class="highlighter-rouge">TRUE</code>. If the raw data are not needed then users can skip this 
+are large, the functions will only rerun the download if the argument <code>rerun</code> 
+is assigned <code>TRUE</code>. If the raw data are not needed then users can skip this 
 time consuming download step and work with the preprocessed data 
 obtained in the next section.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
 getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
 </code></p>
@@ -844,7 +866,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 <h2 id="overiew-of-cmap-data">Overiew of CMAP data</h2>
 
 <p>The experimental design of the CMAP project is defined in the file
-<code class="highlighter-rouge">cmap_instances_02.xls</code>.  Note, this file required some cleaning in LibreOffice
+<code>cmap_instances_02.xls</code>.  Note, this file required some cleaning in LibreOffice
 (Excel would work for this too). After this it was saved as tab delimited txt
 file named
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>.
@@ -859,7 +881,7 @@ The following count statisitics are extracted from this file.</p>
 Each cell type was subjected to the following number of total treatments and number
 of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library(ggplot2); library(reshape2) 
 cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
 df &lt;- data.frame(table(cmap[, "cell2"]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])))
@@ -875,7 +897,7 @@ ggplot(df, aes(Cell_type, Counts, fill=Samples)) +
 <p>The number Affymetrix chip used in the experiments is plotted here for each of
 the three chip types used by CMAP:</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 df &lt;- data.frame(table(cmap$array3)); colnames(df) &lt;- c("Chip_type", "Counts") 
 ggplot(df, aes(Chip_type, Counts)) + 
        geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
@@ -891,11 +913,11 @@ ggplot(df, aes(Chip_type, Counts)) +
 <h2 id="determine-chip-type-from-cel-files">Determine chip type from CEL files</h2>
 <p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A,
 HT_HG-U133A and U133AAofAv2). The following extracts the chip type information
-from the CEL files and stores the result in an <code class="highlighter-rouge">rds</code> file with the path 
-<code class="highlighter-rouge">./data/chiptype.rds</code>. Users who skipped the download of the CEL files can
+from the CEL files and stores the result in an <code>rds</code> file with the path 
+<code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can
 download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 celfiles &lt;- list.files("./data/CEL", pattern=".CEL$")
 chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
 if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this line from accidental execution!
@@ -907,18 +929,18 @@ if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this lin
 
 <p>The follwoing processes the CEL files from each chip type separately using the
 MAS5 normalization algorithm. The results will be written to 3 subdirectores
-under <code class="highlighter-rouge">data</code> that are named after the chip type names.  To save time, the
-processing is parallelized with <code class="highlighter-rouge">BiocParallel</code> to run on 100 CPU cores of a
+under <code>data</code> that are named after the chip type names.  To save time, the
+processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a
 computer cluster with a scheduler (<em>e.g.</em> Torque). The number of CEL files from
 each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from
 HT_HG-U133A, and 220 CEL files from U133AAofAv2. Note, these numbers are slightly
-different than those reported in the <code class="highlighter-rouge">cmap_instances_02.txt</code> file. The MAS5 normalized data
+different than those reported in the <code>cmap_instances_02.txt</code> file. The MAS5 normalized data
 sets can be downloaded here: 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds">HG-U133A</a>, 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds">HT_HG-U133A</a>, 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/U133AAofAv2/all_mas5exprs.rds">U133AAofAv2</a>.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library(BiocParallel); library(BatchJobs); library(affy)
 chiptype &lt;- readRDS("./data/chiptype.rds")
 chiptype_list &lt;- split(names(chiptype), as.character(chiptype))
@@ -929,7 +951,7 @@ normalizeCel(chiptype_list, rerun=FALSE)
 
 <h2 id="combine-results-from-same-chip-type-in-single-data-frame">Combine results from same chip type in single data frame</h2>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 chiptype_dir &lt;- unique(readRDS("./data/chiptype.rds"))
 combineResults(chiptype_dir, rerun=FALSE)
 </code></p>
@@ -940,7 +962,7 @@ combineResults(chiptype_dir, rerun=FALSE)
 
 <p>This deletes intermediate files. Before executing these lines, please make sure that this is what you want.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
 unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
 </code></p>
@@ -953,11 +975,11 @@ identifiers. Note, the three different Affymetrix chip types used by CMAP
 share most probe set ids (&gt;95%), meaning it is possible to combine the data
 after normalization and use the same annotation package for all of them. The
 annotation libraries for the chip types HG-U133A and HT_HG-U133A are
-<code class="highlighter-rouge">hgu133a.db</code> and <code class="highlighter-rouge">hthgu133a.db</code>, respectively. However, there is no annotation 
+<code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation 
 library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded
-from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls"><code class="highlighter-rouge">myAnnot.xls</code></a>.</p>
+from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls"><code>myAnnot.xls</code></a>.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library(hgu133a.db)
 myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
@@ -971,14 +993,14 @@ saveRDS(myAnnot, "./results/myAnnot.rds")
 
 <div align="right">[Back to Table of Contents]()</div>
 
-<h1 id="deg-analysis-with-limma">DEG analysis with <code class="highlighter-rouge">limma</code></h1>
+<h1 id="deg-analysis-with-limma">DEG analysis with <code>limma</code></h1>
 
 <h2 id="generate-list-of-cel-names-defining-treatment-vs-control-comparisons">Generate list of CEL names defining treatment vs. control comparisons</h2>
 
-<p>The <code class="highlighter-rouge">sampleList</code> function extracts the sample comparisons (contrasts) from the
+<p>The <code>sampleList</code> function extracts the sample comparisons (contrasts) from the
 CMAP annotation table and stores them as a list.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
 # comp_list &lt;- sampleList(cmap, myby="CMP")
 comp_list &lt;- sampleList(cmap, myby="CMP_CELL")
@@ -988,10 +1010,10 @@ comp_list &lt;- sampleList(cmap, myby="CMP_CELL")
 
 <h2 id="load-normalized-expression-data">Load normalized expression data</h2>
 
-<p>The following loads the MAS5 normalized expression data into a single <code class="highlighter-rouge">data.frame</code>. 
-To accelerate the import, the data is read from <code class="highlighter-rouge">rds</code> files.</p>
+<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. 
+To accelerate the import, the data is read from <code>rds</code> files.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 chiptype_dir &lt;- unique(readRDS("./data/chiptype.rds"))
 df1 &lt;- readRDS(paste0("data/", chiptype_dir[1], "/", "all_mas5exprs.rds"))
 df2 &lt;- readRDS(paste0("data/", chiptype_dir[2], "/", "all_mas5exprs.rds"))
@@ -1006,7 +1028,7 @@ probe sets then their mean intensities are used. This is necessary because
 the U133 chip contains many genes with duplicated probe sets. Probe sets not matching 
 any gene are removed.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 myAnnot &lt;- readRDS("./results/myAnnot.rds") 
 myAnnot &lt;- myAnnot[as.character(myAnnot[,"ENTREZID"]) != "NA",]
 mas5df &lt;- mas5df[rownames(myAnnot),]
@@ -1016,14 +1038,14 @@ mas5df &lt;- t(sapply(names(idlist), function(x) colMeans(mas5df[idlist[[x]], ])
 
 <div align="right">[Back to Table of Contents]()</div>
 
-<h2 id="deg-analysis-with-limma-1">DEG analysis with <code class="highlighter-rouge">limma</code></h2>
+<h2 id="deg-analysis-with-limma-1">DEG analysis with <code>limma</code></h2>
 
-<p>The analysis of differentially expressed genes (DEGs) is performed with the <code class="highlighter-rouge">limma</code> package.
+<p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package.
 Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and 
 a minimum fold change of 2). The DEG matrix is written to a file named 
-<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code class="highlighter-rouge">degMA.xls</code></a>.</p>
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 degList &lt;- runLimma(df=log2(mas5df), comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
 write.table(degList$DEG, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
 saveRDS(degList$DEG, "./results/degMA.rds") # saves binary matrix 
@@ -1057,7 +1079,7 @@ saveRDS(degMAgene, "./results/degMAgene.rds")
 <p>The following plots the number of drug treatments (y-axis) for increasing bin sizes (x-axis) 
 of DEGs.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 degMAgene &lt;- readRDS("./results/degMA.rds")
 y &lt;- as.numeric(colSums(degMAgene))
 interval &lt;- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
@@ -1074,16 +1096,16 @@ ggplot(df, aes(Bins, Counts)) +
 <h2 id="identify-deg-overlaps-with-peters-et-al--peters2015-fc">Identify DEG overlaps with Peters et al. [-@Peters2015-fc]</h2>
 
 <p>Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression
-signatures.  The <code class="highlighter-rouge">intersectStats</code> function computes their intersects with each
+signatures.  The <code>intersectStats</code> function computes their intersects with each
 of the 3,318 drug-responsive DEG sets from CMAP. The result includes the
 Jaccard index as a simple similarity metric for gene sets as well as the raw
 and adjusted p-values based on the hypergeometric distribution expressing how
 likely it is to obtain the observed intersect sizes just by chance. The
 results for the 20 top scoring drugs are given below and the full data set is
 written to a file named
-<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code class="highlighter-rouge">degOL_PMID26490707.xls</code></a>.</p>
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot &lt;- readRDS("./results/myAnnot.rds") 
 geneid &lt;- as.character(PMID26490707$"NEW.Entrez.ID")
@@ -1094,15 +1116,15 @@ write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=F
 sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ## [1] 1137
 </code></p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 degOL_PMID26490707[1:20,]
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ##                                Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
 ## alprostadil_HL60                  0.10272537          1192      912       196 1.706881e-29
 ## dihydroergotamine_HL60            0.06187625          1192      404        93 3.698500e-16
@@ -1152,14 +1174,14 @@ degOL_PMID26490707[1:20,]
 <h2 id="identify-deg-overlaps-with-sood-et-al--sood2015-pb">Identify DEG overlaps with Sood et al. [-@Sood2015-pb]</h2>
 
 <p>Sood et al. [-@Sood2015-pb] reported 150 age-related gene expression signatures. 
-The <code class="highlighter-rouge">intersectStats</code> function computes their intersects with each of the 3,318 
+The <code>intersectStats</code> function computes their intersects with each of the 3,318 
 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple 
 similarity metric for gene sets as well as the raw and adjusted p-values based on the 
 hypergeometric distribution expressing how likely it is to observe the observed intersect 
 sizes just by chance. The results for the 20 top scoring drugs are given below and the full
-data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code class="highlighter-rouge">degOL_PMID26343147.xls</code></a>.</p>
+data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 PMID26343147 &lt;- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
 myAnnot &lt;- readRDS("./results/myAnnot.rds") 
 geneid &lt;- as.character(myAnnot[rownames(myAnnot) %in% as.character(PMID26343147[,1]), "ENTREZID"])
@@ -1172,15 +1194,15 @@ write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=F
 sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ## [1] 223
 </code></p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ##                        Jaccard_Index longevity_DEG cmap_DEG Intersect        Pval adj_Pval
 ## colecalciferol_MCF7      0.017857143            55        2         1 0.008821835        1
 ## esculin_HL60             0.017857143            55        2         1 0.008821835        1
@@ -1208,9 +1230,9 @@ degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 <h2 id="drugs-affecting-known-longevity-genes">Drugs affecting known longevity genes</h2>
 
 <p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.
-The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code class="highlighter-rouge">deg_IGF1.xls</code></a>.</p>
+The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 genesymbols &lt;- c("IGF1", "IGF1R")
 geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
 names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
@@ -1226,14 +1248,14 @@ df &lt;- df[names(index),]
 write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
 </code></p>
 
-<p>Now the final <code class="highlighter-rouge">data.frame</code> can be sorted by increasing mean FDR values.</p>
+<p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 igfDF &lt;- read.delim("./results/deg_IGF1.xls", row.names=1)
 igfDF[order(rowMeans(igfDF[,c(3,6)])),][1:20,]
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ##                                IGF1R_DEG IGF1R_logFC     IGF1R_FDR IGF1_DEG  IGF1_logFC   IGF1_FDR
 ## camptothecin_MCF7                      1 -1.48180690  4.867357e-07        0  0.94295576 0.07821138
 ## 0175029-0000_MCF7                      0 -0.62026588  1.193479e-01        1 -1.01210916 0.04295254
@@ -1296,7 +1318,7 @@ write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names 
 
 <h2 id="plot-structures-of-compounds">Plot structures of compounds</h2>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library(ChemmineR)
 mypath &lt;- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
 mypath &lt;- "../inst/extdata/longevitydrugs.sdf"
@@ -1305,11 +1327,11 @@ data(sdfsample)
 sdfsample
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ## An instance of "SDFset" with 100 molecules
 </code></p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 plot(sdfsample[1:4], print=FALSE)
 </code></p>
 
@@ -1327,9 +1349,9 @@ down-regulated genes at the top and bottom of sorted (ranked) gene lists.</p>
 <p>The following uses the 1,497 age-related gene expression signatures from Peters et al. 
 [-@Peters2015-fc] as a query against the CMAP signatures. The results are sorted by the
 ES Distance and the top scoring 20 drugs are given below. The full result table is<br />
-written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code class="highlighter-rouge">drugcmap2.xls</code></a>.</p>
+written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 library(DrugVsDisease)
 PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(drugRL)
@@ -1342,16 +1364,16 @@ drugcmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case="disease",
                             dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ## Number of Significant results greater than 100 Using top 100 hits - consider using average linkage instead
 </code></p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 write.table(drugcmap2, file="./results/drugcmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
 drugcmap2[[1]][1:20,]
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ##                              Drug ES Distance Cluster RPS
 ## mebendazole           mebendazole   0.8322685      62   1
 ## cloperastine         cloperastine   0.8457056      98   1
@@ -1381,9 +1403,9 @@ drugcmap2[[1]][1:20,]
 
 <p>The same query is performed against a reference set of disease expression signatures.
 The results are sorted by the ES Distance and the top scoring 20 drugs are given below. 
-The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code class="highlighter-rouge">diseasecmap2.xls</code></a>.</p>
+The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code>diseasecmap2.xls</code></a>.</p>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(diseaseRL)
 PMID26490707sub &lt;- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
@@ -1397,7 +1419,7 @@ write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\
 diseasecmap2[[1]][1:20,]
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ##                                                     Disease ES Distance Cluster RPS
 ## sarcoidosis                                     sarcoidosis   0.3630021       2   1
 ## sepsis                                               sepsis   0.4779160       5  -1
@@ -1442,11 +1464,11 @@ diseasecmap2[[1]][1:20,]
 
 <h1 id="version-information">Version information</h1>
 
-<p><code class="highlighter-rouge">r
+<p><code>r
 sessionInfo()
 </code></p>
 
-<p><code class="highlighter-rouge">
+<p><code>
 ## R version 3.2.2 (2015-08-14)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: CentOS Linux 7 (Core)
@@ -1500,7 +1522,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: Mar 16, 2016 <br />
+ Site last generated: May 4, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

@@ -19,7 +19,7 @@
 "title": "Introduction",
 "tags": "",
 "keywords": "",
-"url": "../mydoc/home.html",
+"url": "../vignettes/01_Overview/home.html",
 "summary": "This site describes the analysis tools used and developed by the <a href="http://www.longevitygenomics.org/">Longevity Genomics</a> project."
 },
 
@@ -30,7 +30,7 @@
 "title": "Introduction",
 "tags": "",
 "keywords": "",
-"url": "../vignettes/01_Overview/home.html",
+"url": "../mydoc/home.html",
 "summary": "This site describes the analysis tools used and developed by the <a href="http://www.longevitygenomics.org/">Longevity Genomics</a> project."
 },
 
@@ -176,7 +176,7 @@
 "title": "Current Projects",
 "tags": "",
 "keywords": "",
-"url": "../mydoc/mydoc_current_projects.html",
+"url": "../vignettes/01_Overview/mydoc_current_projects.html",
 "summary": ""
 },
 
@@ -187,18 +187,7 @@
 "title": "Current Projects",
 "tags": "",
 "keywords": "",
-"url": "../vignettes/01_Overview/mydoc_current_projects.html",
-"summary": ""
-},
-
-
-
-
-{
-"title": "Download of Analysis Results",
-"tags": "",
-"keywords": "",
-"url": "../mydoc/mydoc_downloads.html",
+"url": "../mydoc/mydoc_current_projects.html",
 "summary": ""
 },
 
@@ -217,11 +206,11 @@
 
 
 {
-"title": "Funding",
+"title": "Download of Analysis Results",
 "tags": "",
 "keywords": "",
-"url": "../mydoc/mydoc_funding.html",
-"summary": "This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA)."
+"url": "../mydoc/mydoc_downloads.html",
+"summary": ""
 },
 
 
@@ -232,6 +221,17 @@
 "tags": "",
 "keywords": "",
 "url": "../vignettes/07_Funding/mydoc_funding.html",
+"summary": "This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA)."
+},
+
+
+
+
+{
+"title": "Funding",
+"tags": "",
+"keywords": "",
+"url": "../mydoc/mydoc_funding.html",
 "summary": "This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA)."
 },
 
@@ -660,7 +660,7 @@
 "title": "Software",
 "tags": "",
 "keywords": "",
-"url": "../mydoc/mydoc_software.html",
+"url": "../vignettes/02_Downloads/mydoc_software.html",
 "summary": ""
 },
 
@@ -671,7 +671,7 @@
 "title": "Software",
 "tags": "",
 "keywords": "",
-"url": "../vignettes/02_Downloads/mydoc_software.html",
+"url": "../mydoc/mydoc_software.html",
 "summary": ""
 },
 
