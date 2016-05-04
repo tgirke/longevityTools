@@ -5,7 +5,7 @@ last_updated: Wed Mar 16 12:35:34 2016
 ---
 Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans
 
-Last update: 16 March, 2016 
+Last update: 04 May, 2016 
 
 Alternative formats of this vignette:
 [`Single-page .Rmd HTML`](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_eDRUG.html),
