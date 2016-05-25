@@ -12,15 +12,27 @@ suppressPackageStartupMessages({
 
 ## ----install, eval=FALSE-------------------------------------------------
 ## source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script
-## biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+## biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub
+## biocLite("tgirke/longevityDrugs", build_vignettes=FALSE, dependencies=FALSE)
 
-## ----documentation, eval=FALSE-------------------------------------------
-## library("longevityTools")
-## library("ChemmineR")
+## ----documentation, eval=TRUE--------------------------------------------
+library(RSQLite); library(ChemmineR); library(longevityDrugs)
 
-## ----load_sdf, eval=FALSE------------------------------------------------
-## sdfset <- read.SDFset("inst/ext/longevityDrugs.sdf")
-## plot(sdfset)
+## ----load_database, eval=TRUE--------------------------------------------
+mypath <- system.file("extdata", "cmap.db", package="longevityDrugs")
+conn <- initDb(mypath)
+
+## ----query_structures, eval=TRUE-----------------------------------------
+results <- getAllCompoundIds(conn)
+sdfset <- getCompounds(conn, results, keepOrder=TRUE)
+sdfset
+plot(sdfset[1:4], print=FALSE)
+as.data.frame(datablock2ma(datablock(sdfset)))[1:4,]
+
+## ----query_properties, eval=TRUE-----------------------------------------
+myfeat <- listFeatures(conn)
+feat <- getCompoundFeatures(conn, results, myfeat)
+feat[1:4,]
 
 ## ----sessionInfo---------------------------------------------------------
 sessionInfo()

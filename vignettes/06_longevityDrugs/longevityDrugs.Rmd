@@ -2,7 +2,7 @@
 title: "longevityDrugs: Database of Longevity-Associated Drugs (LAD)" 
 author: "Authors: Thomas Girke, Tyler Backman, Dan Evans"
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
-package: "`r pkg_ver('longevityTools')`"
+package: "`r pkg_ver('longevityDrugs')`"
 output:
   BiocStyle::html_document:
     toc: true
@@ -68,31 +68,47 @@ with them structural, physicochemical or biological properties.
 
 ## Installation
 
-The R software for running [_`longevityTools`_](https://github.com/tgirke/longevityTools) can be downloaded from [_CRAN_](http://cran.at.r-project.org/). The _`longevityTools`_ package can be installed from the R console using the following _`biocLite`_ install command. 
+The R software for running [_`longevityDrugs`_](https://github.com/tgirke/longevityDrugs) and [_`longevityTools`_](https://github.com/tgirke/longevityTools) can be downloaded from [_CRAN_](http://cran.at.r-project.org/). The _`longevityTools`_ package can be installed from the R console using the following _`biocLite`_ install command. 
 
 ```{r install, eval=FALSE}
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
-biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub
+biocLite("tgirke/longevityDrugs", build_vignettes=FALSE, dependencies=FALSE)
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
 ## Loading of required packages
 
 ```{r documentation, eval=TRUE}
-library("longevityTools") 
-library("ChemmineR") 
+library(RSQLite); library(ChemmineR); library(longevityDrugs)
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
 
 # Load database
 
-```{r load_sdf, eval=TRUE}
-mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
-sdfset <- read.SDFset(mypath)
-data(sdfsample)
-sdfsample
-plot(sdfsample[1:4], print=FALSE)
+```{r load_database, eval=TRUE}
+mypath <- system.file("extdata", "cmap.db", package="longevityDrugs")
+conn <- initDb(mypath)
+```
+
+
+# Query database
+
+## Retrieve compound structures
+```{r query_structures, eval=TRUE}
+results <- getAllCompoundIds(conn)
+sdfset <- getCompounds(conn, results, keepOrder=TRUE)
+sdfset
+plot(sdfset[1:4], print=FALSE)
+as.data.frame(datablock2ma(datablock(sdfset)))[1:4,]
+```
+
+## Retrieve compound properties
+```{r query_properties, eval=TRUE}
+myfeat <- listFeatures(conn)
+feat <- getCompoundFeatures(conn, results, myfeat)
+feat[1:4,]
 ```
 
 <div align="right">[Back to Table of Contents]()</div>

@@ -184,3 +184,38 @@ mydoc_longevityDrugs_6:
   url: "../mydoc/mydoc_longevityDrugs_6.html"
   link: "<a href='../mydoc/mydoc_longevityDrugs_6.html'>References</a>"
 
+mydoc_longevityDrugs.Rmd_1:
+  title: "Introduction "
+  url: "../mydoc/mydoc_longevityDrugs.Rmd_1.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs.Rmd_1.html'>Introduction </a>"
+
+mydoc_longevityDrugs.Rmd_2:
+  title: "Getting Started"
+  url: "../mydoc/mydoc_longevityDrugs.Rmd_2.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs.Rmd_2.html'>Getting Started</a>"
+
+mydoc_longevityDrugs.Rmd_3:
+  title: "Load database"
+  url: "../mydoc/mydoc_longevityDrugs.Rmd_3.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs.Rmd_3.html'>Load database</a>"
+
+mydoc_longevityDrugs.Rmd_4:
+  title: "Query database"
+  url: "../mydoc/mydoc_longevityDrugs.Rmd_4.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs.Rmd_4.html'>Query database</a>"
+
+mydoc_longevityDrugs.Rmd_5:
+  title: "Funding"
+  url: "../mydoc/mydoc_longevityDrugs.Rmd_5.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs.Rmd_5.html'>Funding</a>"
+
+mydoc_longevityDrugs.Rmd_6:
+  title: "Version information"
+  url: "../mydoc/mydoc_longevityDrugs.Rmd_6.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs.Rmd_6.html'>Version information</a>"
+
+mydoc_longevityDrugs.Rmd_7:
+  title: "References"
+  url: "../mydoc/mydoc_longevityDrugs.Rmd_7.html"
+  link: "<a href='../mydoc/mydoc_longevityDrugs.Rmd_7.html'>References</a>"
+
