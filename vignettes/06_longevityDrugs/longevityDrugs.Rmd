@@ -620,7 +620,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_1.html">1. Introduction</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_1.html">1. Introduction</a></li>
                     
 
                     
@@ -629,7 +629,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_2.html">2. Getting Started</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_2.html">2. Getting Started</a></li>
                     
 
                     
@@ -638,7 +638,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_3.html">3. Load database</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_3.html">3. Load database</a></li>
                     
 
                     
@@ -647,7 +647,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_4.html">4. Funding</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_4.html">4. Query database</a></li>
                     
 
                     
@@ -656,7 +656,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_5.html">5. Version information</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_5.html">5. Funding</a></li>
                     
 
                     
@@ -665,7 +665,16 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_6.html">6. References</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_6.html">6. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_7.html">7. References</a></li>
                     
 
                     
@@ -801,31 +810,47 @@ with them structural, physicochemical or biological properties.
 
 ## Installation
 
-The R software for running [_`longevityTools`_](https://github.com/tgirke/longevityTools) can be downloaded from [_CRAN_](http://cran.at.r-project.org/). The _`longevityTools`_ package can be installed from the R console using the following _`biocLite`_ install command. 
+The R software for running [_`longevityDrugs`_](https://github.com/tgirke/longevityDrugs) and [_`longevityTools`_](https://github.com/tgirke/longevityTools) can be downloaded from [_CRAN_](http://cran.at.r-project.org/). The _`longevityTools`_ package can be installed from the R console using the following _`biocLite`_ install command. 
 
 ```{r install, eval=FALSE}
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
-biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub
+biocLite("tgirke/longevityDrugs", build_vignettes=FALSE, dependencies=FALSE)
 ```
 <div align="right">[Back to Table of Contents]()</div>
 
 ## Loading of required packages
 
 ```{r documentation, eval=TRUE}
-library("longevityTools") 
-library("ChemmineR") 
+library(RSQLite); library(ChemmineR); library(longevityDrugs)
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
 
 # Load database
 
-```{r load_sdf, eval=TRUE}
-mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
-sdfset <- read.SDFset(mypath)
-data(sdfsample)
-sdfsample
-plot(sdfsample[1:4], print=FALSE)
+```{r load_database, eval=TRUE}
+mypath <- system.file("extdata", "cmap.db", package="longevityDrugs")
+conn <- initDb(mypath)
+```
+
+
+# Query database
+
+## Retrieve compound structures
+```{r query_structures, eval=TRUE}
+results <- getAllCompoundIds(conn)
+sdfset <- getCompounds(conn, results, keepOrder=TRUE)
+sdfset
+plot(sdfset[1:4], print=FALSE)
+as.data.frame(datablock2ma(datablock(sdfset)))[1:4,]
+```
+
+## Retrieve compound properties
+```{r query_properties, eval=TRUE}
+myfeat <- listFeatures(conn)
+feat <- getCompoundFeatures(conn, results, myfeat)
+feat[1:4,]
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
@@ -859,7 +884,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: May 4, 2016 <br />
+ Site last generated: May 25, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

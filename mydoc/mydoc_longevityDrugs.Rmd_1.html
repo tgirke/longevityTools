@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Age-disease network analysis  | Manuals</title>
+<title>longevityDrugs - Database of Longevity-Associated Drugs (LAD)  | Manuals</title>
 <link rel="stylesheet" type="text/css" href="../css/syntax.css">
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 <!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">-->
@@ -157,7 +157,7 @@
 <script>
 function SendLinkByMail(href) {
 var subject= "Manuals feedback";
-var body = "I have some feedback about the Age-disease network analysis page: ";
+var body = "I have some feedback about the longevityDrugs - Database of Longevity-Associated Drugs (LAD) page: ";
 body += window.location.href;
 body += "";
 var uri = "mailto:?subject=";
@@ -184,7 +184,7 @@ window.location.href = uri;
                             searchInput: document.getElementById('search-input'),
                             resultsContainer: document.getElementById('results-container'),
                             dataSource: '../search.json',
-                            searchResultTemplate: '<li><a href="{url}" title="Age-disease network analysis">{title}</a></li>',
+                            searchResultTemplate: '<li><a href="{url}" title="longevityDrugs - Database of Longevity-Associated Drugs (LAD)">{title}</a></li>',
                         noResultsText: 'No results found.',
                                 limit: 10,
                                 fuzzy: true,
@@ -577,7 +577,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li class="active"><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
                     
 
                     
@@ -620,7 +620,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_1.html">1. Introduction</a></li>
+                    <li class="active"><a href="../mydoc/mydoc_longevityDrugs.Rmd_1.html">1. Introduction</a></li>
                     
 
                     
@@ -719,7 +719,7 @@ window.location.href = uri;
             <div class="col-md-9">
                 
                 <div class="post-header">
-   <h1 class="post-title-main">Age-disease network analysis</h1>
+   <h1 class="post-title-main">longevityDrugs - Database of Longevity-Associated Drugs (LAD)</h1>
 </div>
 
 <div class="post-content">
@@ -754,7 +754,29 @@ $('#toc').on('click', 'a', function() {
     <a target="_blank" href="https://github.com/tgirke/manuals/tree/master/mydoc/" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
     
 -->
-<p>In progress…</p>
+<p>Authors: Thomas Girke, Tyler Backman, Dan Evans</p>
+
+<p>Last update: Wed May 25 16:54:03 2016</p>
+
+<p>Alternative formats of this vignette:
+<a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityDrugs/blob/master/vignettes/longevityDrugs.html"><code>Single-page .Rmd HTML</code></a>,
+<a href="https://raw.githubusercontent.com/tgirke/longevityDrugs/master/vignettes/longevityDrugs.Rmd"><code>.Rmd</code></a>,
+<a href="https://raw.githubusercontent.com/tgirke/longevityDrugs/master/vignettes/longevityDrugs.R"><code>.R</code></a></p>
+
+<h2 id="introduction">Introduction</h2>
+<p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
+website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package 
+is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
+vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityDrugs.html">here</a>.</p>
+
+<p>The data package <code>longevityDrugs</code> contains molecular structures and annotation information
+of longevity-associated drugs (LADs). An iterative process will be used to assemble, update and 
+curate this data set long-term (Backman et al., 2011; Cao et al., 2008). Most small molecules will be identified by integrating several
+large-scale community data sources such as data from drug databases (e.g.
+Drugbank), bioassay databases (e.g. PubChem Bioassay, ChEMBL), literature,
+drug-related gene expression fingerprints (e.g. LINCS), genetic (e.g. GWAS) and
+phenotype resources. This will also include nearest neighbors of LADs sharing
+with them structural, physicochemical or biological properties.</p>
 
 
 
@@ -772,7 +794,7 @@ $('#toc').on('click', 'a', function() {
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Wed Mar 16 12:35:34 2016<br/> Site last generated: May 25, 2016 <br />
+<p>Page last updated:</span> Wed May 25 16:54:03 2016<br/> Site last generated: May 25, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

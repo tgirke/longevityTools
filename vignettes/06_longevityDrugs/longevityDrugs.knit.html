@@ -620,7 +620,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_1.html">1. Introduction</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_1.html">1. Introduction</a></li>
                     
 
                     
@@ -629,7 +629,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_2.html">2. Getting Started</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_2.html">2. Getting Started</a></li>
                     
 
                     
@@ -638,7 +638,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_3.html">3. Load database</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_3.html">3. Load database</a></li>
                     
 
                     
@@ -647,7 +647,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_4.html">4. Funding</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_4.html">4. Query database</a></li>
                     
 
                     
@@ -656,7 +656,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_5.html">5. Version information</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_5.html">5. Funding</a></li>
                     
 
                     
@@ -665,7 +665,16 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs_6.html">6. References</a></li>
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_6.html">6. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_7.html">7. References</a></li>
                     
 
                     
@@ -800,19 +809,23 @@ with them structural, physicochemical or biological properties.</p>
 
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityDrugs"><em><code>longevityDrugs</code></em></a> and <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
 
 <p><code>r
 source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
-biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub
+biocLite("tgirke/longevityDrugs", build_vignettes=FALSE, dependencies=FALSE)
 </code></p>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="loading-of-required-packages">Loading of required packages</h2>
 
 <p><code>r
-library("longevityTools") 
-library("ChemmineR") 
+library(RSQLite); library(ChemmineR); library(longevityDrugs)
+</code></p>
+
+<p><code>
+## Loading required package: DBI
 </code></p>
 
 <div align="right">[Back to Table of Contents]()</div>
@@ -820,21 +833,92 @@ library("ChemmineR")
 <h1 id="load-database">Load database</h1>
 
 <p><code>r
-mypath &lt;- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
-sdfset &lt;- read.SDFset(mypath)
-data(sdfsample)
-sdfsample
+mypath &lt;- system.file("extdata", "cmap.db", package="longevityDrugs")
+conn &lt;- initDb(mypath)
+</code></p>
+
+<h1 id="query-database">Query database</h1>
+
+<h2 id="retrieve-compound-structures">Retrieve compound structures</h2>
+
+<p><code>r
+results &lt;- getAllCompoundIds(conn)
+sdfset &lt;- getCompounds(conn, results, keepOrder=TRUE)
+sdfset
 </code></p>
 
 <p><code>
-## An instance of "SDFset" with 100 molecules
+## An instance of "SDFset" with 1309 molecules
 </code></p>
 
 <p><code>r
-plot(sdfsample[1:4], print=FALSE)
+plot(sdfset[1:4], print=FALSE)
 </code></p>
 
-<p><img src="longevityDrugs_files/figure-html/load_sdf-1.png" alt="" /><!-- --></p>
+<p><img src="longevityDrugs_files/figure-html/query_structures-1.png" alt="" /><!-- --></p>
+
+<p><code>r
+as.data.frame(datablock2ma(datablock(sdfset)))[1:4,]
+</code></p>
+
+<p><code>
+##     instance_id batch_id        cmap_name INN1 concentration..M. duration..h. cell2   array3
+## 201           1        1        metformin  INN          1.00e-05            6  MCF7 HG-U133A
+## 202          21        2       phenformin  INN          1.00e-05            6  MCF7 HG-U133A
+## 203          22        2 phenyl biguanide               1.00e-05            6  MCF7 HG-U133A
+## 204          23        2    valproic acid  INN          1.00e-03            6  MCF7 HG-U133A
+##     perturbation_scan_id vehicle_scan_id4              scanner vehicle        vendor catalog_number
+## 201       EC2003090503AA   EC2003090502AA HP GeneArray Scanner  medium Sigma-Aldrich          D5035
+## 202       EC2003091104AA   EC2003091102AA HP GeneArray Scanner  medium Sigma-Aldrich          P7045
+## 203       EC2003091105AA   EC2003091102AA HP GeneArray Scanner  medium Sigma-Aldrich         P19906
+## 204       EC2003091106AA   EC2003091102AA HP GeneArray Scanner  medium Sigma-Aldrich          P4543
+##                            catalog_name      SOURCE_DRUG     UNIPROT       P_SCORE DIRECTIONALITY
+## 201 1,1-dimethylbiguanide hydrochloride        Metformin ZN396_HUMAN    1.53601286    Stimulatory
+## 202            phenformin hydrochloride       Phenformin KI2L3_HUMAN   -6.33081681     Inhibitory
+## 203     1-phenylbiguanide hydrochloride PHENYL BIGUANIDE  RHOC_HUMAN   -4.21084571     Inhibitory
+## 204              2-propylpentanoic acid    Valproic Acid GSK3B_HUMAN  -58.47057966     Inhibitory
+##     PUBCHEM_ID DRUGBANK_ID           DRUGBANK_GROUP        ATCCODES chembank_id   chembank_name
+## 201    CID4091     DB00331                 approved A10BD11|A10BA02        1714       metformin
+## 202    CID8249     DB00914       approved|withdrawn         A10BA01     1018627      phenformin
+## 203    CID4780                                                            32656 phenylbiguanide
+## 204    CID3121     DB00313 approved|investigational         N03AG01         471   valproic acid
+##     match_distance                  smiles
+## 201              0       CN(C)C(=N)NC(=N)N
+## 202              0 NC(=N)NC(=N)NCCc1ccccc1
+## 203              0   NC(=N)NC(=N)Nc1ccccc1
+## 204              0         CCCC(CCC)C(=O)O
+</code></p>
+
+<h2 id="retrieve-compound-properties">Retrieve compound properties</h2>
+
+<p><code>r
+myfeat &lt;- listFeatures(conn)
+feat &lt;- getCompoundFeatures(conn, results, myfeat)
+feat[1:4,]
+</code></p>
+
+<p><code>
+##   compound_id aromatic                  cansmi                cansmins  formula hba1 hba2 hbd
+## 1         201        0       CN(C(=N)NC(=N)N)C       CN(C(=N)NC(=N)N)C  C4H11N5    5    5   4
+## 2         202        1 N=C(NC(=N)N)NCCc1ccccc1 N=C(NC(=N)N)NCCc1ccccc1 C10H15N5    5    5   5
+## 3         203        1   N=C(Nc1ccccc1)NC(=N)N   N=C(Nc1ccccc1)NC(=N)N  C8H11N5    5    5   5
+## 4         204        0         CCCC(C(=O)O)CCC         CCCC(C(=O)O)CCC  C8H16O2    2    2   1
+##                                                                                      inchi   logp
+## 1                                  InChI=1S/C4H11N5/c1-9(2)4(7)8-3(5)6/h1-2H3,(H5,5,6,7,8) 0.2565
+## 2 InChI=1S/C10H15N5/c11-9(12)15-10(13)14-7-6-8-4-2-1-3-5-8/h1-5H,6-7H2,(H6,11,12,13,14,15) 1.9181
+## 3               InChI=1S/C8H11N5/c9-7(10)13-8(11)12-6-4-2-1-3-5-6/h1-5H,(H6,9,10,11,12,13) 1.8800
+## 4                          InChI=1S/C8H16O2/c1-3-5-7(6-4-2)8(9)10/h7H,3-6H2,1-2H3,(H,9,10) 2.2874
+##        mr       mw ncharges nf r2nh r3n rcch rcho rcn rcooh rcoor rcor rings rnh2 roh ropo3 ror
+## 1 36.9285 129.1636        0  0    1   1    0    0   0     0     0    0     0    0   0     0   0
+## 2 61.3212 205.2596        0  0    2   0    0    0   0     0     0    0     1    0   0     0   0
+## 3 53.2452 177.2064        0  0    2   0    0    0   0     0     0    0     1    0   0     0   0
+## 4 42.3418 144.2114        0  0    0   0    0    0   0     1     0    0     0    0   0     0   0
+##              title  tpsa
+## 1        metformin 88.99
+## 2       phenformin 97.78
+## 3 phenyl biguanide 97.78
+## 4    valproic acid 37.30
+</code></p>
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -861,14 +945,15 @@ sessionInfo()
 ## [1] stats     graphics  utils     datasets  grDevices methods   base     
 ## 
 ## other attached packages:
-## [1] ChemmineR_2.22.3     ggplot2_2.0.0        longevityTools_1.0.6 BiocStyle_1.8.0     
+## [1] longevityDrugs_1.0.0 ChemmineR_2.22.3     RSQLite_1.0.0        DBI_0.3.1           
+## [5] ggplot2_2.0.0        longevityTools_1.0.6 BiocStyle_1.8.0     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.3      codetools_0.2-14 digest_0.6.9     bitops_1.0-6     plyr_1.8.3      
-##  [6] grid_3.2.2       DBI_0.3.1        gtable_0.1.2     formatR_1.2.1    magrittr_1.5    
-## [11] evaluate_0.8     scales_0.3.0     stringi_1.0-1    rmarkdown_0.9.2  rjson_0.2.15    
-## [16] tools_3.2.2      stringr_1.0.0    RCurl_1.95-4.7   munsell_0.4.3    yaml_2.1.13     
-## [21] colorspace_1.2-6 htmltools_0.3    knitr_1.12.3
+##  [1] Rcpp_0.12.3      knitr_1.12.3     magrittr_1.5     munsell_0.4.3    colorspace_1.2-6
+##  [6] rjson_0.2.15     stringr_1.0.0    plyr_1.8.3       tools_3.2.2      grid_3.2.2      
+## [11] gtable_0.1.2     htmltools_0.3    yaml_2.1.13      digest_0.6.9     formatR_1.2.1   
+## [16] bitops_1.0-6     codetools_0.2-14 RCurl_1.95-4.7   evaluate_0.8     rmarkdown_0.9.2 
+## [21] stringi_1.0-1    scales_0.3.0
 </code></p>
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -889,7 +974,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: May 4, 2016 <br />
+ Site last generated: May 25, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

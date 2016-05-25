@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>Age-disease network analysis  | Manuals</title>
+<title>Query database  | Manuals</title>
 <link rel="stylesheet" type="text/css" href="../css/syntax.css">
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 <!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">-->
@@ -157,7 +157,7 @@
 <script>
 function SendLinkByMail(href) {
 var subject= "Manuals feedback";
-var body = "I have some feedback about the Age-disease network analysis page: ";
+var body = "I have some feedback about the Query database page: ";
 body += window.location.href;
 body += "";
 var uri = "mailto:?subject=";
@@ -184,7 +184,7 @@ window.location.href = uri;
                             searchInput: document.getElementById('search-input'),
                             resultsContainer: document.getElementById('results-container'),
                             dataSource: '../search.json',
-                            searchResultTemplate: '<li><a href="{url}" title="Age-disease network analysis">{title}</a></li>',
+                            searchResultTemplate: '<li><a href="{url}" title="Query database">{title}</a></li>',
                         noResultsText: 'No results found.',
                                 limit: 10,
                                 fuzzy: true,
@@ -577,7 +577,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li class="active"><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
                     
 
                     
@@ -647,7 +647,7 @@ window.location.href = uri;
                     
                     
                     
-                    <li><a href="../mydoc/mydoc_longevityDrugs.Rmd_4.html">4. Query database</a></li>
+                    <li class="active"><a href="../mydoc/mydoc_longevityDrugs.Rmd_4.html">4. Query database</a></li>
                     
 
                     
@@ -719,7 +719,7 @@ window.location.href = uri;
             <div class="col-md-9">
                 
                 <div class="post-header">
-   <h1 class="post-title-main">Age-disease network analysis</h1>
+   <h1 class="post-title-main">Query database</h1>
 </div>
 
 <div class="post-content">
@@ -754,7 +754,19 @@ $('#toc').on('click', 'a', function() {
     <a target="_blank" href="https://github.com/tgirke/manuals/tree/master/mydoc/" class="btn btn-default githubEditButton" role="button"><i class="fa fa-github fa-lg"></i> Edit me</a>
     
 -->
-<p>In progress…</p>
+<h2 id="retrieve-compound-structures">Retrieve compound structures</h2>
+
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">results &lt;- getAllCompoundIds(conn)
+sdfset &lt;- getCompounds(conn, results, keepOrder=TRUE)
+sdfset
+plot(sdfset[1:4], print=FALSE)
+as.data.frame(datablock2ma(datablock(sdfset)))[1:4,]</code></pre></div>
+
+<h2 id="retrieve-compound-properties">Retrieve compound properties</h2>
+
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">myfeat &lt;- listFeatures(conn)
+feat &lt;- getCompoundFeatures(conn, results, myfeat)
+feat[1:4,]</code></pre></div>
 
 
 
@@ -772,7 +784,7 @@ $('#toc').on('click', 'a', function() {
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Wed Mar 16 12:35:34 2016<br/> Site last generated: May 25, 2016 <br />
+<p>Page last updated:</span> Wed May 25 16:54:03 2016<br/> Site last generated: May 25, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>
