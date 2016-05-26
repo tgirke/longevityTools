@@ -350,7 +350,7 @@ entries:
     items:
 
     - title: 1. Introduction 
-      url: /mydoc/mydoc_longevityDrugs.Rmd_1.html
+      url: /mydoc/mydoc_longevityDrugs_1.html
       audience: writers, designers
       platform: all
       product: all
@@ -358,7 +358,7 @@ entries:
       output: web
 
     - title: 2. Getting Started
-      url: /mydoc/mydoc_longevityDrugs.Rmd_2.html
+      url: /mydoc/mydoc_longevityDrugs_2.html
       audience: writers, designers
       platform: all
       product: all
@@ -366,7 +366,7 @@ entries:
       output: web
 
     - title: 3. Load database
-      url: /mydoc/mydoc_longevityDrugs.Rmd_3.html
+      url: /mydoc/mydoc_longevityDrugs_3.html
       audience: writers, designers
       platform: all
       product: all
@@ -374,7 +374,7 @@ entries:
       output: web
 
     - title: 4. Query database
-      url: /mydoc/mydoc_longevityDrugs.Rmd_4.html
+      url: /mydoc/mydoc_longevityDrugs_4.html
       audience: writers, designers
       platform: all
       product: all
@@ -382,7 +382,7 @@ entries:
       output: web
 
     - title: 5. Funding
-      url: /mydoc/mydoc_longevityDrugs.Rmd_5.html
+      url: /mydoc/mydoc_longevityDrugs_5.html
       audience: writers, designers
       platform: all
       product: all
@@ -390,7 +390,7 @@ entries:
       output: web
 
     - title: 6. Version information
-      url: /mydoc/mydoc_longevityDrugs.Rmd_6.html
+      url: /mydoc/mydoc_longevityDrugs_6.html
       audience: writers, designers
       platform: all
       product: all
@@ -398,7 +398,7 @@ entries:
       output: web
 
     - title: 7. References
-      url: /mydoc/mydoc_longevityDrugs.Rmd_7.html
+      url: /mydoc/mydoc_longevityDrugs_7.html
       audience: writers, designers
       platform: all
       product: all

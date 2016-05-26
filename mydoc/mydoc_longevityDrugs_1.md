@@ -1,16 +1,16 @@
 ---
 title: longevityDrugs - Database of Longevity-Associated Drugs (LAD) 
 keywords: 
-last_updated: Wed Mar 16 12:37:57 2016
+last_updated: Wed May 25 17:08:15 2016
 ---
 Authors: Thomas Girke, Tyler Backman, Dan Evans
 
-Last update: 04 May, 2016 
+Last update: 25 May, 2016 
 
 Alternative formats of this vignette:
-[`Single-page .Rmd HTML`](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityDrugs.html),
-[`.Rmd`](https://raw.githubusercontent.com/tgirke/longevityTools/master/vignettes/longevityDrugs.Rmd),
-[`.R`](https://raw.githubusercontent.com/tgirke/longevityTools/master/vignettes/longevityDrugs.R)
+[`Single-page .Rmd HTML`](https://htmlpreview.github.io/?https://github.com/tgirke/longevityDrugs/blob/master/vignettes/longevityDrugs.html),
+[`.Rmd`](https://raw.githubusercontent.com/tgirke/longevityDrugs/master/vignettes/longevityDrugs.Rmd),
+[`.R`](https://raw.githubusercontent.com/tgirke/longevityDrugs/master/vignettes/longevityDrugs.R)
 
 ## Introduction 
 This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
