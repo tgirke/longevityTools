@@ -50,8 +50,387 @@ suppressPackageStartupMessages({
 # Introduction 
 This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
 website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
-is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
-vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_SNPformat.html">here</a>.
+is available <a href="https://github.com/tgirke/longevityTools">here</a>.
+
+In this vignette, data formatting is described to get from raw, un-QCed SNP genotype data to imputed dosage data based on the 1000 Genomes Phase 1 version 3 reference panel.
+
+
+```{r, eval=FALSE}
+#Will Rayner H b37 strand file
+#1,100,170 probes
+RaynerStrand<-read.table("M:/work/longevity/U24/GWAScohorts/mrOS/arrayAnnotation/WillRayner/HumanOmni1-Quad_v1-0_H-b37-strand/humanomni1-quad_v1-0_h-b37.strand",header=F,stringsAsFactors=F,comment.char="")
+names(RaynerStrand)<-c("SNPID","chr","pos","match","strand","alleles")
+names(RaynerStrand)<-paste0(names(RaynerStrand),"_Rayner")
+
+snpAnnot<-read.table("E:/MROS_SOF_201109/SNPs_related/SNP_ANNOT_09132011.txt",header=T,stringsAsFactors=F,comment.char="",sep="\t")
+str(snpAnnot)
+sum(is.na(snpAnnot$b37_C_rs.id)) #1672 missing
+sum(is.na(snpAnnot$rs.id_b36))
+table(snpAnnot$Discordant_Calls_1) #1035 discordant calls
+with(snpAnnot, sum(rs.id_b36[!is.na(b37_C_rs.id)] != b37_C_rs.id[!is.na(b37_C_rs.id)] )) #76,722 SNPs with different rsIDs from b36 to b37!
+table(snpAnnot$MACH_KEEP_b37_H[is.na(snpAnnot$b37_C_rs.id)]) #all 1672 missing rs's were excluded from imputed list anyway
+
+sum(snpAnnot$CNVProbe[is.na(snpAnnot$b37_C_rs.id)]==TRUE & !is.na(snpAnnot$CNVProbe[is.na(snpAnnot$b37_C_rs.id)]))#19
+sum(snpAnnot$CNV_ZEROED[is.na(snpAnnot$b37_C_rs.id)]==TRUE & !is.na(snpAnnot$CNV_ZEROED[is.na(snpAnnot$b37_C_rs.id)])) #1084
+sum(snpAnnot$INDEL_PROBE[is.na(snpAnnot$b37_C_rs.id)]==TRUE & !is.na(snpAnnot$INDEL_PROBE[is.na(snpAnnot$b37_C_rs.id)]) ) #0
+#1103 of the SNPs with missing b37Crsid's are CNV probes, zeroed, or indels. No big loss.
+snpAnnot<-snpAnnot[!is.na(snpAnnot$b37_C_rs.id),] #1,138,747 remaining
+
+#merge to Beth's updated ManiH annotation
+#snpAnnot<-merge(snpAnnot,ManiH,by="b37_C_rs.id")
+#table(snpAnnot$MACH_KEEP_b37_H) #403,894 were removed
+#identical(snpAnnot$b37_H_present_MH, snpAnnot$b37_H_present) #identical
+#identical(snpAnnot$Chr_b37_H_MH,snpAnnot$Chr_b37_H) #identical
+#identical(snpAnnot$position_b37_H_MH,snpAnnot$position_b37_H) #identical
+#identical(snpAnnot$MACH_KEEP_b37_H_MH, snpAnnot$MACH_KEEP_b37_H) #identical
+#nothing was added from Beth's updated ManiH, so I won't merge it again
+
+#merge Beth's annotation to Will Rayner's
+snpAnnot<-merge(snpAnnot,RaynerStrand,by.x="b37_C_rs.id",by.y="SNPID_Rayner")
+#1,100,170 probes, so all Rayner probes matched
+sapply(snpAnnot,function(x) sum(is.na(x))) #45,028 missings for alle.A.b37_H
+sum(is.na(snpAnnot$alle.A.b37_H[!is.na(snpAnnot$alle.B.b37_H)])) #A and B missing for same SNPs
+#are the 45028 SNPs missing for alle.A.b37_H going to be removed anyway? Yes! They are all CNV probes!
+sum(snpAnnot$CNVProbe[is.na(snpAnnot$alle.A.b37_H)]==TRUE & !is.na(snpAnnot$CNVProbe[is.na(snpAnnot$alle.A.b37_H)]))#45,028
+sum(snpAnnot$CNV_ZEROED[is.na(snpAnnot$alle.A.b37_H)]==TRUE & !is.na(snpAnnot$CNV_ZEROED[is.na(snpAnnot$alle.A.b37_H)])) #45,028
+sum(snpAnnot$INDEL_PROBE[is.na(snpAnnot$alle.A.b37_H)]==TRUE & !is.na(snpAnnot$INDEL_PROBE[is.na(snpAnnot$alle.A.b37_H)]) ) #0
+table(snpAnnot$CNVProbe[is.na(snpAnnot$alle.A.b37_H)]) #All 45028 missings are CNV probes
+#strangely, Rayner alleles all AG for SNPs missing b37H alleles
+table(snpAnnot$alleles_Rayner[is.na(snpAnnot$alle.A.b37_H)])
+#also strangely, there are alleles for CNVprobes.
+table(snpAnnot$alleles_Rayner[snpAnnot$CNVProbe==TRUE ])
+#non-CNV and non-indel alleles are all bi-allelic
+table(snpAnnot$alleles_Rayner[snpAnnot$CNV_ZEROED==FALSE & snpAnnot$INDEL_PROBE==FALSE])
+table(snpAnnot$alle.A.b37_H[snpAnnot$CNV_ZEROED==FALSE & snpAnnot$INDEL_PROBE==FALSE])
+table(snpAnnot$alle.B.b37_H[snpAnnot$CNV_ZEROED==FALSE & snpAnnot$INDEL_PROBE==FALSE])
+
+with(snpAnnot,sum(alle.A.b37_C != alle.A.b37_H & !is.na(alle.A.b37_C) & !is.na(alle.A.b37_H)))
+#Allele A differs between C and H manifests for 5,067 SNPs
+
+#remove CNV and INDELs
+sum(snpAnnot$CNV_ZEROED==TRUE)
+sum(is.na(snpAnnot$CNV_ZEROED))
+snpAnnot<-snpAnnot[snpAnnot$CNV_ZEROED==FALSE,] #908,323 probes
+sum(snpAnnot$INDEL_PROBE==TRUE)
+sum(is.na(snpAnnot$INDEL_PROBE))
+snpAnnot<-snpAnnot[snpAnnot$INDEL_PROBE==FALSE,] #907,956 probes
+
+#After removing CNV and InDels, no allele missings
+sum(is.na(snpAnnot$alle.A.b37_H))
+sum(is.na(snpAnnot$alle.B.b37_H))
+sum(is.na(snpAnnot$alleles_Rayner)) 
+
+#compare chr and position between Illumina Manifest H and Rayner
+posCmp <- function(posA,posB,chrA,chrB){
+  posDisagree<-ifelse(posA!=posB,1,0)
+  chrA[chrA=="XY"]<-"X"
+  chrB[chrB=="XY"]<-"X"
+  chrDisagree<-ifelse(chrA!=chrB,1,0)
+  
+  return(cbind(chrDisagree,posDisagree))
+}
+
+
+myCompare<-posCmp(snpAnnot$position_b37_H,snpAnnot$pos_Rayner,snpAnnot$Chr_b37_H,snpAnnot$chr_Rayner)
+snpAnnot<-cbind(snpAnnot,myCompare)
+with(snpAnnot,table(chrDisagree,posDisagree))#4677 chr and pos disagree, 2756 posDisagree but not chr, 0 chr disagree but not pos
+length(snpAnnot$Chr_b37_H[ (snpAnnot$chrDisagree==1 & snpAnnot$MACH_KEEP_b37_H==TRUE) | (snpAnnot$posDisagree==1 & snpAnnot$MACH_KEEP_b37_H==TRUE)  ]) #1942 that I would have kept
+table(snpAnnot$Chr_b37_H[ (snpAnnot$chrDisagree==1 & snpAnnot$MACH_KEEP_b37_H==TRUE) | (snpAnnot$posDisagree==1 & snpAnnot$MACH_KEEP_b37_H==TRUE)  ])
+#Probes with disagreement in chr or position are evenly distributed across chromosomes
+head(snpAnnot[snpAnnot$chrDisagree==1 & snpAnnot$MACH_KEEP_b37_H==TRUE,c("b37_C_rs.id","Chr_b37_H","chr_Rayner","position_b37_H")])
+length(grep("^rs",snpAnnot$b37_C_rs.id[snpAnnot$MACH_KEEP_b37_H==TRUE],invert=TRUE)) #23,132 non-rs SNPs
+
+#remove SNPs not on autosomes or X based on Rayner info
+table(snpAnnot$Chr_b37_H)
+table(snpAnnot$chr_Rayner)
+sum(is.na(snpAnnot$chr_Rayner)) #0 missing
+snpAnnot<-snpAnnot[snpAnnot$chr_Rayner!="MT",]
+snpAnnot<-snpAnnot[snpAnnot$chr_Rayner!="Y",]
+
+#since I removed CNV and indels, all probes are biallelic SNPs
+sum(nchar(snpAnnot$alleles_Rayner)!=2)#0
+sum(nchar(snpAnnot$alle.A.b37_C)!=1) #0
+sum(nchar(snpAnnot$alle.B.b37_C)!=1) #0
+table(snpAnnot$alleles_Rayner) #lowest alphabet letter listed first
+table(snpAnnot$alle.A.b37_H)
+table(snpAnnot$alle.B.b37_H)
+snpAnnot$Rayner_A<-substr(snpAnnot$alleles_Rayner,1,1)
+snpAnnot$Rayner_B<-substr(snpAnnot$alleles_Rayner,2,2)
+
+#compare Illumina's manifest H alleles with Rayner's
+strandCheck <- function(A1,B1,A2,B2,strand){
+  #A1 = A allele of study
+  #B1 = B allele of study
+  #A2 = A allele of Rayner
+  #B2 = B allele of Rayner
+  A1<-toupper(A1)
+  B1<-toupper(B1)
+  A2<-toupper(A2)
+  B2<-toupper(B2)
+  #ensure A2 is lower alphabet value that B2 for rayner alleles
+  if ( sum(A2>B2) > 0 ) print(paste0("There are ", sum(A2>B2), " SNPs with Rayner allele A > B"))
+  else print("Rayner alleles A < B for all SNPs")
+  
+  #order A1 and B1 alleles so A1 is the lowest alphabet value
+  if ( sum(A1>B1) > 0 ) print(paste0("There are ", sum(A1>B1), " SNPs with Beth allele A > B"))
+  else print("Beth alleles A < B for all SNPs")
+  tempA<-A1
+  tempA[A1>B1]<-B1[A1>B1]
+  tempB<-B1
+  tempB[A1>B1]<-A1[A1>B1]
+  A1<-tempA
+  B1<-tempB
+  
+  #flip rayner alleles if strand is -
+  tempA<-A2
+  tempB<-B2
+  tempA[strand=="-" & A2=="G"]<-"C"
+  tempA[strand=="-" & A2=="C"]<-"G"
+  tempA[strand=="-" & A2=="A"]<-"T"
+  tempA[strand=="-" & A2=="T"]<-"A"
+  tempB[strand=="-" & B2=="G"]<-"C"
+  tempB[strand=="-" & B2=="C"]<-"G"
+  tempB[strand=="-" & B2=="A"]<-"T"
+  tempB[strand=="-" & B2=="T"]<-"A"
+  A2<-tempA
+  B2<-tempB
+  #after flip, must reorder so lowest alphabet value listed first
+  A2[tempA>tempB]<-tempB[tempA>tempB]
+  B2[tempA>tempB]<-tempA[tempA>tempB]
+  
+  #test for same alleles 
+  noMatch<-rep(0,length(A1))
+  noMatch[A1!=A2 | B1!=B2]<-1
+  
+  #Are the no match SNPs flipped?
+  #After flipping strands of A1 and A2, do they match Rayner?
+  tempA<-A1
+  tempB<-B1
+  tempA[noMatch==1 & A1=="G"]<-"C"
+  tempA[noMatch==1 & A1=="C"]<-"G"
+  tempA[noMatch==1 & A1=="A"]<-"T"
+  tempA[noMatch==1 & A1=="T"]<-"A"
+  tempB[noMatch==1 & B1=="G"]<-"C"
+  tempB[noMatch==1 & B1=="C"]<-"G"
+  tempB[noMatch==1 & B1=="A"]<-"T"
+  tempB[noMatch==1 & B1=="T"]<-"A"
+  A1<-tempA
+  B1<-tempB
+  #after flip, must reorder so lowest alphabet value listed first
+  A1[tempA>tempB]<-tempB[tempA>tempB]
+  B1[tempA>tempB]<-tempA[tempA>tempB]
+  
+  #test for same alleles
+  flipped<-rep(0,length(A1))
+  flipped[A1==A2 & B1==B2 & noMatch==1]<-1
+  
+  return(cbind(noMatch,flipped))
+  
+}
+
+myFlip<-strandCheck(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$Rayner_A,snpAnnot$Rayner_B,snpAnnot$strand_Rayner )
+snpAnnot<-cbind(snpAnnot,myFlip)
+sum(snpAnnot$noMatch) #2074 SNPs, not bad at all!
+sum(snpAnnot$flipped) #2074
+with(snpAnnot,table(noMatch,flipped)) #all non-matching SNPs are flipped, so I can go ahead and flip all of them
+sum(snpAnnot$flipped[snpAnnot$MACH_KEEP_b37_H==TRUE]) #1347 of the SNPs I'd likely keep
+
+#flip the strands of the flipped SNPs
+strandFlip<-function(A1,B1,flip){
+  #A1 = A allele of study
+  #B1 = B allele of study
+  A1<-toupper(A1)
+  B1<-toupper(B1)
+  tempA<-A1
+  tempB<-B1
+  tempA[flip==1 & A1=="G"]<-"C"
+  tempA[flip==1 & A1=="C"]<-"G"
+  tempA[flip==1 & A1=="A"]<-"T"
+  tempA[flip==1 & A1=="T"]<-"A"
+  tempB[flip==1 & B1=="G"]<-"C"
+  tempB[flip==1 & B1=="C"]<-"G"
+  tempB[flip==1 & B1=="A"]<-"T"
+  tempB[flip==1 & B1=="T"]<-"A"
+  A1<-tempA
+  B1<-tempB
+  return(cbind(A1,B1))
+}
+
+
+tail(snpAnnot[snpAnnot$flipped==1,])
+#I'll flip these 2074 SNPs then use the perl script to check the data.
+myFlip<-strandFlip(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$flipped)
+snpAnnot<-cbind(snpAnnot,myFlip)
+snpAnnot$A1<-as.character(snpAnnot$A1)
+snpAnnot$B1<-as.character(snpAnnot$B1)
+
+myFlip<-strandCheck(snpAnnot$A1,snpAnnot$B1,snpAnnot$Rayner_A,snpAnnot$Rayner_B,snpAnnot$strand_Rayner )
+sum(myFlip[,1]) #0 SNPs! Perfect, strand flip worked!
+sum(myFlip[,2]) #0 SNPs! Perfect, strand flip worked!
+with(snpAnnot,table(alleles_Rayner[flipped==1]))
+with(snpAnnot,table(alleles_Rayner))
+table(with(snpAnnot,paste0(A1,B1)))
+#why are there more allele combos in A1+B1 vs alleles_Rayner? 
+#GC and TA are just rearranged. However, TC and TG are not in alleles_Rayner.
+#TC and TG in A1+B1 are - strand on strand_Rayner. See below.
+table(snpAnnot$strand_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="C"])
+table(snpAnnot$strand_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="G"])
+#As expected, they match if you flip strands
+table(snpAnnot$alleles_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="C"]) #AG
+table(snpAnnot$alleles_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="G"]) #AC
+
+#discordant calls
+sum(is.na(snpAnnot$Discordant_Calls_1))
+table(snpAnnot$Discordant_Calls_1)
+snpAnnot<-snpAnnot[snpAnnot$Discordant_Calls_1==FALSE,]
+
+#missing rate
+sum(is.na(snpAnnot$missing.n1))
+sum(snpAnnot$missing.n1>0.025)
+snpAnnot<-snpAnnot[snpAnnot$missing.n1<=0.025, ]
+
+#HWE
+sum(is.na(snpAnnot$HWE_pvalue))
+table(snpAnnot$chr_Rayner[is.na(snpAnnot$HWE_pvalue)]) #missing HWE on 1, 11, and X
+sum(is.na(snpAnnot$HWE_auto_REMOVE))
+sum(is.na(snpAnnot$HWE_X_REMOVE))
+#I won't use auto and X because I don't want to apply different HWE cut-offs for autosomes and X.
+sum(snpAnnot$HWE_pvalue<0.000001 & !is.na(snpAnnot$HWE_pvalue) )#2056
+sum(snpAnnot$HWE_pvalue<0.0001 & !is.na(snpAnnot$HWE_pvalue) )#3175
+sum(snpAnnot$HWE_pvalue<0.000001 & !is.na(snpAnnot$HWE_pvalue) & snpAnnot$chr_Rayner=="X")
+sum(snpAnnot$HWE_pvalue<0.000001 & !is.na(snpAnnot$HWE_pvalue) & snpAnnot$chr_Rayner!="X")
+snpAnnot<-snpAnnot[!is.na(snpAnnot$HWE_pvalue),] #removed 9
+snpAnnot<-snpAnnot[snpAnnot$HWE_pvalue>=0.000001 | snpAnnot$chr_Rayner=="X",]
+
+#MAF
+sum(is.na(snpAnnot$maf))
+sum(snpAnnot$maf<0.01 )
+snpAnnot<-snpAnnot[snpAnnot$maf>=0.01,]
+
+write.table(snpAnnot,file="//HOMER/MROS_SOF/plink2016/SNPs_related/SNP_ANNOT_DSE.txt",row.names=F,quote=F)
+
+#split by chromosome groups
+snpAnnot2<-snpAnnot[,c("chr_Rayner","b37_C_rs.id","pos_Rayner","A1","B1","int.id")]
+myChr<-c(1:22,"X")
+
+for (i in myChr){
+  snpAnnot3<-snpAnnot2[snpAnnot2$chr_Rayner==i,]
+  snpAnnot3<-snpAnnot3[order(snpAnnot3$pos_Rayner),]
+  write.table(snpAnnot3,file=paste0("//HOMER/MROS_SOF/plink2016/SNPs_related/SNP_ANNOT_chr",i,".txt"),row.names=F,quote=F)
+}
+
+
+##extract genotypes for each chromosome
+library('ncdf4')
+
+chrNames<-c(1:22,"X")
+
+t1 <- proc.time()
+#foreach(j=1:length(chrNames),.packages="ncdf") %do% {
+for(j in 1:length(chrNames)) {
+  
+  study<-"MrOS"  #MrOS or SOF
+  nc <- nc_open('/media/homer/MROS_SOF/MROS_SOF_201109/NetCDF_files_Sept2011/MrOS_SOF_SW.OMNI.GENO.09062011.nc', readunlim=F)
+  snpAnnot<-read.table(paste0("/media/homer/MROS_SOF/plink2016/SNPs_related/SNP_ANNOT_chr",chrNames[j],".txt"),header=T,stringsAsFactors=F)
+  samp<-read.table("/media/homer/MROS_SOF/MROS_SOF_201109/samples_related/sampleAnnotDan2013-7-18.txt",header=T,stringsAsFactors=F,sep="\t")
+  row1<-sum(samp$collection==study & samp$worseDup==0 & samp$noConsent==0)
+  col1<-length(snpAnnot$int.id)
+    
+  myDat<-matrix(nrow=row1,ncol=col1)
+  
+  for(i in 1:length(snpAnnot$int.id)){
+    myStartSNP<-snpAnnot$int.id[i]
+    
+    mySNP <- ncvar_get(nc, "genotype", start=c(myStartSNP,1), count=c(1,-1))
+    mySNP <- as.vector(mySNP)
+    mySNP <- mySNP[samp$collection==study & samp$worseDup==0 & samp$noConsent==0]
+    mySNP[mySNP==0]<-paste(snpAnnot$B1[i],snpAnnot$B1[i],sep=" ")
+    if (chrNames[j]=="X"){
+      #blank out Male X-chromosome hets
+      mySNP[mySNP==1]<-"0 0"
+      } else  mySNP[mySNP==1]<-paste(snpAnnot$A1[i],snpAnnot$B1[i],sep=" ")
+    mySNP[mySNP==2]<-paste(snpAnnot$A1[i],snpAnnot$A1[i],sep=" ")
+    mySNP[mySNP==-1]<-"0 0"
+  
+    myDat[,i]<-mySNP
+  }
+  nc_close(nc)
+  
+  myDat2<-matrix(nrow=row1,ncol=6)
+  #myDat2[,1]<-samp$HA_ID[samp$collection==study & samp$worseDup==0 & samp$noConsent==0]
+  #myDat2[,2]<-samp$HA_ID[samp$collection==study & samp$worseDup==0 & samp$noConsent==0]
+  myDat2[,1]<-samp$individual.id[samp$collection==study & samp$worseDup==0 & samp$noConsent==0]
+  myDat2[,2]<-samp$individual.id[samp$collection==study & samp$worseDup==0 & samp$noConsent==0]
+  myDat2[,3]<-rep(0,row1)
+  myDat2[,4]<-rep(0,row1)
+  if(study=="MrOS") {
+    myDat2[,5]<-rep(1,row1)
+    } else if (study=="SOF") {
+      myDat2[,5]<-rep(2,row1)
+    } else print("study wrong")
+  myDat2[,6]<- -9
+  myDat3<-cbind(myDat2,myDat)
+  write.table(myDat3,file=paste("/media/homer/MROS_SOF/plink2016/",study,"/MrOSID/",study,"chr",chrNames[j],".ped",sep=""),row.names=F,col.names=F,quote=F,sep="\t")
+  print(j)
+  map<-data.frame(chr=snpAnnot$chr_Rayner,rs=snpAnnot$b37_C_rs.id,genetic=rep(0,col1),position=snpAnnot$pos_Rayner,stringsAsFactors=F)
+  write.table(map,file=paste("/media/homer/MROS_SOF/plink2016/",study,"/MrOSID/",study,"chr",chrNames[j],".map",sep=""),row.names=F,col.names=F,quote=F,sep="\t")
+  
+}
+
+print(proc.time() - t1)
+
+
+
+```
+
+Then used Will Rayner's Imputation preparation and checking [tool](http://www.well.ox.ac.uk/~wrayner/tools/)
+
+```
+Options Set:
+Reference Panel:             1000G
+Bim filename:                /home/devans/longevity/U24/GWAScohorts/MrOS/bin/MrOSallWhites.bim
+Reference filename:          /home/devans/longevity/U24/GWAScohorts/rayner/1000GP_Phase3_combined.legend
+Allele frequencies filename: /home/devans/longevity/U24/GWAScohorts/MrOS/frq/MrOSallWhites.frq
+Allele frequency threshold:  0.2
+Population for 1000G:        EUR
+
+
+Matching to 1000G
+
+Position Matches
+ ID matches 1000G 0
+ ID Doesn't match 1000G 734860
+ Total Position Matches 734860
+ID Match
+ Different position to 1000G 1906
+No Match to 1000G 2741
+Skipped (X, XY, Y, MT) 0
+Total in bim file 739528
+Total processed 739507
+
+Indels (ignored in r1) 0
+
+SNPs not changed 211132
+SNPs to change ref alt 518174
+Strand ok 729292
+Total Strand ok 729306
+
+Strand to change 15
+Total checked 736766
+Total checked Strand 729307
+Total removed for allele Frequency diff > 0.2 198
+Palindromic SNPs with Freq > 0.4 2704
+
+
+Non Matching alleles 4755
+ID and allele mismatching 4745; where 1000G is . 0
+Duplicates removed 21
+
+
+
+```
+
+
 
 
 
