@@ -1,0 +1,57 @@
+---
+title: "_longevityTools_: SNP data formatting" 
+author: "Authors: Dan Evans"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
+package: "`r pkg_ver('longevityTools')`"
+output:
+  BiocStyle::html_document:
+    toc: true
+    toc_depth: 3
+    fig_caption: yes
+
+fontsize: 14pt
+bibliography: bibtex.bib
+---
+
+<!--
+%% \VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Overview Vignette}
+%% \VignetteDepends{methods}
+%% \VignetteKeywords{compute cluster, pipeline, reports}
+%% \VignettePackage{longevityTools}
+-->
+
+<!---
+- Compile from command-line
+echo "rmarkdown::render('longevityTools_eQTL.Rmd')" | R -slave; R CMD Stangle longevityTools_eQTL.Rmd
+
+- Commit to github
+git commit -am "some edits"; git push -u origin master
+
+- To customize font size and other style features, add this line to output section in preamble:  
+    css: style.css
+-->
+
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+options(width=100, max.print=1000)
+knitr::opts_chunk$set(
+    eval=as.logical(Sys.getenv("KNITR_EVAL", "TRUE")),
+    cache=as.logical(Sys.getenv("KNITR_CACHE", "TRUE")))
+```
+
+```{r setup, echo=FALSE, messages=FALSE, warnings=FALSE}
+suppressPackageStartupMessages({
+    library(longevityTools) 
+    library(ggplot2) }) 
+```
+
+# Introduction 
+This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
+website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
+is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
+vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_SNPformat.html">here</a>.
+
+
+
