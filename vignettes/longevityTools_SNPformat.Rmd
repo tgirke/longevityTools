@@ -64,6 +64,16 @@ library(help="longevityTools") # Lists package info
 vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignette
 ```
 
+##Import custom functions.
+
+Preliminary functions that are still under developement, or not fully tested and documented 
+can be imported with the `source` command from the `inst/extdata` directory of the package.
+
+```{r source_fct, eval=FALSE}
+fctpath <- system.file("extdata", "longevityTools_SNPformat_Fct.R", package="longevityTools")
+source(fctpath)
+```
+
 # Introduction 
 This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
 website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
@@ -73,19 +83,11 @@ In this vignette, data formatting is described to get from SNP genotype data to 
 
 The SNP genotype data for MrOS and SOF are stored in NetCDF files, hereafter termed ncdf. Ncdf files are designed to store large array-like data and facilitates quick access to segments of the data along the dimensions of the array. The SNP genotype data is stored in a 2 dimensional array (SNP dimension and sample dimension). Plain text files provide annotation along the 2 dimensions. A SNP annotation file describes the variables along the SNP dimension, and the sample annotation file describes the variables along the sample dimension.
 
-##Import custom functions.
+## Match SNP annotation to Will Rayner's strand files
 
-Preliminary functions that are still under developement, or not fully tested and documented 
-can be imported with the `source` command from the `inst/extdata` directory of the package.
+Will Rayner at the Wellcome Trust created files indicating strand and allele information for SNPs for many commercial SNP arrays. Will's files are recommended for use by the [UM imputation server](https://imputationserver.sph.umich.edu/index.html). The first task is to align strand of the SNP annotation file to Will Rayner's strand [file](http://www.well.ox.ac.uk/~wrayner/strand/). 
 
-Thomas - I have to load 
-
-```{r source_fct, eval=TRUE}
-fctpath <- system.file("extdata", "longevityTools_SNPformat_Fct.R", package="longevityTools")
-source(fctpath)
-```
-
-First task is to align strand of the SNP annotation file to Will Rayner's strnad [file](http://www.well.ox.ac.uk/~wrayner/strand/). 
+Read in Rayner strand file for the Illumina HumanOmni1-Quad_v1-0_H. H refers to the Illumina SNP manifest version. Manifest H is the most recent from Illumina. Version 1 refers to the beadpool they used. Only one beadpool was used for all HumanOmni1-Quad arrays, hence, all arrays of this type are beadpool version 1.0. 
 
 ```{r, eval=FALSE}
 #Will Rayner H b37 strand file
@@ -95,13 +97,13 @@ RaynerStrand<-read.table("M:/work/longevity/U24/GWAScohorts/mrOS/arrayAnnotation
 names(RaynerStrand)<-c("SNPID","chr","pos","match","strand","alleles")
 names(RaynerStrand)<-paste0(names(RaynerStrand),"_Rayner")
 
+```
+
+SNP annotation file for MrOS array data. Survey probes with missing rsIDs, most would be excluded anyway. 
+
+```{r, eval=FALSE}
 snpAnnot<-read.table("E:/MROS_SOF_201109/SNPs_related/SNP_ANNOT_09132011.txt",header=T,stringsAsFactors=F,comment.char="",sep="\t")
-str(snpAnnot)
 sum(is.na(snpAnnot$b37_C_rs.id)) #1672 missing
-sum(is.na(snpAnnot$rs.id_b36))
-table(snpAnnot$Discordant_Calls_1) #1035 discordant calls
-with(snpAnnot, sum(rs.id_b36[!is.na(b37_C_rs.id)] != b37_C_rs.id[!is.na(b37_C_rs.id)] )) #76,722 SNPs with different rsIDs from b36 to b37!
-table(snpAnnot$MACH_KEEP_b37_H[is.na(snpAnnot$b37_C_rs.id)]) #all 1672 missing rs's were excluded from imputed list anyway
 
 sum(snpAnnot$CNVProbe[is.na(snpAnnot$b37_C_rs.id)]==TRUE & !is.na(snpAnnot$CNVProbe[is.na(snpAnnot$b37_C_rs.id)]))#19
 sum(snpAnnot$CNV_ZEROED[is.na(snpAnnot$b37_C_rs.id)]==TRUE & !is.na(snpAnnot$CNV_ZEROED[is.na(snpAnnot$b37_C_rs.id)])) #1084
@@ -109,16 +111,7 @@ sum(snpAnnot$INDEL_PROBE[is.na(snpAnnot$b37_C_rs.id)]==TRUE & !is.na(snpAnnot$IN
 #1103 of the SNPs with missing b37Crsid's are CNV probes, zeroed, or indels. No big loss.
 snpAnnot<-snpAnnot[!is.na(snpAnnot$b37_C_rs.id),] #1,138,747 remaining
 
-#merge to Beth's updated ManiH annotation
-#snpAnnot<-merge(snpAnnot,ManiH,by="b37_C_rs.id")
-#table(snpAnnot$MACH_KEEP_b37_H) #403,894 were removed
-#identical(snpAnnot$b37_H_present_MH, snpAnnot$b37_H_present) #identical
-#identical(snpAnnot$Chr_b37_H_MH,snpAnnot$Chr_b37_H) #identical
-#identical(snpAnnot$position_b37_H_MH,snpAnnot$position_b37_H) #identical
-#identical(snpAnnot$MACH_KEEP_b37_H_MH, snpAnnot$MACH_KEEP_b37_H) #identical
-#nothing was added from Beth's updated ManiH, so I won't merge it again
-
-#merge Beth's annotation to Will Rayner's
+#merge SNP annotation to Will Rayner's
 snpAnnot<-merge(snpAnnot,RaynerStrand,by.x="b37_C_rs.id",by.y="SNPID_Rayner")
 #1,100,170 probes, so all Rayner probes matched
 sapply(snpAnnot,function(x) sum(is.na(x))) #45,028 missings for alle.A.b37_H
@@ -182,76 +175,6 @@ table(snpAnnot$alle.B.b37_H)
 snpAnnot$Rayner_A<-substr(snpAnnot$alleles_Rayner,1,1)
 snpAnnot$Rayner_B<-substr(snpAnnot$alleles_Rayner,2,2)
 
-#compare Illumina's manifest H alleles with Rayner's
-strandCheck <- function(A1,B1,A2,B2,strand){
-  #A1 = A allele of study
-  #B1 = B allele of study
-  #A2 = A allele of Rayner
-  #B2 = B allele of Rayner
-  A1<-toupper(A1)
-  B1<-toupper(B1)
-  A2<-toupper(A2)
-  B2<-toupper(B2)
-  #ensure A2 is lower alphabet value that B2 for rayner alleles
-  if ( sum(A2>B2) > 0 ) print(paste0("There are ", sum(A2>B2), " SNPs with Rayner allele A > B"))
-  else print("Rayner alleles A < B for all SNPs")
-  
-  #order A1 and B1 alleles so A1 is the lowest alphabet value
-  if ( sum(A1>B1) > 0 ) print(paste0("There are ", sum(A1>B1), " SNPs with Beth allele A > B"))
-  else print("Beth alleles A < B for all SNPs")
-  tempA<-A1
-  tempA[A1>B1]<-B1[A1>B1]
-  tempB<-B1
-  tempB[A1>B1]<-A1[A1>B1]
-  A1<-tempA
-  B1<-tempB
-  
-  #flip rayner alleles if strand is -
-  tempA<-A2
-  tempB<-B2
-  tempA[strand=="-" & A2=="G"]<-"C"
-  tempA[strand=="-" & A2=="C"]<-"G"
-  tempA[strand=="-" & A2=="A"]<-"T"
-  tempA[strand=="-" & A2=="T"]<-"A"
-  tempB[strand=="-" & B2=="G"]<-"C"
-  tempB[strand=="-" & B2=="C"]<-"G"
-  tempB[strand=="-" & B2=="A"]<-"T"
-  tempB[strand=="-" & B2=="T"]<-"A"
-  A2<-tempA
-  B2<-tempB
-  #after flip, must reorder so lowest alphabet value listed first
-  A2[tempA>tempB]<-tempB[tempA>tempB]
-  B2[tempA>tempB]<-tempA[tempA>tempB]
-  
-  #test for same alleles 
-  noMatch<-rep(0,length(A1))
-  noMatch[A1!=A2 | B1!=B2]<-1
-  
-  #Are the no match SNPs flipped?
-  #After flipping strands of A1 and A2, do they match Rayner?
-  tempA<-A1
-  tempB<-B1
-  tempA[noMatch==1 & A1=="G"]<-"C"
-  tempA[noMatch==1 & A1=="C"]<-"G"
-  tempA[noMatch==1 & A1=="A"]<-"T"
-  tempA[noMatch==1 & A1=="T"]<-"A"
-  tempB[noMatch==1 & B1=="G"]<-"C"
-  tempB[noMatch==1 & B1=="C"]<-"G"
-  tempB[noMatch==1 & B1=="A"]<-"T"
-  tempB[noMatch==1 & B1=="T"]<-"A"
-  A1<-tempA
-  B1<-tempB
-  #after flip, must reorder so lowest alphabet value listed first
-  A1[tempA>tempB]<-tempB[tempA>tempB]
-  B1[tempA>tempB]<-tempA[tempA>tempB]
-  
-  #test for same alleles
-  flipped<-rep(0,length(A1))
-  flipped[A1==A2 & B1==B2 & noMatch==1]<-1
-  
-  return(cbind(noMatch,flipped))
-  
-}
 
 myFlip<-strandCheck(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$Rayner_A,snpAnnot$Rayner_B,snpAnnot$strand_Rayner )
 snpAnnot<-cbind(snpAnnot,myFlip)
@@ -260,26 +183,6 @@ sum(snpAnnot$flipped) #2074
 with(snpAnnot,table(noMatch,flipped)) #all non-matching SNPs are flipped, so I can go ahead and flip all of them
 sum(snpAnnot$flipped[snpAnnot$MACH_KEEP_b37_H==TRUE]) #1347 of the SNPs I'd likely keep
 
-#flip the strands of the flipped SNPs
-strandFlip<-function(A1,B1,flip){
-  #A1 = A allele of study
-  #B1 = B allele of study
-  A1<-toupper(A1)
-  B1<-toupper(B1)
-  tempA<-A1
-  tempB<-B1
-  tempA[flip==1 & A1=="G"]<-"C"
-  tempA[flip==1 & A1=="C"]<-"G"
-  tempA[flip==1 & A1=="A"]<-"T"
-  tempA[flip==1 & A1=="T"]<-"A"
-  tempB[flip==1 & B1=="G"]<-"C"
-  tempB[flip==1 & B1=="C"]<-"G"
-  tempB[flip==1 & B1=="A"]<-"T"
-  tempB[flip==1 & B1=="T"]<-"A"
-  A1<-tempA
-  B1<-tempB
-  return(cbind(A1,B1))
-}
 
 
 tail(snpAnnot[snpAnnot$flipped==1,])
