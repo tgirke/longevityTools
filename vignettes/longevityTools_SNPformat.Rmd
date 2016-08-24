@@ -47,6 +47,23 @@ suppressPackageStartupMessages({
 }) 
 ```
 
+# Getting Started
+## Installation
+The _`longevityTools`_ package can be installed from the R console using the following _`biocLite`_ install command. 
+
+```{r install, eval=FALSE}
+source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
+biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
+```
+
+## Loading package and documentation
+
+```{r documentation, eval=FALSE}
+library("longevityTools") # Loads the package
+library(help="longevityTools") # Lists package info
+vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignette
+```
+
 # Introduction 
 This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
 website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
@@ -60,6 +77,8 @@ The SNP genotype data for MrOS and SOF are stored in NetCDF files, hereafter ter
 
 Preliminary functions that are still under developement, or not fully tested and documented 
 can be imported with the `source` command from the `inst/extdata` directory of the package.
+
+Thomas - I have to load 
 
 ```{r source_fct, eval=TRUE}
 fctpath <- system.file("extdata", "longevityTools_SNPformat_Fct.R", package="longevityTools")
