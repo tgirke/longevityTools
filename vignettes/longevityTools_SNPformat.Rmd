@@ -44,7 +44,7 @@ knitr::opts_chunk$set(
 ```{r setup, echo=FALSE, messages=FALSE, warnings=FALSE}
 suppressPackageStartupMessages({
     library(longevityTools) 
-    library(ggplot2) }) 
+}) 
 ```
 
 # Introduction 
@@ -52,11 +52,15 @@ This vignette is part of the NIA funded Longevity Genomics project. For more inf
 website [here](http://www.longevitygenomics.org/projects/). The GitHub repository of the corresponding R package 
 is available <a href="https://github.com/tgirke/longevityTools">here</a>.
 
-In this vignette, data formatting is described to get from raw, un-QCed SNP genotype data to imputed dosage data based on the 1000 Genomes Phase 1 version 3 reference panel.
+In this vignette, data formatting is described to get from SNP genotype data to imputed dosage data based on the 1000 Genomes Phase 1 version 3 reference panel.
 
+The SNP genotype data for MrOS and SOF are stored in NetCDF files, hereafter termed ncdf. Ncdf files are designed to store large array-like data and facilitates quick access to segments of the data along the dimensions of the array. The SNP genotype data is stored in a 2 dimensional array (SNP dimension and sample dimension). Plain text files provide annotation along the 2 dimensions. A SNP annotation file describes the variables along the SNP dimension, and the sample annotation file describes the variables along the sample dimension.
+
+First task is to align strand of the SNP annotation file to Will Rayner's strnad [file](http://www.well.ox.ac.uk/~wrayner/strand/). 
 
 ```{r, eval=FALSE}
 #Will Rayner H b37 strand file
+
 #1,100,170 probes
 RaynerStrand<-read.table("M:/work/longevity/U24/GWAScohorts/mrOS/arrayAnnotation/WillRayner/HumanOmni1-Quad_v1-0_H-b37-strand/humanomni1-quad_v1-0_h-b37.strand",header=F,stringsAsFactors=F,comment.char="")
 names(RaynerStrand)<-c("SNPID","chr","pos","match","strand","alleles")
