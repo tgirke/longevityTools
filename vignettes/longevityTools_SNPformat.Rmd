@@ -400,6 +400,115 @@ Duplicates removed 21
 Generates plink scripts to flip strands and switch reference/other allele. 
 
 
+A few steps to format the plink files for the UM imputation server.
+
+
+Files back. Need to convert from vcf to dosage. 
+```
+#!/bin/bash
+
+#PBS -t 1-22
+#PBS -l mem=10gb
+#PBS -l walltime=8:00:00
+#PBS -q batch
+
+dataPath=~/bigdata/U24/GWAScohorts/MrOS/vcf1KG
+
+cd $dataPath
+
+~/DosageConvertor/bin/DosageConvertor --vcfDose ${dataPath}/chr${PBS_ARRAYID}.dose.vcf.gz --info ${dataPath}/chr${PBS_ARRAYID}.info.gz --prefix chr${PBS_ARRAYID} --type plink --format DS
+
+```
+
+Tried loading in PLINK, but errors, reporting duplicate IDs. Turns out InDels have same SNPIDs as SNPs at same position because SNP ID is chr:pos. Strangely, I could not run this in parallel, had to do it serially. 
+
+```{r,eval=FALSE}
+#using data.table to modify plink files
+library(data.table,lib.loc="/rhome/devans/Rlibs")
+
+myChr<-18L
+
+map<-fread(paste0("~/bigdata/U24/GWAScohorts/MrOS/vcf1KG/chr",myChr,".plink.map"))
+setnames(map, c("chr","SNP","gen","pos") )
+
+doseHeader<-scan("~/bigdata/U24/GWAScohorts/MrOS/vcf1KG/headerDosage.txt",sep="\t",what="character")
+dat<-fread(paste0("gunzip -c ~/bigdata/U24/GWAScohorts/MrOS/vcf1KG/chr",myChr,".plink.dose.gz"),header=F,skip=1,col.names=doseHeader)
+
+dat[(A1!="A" & A1!="C" & A1!="T" & A1!="G") | (A2!="A" & A2!="C" & A2!="T" & A2!="G" ) , SNP := paste0(SNP,"[b37]",A1,",",A2) ]
+#pasting alleles got rid of duplicate SNPIDs
+#create order variable so I can always retain original order
+dat[,SNPorder := 1:dat[,.N] ]
+map[,SNPorder := 1:map[,.N] ]  
+
+#check for duplicate SNP IDs after truncating to first 100
+#if dups found, check each 100 bp up to 2000
+#are all SNPs with nchar >100 indels? Yes. 
+#assigns result to x. 
+x<-dat[nchar(SNP)>100] [SNP %like% "b37", .N ]  
+if ( dat[nchar(SNP)>100, .N] != x){
+  print (paste0("Detected SNPs with >100 chars in chr ",myChr)) 
+} else {
+  print(paste0("No SNPs >100 chars in chr ",myChr))
+}
+dat[, SNPtest := substr(SNP,1,100)   ]
+#SNPtest variable contains first 100 characters of SNP. I want to use this as the SNPID. 
+#By subsetting to first 100, could create duplicate IDs. Check if dups exist, and if so, include more BPs.
+#Only if there were dups in the 100 character subset, create new SNPtest with minimum number of BPs so there are no dups. 
+if(dat[duplicated(SNPtest), .N] > 0){
+  result<-sapply(seq(200,2000,by=100), function(x) {
+    dat[, SNPtest := substr(SNP,1,x)   ]
+    dat[duplicated(SNPtest) , .N  ]    
+  })
+  
+  if(sum(result==0)>0){
+    myStop<-min(seq(200,2000,by=100)[ which(result==0)])
+    dat[ ,SNPtest:=substr(SNP,1,myStop) ]
+  } else print(paste0("Duplicate SNP IDs after 2000 bp in chr ",myChr)) 
+} 
+
+#set keys to order by SNP order
+setkey(dat,SNPorder)
+setkey(map,SNPorder)
+#cbind, single column of dat is a vector
+map[ , SNPnew := dat[,SNPtest] ]
+#this also works, subset is a data.table, but is easily added
+#map[ , SNPnew := dat2[,.(SNPtest)] ]
+#approximate R's memory requirements
+sapply(seq(0.5,4,by=0.25 )  ,function(x){cbind(x,x*(13/0.7))} )
+
+map <- map[ ,.(chr,SNPnew,gen,pos) ]
+myNumCol <- ncol(dat)
+dat <- dat[ ,c(myNumCol, 2:(myNumCol-2) ) , with=FALSE]
+
+fwrite(map, file.path=paste0("~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr",myChr,".plink.map"),sep="\t",col.names=FALSE, verbose=TRUE )
+fwrite(dat, file.path=paste0("~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr",myChr,".plink.dose"),sep="\t",col.names=FALSE, verbose=TRUE )
+
+
+```
+
+
+Job submission script.
+
+```
+#!/bin/bash
+
+#PBS -l mem=200gb
+#PBS -l walltime=48:00:00
+#PBS -q highmem
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+Rscript --vanilla ./uniqueSNPchr.R
+```
+
+
+
+
+
+
+
+
 
 
 
