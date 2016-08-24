@@ -56,6 +56,16 @@ In this vignette, data formatting is described to get from SNP genotype data to 
 
 The SNP genotype data for MrOS and SOF are stored in NetCDF files, hereafter termed ncdf. Ncdf files are designed to store large array-like data and facilitates quick access to segments of the data along the dimensions of the array. The SNP genotype data is stored in a 2 dimensional array (SNP dimension and sample dimension). Plain text files provide annotation along the 2 dimensions. A SNP annotation file describes the variables along the SNP dimension, and the sample annotation file describes the variables along the sample dimension.
 
+##Import custom functions.
+
+Preliminary functions that are still under developement, or not fully tested and documented 
+can be imported with the `source` command from the `inst/extdata` directory of the package.
+
+```{r source_fct, eval=TRUE}
+fctpath <- system.file("extdata", "longevityTools_SNPformat_Fct.R", package="longevityTools")
+source(fctpath)
+```
+
 First task is to align strand of the SNP annotation file to Will Rayner's strnad [file](http://www.well.ox.ac.uk/~wrayner/strand/). 
 
 ```{r, eval=FALSE}
@@ -124,15 +134,7 @@ sum(is.na(snpAnnot$alle.A.b37_H))
 sum(is.na(snpAnnot$alle.B.b37_H))
 sum(is.na(snpAnnot$alleles_Rayner)) 
 
-#compare chr and position between Illumina Manifest H and Rayner
-posCmp <- function(posA,posB,chrA,chrB){
-  posDisagree<-ifelse(posA!=posB,1,0)
-  chrA[chrA=="XY"]<-"X"
-  chrB[chrB=="XY"]<-"X"
-  chrDisagree<-ifelse(chrA!=chrB,1,0)
-  
-  return(cbind(chrDisagree,posDisagree))
-}
+
 
 
 myCompare<-posCmp(snpAnnot$position_b37_H,snpAnnot$pos_Rayner,snpAnnot$Chr_b37_H,snpAnnot$chr_Rayner)
