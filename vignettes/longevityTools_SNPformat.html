@@ -50,14 +50,26 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="header">
 <h1 class="title"><em>longevityTools</em>: SNP data formatting</h1>
 <h4 class="author"><em>Authors: Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 23 August, 2016</em></h4>
+<h4 class="date"><em>Last update: 24 August, 2016</em></h4>
 </div>
 <h4 class="package">Package version: <span style="font-weight: normal">longevityTools 1.0.3</span></h4>
 
 <h1>Contents</h1>
 <div id="TOC">
 <ul>
-<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#getting-started"><span class="toc-section-number">1</span> Getting Started</a><ul>
+<li><a href="#installation"><span class="toc-section-number">1.1</span> Installation</a></li>
+<li><a href="#loading-package-and-documentation"><span class="toc-section-number">1.2</span> Loading package and documentation</a></li>
+<li><a href="#import-custom-functions."><span class="toc-section-number">1.3</span> Import custom functions.</a></li>
+</ul></li>
+<li><a href="#introduction"><span class="toc-section-number">2</span> Introduction</a></li>
+<li><a href="#generate-snp-annotation-file-matching-will-rayners-strand-files"><span class="toc-section-number">3</span> Generate SNP annotation file matching Will Rayner’s strand files</a><ul>
+<li><a href="#will-rayners-strand-file-download"><span class="toc-section-number">3.1</span> Will Rayner’s strand file download</a></li>
+<li><a href="#snp-annotation-file-for-mros-array-data."><span class="toc-section-number">3.2</span> SNP annotation file for MrOS array data.</a></li>
+<li><a href="#merge-snp-annotation-to-will-rayners"><span class="toc-section-number">3.3</span> Merge SNP annotation to Will Rayner’s</a></li>
+<li><a href="#qc-starting"><span class="toc-section-number">3.4</span> QC starting</a></li>
+</ul></li>
+<li><a href="#extract-genotypes-for-each-chromosome"><span class="toc-section-number">4</span> Extract genotypes for each chromosome</a></li>
 </ul>
 </div>
 
@@ -91,41 +103,61 @@ document.addEventListener("DOMContentLoaded", function() {
       links[i].target = '_blank';
 });
 </script>
+<div id="getting-started" class="section level1">
+<h1><span class="header-section-number">1</span> Getting Started</h1>
+<div id="installation" class="section level2">
+<h2><span class="header-section-number">1.1</span> Installation</h2>
+<p>The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+<pre class="r"><code>source(&quot;http://bioconductor.org/biocLite.R&quot;) # Sources the biocLite.R installation script 
+biocLite(&quot;tgirke/longevityTools&quot;, build_vignettes=FALSE) # Installs package from GitHub</code></pre>
+</div>
+<div id="loading-package-and-documentation" class="section level2">
+<h2><span class="header-section-number">1.2</span> Loading package and documentation</h2>
+<pre class="r"><code>library(&quot;longevityTools&quot;) # Loads the package
+library(help=&quot;longevityTools&quot;) # Lists package info
+vignette(topic=&quot;longevityTools_eDRUG&quot;, package=&quot;longevityTools&quot;) # Opens vignette</code></pre>
+</div>
+<div id="import-custom-functions." class="section level2">
+<h2><span class="header-section-number">1.3</span> Import custom functions.</h2>
+<p>Preliminary functions that are still under developement, or not fully tested and documented can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
+<pre class="r"><code>fctpath &lt;- system.file(&quot;extdata&quot;, &quot;longevityTools_SNPformat_Fct.R&quot;, package=&quot;longevityTools&quot;)
+source(fctpath)</code></pre>
+</div>
+</div>
 <div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
+<h1><span class="header-section-number">2</span> Introduction</h1>
 <p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHub repository of the corresponding R package is available <a href="https://github.com/tgirke/longevityTools">here</a>.</p>
-<p>In this vignette, data formatting is described to get from raw, un-QCed SNP genotype data to imputed dosage data based on the 1000 Genomes Phase 1 version 3 reference panel.</p>
+<p>In this vignette, data formatting is described to get from SNP genotype data to imputed dosage data based on the 1000 Genomes Phase 1 version 3 reference panel.</p>
+<p>The SNP genotype data for MrOS and SOF are stored in NetCDF files, hereafter termed ncdf. Ncdf files are designed to store large array-like data and facilitates quick access to segments of the data along the dimensions of the array. The SNP genotype data is stored in a 2 dimensional array (SNP dimension and sample dimension). Plain text files provide annotation along the 2 dimensions. A SNP annotation file describes the variables along the SNP dimension, and the sample annotation file describes the variables along the sample dimension.</p>
+</div>
+<div id="generate-snp-annotation-file-matching-will-rayners-strand-files" class="section level1">
+<h1><span class="header-section-number">3</span> Generate SNP annotation file matching Will Rayner’s strand files</h1>
+<div id="will-rayners-strand-file-download" class="section level2">
+<h2><span class="header-section-number">3.1</span> Will Rayner’s strand file download</h2>
+<p>Will Rayner at the Wellcome Trust created files indicating strand and allele information for SNPs for many commercial SNP arrays. Will’s files are recommended for use by the <a href="https://imputationserver.sph.umich.edu/index.html">UM imputation server</a>. The first task is to align strand of the SNP annotation file to Will Rayner’s strand <a href="http://www.well.ox.ac.uk/~wrayner/strand/">file</a>.</p>
+<p>Read in Rayner strand file for the Illumina HumanOmni1-Quad_v1-0_H. H refers to the Illumina SNP manifest version. Manifest H is the most recent from Illumina. Version 1 refers to the beadpool they used. Only one beadpool was used for all HumanOmni1-Quad arrays, hence, all arrays of this type are beadpool version 1.0.</p>
 <pre class="r"><code>#Will Rayner H b37 strand file
+
 #1,100,170 probes
 RaynerStrand&lt;-read.table(&quot;M:/work/longevity/U24/GWAScohorts/mrOS/arrayAnnotation/WillRayner/HumanOmni1-Quad_v1-0_H-b37-strand/humanomni1-quad_v1-0_h-b37.strand&quot;,header=F,stringsAsFactors=F,comment.char=&quot;&quot;)
 names(RaynerStrand)&lt;-c(&quot;SNPID&quot;,&quot;chr&quot;,&quot;pos&quot;,&quot;match&quot;,&quot;strand&quot;,&quot;alleles&quot;)
-names(RaynerStrand)&lt;-paste0(names(RaynerStrand),&quot;_Rayner&quot;)
-
-snpAnnot&lt;-read.table(&quot;E:/MROS_SOF_201109/SNPs_related/SNP_ANNOT_09132011.txt&quot;,header=T,stringsAsFactors=F,comment.char=&quot;&quot;,sep=&quot;\t&quot;)
-str(snpAnnot)
+names(RaynerStrand)&lt;-paste0(names(RaynerStrand),&quot;_Rayner&quot;)</code></pre>
+</div>
+<div id="snp-annotation-file-for-mros-array-data." class="section level2">
+<h2><span class="header-section-number">3.2</span> SNP annotation file for MrOS array data.</h2>
+<p>Survey probes with missing rsIDs, most would be excluded anyway.</p>
+<pre class="r"><code>snpAnnot&lt;-read.table(&quot;E:/MROS_SOF_201109/SNPs_related/SNP_ANNOT_09132011.txt&quot;,header=T,stringsAsFactors=F,comment.char=&quot;&quot;,sep=&quot;\t&quot;)
 sum(is.na(snpAnnot$b37_C_rs.id)) #1672 missing
-sum(is.na(snpAnnot$rs.id_b36))
-table(snpAnnot$Discordant_Calls_1) #1035 discordant calls
-with(snpAnnot, sum(rs.id_b36[!is.na(b37_C_rs.id)] != b37_C_rs.id[!is.na(b37_C_rs.id)] )) #76,722 SNPs with different rsIDs from b36 to b37!
-table(snpAnnot$MACH_KEEP_b37_H[is.na(snpAnnot$b37_C_rs.id)]) #all 1672 missing rs's were excluded from imputed list anyway
 
 sum(snpAnnot$CNVProbe[is.na(snpAnnot$b37_C_rs.id)]==TRUE &amp; !is.na(snpAnnot$CNVProbe[is.na(snpAnnot$b37_C_rs.id)]))#19
 sum(snpAnnot$CNV_ZEROED[is.na(snpAnnot$b37_C_rs.id)]==TRUE &amp; !is.na(snpAnnot$CNV_ZEROED[is.na(snpAnnot$b37_C_rs.id)])) #1084
 sum(snpAnnot$INDEL_PROBE[is.na(snpAnnot$b37_C_rs.id)]==TRUE &amp; !is.na(snpAnnot$INDEL_PROBE[is.na(snpAnnot$b37_C_rs.id)]) ) #0
 #1103 of the SNPs with missing b37Crsid's are CNV probes, zeroed, or indels. No big loss.
-snpAnnot&lt;-snpAnnot[!is.na(snpAnnot$b37_C_rs.id),] #1,138,747 remaining
-
-#merge to Beth's updated ManiH annotation
-#snpAnnot&lt;-merge(snpAnnot,ManiH,by=&quot;b37_C_rs.id&quot;)
-#table(snpAnnot$MACH_KEEP_b37_H) #403,894 were removed
-#identical(snpAnnot$b37_H_present_MH, snpAnnot$b37_H_present) #identical
-#identical(snpAnnot$Chr_b37_H_MH,snpAnnot$Chr_b37_H) #identical
-#identical(snpAnnot$position_b37_H_MH,snpAnnot$position_b37_H) #identical
-#identical(snpAnnot$MACH_KEEP_b37_H_MH, snpAnnot$MACH_KEEP_b37_H) #identical
-#nothing was added from Beth's updated ManiH, so I won't merge it again
-
-#merge Beth's annotation to Will Rayner's
-snpAnnot&lt;-merge(snpAnnot,RaynerStrand,by.x=&quot;b37_C_rs.id&quot;,by.y=&quot;SNPID_Rayner&quot;)
+snpAnnot&lt;-snpAnnot[!is.na(snpAnnot$b37_C_rs.id),] #1,138,747 remaining</code></pre>
+</div>
+<div id="merge-snp-annotation-to-will-rayners" class="section level2">
+<h2><span class="header-section-number">3.3</span> Merge SNP annotation to Will Rayner’s</h2>
+<pre class="r"><code>snpAnnot&lt;-merge(snpAnnot,RaynerStrand,by.x=&quot;b37_C_rs.id&quot;,by.y=&quot;SNPID_Rayner&quot;)
 #1,100,170 probes, so all Rayner probes matched
 sapply(snpAnnot,function(x) sum(is.na(x))) #45,028 missings for alle.A.b37_H
 sum(is.na(snpAnnot$alle.A.b37_H[!is.na(snpAnnot$alle.B.b37_H)])) #A and B missing for same SNPs
@@ -144,9 +176,12 @@ table(snpAnnot$alle.A.b37_H[snpAnnot$CNV_ZEROED==FALSE &amp; snpAnnot$INDEL_PROB
 table(snpAnnot$alle.B.b37_H[snpAnnot$CNV_ZEROED==FALSE &amp; snpAnnot$INDEL_PROBE==FALSE])
 
 with(snpAnnot,sum(alle.A.b37_C != alle.A.b37_H &amp; !is.na(alle.A.b37_C) &amp; !is.na(alle.A.b37_H)))
-#Allele A differs between C and H manifests for 5,067 SNPs
-
-#remove CNV and INDELs
+#Allele A differs between C and H manifests for 5,067 SNPs</code></pre>
+</div>
+<div id="qc-starting" class="section level2">
+<h2><span class="header-section-number">3.4</span> QC starting</h2>
+<p>Remove CNV and Indels, as UM imputation server requires biallelic variants.</p>
+<pre class="r"><code>#remove CNV and INDELs
 sum(snpAnnot$CNV_ZEROED==TRUE)
 sum(is.na(snpAnnot$CNV_ZEROED))
 snpAnnot&lt;-snpAnnot[snpAnnot$CNV_ZEROED==FALSE,] #908,323 probes
@@ -157,36 +192,24 @@ snpAnnot&lt;-snpAnnot[snpAnnot$INDEL_PROBE==FALSE,] #907,956 probes
 #After removing CNV and InDels, no allele missings
 sum(is.na(snpAnnot$alle.A.b37_H))
 sum(is.na(snpAnnot$alle.B.b37_H))
-sum(is.na(snpAnnot$alleles_Rayner)) 
-
-#compare chr and position between Illumina Manifest H and Rayner
-posCmp &lt;- function(posA,posB,chrA,chrB){
-  posDisagree&lt;-ifelse(posA!=posB,1,0)
-  chrA[chrA==&quot;XY&quot;]&lt;-&quot;X&quot;
-  chrB[chrB==&quot;XY&quot;]&lt;-&quot;X&quot;
-  chrDisagree&lt;-ifelse(chrA!=chrB,1,0)
-  
-  return(cbind(chrDisagree,posDisagree))
-}
-
-
-myCompare&lt;-posCmp(snpAnnot$position_b37_H,snpAnnot$pos_Rayner,snpAnnot$Chr_b37_H,snpAnnot$chr_Rayner)
+sum(is.na(snpAnnot$alleles_Rayner)) </code></pre>
+<p>Using posCmp function from LongevityTools to compare positions from our MrOS SNP annotation with Will Rayner’s. Disagreements in chr or position in 7,433 of the 907,956 probes (.8%). Downstream steps rely on Imputation checking tool based on Will Rayner’s annotation, so will use his chr and pos.</p>
+<pre class="r"><code>myCompare&lt;-posCmp(snpAnnot$position_b37_H,snpAnnot$pos_Rayner,snpAnnot$Chr_b37_H,snpAnnot$chr_Rayner)
 snpAnnot&lt;-cbind(snpAnnot,myCompare)
 with(snpAnnot,table(chrDisagree,posDisagree))#4677 chr and pos disagree, 2756 posDisagree but not chr, 0 chr disagree but not pos
 length(snpAnnot$Chr_b37_H[ (snpAnnot$chrDisagree==1 &amp; snpAnnot$MACH_KEEP_b37_H==TRUE) | (snpAnnot$posDisagree==1 &amp; snpAnnot$MACH_KEEP_b37_H==TRUE)  ]) #1942 that I would have kept
 table(snpAnnot$Chr_b37_H[ (snpAnnot$chrDisagree==1 &amp; snpAnnot$MACH_KEEP_b37_H==TRUE) | (snpAnnot$posDisagree==1 &amp; snpAnnot$MACH_KEEP_b37_H==TRUE)  ])
 #Probes with disagreement in chr or position are evenly distributed across chromosomes
 head(snpAnnot[snpAnnot$chrDisagree==1 &amp; snpAnnot$MACH_KEEP_b37_H==TRUE,c(&quot;b37_C_rs.id&quot;,&quot;Chr_b37_H&quot;,&quot;chr_Rayner&quot;,&quot;position_b37_H&quot;)])
-length(grep(&quot;^rs&quot;,snpAnnot$b37_C_rs.id[snpAnnot$MACH_KEEP_b37_H==TRUE],invert=TRUE)) #23,132 non-rs SNPs
-
-#remove SNPs not on autosomes or X based on Rayner info
-table(snpAnnot$Chr_b37_H)
+length(grep(&quot;^rs&quot;,snpAnnot$b37_C_rs.id[snpAnnot$MACH_KEEP_b37_H==TRUE],invert=TRUE)) #23,132 non-rs SNPs</code></pre>
+<p>Remove SNPs not on autosomes or X based on Rayner info</p>
+<pre class="r"><code>table(snpAnnot$Chr_b37_H)
 table(snpAnnot$chr_Rayner)
 sum(is.na(snpAnnot$chr_Rayner)) #0 missing
 snpAnnot&lt;-snpAnnot[snpAnnot$chr_Rayner!=&quot;MT&quot;,]
-snpAnnot&lt;-snpAnnot[snpAnnot$chr_Rayner!=&quot;Y&quot;,]
-
-#since I removed CNV and indels, all probes are biallelic SNPs
+snpAnnot&lt;-snpAnnot[snpAnnot$chr_Rayner!=&quot;Y&quot;,]</code></pre>
+<p>Rayner alleles are in a single variable. Split them out into two variables for easier manipulation.</p>
+<pre class="r"><code>#since I removed CNV and indels, all probes are biallelic SNPs
 sum(nchar(snpAnnot$alleles_Rayner)!=2)#0
 sum(nchar(snpAnnot$alle.A.b37_C)!=1) #0
 sum(nchar(snpAnnot$alle.B.b37_C)!=1) #0
@@ -194,131 +217,31 @@ table(snpAnnot$alleles_Rayner) #lowest alphabet letter listed first
 table(snpAnnot$alle.A.b37_H)
 table(snpAnnot$alle.B.b37_H)
 snpAnnot$Rayner_A&lt;-substr(snpAnnot$alleles_Rayner,1,1)
-snpAnnot$Rayner_B&lt;-substr(snpAnnot$alleles_Rayner,2,2)
-
-#compare Illumina's manifest H alleles with Rayner's
-strandCheck &lt;- function(A1,B1,A2,B2,strand){
-  #A1 = A allele of study
-  #B1 = B allele of study
-  #A2 = A allele of Rayner
-  #B2 = B allele of Rayner
-  A1&lt;-toupper(A1)
-  B1&lt;-toupper(B1)
-  A2&lt;-toupper(A2)
-  B2&lt;-toupper(B2)
-  #ensure A2 is lower alphabet value that B2 for rayner alleles
-  if ( sum(A2&gt;B2) &gt; 0 ) print(paste0(&quot;There are &quot;, sum(A2&gt;B2), &quot; SNPs with Rayner allele A &gt; B&quot;))
-  else print(&quot;Rayner alleles A &lt; B for all SNPs&quot;)
-  
-  #order A1 and B1 alleles so A1 is the lowest alphabet value
-  if ( sum(A1&gt;B1) &gt; 0 ) print(paste0(&quot;There are &quot;, sum(A1&gt;B1), &quot; SNPs with Beth allele A &gt; B&quot;))
-  else print(&quot;Beth alleles A &lt; B for all SNPs&quot;)
-  tempA&lt;-A1
-  tempA[A1&gt;B1]&lt;-B1[A1&gt;B1]
-  tempB&lt;-B1
-  tempB[A1&gt;B1]&lt;-A1[A1&gt;B1]
-  A1&lt;-tempA
-  B1&lt;-tempB
-  
-  #flip rayner alleles if strand is -
-  tempA&lt;-A2
-  tempB&lt;-B2
-  tempA[strand==&quot;-&quot; &amp; A2==&quot;G&quot;]&lt;-&quot;C&quot;
-  tempA[strand==&quot;-&quot; &amp; A2==&quot;C&quot;]&lt;-&quot;G&quot;
-  tempA[strand==&quot;-&quot; &amp; A2==&quot;A&quot;]&lt;-&quot;T&quot;
-  tempA[strand==&quot;-&quot; &amp; A2==&quot;T&quot;]&lt;-&quot;A&quot;
-  tempB[strand==&quot;-&quot; &amp; B2==&quot;G&quot;]&lt;-&quot;C&quot;
-  tempB[strand==&quot;-&quot; &amp; B2==&quot;C&quot;]&lt;-&quot;G&quot;
-  tempB[strand==&quot;-&quot; &amp; B2==&quot;A&quot;]&lt;-&quot;T&quot;
-  tempB[strand==&quot;-&quot; &amp; B2==&quot;T&quot;]&lt;-&quot;A&quot;
-  A2&lt;-tempA
-  B2&lt;-tempB
-  #after flip, must reorder so lowest alphabet value listed first
-  A2[tempA&gt;tempB]&lt;-tempB[tempA&gt;tempB]
-  B2[tempA&gt;tempB]&lt;-tempA[tempA&gt;tempB]
-  
-  #test for same alleles 
-  noMatch&lt;-rep(0,length(A1))
-  noMatch[A1!=A2 | B1!=B2]&lt;-1
-  
-  #Are the no match SNPs flipped?
-  #After flipping strands of A1 and A2, do they match Rayner?
-  tempA&lt;-A1
-  tempB&lt;-B1
-  tempA[noMatch==1 &amp; A1==&quot;G&quot;]&lt;-&quot;C&quot;
-  tempA[noMatch==1 &amp; A1==&quot;C&quot;]&lt;-&quot;G&quot;
-  tempA[noMatch==1 &amp; A1==&quot;A&quot;]&lt;-&quot;T&quot;
-  tempA[noMatch==1 &amp; A1==&quot;T&quot;]&lt;-&quot;A&quot;
-  tempB[noMatch==1 &amp; B1==&quot;G&quot;]&lt;-&quot;C&quot;
-  tempB[noMatch==1 &amp; B1==&quot;C&quot;]&lt;-&quot;G&quot;
-  tempB[noMatch==1 &amp; B1==&quot;A&quot;]&lt;-&quot;T&quot;
-  tempB[noMatch==1 &amp; B1==&quot;T&quot;]&lt;-&quot;A&quot;
-  A1&lt;-tempA
-  B1&lt;-tempB
-  #after flip, must reorder so lowest alphabet value listed first
-  A1[tempA&gt;tempB]&lt;-tempB[tempA&gt;tempB]
-  B1[tempA&gt;tempB]&lt;-tempA[tempA&gt;tempB]
-  
-  #test for same alleles
-  flipped&lt;-rep(0,length(A1))
-  flipped[A1==A2 &amp; B1==B2 &amp; noMatch==1]&lt;-1
-  
-  return(cbind(noMatch,flipped))
-  
-}
-
-myFlip&lt;-strandCheck(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$Rayner_A,snpAnnot$Rayner_B,snpAnnot$strand_Rayner )
+snpAnnot$Rayner_B&lt;-substr(snpAnnot$alleles_Rayner,2,2)</code></pre>
+<p>Using strandCheck function from LongevityTools, mark SNPs from the MrOS SNP annotation file that have alleles on the minus strand (flipped). 2074 SNPs on minus strand.</p>
+<pre class="r"><code>myFlip&lt;-strandCheck(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$Rayner_A,snpAnnot$Rayner_B,snpAnnot$strand_Rayner )
 snpAnnot&lt;-cbind(snpAnnot,myFlip)
-sum(snpAnnot$noMatch) #2074 SNPs, not bad at all!
-sum(snpAnnot$flipped) #2074
-with(snpAnnot,table(noMatch,flipped)) #all non-matching SNPs are flipped, so I can go ahead and flip all of them
-sum(snpAnnot$flipped[snpAnnot$MACH_KEEP_b37_H==TRUE]) #1347 of the SNPs I'd likely keep
-
-#flip the strands of the flipped SNPs
-strandFlip&lt;-function(A1,B1,flip){
-  #A1 = A allele of study
-  #B1 = B allele of study
-  A1&lt;-toupper(A1)
-  B1&lt;-toupper(B1)
-  tempA&lt;-A1
-  tempB&lt;-B1
-  tempA[flip==1 &amp; A1==&quot;G&quot;]&lt;-&quot;C&quot;
-  tempA[flip==1 &amp; A1==&quot;C&quot;]&lt;-&quot;G&quot;
-  tempA[flip==1 &amp; A1==&quot;A&quot;]&lt;-&quot;T&quot;
-  tempA[flip==1 &amp; A1==&quot;T&quot;]&lt;-&quot;A&quot;
-  tempB[flip==1 &amp; B1==&quot;G&quot;]&lt;-&quot;C&quot;
-  tempB[flip==1 &amp; B1==&quot;C&quot;]&lt;-&quot;G&quot;
-  tempB[flip==1 &amp; B1==&quot;A&quot;]&lt;-&quot;T&quot;
-  tempB[flip==1 &amp; B1==&quot;T&quot;]&lt;-&quot;A&quot;
-  A1&lt;-tempA
-  B1&lt;-tempB
-  return(cbind(A1,B1))
-}
-
-
-tail(snpAnnot[snpAnnot$flipped==1,])
-#I'll flip these 2074 SNPs then use the perl script to check the data.
-myFlip&lt;-strandFlip(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$flipped)
+sum(snpAnnot$flipped) #2074</code></pre>
+<p>Using strandFlip function from LongevityTools, flip strand alleles are represented on for minus strand SNPs. After flipping minus strand SNPs, check the SNPs again to make sure none are flagged as being on the minus strand. None are flagged.</p>
+<pre class="r"><code>myFlip&lt;-strandFlip(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$flipped)
 snpAnnot&lt;-cbind(snpAnnot,myFlip)
 snpAnnot$A1&lt;-as.character(snpAnnot$A1)
 snpAnnot$B1&lt;-as.character(snpAnnot$B1)
 
 myFlip&lt;-strandCheck(snpAnnot$A1,snpAnnot$B1,snpAnnot$Rayner_A,snpAnnot$Rayner_B,snpAnnot$strand_Rayner )
-sum(myFlip[,1]) #0 SNPs! Perfect, strand flip worked!
-sum(myFlip[,2]) #0 SNPs! Perfect, strand flip worked!
+sum(myFlip[,1]) #0 SNPs! Perfect.
+sum(myFlip[,2]) #0 SNPs! Perfect.
 with(snpAnnot,table(alleles_Rayner[flipped==1]))
 with(snpAnnot,table(alleles_Rayner))
-table(with(snpAnnot,paste0(A1,B1)))
-#why are there more allele combos in A1+B1 vs alleles_Rayner? 
-#GC and TA are just rearranged. However, TC and TG are not in alleles_Rayner.
-#TC and TG in A1+B1 are - strand on strand_Rayner. See below.
-table(snpAnnot$strand_Rayner[snpAnnot$A1==&quot;T&quot; &amp; snpAnnot$B1==&quot;C&quot;])
+table(with(snpAnnot,paste0(A1,B1)))</code></pre>
+<p>Why are there more allele combos in A1+B1 vs alleles_Rayner? GC and TA are just rearranged. However, TC and TG are not in alleles_Rayner. TC and TG in A1+B1 are - strand on strand_Rayner. See below.</p>
+<pre class="r"><code>table(snpAnnot$strand_Rayner[snpAnnot$A1==&quot;T&quot; &amp; snpAnnot$B1==&quot;C&quot;])
 table(snpAnnot$strand_Rayner[snpAnnot$A1==&quot;T&quot; &amp; snpAnnot$B1==&quot;G&quot;])
 #As expected, they match if you flip strands
 table(snpAnnot$alleles_Rayner[snpAnnot$A1==&quot;T&quot; &amp; snpAnnot$B1==&quot;C&quot;]) #AG
-table(snpAnnot$alleles_Rayner[snpAnnot$A1==&quot;T&quot; &amp; snpAnnot$B1==&quot;G&quot;]) #AC
-
-#discordant calls
+table(snpAnnot$alleles_Rayner[snpAnnot$A1==&quot;T&quot; &amp; snpAnnot$B1==&quot;G&quot;]) #AC</code></pre>
+<p>Remove SNPs with &gt; 1 discordant call between duplicate samples, missing rate &gt; 2.5%, autosomal HWE P-value &lt; 10-6, MAF &lt; 0.01. Output new SNP annotation file.</p>
+<pre class="r"><code>#discordant calls
 sum(is.na(snpAnnot$Discordant_Calls_1))
 table(snpAnnot$Discordant_Calls_1)
 snpAnnot&lt;-snpAnnot[snpAnnot$Discordant_Calls_1==FALSE,]
@@ -346,26 +269,25 @@ sum(is.na(snpAnnot$maf))
 sum(snpAnnot$maf&lt;0.01 )
 snpAnnot&lt;-snpAnnot[snpAnnot$maf&gt;=0.01,]
 
-write.table(snpAnnot,file=&quot;//HOMER/MROS_SOF/plink2016/SNPs_related/SNP_ANNOT_DSE.txt&quot;,row.names=F,quote=F)
-
-#split by chromosome groups
-snpAnnot2&lt;-snpAnnot[,c(&quot;chr_Rayner&quot;,&quot;b37_C_rs.id&quot;,&quot;pos_Rayner&quot;,&quot;A1&quot;,&quot;B1&quot;,&quot;int.id&quot;)]
+write.table(snpAnnot,file=&quot;//HOMER/MROS_SOF/plink2016/SNPs_related/SNP_ANNOT_DSE.txt&quot;,row.names=F,quote=F)</code></pre>
+<p>Split SNP annotation file by chromosome to make ncdf extraction easier.</p>
+<pre class="r"><code>snpAnnot2&lt;-snpAnnot[,c(&quot;chr_Rayner&quot;,&quot;b37_C_rs.id&quot;,&quot;pos_Rayner&quot;,&quot;A1&quot;,&quot;B1&quot;,&quot;int.id&quot;)]
 myChr&lt;-c(1:22,&quot;X&quot;)
 
 for (i in myChr){
   snpAnnot3&lt;-snpAnnot2[snpAnnot2$chr_Rayner==i,]
   snpAnnot3&lt;-snpAnnot3[order(snpAnnot3$pos_Rayner),]
   write.table(snpAnnot3,file=paste0(&quot;//HOMER/MROS_SOF/plink2016/SNPs_related/SNP_ANNOT_chr&quot;,i,&quot;.txt&quot;),row.names=F,quote=F)
-}
-
-
-##extract genotypes for each chromosome
-library('ncdf4')
+}</code></pre>
+</div>
+</div>
+<div id="extract-genotypes-for-each-chromosome" class="section level1">
+<h1><span class="header-section-number">4</span> Extract genotypes for each chromosome</h1>
+<pre class="r"><code>library('ncdf4')
 
 chrNames&lt;-c(1:22,&quot;X&quot;)
 
 t1 &lt;- proc.time()
-#foreach(j=1:length(chrNames),.packages=&quot;ncdf&quot;) %do% {
 for(j in 1:length(chrNames)) {
   
   study&lt;-&quot;MrOS&quot;  #MrOS or SOF
@@ -418,6 +340,7 @@ for(j in 1:length(chrNames)) {
 
 print(proc.time() - t1)</code></pre>
 <p>Then used Will Rayner’s Imputation preparation and checking <a href="http://www.well.ox.ac.uk/~wrayner/tools/">tool</a></p>
+<p>Also checks AF concordance with 1000G EUR phase 3 data. Results below.</p>
 <pre><code>Options Set:
 Reference Panel:             1000G
 Bim filename:                /home/devans/longevity/U24/GWAScohorts/MrOS/bin/MrOSallWhites.bim
@@ -457,9 +380,8 @@ Palindromic SNPs with Freq &gt; 0.4 2704
 Non Matching alleles 4755
 ID and allele mismatching 4745; where 1000G is . 0
 Duplicates removed 21
-
-
 </code></pre>
+<p>Generates plink scripts to flip strands and switch reference/other allele.</p>
 <div id="refs" class="references">
 
 </div>

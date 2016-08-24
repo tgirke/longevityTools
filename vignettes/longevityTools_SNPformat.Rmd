@@ -83,7 +83,9 @@ In this vignette, data formatting is described to get from SNP genotype data to 
 
 The SNP genotype data for MrOS and SOF are stored in NetCDF files, hereafter termed ncdf. Ncdf files are designed to store large array-like data and facilitates quick access to segments of the data along the dimensions of the array. The SNP genotype data is stored in a 2 dimensional array (SNP dimension and sample dimension). Plain text files provide annotation along the 2 dimensions. A SNP annotation file describes the variables along the SNP dimension, and the sample annotation file describes the variables along the sample dimension.
 
-## Match SNP annotation to Will Rayner's strand files
+# Generate SNP annotation file matching Will Rayner's strand files
+
+## Will Rayner's strand file download
 
 Will Rayner at the Wellcome Trust created files indicating strand and allele information for SNPs for many commercial SNP arrays. Will's files are recommended for use by the [UM imputation server](https://imputationserver.sph.umich.edu/index.html). The first task is to align strand of the SNP annotation file to Will Rayner's strand [file](http://www.well.ox.ac.uk/~wrayner/strand/). 
 
@@ -99,7 +101,8 @@ names(RaynerStrand)<-paste0(names(RaynerStrand),"_Rayner")
 
 ```
 
-SNP annotation file for MrOS array data. Survey probes with missing rsIDs, most would be excluded anyway. 
+## SNP annotation file for MrOS array data. 
+Survey probes with missing rsIDs, most would be excluded anyway. 
 
 ```{r, eval=FALSE}
 snpAnnot<-read.table("E:/MROS_SOF_201109/SNPs_related/SNP_ANNOT_09132011.txt",header=T,stringsAsFactors=F,comment.char="",sep="\t")
@@ -111,7 +114,12 @@ sum(snpAnnot$INDEL_PROBE[is.na(snpAnnot$b37_C_rs.id)]==TRUE & !is.na(snpAnnot$IN
 #1103 of the SNPs with missing b37Crsid's are CNV probes, zeroed, or indels. No big loss.
 snpAnnot<-snpAnnot[!is.na(snpAnnot$b37_C_rs.id),] #1,138,747 remaining
 
-#merge SNP annotation to Will Rayner's
+```
+
+## Merge SNP annotation to Will Rayner's
+
+```{r,eval=FALSE}
+
 snpAnnot<-merge(snpAnnot,RaynerStrand,by.x="b37_C_rs.id",by.y="SNPID_Rayner")
 #1,100,170 probes, so all Rayner probes matched
 sapply(snpAnnot,function(x) sum(is.na(x))) #45,028 missings for alle.A.b37_H
@@ -132,6 +140,12 @@ table(snpAnnot$alle.B.b37_H[snpAnnot$CNV_ZEROED==FALSE & snpAnnot$INDEL_PROBE==F
 
 with(snpAnnot,sum(alle.A.b37_C != alle.A.b37_H & !is.na(alle.A.b37_C) & !is.na(alle.A.b37_H)))
 #Allele A differs between C and H manifests for 5,067 SNPs
+```
+
+## QC starting
+Remove CNV and Indels, as UM imputation server requires biallelic variants.
+
+```{r,eval=FALSE}
 
 #remove CNV and INDELs
 sum(snpAnnot$CNV_ZEROED==TRUE)
@@ -146,9 +160,11 @@ sum(is.na(snpAnnot$alle.A.b37_H))
 sum(is.na(snpAnnot$alle.B.b37_H))
 sum(is.na(snpAnnot$alleles_Rayner)) 
 
+```
 
+Using posCmp function from LongevityTools to compare positions from our MrOS SNP annotation with Will Rayner's. Disagreements in chr or position in 7,433 of the 907,956 probes (.8%). Downstream steps rely on Imputation checking tool based on Will Rayner's annotation, so will use his chr and pos.
 
-
+```{r,eval=FALSE}
 myCompare<-posCmp(snpAnnot$position_b37_H,snpAnnot$pos_Rayner,snpAnnot$Chr_b37_H,snpAnnot$chr_Rayner)
 snpAnnot<-cbind(snpAnnot,myCompare)
 with(snpAnnot,table(chrDisagree,posDisagree))#4677 chr and pos disagree, 2756 posDisagree but not chr, 0 chr disagree but not pos
@@ -157,14 +173,21 @@ table(snpAnnot$Chr_b37_H[ (snpAnnot$chrDisagree==1 & snpAnnot$MACH_KEEP_b37_H==T
 #Probes with disagreement in chr or position are evenly distributed across chromosomes
 head(snpAnnot[snpAnnot$chrDisagree==1 & snpAnnot$MACH_KEEP_b37_H==TRUE,c("b37_C_rs.id","Chr_b37_H","chr_Rayner","position_b37_H")])
 length(grep("^rs",snpAnnot$b37_C_rs.id[snpAnnot$MACH_KEEP_b37_H==TRUE],invert=TRUE)) #23,132 non-rs SNPs
+```
 
-#remove SNPs not on autosomes or X based on Rayner info
+Remove SNPs not on autosomes or X based on Rayner info
+
+```{r,eval=FALSE}
 table(snpAnnot$Chr_b37_H)
 table(snpAnnot$chr_Rayner)
 sum(is.na(snpAnnot$chr_Rayner)) #0 missing
 snpAnnot<-snpAnnot[snpAnnot$chr_Rayner!="MT",]
 snpAnnot<-snpAnnot[snpAnnot$chr_Rayner!="Y",]
+```
 
+Rayner alleles are in a single variable. Split them out into two variables for easier manipulation. 
+
+```{r, eval=FALSE}
 #since I removed CNV and indels, all probes are biallelic SNPs
 sum(nchar(snpAnnot$alleles_Rayner)!=2)#0
 sum(nchar(snpAnnot$alle.A.b37_C)!=1) #0
@@ -174,39 +197,49 @@ table(snpAnnot$alle.A.b37_H)
 table(snpAnnot$alle.B.b37_H)
 snpAnnot$Rayner_A<-substr(snpAnnot$alleles_Rayner,1,1)
 snpAnnot$Rayner_B<-substr(snpAnnot$alleles_Rayner,2,2)
+```
 
+Using strandCheck function from LongevityTools, mark SNPs from the MrOS SNP annotation file that have alleles on the minus strand (flipped). 2074 SNPs on minus strand. 
+
+```{r,eval=FALSE}
 
 myFlip<-strandCheck(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$Rayner_A,snpAnnot$Rayner_B,snpAnnot$strand_Rayner )
 snpAnnot<-cbind(snpAnnot,myFlip)
-sum(snpAnnot$noMatch) #2074 SNPs, not bad at all!
 sum(snpAnnot$flipped) #2074
-with(snpAnnot,table(noMatch,flipped)) #all non-matching SNPs are flipped, so I can go ahead and flip all of them
-sum(snpAnnot$flipped[snpAnnot$MACH_KEEP_b37_H==TRUE]) #1347 of the SNPs I'd likely keep
+```
 
+Using strandFlip function from LongevityTools, flip strand alleles are represented on for minus strand SNPs. After flipping minus strand SNPs, check the SNPs again to make sure none are flagged as being on the minus strand. None are flagged. 
 
-
-tail(snpAnnot[snpAnnot$flipped==1,])
-#I'll flip these 2074 SNPs then use the perl script to check the data.
+```{r,eval=FALSE}
 myFlip<-strandFlip(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$flipped)
 snpAnnot<-cbind(snpAnnot,myFlip)
 snpAnnot$A1<-as.character(snpAnnot$A1)
 snpAnnot$B1<-as.character(snpAnnot$B1)
 
 myFlip<-strandCheck(snpAnnot$A1,snpAnnot$B1,snpAnnot$Rayner_A,snpAnnot$Rayner_B,snpAnnot$strand_Rayner )
-sum(myFlip[,1]) #0 SNPs! Perfect, strand flip worked!
-sum(myFlip[,2]) #0 SNPs! Perfect, strand flip worked!
+sum(myFlip[,1]) #0 SNPs! Perfect.
+sum(myFlip[,2]) #0 SNPs! Perfect.
 with(snpAnnot,table(alleles_Rayner[flipped==1]))
 with(snpAnnot,table(alleles_Rayner))
 table(with(snpAnnot,paste0(A1,B1)))
-#why are there more allele combos in A1+B1 vs alleles_Rayner? 
-#GC and TA are just rearranged. However, TC and TG are not in alleles_Rayner.
-#TC and TG in A1+B1 are - strand on strand_Rayner. See below.
+```
+
+Why are there more allele combos in A1+B1 vs alleles_Rayner? 
+GC and TA are just rearranged. However, TC and TG are not in alleles_Rayner.
+TC and TG in A1+B1 are - strand on strand_Rayner. See below.
+
+```{r, eval=FALSE}
+
 table(snpAnnot$strand_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="C"])
 table(snpAnnot$strand_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="G"])
 #As expected, they match if you flip strands
 table(snpAnnot$alleles_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="C"]) #AG
 table(snpAnnot$alleles_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="G"]) #AC
+```
 
+Remove SNPs with > 1 discordant call between duplicate samples, missing rate > 2.5%, autosomal HWE P-value < 10-6, MAF < 0.01. Output new SNP annotation file. 
+
+```{r,eval=FALSE}
 #discordant calls
 sum(is.na(snpAnnot$Discordant_Calls_1))
 table(snpAnnot$Discordant_Calls_1)
@@ -236,8 +269,11 @@ sum(snpAnnot$maf<0.01 )
 snpAnnot<-snpAnnot[snpAnnot$maf>=0.01,]
 
 write.table(snpAnnot,file="//HOMER/MROS_SOF/plink2016/SNPs_related/SNP_ANNOT_DSE.txt",row.names=F,quote=F)
+```
 
-#split by chromosome groups
+Split SNP annotation file by chromosome to make ncdf extraction easier. 
+
+```{r,eval=FALSE}
 snpAnnot2<-snpAnnot[,c("chr_Rayner","b37_C_rs.id","pos_Rayner","A1","B1","int.id")]
 myChr<-c(1:22,"X")
 
@@ -247,14 +283,17 @@ for (i in myChr){
   write.table(snpAnnot3,file=paste0("//HOMER/MROS_SOF/plink2016/SNPs_related/SNP_ANNOT_chr",i,".txt"),row.names=F,quote=F)
 }
 
+```
 
-##extract genotypes for each chromosome
+# Extract genotypes for each chromosome
+
+```{r, eval=FALSE}
+
 library('ncdf4')
 
 chrNames<-c(1:22,"X")
 
 t1 <- proc.time()
-#foreach(j=1:length(chrNames),.packages="ncdf") %do% {
 for(j in 1:length(chrNames)) {
   
   study<-"MrOS"  #MrOS or SOF
@@ -313,6 +352,8 @@ print(proc.time() - t1)
 
 Then used Will Rayner's Imputation preparation and checking [tool](http://www.well.ox.ac.uk/~wrayner/tools/)
 
+Also checks AF concordance with 1000G EUR phase 3 data. Results below. 
+
 ```
 Options Set:
 Reference Panel:             1000G
@@ -354,9 +395,10 @@ Non Matching alleles 4755
 ID and allele mismatching 4745; where 1000G is . 0
 Duplicates removed 21
 
-
-
 ```
+
+Generates plink scripts to flip strands and switch reference/other allele. 
+
 
 
 
