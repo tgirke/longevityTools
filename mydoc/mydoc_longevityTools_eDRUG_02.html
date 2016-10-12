@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,8 +141,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,6 +468,121 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityTools</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="active"><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
                     
 
                     
@@ -756,16 +849,16 @@ $('#toc').on('click', 'a', function() {
 -->
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">source</span><span class="p">(</span><span class="s2">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span> <span class="c1"># Sources the biocLite.R installation script 
-</span><span class="n">biocLite</span><span class="p">(</span><span class="s2">"tgirke/longevityTools"</span><span class="p">,</span> <span class="n">build_vignettes</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="err">#</span> <span class="n">Installs</span> <span class="n">package</span> <span class="n">from</span> <span class="n">GitHub</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">source</span><span class="p">(</span><span class="s2">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span> <span class="c1"># Sources the biocLite.R installation script 
+</span><span class="n">biocLite</span><span class="p">(</span><span class="s2">"tgirke/longevityTools"</span><span class="p">,</span> <span class="n">build_vignettes</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="err">#</span> <span class="n">Installs</span> <span class="n">package</span> <span class="n">from</span> <span class="n">GitHub</span></code></pre></figure>
 
 <h2 id="loading-package-and-documentation">Loading package and documentation</h2>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Loads the package
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Loads the package
 </span><span class="n">library</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Lists package info
-</span><span class="n">vignette</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="s2">"longevityTools_eDRUG"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="err">#</span> <span class="n">Opens</span> <span class="n">vignette</span></code></pre></div>
+</span><span class="n">vignette</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="s2">"longevityTools_eDRUG"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="err">#</span> <span class="n">Opens</span> <span class="n">vignette</span></code></pre></figure>
 
 
 
@@ -783,7 +876,7 @@ $('#toc').on('click', 'a', function() {
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Wed Mar 16 12:35:34 2016<br/> Site last generated: May 25, 2016 <br />
+<p>Page last updated:</span> Tue Oct 11 17:26:57 2016<br/> Site last generated: Oct 11, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

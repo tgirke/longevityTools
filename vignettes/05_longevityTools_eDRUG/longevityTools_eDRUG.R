@@ -65,6 +65,17 @@ ggplot(df, aes(Chip_type, Counts)) +
 ## for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
 ## unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
 
+## ----affyid_annotations, eval=FALSE, message=FALSE-----------------------
+## library(hgu133a.db)
+## myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "),
+##                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "),
+##                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "),
+##                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "),
+##                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "),
+##                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+## write.table(myAnnot, file="./results/myAnnot.xls", quote=FALSE, sep="\t", col.names = NA)
+## saveRDS(myAnnot, "./results/myAnnot.rds")
+
 ## ----cel_file_list, eval=FALSE-------------------------------------------
 ## cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE)
 ## # comp_list <- sampleList(cmap, myby="CMP")
@@ -78,21 +89,18 @@ ggplot(df, aes(Chip_type, Counts)) +
 ## affyid <- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid <- affyid[affyid %in% rownames(df3)]
 ## mas5df <- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
 
-## ----deg_limma, eval=FALSE-----------------------------------------------
-## degMA <- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
-## degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-## write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
-## saveRDS(degMA, "./results/degMA.rds")
+## ----mean_mas5_data, eval=FALSE------------------------------------------
+## myAnnot <- readRDS("./results/myAnnot.rds")
+## myAnnot <- myAnnot[as.character(myAnnot[,"ENTREZID"]) != "NA",]
+## mas5df <- mas5df[rownames(myAnnot),]
+## idlist <- tapply(row.names(myAnnot), as.character(myAnnot$ENTREZID), c)
+## mas5df <- t(sapply(names(idlist), function(x) colMeans(mas5df[idlist[[x]], ])))
 
-## ----affyid_annotations, eval=FALSE, message=FALSE-----------------------
-## library(hgu133a.db)
-## myAnnot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "),
-##                              SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "),
-##                              UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "),
-##                              ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "),
-##                              ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "),
-##                              DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
-## saveRDS(myAnnot, "./results/myAnnot.rds")
+## ----deg_limma, eval=FALSE-----------------------------------------------
+## degList <- runLimma(df=log2(mas5df), comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
+## write.table(degList$DEG, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA)
+## saveRDS(degList$DEG, "./results/degMA.rds") # saves binary matrix
+## saveRDS(degList, "./results/degList.rds") # saves entire degList
 
 ## ----affyid2gene, eval=FALSE, message=FALSE------------------------------
 ## myAnnot <- readRDS("./results/myAnnot.rds")
@@ -101,7 +109,7 @@ ggplot(df, aes(Chip_type, Counts)) +
 ## saveRDS(degMAgene, "./results/degMAgene.rds")
 
 ## ----deg_distr, eval=TRUE, message=TRUE----------------------------------
-degMAgene <- readRDS("./results/degMAgene.rds")
+degMAgene <- readRDS("./results/degMA.rds")
 y <- as.numeric(colSums(degMAgene))
 interval <- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
 df <- data.frame(interval); colnames(df) <- c("Bins", "Counts")
@@ -113,7 +121,7 @@ ggplot(df, aes(Bins, Counts)) +
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
 geneid <- as.character(PMID26490707$"NEW.Entrez.ID")
-degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+degMAgene <- readRDS("./results/degMA.rds") # Faster than read.delim()
 degMAsub <- degMAgene[rownames(degMAgene) %in% geneid,]
 degOL_PMID26490707 <- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
@@ -123,10 +131,11 @@ degOL_PMID26490707[1:20,]
 ## ----deg_overlaps_PMID26343147, eval=TRUE--------------------------------
 PMID26343147 <- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
 myAnnot <- readRDS("./results/myAnnot.rds") 
-affyid <- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
+geneid <- as.character(myAnnot[rownames(myAnnot) %in% as.character(PMID26343147[,1]), "ENTREZID"])
+geneid <- geneid[geneid!="NA"]
 degMA <- readRDS("./results/degMA.rds") # Faster then read.delim()
 degMA <- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-degMAsub <- degMA[affyid,]
+degMAsub <- degMA[geneid,]
 degOL_PMID26343147 <- intersectStats(degMAgene, degMAsub)
 write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
 sum(degOL_PMID26343147[,1] > 0) # Drugs with any overlap
@@ -136,7 +145,26 @@ degOL_PMID26343147[1:20,] # Top 20 scoring drugs
 genesymbols <- c("IGF1", "IGF1R")
 geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
 names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
-degMAgene <- readRDS("./results/degMAgene.rds") # Faster than read.delim()
+degList <- readRDS("./results/degList.rds") 
+df <- data.frame(row.names=colnames(degList$DEG), check.names=FALSE)
+index <- which(colSums(degList$DEG[geneids,])>= 1) 
+for(i in seq_along(geneids)) {
+    tmp <- data.frame(DEG=degList$DEG[geneids[i],index], logFC=degList$logFC[geneids[i],index], FDR=degList$FDR[geneids[i],index])
+    colnames(tmp) <- paste0(names(geneids)[i], "_", colnames(tmp))
+    df <- cbind(df, tmp[rownames(df),] )    
+}
+df <- df[names(index),]
+write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
+
+## ----sort_pvalue, eval=TRUE----------------------------------------------
+igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
+igfDF[order(rowMeans(igfDF[,c(3,6)])),][1:20,]
+
+## ----deg_queries2, eval=TRUE---------------------------------------------
+genesymbols <- c("IGF1", "IGF1R")
+geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
+names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
+degMAgene <- readRDS("./results/degMA.rds") # Faster than read.delim()
 df <- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
 for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
 colnames(df) <- names(geneids)
@@ -156,21 +184,28 @@ nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
 ## df <- cbind(df, pvalDF)
 ## write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA)
 
-## ----sort_pvalue, eval=TRUE----------------------------------------------
-igfDF <- read.delim("./results/deg_IGF1.xls", row.names=1)
-igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
+## ----plot_sdf, eval=TRUE-------------------------------------------------
+library(ChemmineR)
+mypath <- system.file("extdata", "longevitydrugs.sdf", package="longevityTools")
+mypath <- "../inst/extdata/longevitydrugs.sdf"
+sdfset <- read.SDFset(mypath)
+data(sdfsample)
+sdfsample
+plot(sdfsample[1:4], print=FALSE)
 
 ## ----drug_enrichment, eval=TRUE, message=FALSE---------------------------
 library(DrugVsDisease)
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(drugRL)
 PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(drugRL),]
+PMID26490707sub <- PMID26490707sub[order(PMID26490707sub$Zscore, decreasing=TRUE),]
+PMID26490707sub <- rbind(head(PMID26490707sub, 100), tail(PMID26490707sub, 100)) # Subsets to top 200 DEGs 
 testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
 drugcmap <- classifyprofile(data=testprofiles$ranklist, case="disease", signif.fdr=0.5, no.signif=20)
 drugcmap2 <- classifyprofile(data=testprofiles$ranklist, case="disease", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
-                            dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
+                            dynamic.fdr=5, signif.fdr=5, adj="BH", no.signif=1000)
 write.table(drugcmap2, file="./results/drugcmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
 drugcmap2[[1]][1:20,]
 
@@ -183,7 +218,7 @@ testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID2
 diseasecmap <- classifyprofile(data=testprofiles$ranklist, case="drug", signif.fdr=0.5, no.signif=20)
 diseasecmap2 <- classifyprofile(data=testprofiles$ranklist, case="drug", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
-                            dynamic.fdr=0.5, adj="BH", no.signif=100)
+                            dynamic.fdr=5, adj="BH", no.signif=100)
 write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
 diseasecmap2[[1]][1:20,]
 

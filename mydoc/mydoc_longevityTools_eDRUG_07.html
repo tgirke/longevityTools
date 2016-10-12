@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,8 +141,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,6 +468,121 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityTools</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="active"><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
                     
 
                     
@@ -763,65 +856,70 @@ down-regulated genes at the top and bottom of sorted (ranked) gene lists.</p>
 <p>The following uses the 1,497 age-related gene expression signatures from Peters et al. 
 (2015) as a query against the CMAP signatures. The results are sorted by the
 ES Distance and the top scoring 20 drugs are given below. The full result table is<br />
-written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
+written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code class="highlighter-rouge">drugcmap2.xls</code></a>.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">DrugVsDisease</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">DrugVsDisease</span><span class="p">)</span>
 <span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
 <span class="n">data</span><span class="p">(</span><span class="n">drugRL</span><span class="p">)</span>
 <span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">PMID26490707</span><span class="p">[</span><span class="n">PMID26490707</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">]</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">drugRL</span><span class="p">),]</span>
-<span class="n">testprofiles</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">(</span><span class="n">ranklist</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">Zscore</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])),</span> 
+<span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">PMID26490707sub</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">Zscore</span><span class="p">,</span> <span class="n">decreasing</span><span class="o">=</span><span class="n">TRUE</span><span class="p">),]</span>
+<span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">rbind</span><span class="p">(</span><span class="n">head</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">,</span> <span class="m">100</span><span class="p">),</span> <span class="n">tail</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">,</span> <span class="m">100</span><span class="p">))</span> <span class="c1"># Subsets to top 200 DEGs 
+</span><span class="n">testprofiles</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">(</span><span class="n">ranklist</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">Zscore</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])),</span> 
                      <span class="n">pvalues</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">P</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])))</span>
 <span class="n">drugcmap</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"disease"</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
 <span class="n">drugcmap2</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"disease"</span><span class="p">,</span> 
                             <span class="n">pvalues</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">cytoout</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s2">"dynamic"</span><span class="p">,</span> 
-                            <span class="n">dynamic.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">0.05</span><span class="p">,</span> <span class="n">adj</span><span class="o">=</span><span class="s2">"BH"</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">100</span><span class="p">)</span></code></pre></div>
+                            <span class="n">dynamic.fdr</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">adj</span><span class="o">=</span><span class="s2">"BH"</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">1000</span><span class="p">)</span></code></pre></figure>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">## Number of Significant results greater than 100 Using top 100 hits - consider using average linkage instead</code></pre></div>
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">## Number of Significant results greater than 1000 Using top 1000 hits - consider using average linkage instead</code></pre></figure>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">write.table</span><span class="p">(</span><span class="n">drugcmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/drugcmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
-<span class="n">drugcmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">write.table</span><span class="p">(</span><span class="n">drugcmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/drugcmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
+<span class="n">drugcmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></figure>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">##                              Drug ES Distance Cluster RPS
-## mebendazole           mebendazole   0.8322685      62   1
-## cloperastine         cloperastine   0.8457056      98   1
-## fenoterol               fenoterol   0.8467810      62   1
-## (-)-isoprenaline (-)-isoprenaline   0.8476601      41   1
-## (+)-chelidonine   (+)-chelidonine   0.8510637       1   1
-## etacrynic_acid     etacrynic_acid   0.8514834     103   1
-## oxedrine                 oxedrine   0.8561747      62   1
-## suloctidil             suloctidil   0.8586264      93   1
-## noscapine               noscapine   0.8595356      70   1
-## trifluridine         trifluridine   0.8621584       4   1
-## trifluoperazine   trifluoperazine   0.8624640      98   1
-## etilefrine             etilefrine   0.8644660      40   1
-## remoxipride           remoxipride   0.8655620      76   1
-## etoposide               etoposide   0.8690638       4   1
-## ethoxyquin             ethoxyquin   0.8695707      27   1
-## albendazole           albendazole   0.8699840      93   1
-## scoulerine             scoulerine   0.8705162       1   1
-## bromopride             bromopride   0.8709264      91   1
-## milrinone               milrinone   0.8712986      83   1
-## terfenadine           terfenadine   0.8718878      93   1</code></pre></div>
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">##                              Drug ES Distance Cluster RPS
+## dipivefrine           dipivefrine       0.660      62   1
+## sulfathiazole       sulfathiazole       0.735      38   1
+## fludroxycortide   fludroxycortide       0.740      95   1
+## lobeline                 lobeline       0.740      38   1
+## naftifine               naftifine       0.740      42  -1
+## phenanthridinone phenanthridinone       0.750      99  -1
+## ethoxyquin             ethoxyquin       0.755      27   1
+## pentetrazol           pentetrazol       0.755      54   1
+## fulvestrant           fulvestrant       0.765      22   1
+## MS-275                     MS-275       0.770      84   1
+## sirolimus               sirolimus       0.770      98   1
+## physostigmine       physostigmine       0.775       1   1
+## thiethylperazine thiethylperazine       0.775       1   1
+## alvespimycin         alvespimycin       0.780      22   1
+## naltrexone             naltrexone       0.780      78   1
+## cimetidine             cimetidine       0.780      49   1
+## acebutolol             acebutolol       0.785      58   1
+## metolazone             metolazone       0.785      68   1
+## troleandomycin     troleandomycin       0.785      45   1
+## S-propranolol       S-propranolol       0.790      76   1</code></pre></figure>
 
 <h2 id="query-disease-signatures">Query disease signatures</h2>
 
 <p>The same query is performed against a reference set of disease expression signatures.
 The results are sorted by the ES Distance and the top scoring 20 drugs are given below. 
-The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code>diseasecmap2.xls</code></a>.</p>
+The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code class="highlighter-rouge">diseasecmap2.xls</code></a>.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
 <span class="n">data</span><span class="p">(</span><span class="n">diseaseRL</span><span class="p">)</span>
 <span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">PMID26490707</span><span class="p">[</span><span class="n">PMID26490707</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">]</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">diseaseRL</span><span class="p">),]</span>
 <span class="n">testprofiles</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">(</span><span class="n">ranklist</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">Zscore</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])),</span> 
                      <span class="n">pvalues</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">P</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])))</span>
-<span class="n">diseasecmap</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
-<span class="n">diseasecmap2</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> 
-                            <span class="n">pvalues</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">cytoout</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s2">"dynamic"</span><span class="p">,</span> 
-                            <span class="n">dynamic.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">adj</span><span class="o">=</span><span class="s2">"BH"</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">100</span><span class="p">)</span>
-<span class="n">write.table</span><span class="p">(</span><span class="n">diseasecmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/diseasecmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
-<span class="n">diseasecmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></div>
+<span class="n">diseasecmap</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">20</span><span class="p">)</span></code></pre></figure>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">##                                                     Disease ES Distance Cluster RPS
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">## Number of Significant results greater than 20 Using top 20 hits - consider using average linkage instead</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">diseasecmap2</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> 
+                            <span class="n">pvalues</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">cytoout</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s2">"dynamic"</span><span class="p">,</span> 
+                            <span class="n">dynamic.fdr</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">adj</span><span class="o">=</span><span class="s2">"BH"</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">100</span><span class="p">)</span>
+<span class="n">write.table</span><span class="p">(</span><span class="n">diseasecmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/diseasecmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
+<span class="n">diseasecmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">##                                                     Disease ES Distance Cluster RPS
 ## sarcoidosis                                     sarcoidosis   0.3630021       2   1
 ## sepsis                                               sepsis   0.4779160       5  -1
 ## aseptic-necrosis                           aseptic-necrosis   0.5624186       2   1
@@ -841,7 +939,7 @@ The full result table is written to a file named <a href="http://biocluster.ucr.
 ## parkinson-s-disease                     parkinson-s-disease   0.7952601       6   1
 ## mania                                                 mania   0.8068711       6   1
 ## prostate-cancer                             prostate-cancer   0.8263851       4  -1
-## bladder-cancer                               bladder-cancer   0.8314094       4  -1</code></pre></div>
+## bladder-cancer                               bladder-cancer   0.8314094       4  -1</code></pre></figure>
 
 
 
@@ -859,7 +957,7 @@ The full result table is written to a file named <a href="http://biocluster.ucr.
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Wed Mar 16 12:35:34 2016<br/> Site last generated: May 25, 2016 <br />
+<p>Page last updated:</span> Tue Oct 11 17:26:57 2016<br/> Site last generated: Oct 11, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="keywords" content=" ">
-<title>longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures  | Manuals</title>
+<title>_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures  | Manuals</title>
 <link rel="stylesheet" type="text/css" href="../css/syntax.css">
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 <!--<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">-->
@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,13 +141,11 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
 var subject= "Manuals feedback";
-var body = "I have some feedback about the longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures page: ";
+var body = "I have some feedback about the _longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures page: ";
 body += window.location.href;
 body += "";
 var uri = "mailto:?subject=";
@@ -184,7 +172,7 @@ window.location.href = uri;
                             searchInput: document.getElementById('search-input'),
                             resultsContainer: document.getElementById('results-container'),
                             dataSource: '../search.json',
-                            searchResultTemplate: '<li><a href="{url}" title="longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures">{title}</a></li>',
+                            searchResultTemplate: '<li><a href="{url}" title="_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures">{title}</a></li>',
                         noResultsText: 'No results found.',
                                 limit: 10,
                                 fuzzy: true,
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -500,6 +478,121 @@ window.location.href = uri;
                 
                 
             
+            <li><a href="#">longevityTools</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
             <li><a href="#">longevityTools_eDRUG</a>
                 <ul>
                     
@@ -719,7 +812,7 @@ window.location.href = uri;
             <div class="col-md-9">
                 
                 <div class="post-header">
-   <h1 class="post-title-main">longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures</h1>
+   <h1 class="post-title-main">_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures</h1>
 </div>
 
 <div class="post-content">
@@ -764,7 +857,7 @@ $('#toc').on('click', 'a', function() {
 
 <!---
 - Compile from command-line
-echo "rmarkdown::render('longevityTools_eDRUG.Rmd', clean=F)" | R -slave; R CMD Stangle longevityTools_eDRUG.Rmd; Rscript ../md2jekyll.R longevityTools_eDRUG.knit.md 5
+echo "rmarkdown::render('longevityTools_eDRUG.Rmd', clean=F)" | R -slave; R CMD Stangle longevityTools_eDRUG.Rmd
 
 - Commit to github
 git commit -am "some edits"; git push -u origin master
@@ -809,21 +902,21 @@ are from the Connectivity Map (CMAP) and LINCS projects [@Lamb2006-uv].</p>
 
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
 
-<p><code>r
-source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
-biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s2">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span> <span class="c1"># Sources the biocLite.R installation script 
+</span><span class="n">biocLite</span><span class="p">(</span><span class="s2">"tgirke/longevityTools"</span><span class="p">,</span> <span class="n">build_vignettes</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="c1"># Installs package from GitHub
+</span></code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="loading-package-and-documentation">Loading package and documentation</h2>
 
-<p><code>r
-library("longevityTools") # Loads the package
-library(help="longevityTools") # Lists package info
-vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignette
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Loads the package
+</span><span class="n">library</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Lists package info
+</span><span class="n">vignette</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="s2">"longevityTools_eDRUG"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Opens vignette
+</span></code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h1 id="setup-of-working-environment">Setup of working environment</h1>
@@ -831,23 +924,23 @@ vignette(topic="longevityTools_eDRUG", package="longevityTools") # Opens vignett
 <h2 id="import-custom-functions">Import custom functions</h2>
 
 <p>Preliminary functions that are still under developement, or not fully tested and documented 
-can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
+can be imported with the <code class="highlighter-rouge">source</code> command from the <code class="highlighter-rouge">inst/extdata</code> directory of the package.</p>
 
-<p><code>r
-fctpath &lt;- system.file("extdata", "longevityTools_eDRUG_Fct.R", package="longevityTools")
-source(fctpath)
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">fctpath</span> <span class="o">&lt;-</span> <span class="n">system.file</span><span class="p">(</span><span class="s2">"extdata"</span><span class="p">,</span> <span class="s2">"longevityTools_eDRUG_Fct.R"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span>
+<span class="n">source</span><span class="p">(</span><span class="n">fctpath</span><span class="p">)</span>
+</code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="create-expected-directory-structure">Create expected directory structure</h2>
 
 <p>The following creates the directory structure expected by this workflow. Input data
-will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory.
+will be stored in the <code class="highlighter-rouge">data</code> directory and results will be written to the <code class="highlighter-rouge">results</code> directory.
 All paths are given relative to the present working directory of the user’s R session.</p>
 
-<p><code>r
-dir.create("data"); dir.create("data/CEL"); dir.create("results") 
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">dir.create</span><span class="p">(</span><span class="s2">"data"</span><span class="p">);</span> <span class="n">dir.create</span><span class="p">(</span><span class="s2">"data/CEL"</span><span class="p">);</span> <span class="n">dir.create</span><span class="p">(</span><span class="s2">"results"</span><span class="p">)</span> 
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -855,27 +948,27 @@ dir.create("data"); dir.create("data/CEL"); dir.create("results")
 
 <h2 id="download-data-from-connectivity-map-project-site">Download data from Connectivity Map project site</h2>
 <p>The drug-related expression data are downloaded from the CMAP web site
-<a href="http://www.broadinstitute.org/cmap">here</a>. The <code>getCmap</code> function downloads
-the CMAP rank matrix along with the compound annotations, and <code>getCmapCEL</code>
+<a href="http://www.broadinstitute.org/cmap">here</a>.  The <code class="highlighter-rouge">getCmap</code> function downloads
+the CMAP rank matrix along with the compound annotations, and <code class="highlighter-rouge">getCmapCEL</code>
 downloads the corresponding 7,056 CEL files. The functions will write the
-downloaded files to the <code>data</code> and <code>data/CEL</code> directories within the present 
+downloaded files to the <code class="highlighter-rouge">data</code> and <code class="highlighter-rouge">data/CEL</code> directories within the present 
 working directory of the user’s R session. Since some of the raw data sets 
-are large, the functions will only rerun the download if the argument <code>rerun</code> 
-is assigned <code>TRUE</code>. If the raw data are not needed then users can skip this 
+are large, the functions will only rerun the download if the argument <code class="highlighter-rouge">rerun</code> 
+is assigned <code class="highlighter-rouge">TRUE</code>. If the raw data are not needed then users can skip this 
 time consuming download step and work with the preprocessed data 
 obtained in the next section.</p>
 
-<p><code>r
-getCmap(rerun=FALSE) # Downloads cmap rank matrix and compound annotation files
-getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some time
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">getCmap</span><span class="p">(</span><span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="c1"># Downloads cmap rank matrix and compound annotation files
+</span><span class="n">getCmapCEL</span><span class="p">(</span><span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="c1"># Download cmap CEL files. Note, this will take some time
+</span></code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
-<h2 id="overiew-of-cmap-data">Overiew of CMAP data</h2>
+<h2 id="overview-of-cmap-data">Overview of CMAP data</h2>
 
 <p>The experimental design of the CMAP project is defined in the file
-<code>cmap_instances_02.xls</code>.  Note, this file required some cleaning in LibreOffice
+<code class="highlighter-rouge">cmap_instances_02.xls</code>.  Note, this file required some cleaning in LibreOffice
 (Excel would work for this too). After this it was saved as tab delimited txt
 file named
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/cmap_instances_02.txt">cmap_instances_02.txt</a>.
@@ -890,26 +983,30 @@ The following count statisitics are extracted from this file.</p>
 Each cell type was subjected to the following number of total treatments and number
 of distinct drugs, respectively. The total number of drugs used by CMAP is 1,309.</p>
 
-<p><code>r
-library(ggplot2); library(reshape2) 
-cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
-df &lt;- data.frame(table(cmap[, "cell2"]), as.numeric(table(cmap[!duplicated(paste0(cmap$cmap_name, cmap$cell2)),"cell2"])))
-colnames(df) &lt;- c("Cell_type", "Treatments", "Drugs")
-df &lt;- melt(df, id.vars=c("Cell_type"), variable.name = "Samples", value.name="Counts")
-ggplot(df, aes(Cell_type, Counts, fill=Samples)) + 
-       geom_bar(position="dodge", stat="identity") + 
-       ggtitle("Number of treatments by cell types")
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">);</span> <span class="n">library</span><span class="p">(</span><span class="n">reshape2</span><span class="p">)</span> 
+<span class="n">cmap</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/cmap_instances_02.txt"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> 
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">cmap</span><span class="p">[,</span> <span class="s2">"cell2"</span><span class="p">]),</span> <span class="n">as.numeric</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">cmap</span><span class="p">[</span><span class="o">!</span><span class="n">duplicated</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">cmap</span><span class="o">$</span><span class="n">cmap_name</span><span class="p">,</span> <span class="n">cmap</span><span class="o">$</span><span class="n">cell2</span><span class="p">)),</span><span class="s2">"cell2"</span><span class="p">])))</span>
+<span class="n">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"Cell_type"</span><span class="p">,</span> <span class="s2">"Treatments"</span><span class="p">,</span> <span class="s2">"Drugs"</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id.vars</span><span class="o">=</span><span class="n">c</span><span class="p">(</span><span class="s2">"Cell_type"</span><span class="p">),</span> <span class="n">variable.name</span> <span class="o">=</span> <span class="s2">"Samples"</span><span class="p">,</span> <span class="n">value.name</span><span class="o">=</span><span class="s2">"Counts"</span><span class="p">)</span>
+<span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">Cell_type</span><span class="p">,</span> <span class="n">Counts</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">Samples</span><span class="p">))</span> <span class="o">+</span> 
+       <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">"dodge"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">)</span> <span class="o">+</span> 
+       <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Number of treatments by cell types"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p><img src="longevityTools_eDRUG_files/figure-html/overview_cmap_drugs-1.png" alt="" /><!-- --></p>
 
 <p>The number Affymetrix chip used in the experiments is plotted here for each of
 the three chip types used by CMAP:</p>
 
-<p><code>r
-df &lt;- data.frame(table(cmap$array3)); colnames(df) &lt;- c("Chip_type", "Counts") 
-ggplot(df, aes(Chip_type, Counts)) + 
-       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
-       ggtitle("Number of chip types")
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">df</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">cmap</span><span class="o">$</span><span class="n">array3</span><span class="p">));</span> <span class="n">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"Chip_type"</span><span class="p">,</span> <span class="s2">"Counts"</span><span class="p">)</span> 
+<span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">Chip_type</span><span class="p">,</span> <span class="n">Counts</span><span class="p">))</span> <span class="o">+</span> 
+       <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">"dodge"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"cornflowerblue"</span><span class="p">)</span> <span class="o">+</span> 
+       <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Number of chip types"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p><img src="longevityTools_eDRUG_files/figure-html/overview_cmap_chip_type-1.png" alt="" /><!-- --></p>
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -918,15 +1015,15 @@ ggplot(df, aes(Chip_type, Counts)) +
 <h2 id="determine-chip-type-from-cel-files">Determine chip type from CEL files</h2>
 <p>The CMAP data set is based on three different Affymetrix chip types (HG-U133A,
 HT_HG-U133A and U133AAofAv2). The following extracts the chip type information
-from the CEL files and stores the result in an <code>rds</code> file with the path 
-<code>./data/chiptype.rds</code>. Users who skipped the download of the CEL files can
+from the CEL files and stores the result in an <code class="highlighter-rouge">rds</code> file with the path 
+<code class="highlighter-rouge">./data/chiptype.rds</code>. Users who skipped the download of the CEL files can
 download this file <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/chiptype.rds">here</a>.</p>
 
-<p><code>r
-celfiles &lt;- list.files("./data/CEL", pattern=".CEL$")
-chiptype &lt;- sapply(celfiles, function(x) affxparser::readCelHeader(paste0("data/CEL/", x))$chiptype)
-if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this line from accidental execution!
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">celfiles</span> <span class="o">&lt;-</span> <span class="n">list.files</span><span class="p">(</span><span class="s2">"./data/CEL"</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">".CEL$"</span><span class="p">)</span>
+<span class="n">chiptype</span> <span class="o">&lt;-</span> <span class="n">sapply</span><span class="p">(</span><span class="n">celfiles</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">affxparser</span><span class="o">::</span><span class="n">readCelHeader</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/CEL/"</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span><span class="o">$</span><span class="n">chiptype</span><span class="p">)</span>
+<span class="k">if</span><span class="p">(</span><span class="n">FALSE</span><span class="p">)</span> <span class="n">saveRDS</span><span class="p">(</span><span class="n">chiptype</span><span class="p">,</span> <span class="s2">"./data/chiptype.rds"</span><span class="p">)</span> <span class="c1"># if(FALSE) protects this line from accidental execution!
+</span></code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -934,32 +1031,32 @@ if(FALSE) saveRDS(chiptype, "./data/chiptype.rds") # if(FALSE) protects this lin
 
 <p>The follwoing processes the CEL files from each chip type separately using the
 MAS5 normalization algorithm. The results will be written to 3 subdirectores
-under <code>data</code> that are named after the chip type names.  To save time, the
-processing is parallelized with <code>BiocParallel</code> to run on 100 CPU cores of a
+under <code class="highlighter-rouge">data</code> that are named after the chip type names.  To save time, the
+processing is parallelized with <code class="highlighter-rouge">BiocParallel</code> to run on 100 CPU cores of a
 computer cluster with a scheduler (<em>e.g.</em> Torque). The number of CEL files from
 each chip type are: 807 CEL files from HG-U133A, 6029 CEL files from
 HT_HG-U133A, and 220 CEL files from U133AAofAv2. Note, these numbers are slightly
-different than those reported in the <code>cmap_instances_02.txt</code> file. The MAS5 normalized data
+different than those reported in the <code class="highlighter-rouge">cmap_instances_02.txt</code> file. The MAS5 normalized data
 sets can be downloaded here: 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HG-U133A/all_mas5exprs.rds">HG-U133A</a>, 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/HT_HG-U133A/all_mas5exprs.rds">HT_HG-U133A</a>, 
 <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/data/U133AAofAv2/all_mas5exprs.rds">U133AAofAv2</a>.</p>
 
-<p><code>r
-library(BiocParallel); library(BatchJobs); library(affy)
-chiptype &lt;- readRDS("./data/chiptype.rds")
-chiptype_list &lt;- split(names(chiptype), as.character(chiptype))
-normalizeCel(chiptype_list, rerun=FALSE) 
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">BiocParallel</span><span class="p">);</span> <span class="n">library</span><span class="p">(</span><span class="n">BatchJobs</span><span class="p">);</span> <span class="n">library</span><span class="p">(</span><span class="n">affy</span><span class="p">)</span>
+<span class="n">chiptype</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./data/chiptype.rds"</span><span class="p">)</span>
+<span class="n">chiptype_list</span> <span class="o">&lt;-</span> <span class="n">split</span><span class="p">(</span><span class="n">names</span><span class="p">(</span><span class="n">chiptype</span><span class="p">),</span> <span class="n">as.character</span><span class="p">(</span><span class="n">chiptype</span><span class="p">))</span>
+<span class="n">normalizeCel</span><span class="p">(</span><span class="n">chiptype_list</span><span class="p">,</span> <span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> 
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="combine-results-from-same-chip-type-in-single-data-frame">Combine results from same chip type in single data frame</h2>
 
-<p><code>r
-chiptype_dir &lt;- unique(readRDS("./data/chiptype.rds"))
-combineResults(chiptype_dir, rerun=FALSE)
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">chiptype_dir</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"./data/chiptype.rds"</span><span class="p">))</span>
+<span class="n">combineResults</span><span class="p">(</span><span class="n">chiptype_dir</span><span class="p">,</span> <span class="n">rerun</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -967,204 +1064,380 @@ combineResults(chiptype_dir, rerun=FALSE)
 
 <p>This deletes intermediate files. Before executing these lines, please make sure that this is what you want.</p>
 
-<p><code>r
-for(i in seq_along(chiptype_dir)) unlink(list.files(paste0("data/", chiptype_dir[i]), pattern="cellbatch", full.names=TRUE), recursive=TRUE)
-unlink("data/CEL/*.CEL") # Deletes downloaded CEL files
-</code></p>
-
-<div align="right">[Back to Table of Contents]()</div>
-
-<h1 id="deg-analysis-with-limma">DEG analysis with <code>limma</code></h1>
-
-<h2 id="generate-list-of-cel-names-defining-treatment-vs-control-comparisons">Generate list of CEL names defining treatment vs. control comparisons</h2>
-
-<p>The <code>sampleList</code> function extracts the sample comparisons (contrasts) from the
-CMAP annotation table and stores them as a list.</p>
-
-<p><code>r
-cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
-# comp_list &lt;- sampleList(cmap, myby="CMP")
-comp_list &lt;- sampleList(cmap, myby="CMP_CELL")
-</code></p>
-
-<div align="right">[Back to Table of Contents]()</div>
-
-<h2 id="load-normalized-expression-data">Load normalized expression data</h2>
-
-<p>The following loads the MAS5 normalized expression data into a single <code>data.frame</code>. 
-To accelerate the import, the data is read from <code>rds</code> files.</p>
-
-<p><code>r
-chiptype_dir &lt;- unique(readRDS("./data/chiptype.rds"))
-df1 &lt;- readRDS(paste0("data/", chiptype_dir[1], "/", "all_mas5exprs.rds"))
-df2 &lt;- readRDS(paste0("data/", chiptype_dir[2], "/", "all_mas5exprs.rds"))
-df3 &lt;- readRDS(paste0("data/", chiptype_dir[3], "/", "all_mas5exprs.rds"))
-affyid &lt;- rownames(df1)[rownames(df1) %in% rownames(df2)]; affyid &lt;- affyid[affyid %in% rownames(df3)]
-mas5df &lt;- cbind(df1[affyid,], df2[affyid,], df3[affyid,])
-</code></p>
-
-<div align="right">[Back to Table of Contents]()</div>
-
-<h2 id="deg-analysis-with-limma-1">DEG analysis with <code>limma</code></h2>
-
-<p>The analysis of differentially expressed genes (DEGs) is performed with the <code>limma</code> package.
-Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and 
-a minimum fold change of 2). The DEG matrix is written to a file named 
-<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code>degMA.xls</code></a>.</p>
-
-<p><code>r
-degMA &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=TRUE, affyid=NULL)
-degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-write.table(degMA, file="./results/degMA.xls", quote=FALSE, sep="\t", col.names = NA) 
-saveRDS(degMA, "./results/degMA.rds")
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="n">seq_along</span><span class="p">(</span><span class="n">chiptype_dir</span><span class="p">))</span> <span class="n">unlink</span><span class="p">(</span><span class="n">list.files</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/"</span><span class="p">,</span> <span class="n">chiptype_dir</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"cellbatch"</span><span class="p">,</span> <span class="n">full.names</span><span class="o">=</span><span class="n">TRUE</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="n">TRUE</span><span class="p">)</span>
+<span class="n">unlink</span><span class="p">(</span><span class="s2">"data/CEL/*.CEL"</span><span class="p">)</span> <span class="c1"># Deletes downloaded CEL files
+</span></code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="obtain-annotation-information">Obtain annotation information</h2>
 <p>The following generates annotation information for the Affymetirx probe set
-identifiers.  Note, the three different Affymetrix chip types used by CMAP
+identifiers. Note, the three different Affymetrix chip types used by CMAP
 share most probe set ids (&gt;95%), meaning it is possible to combine the data
 after normalization and use the same annotation package for all of them. The
 annotation libraries for the chip types HG-U133A and HT_HG-U133A are
-<code>hgu133a.db</code> and <code>hthgu133a.db</code>, respectively. However, there is no annotation 
-library (e.g. CDF) available for U133AAofAv2.</p>
+<code class="highlighter-rouge">hgu133a.db</code> and <code class="highlighter-rouge">hthgu133a.db</code>, respectively. However, there is no annotation 
+library (e.g. CDF) available for U133AAofAv2. The annotation file can be downloaded
+from here: <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/myAnnot.xls"><code class="highlighter-rouge">myAnnot.xls</code></a>.</p>
 
-<p><code>r
-library(hgu133a.db)
-myAnnot &lt;- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=", "), 
-                             SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), 
-                             UNIGENE=sapply(contents(hgu133aUNIGENE), paste, collapse=", "), 
-                             ENTREZID=sapply(contents(hgu133aENTREZID), paste, collapse=", "), 
-                             ENSEMBL=sapply(contents(hgu133aENSEMBL), paste, collapse=", "), 
-                             DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
-saveRDS(myAnnot, "./results/myAnnot.rds")
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">hgu133a.db</span><span class="p">)</span>
+<span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">ACCNUM</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aACCNUM</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
+                             <span class="n">SYMBOL</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aSYMBOL</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
+                             <span class="n">UNIGENE</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aUNIGENE</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
+                             <span class="n">ENTREZID</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aENTREZID</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
+                             <span class="n">ENSEMBL</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aENSEMBL</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">),</span> 
+                             <span class="n">DESC</span><span class="o">=</span><span class="n">sapply</span><span class="p">(</span><span class="n">contents</span><span class="p">(</span><span class="n">hgu133aGENENAME</span><span class="p">),</span> <span class="n">paste</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="s2">", "</span><span class="p">))</span>
+<span class="n">write.table</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/myAnnot.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
+<span class="n">saveRDS</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">,</span> <span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span>
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
+
+<h1 id="deg-analysis-with-limma">DEG analysis with <code class="highlighter-rouge">limma</code></h1>
+
+<h2 id="generate-list-of-cel-names-defining-treatment-vs-control-comparisons">Generate list of CEL names defining treatment vs. control comparisons</h2>
+
+<p>The <code class="highlighter-rouge">sampleList</code> function extracts the sample comparisons (contrasts) from the
+CMAP annotation table and stores them as a list.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">cmap</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/cmap_instances_02.txt"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> 
+<span class="c1"># comp_list &lt;- sampleList(cmap, myby="CMP")
+</span><span class="n">comp_list</span> <span class="o">&lt;-</span> <span class="n">sampleList</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">myby</span><span class="o">=</span><span class="s2">"CMP_CELL"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<h2 id="load-normalized-expression-data">Load normalized expression data</h2>
+
+<p>The following loads the MAS5 normalized expression data into a single <code class="highlighter-rouge">data.frame</code>. 
+To accelerate the import, the data is read from <code class="highlighter-rouge">rds</code> files.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">chiptype_dir</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">readRDS</span><span class="p">(</span><span class="s2">"./data/chiptype.rds"</span><span class="p">))</span>
+<span class="n">df1</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/"</span><span class="p">,</span> <span class="n">chiptype_dir</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="s2">"/"</span><span class="p">,</span> <span class="s2">"all_mas5exprs.rds"</span><span class="p">))</span>
+<span class="n">df2</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/"</span><span class="p">,</span> <span class="n">chiptype_dir</span><span class="p">[</span><span class="m">2</span><span class="p">],</span> <span class="s2">"/"</span><span class="p">,</span> <span class="s2">"all_mas5exprs.rds"</span><span class="p">))</span>
+<span class="n">df3</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"data/"</span><span class="p">,</span> <span class="n">chiptype_dir</span><span class="p">[</span><span class="m">3</span><span class="p">],</span> <span class="s2">"/"</span><span class="p">,</span> <span class="s2">"all_mas5exprs.rds"</span><span class="p">))</span>
+<span class="n">affyid</span> <span class="o">&lt;-</span> <span class="n">rownames</span><span class="p">(</span><span class="n">df1</span><span class="p">)[</span><span class="n">rownames</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">df2</span><span class="p">)];</span> <span class="n">affyid</span> <span class="o">&lt;-</span> <span class="n">affyid</span><span class="p">[</span><span class="n">affyid</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">df3</span><span class="p">)]</span>
+<span class="n">mas5df</span> <span class="o">&lt;-</span> <span class="n">cbind</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="n">affyid</span><span class="p">,],</span> <span class="n">df2</span><span class="p">[</span><span class="n">affyid</span><span class="p">,],</span> <span class="n">df3</span><span class="p">[</span><span class="n">affyid</span><span class="p">,])</span>
+</code></pre>
+</div>
 
 <h2 id="transform-probe-set-to-gene-level-data">Transform probe set to gene level data</h2>
+<p>The next step generates gene level expression values. If genes are represented by several
+probe sets then their mean intensities are used. This is necessary because 
+the U133 chip contains many genes with duplicated probe sets. Probe sets not matching 
+any gene are removed.</p>
 
-<p>The <code>probeset2gene</code> function translates a binary DEG matrix from the probe level (<code>row.names</code> are
-Affy IDs) to the gene level (<code>row.names</code> are gene IDs). Genes represented by several probe
-sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are
-supported: <code>summary_rule=1L</code> will consider a gene as a DEG for a specific treatment if at 
-least one of several probe sets supports this assignment, while <code>summary_rule=2L</code> requires 
-support from at least 2 probe sets.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span> 
+<span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">myAnnot</span><span class="p">[</span><span class="n">as.character</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[,</span><span class="s2">"ENTREZID"</span><span class="p">])</span> <span class="o">!=</span> <span class="s2">"NA"</span><span class="p">,]</span>
+<span class="n">mas5df</span> <span class="o">&lt;-</span> <span class="n">mas5df</span><span class="p">[</span><span class="n">rownames</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">),]</span>
+<span class="n">idlist</span> <span class="o">&lt;-</span> <span class="n">tapply</span><span class="p">(</span><span class="n">row.names</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">),</span> <span class="n">as.character</span><span class="p">(</span><span class="n">myAnnot</span><span class="o">$</span><span class="n">ENTREZID</span><span class="p">),</span> <span class="n">c</span><span class="p">)</span>
+<span class="n">mas5df</span> <span class="o">&lt;-</span> <span class="n">t</span><span class="p">(</span><span class="n">sapply</span><span class="p">(</span><span class="n">names</span><span class="p">(</span><span class="n">idlist</span><span class="p">),</span> <span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">colMeans</span><span class="p">(</span><span class="n">mas5df</span><span class="p">[</span><span class="n">idlist</span><span class="p">[[</span><span class="n">x</span><span class="p">]],</span> <span class="p">])))</span>
+</code></pre>
+</div>
 
-<p><code>r
-myAnnot &lt;- readRDS("./results/myAnnot.rds") 
-degMA &lt;- readRDS("./results/degMA.rds") # Faster than read.delim()
-degMAgene &lt;- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
-saveRDS(degMAgene, "./results/degMAgene.rds")
-</code></p>
 <div align="right">[Back to Table of Contents]()</div>
 
-<h2 id="number-of-degs-per-drug-treatment">Number of DEGs per drug treatment</h2>
+<h2 id="deg-analysis-with-limma-1">DEG analysis with <code class="highlighter-rouge">limma</code></h2>
 
-<p><code>r
-degMAgene &lt;- readRDS("./results/degMAgene.rds")
-y &lt;- as.numeric(colSums(degMAgene))
-interval &lt;- table(cut(y, right=FALSE, dig.lab=5,  breaks=c(0, 5, 10, 50, 100, 200, 500, 1000, 10000)))
-df &lt;- data.frame(interval); colnames(df) &lt;- c("Bins", "Counts")
-ggplot(df, aes(Bins, Counts)) + 
-       geom_bar(position="dodge", stat="identity", fill="cornflowerblue") + 
-       ggtitle("DEG numbers by bins")
-</code></p>
+<p>The analysis of differentially expressed genes (DEGs) is performed with the <code class="highlighter-rouge">limma</code> package.
+Genes meeting the chosen cutoff criteria are reported as DEGs (below set to FDR of 10% and 
+a minimum fold change of 2). The DEG matrix is written to a file named 
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degMA.xls"><code class="highlighter-rouge">degMA.xls</code></a>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">degList</span> <span class="o">&lt;-</span> <span class="n">runLimma</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">log2</span><span class="p">(</span><span class="n">mas5df</span><span class="p">),</span> <span class="n">comp_list</span><span class="p">,</span> <span class="n">fdr</span><span class="o">=</span><span class="m">0.10</span><span class="p">,</span> <span class="n">foldchange</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">TRUE</span><span class="p">,</span> <span class="n">affyid</span><span class="o">=</span><span class="n">NULL</span><span class="p">)</span>
+<span class="n">write.table</span><span class="p">(</span><span class="n">degList</span><span class="o">$</span><span class="n">DEG</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/degMA.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
+<span class="n">saveRDS</span><span class="p">(</span><span class="n">degList</span><span class="o">$</span><span class="n">DEG</span><span class="p">,</span> <span class="s2">"./results/degMA.rds"</span><span class="p">)</span> <span class="c1"># saves binary matrix 
+</span><span class="n">saveRDS</span><span class="p">(</span><span class="n">degList</span><span class="p">,</span> <span class="s2">"./results/degList.rds"</span><span class="p">)</span> <span class="c1"># saves entire degList
+</span></code></pre>
+</div>
+
+<div align="right">[Back to Table of Contents]()</div>
+
+<!-- Not neceassary anymore since intensities of genes with multiple probe sets are averaged
+## Transform probe set to gene level data
+
+The `probeset2gene` function translates a binary DEG matrix from the probe level (`row.names` are
+Affy IDs) to the gene level (`row.names` are gene IDs). Genes represented by several probe
+sets (rows) will be collapsed based on a chosen summary rule. The following summary rules are
+supported: `summary_rule=1L` will consider a gene as a DEG for a specific treatment if at 
+least one of several probe sets supports this assignment, while `summary_rule=2L` requires 
+support from at least 2 probe sets.
+
+
+```r
+myAnnot <- readRDS("./results/myAnnot.rds") 
+degMA <- readRDS("./results/degMA.rds") # Faster than read.delim()
+degMAgene <- probeset2gene(degMA, myAnnot, geneIDtype="ENTREZID", summary_rule=1L)
+saveRDS(degMAgene, "./results/degMAgene.rds")
+```
+<div align="right">[Back to Table of Contents]()</div>
+-->
+
+<h2 id="number-of-degs-across-drug-treatments">Number of DEGs across drug treatments</h2>
+
+<p>The following plots the number of drug treatments (y-axis) for increasing bin sizes (x-axis) 
+of DEGs.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">degMAgene</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degMA.rds"</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">&lt;-</span> <span class="n">as.numeric</span><span class="p">(</span><span class="n">colSums</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">))</span>
+<span class="n">interval</span> <span class="o">&lt;-</span> <span class="n">table</span><span class="p">(</span><span class="n">cut</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">dig.lab</span><span class="o">=</span><span class="m">5</span><span class="p">,</span>  <span class="n">breaks</span><span class="o">=</span><span class="n">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">10</span><span class="p">,</span> <span class="m">50</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">500</span><span class="p">,</span> <span class="m">1000</span><span class="p">,</span> <span class="m">10000</span><span class="p">)))</span>
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">interval</span><span class="p">);</span> <span class="n">colnames</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"Bins"</span><span class="p">,</span> <span class="s2">"Counts"</span><span class="p">)</span>
+<span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">Bins</span><span class="p">,</span> <span class="n">Counts</span><span class="p">))</span> <span class="o">+</span> 
+       <span class="n">geom_bar</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">"dodge"</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">"identity"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"cornflowerblue"</span><span class="p">)</span> <span class="o">+</span> 
+       <span class="n">ggtitle</span><span class="p">(</span><span class="s2">"DEG numbers by bins"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p><img src="longevityTools_eDRUG_files/figure-html/deg_distr-1.png" alt="" /><!-- --></p>
 
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="identify-deg-overlaps-with-peters-et-al--peters2015-fc">Identify DEG overlaps with Peters et al. [-@Peters2015-fc]</h2>
 
 <p>Peters et al. [-@Peters2015-fc] reported 1,497 age-related gene expression
-signatures.  The <code>intersectStats</code> function computes their intersects with each
+signatures.  The <code class="highlighter-rouge">intersectStats</code> function computes their intersects with each
 of the 3,318 drug-responsive DEG sets from CMAP. The result includes the
 Jaccard index as a simple similarity metric for gene sets as well as the raw
 and adjusted p-values based on the hypergeometric distribution expressing how
-likely it is to observe the observed intersect sizes just by chance. The
+likely it is to obtain the observed intersect sizes just by chance. The
 results for the 20 top scoring drugs are given below and the full data set is
 written to a file named
-<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code>degOL_PMID26490707.xls</code></a>.</p>
+<a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26490707.xls"><code class="highlighter-rouge">degOL_PMID26490707.xls</code></a>.</p>
 
-<p><code>r
-PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#")
-myAnnot &lt;- readRDS("./results/myAnnot.rds") 
-geneid &lt;- as.character(PMID26490707$"NEW.Entrez.ID")
-degMAgene &lt;- readRDS("./results/degMAgene.rds") # Faster than read.delim()
-degMAsub &lt;- degMAgene[rownames(degMAgene) %in% geneid,]
-degOL_PMID26490707 &lt;- intersectStats(degMAgene, degMAsub)
-write.table(degOL_PMID26490707, file="./results/degOL_PMID26490707.xls", quote=FALSE, sep="\t", col.names = NA) 
-sum(degOL_PMID26490707[,1] &gt; 0) # Drugs with any overlap
-degOL_PMID26490707[1:20,]
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+<span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span> 
+<span class="n">geneid</span> <span class="o">&lt;-</span> <span class="n">as.character</span><span class="p">(</span><span class="n">PMID26490707</span><span class="o">$</span><span class="s2">"NEW.Entrez.ID"</span><span class="p">)</span>
+<span class="n">degMAgene</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degMA.rds"</span><span class="p">)</span> <span class="c1"># Faster than read.delim()
+</span><span class="n">degMAsub</span> <span class="o">&lt;-</span> <span class="n">degMAgene</span><span class="p">[</span><span class="n">rownames</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">)</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">geneid</span><span class="p">,]</span>
+<span class="n">degOL_PMID26490707</span> <span class="o">&lt;-</span> <span class="n">intersectStats</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">,</span> <span class="n">degMAsub</span><span class="p">)</span>
+<span class="n">write.table</span><span class="p">(</span><span class="n">degOL_PMID26490707</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/degOL_PMID26490707.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
+<span class="n">sum</span><span class="p">(</span><span class="n">degOL_PMID26490707</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="c1"># Drugs with any overlap
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 1137
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">degOL_PMID26490707</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##                                Jaccard_Index longevity_DEG cmap_DEG Intersect         Pval
+## alprostadil_HL60                  0.10272537          1192      912       196 1.706881e-29
+## dihydroergotamine_HL60            0.06187625          1192      404        93 3.698500e-16
+## pergolide_HL60                    0.07815080          1192      767       142 2.631561e-15
+## (-)-isoprenaline_HL60             0.05113636          1192      288        72 1.087773e-14
+## Prestwick-983_HL60                0.05948447          1192      411        90 2.785586e-14
+## nocodazole_HL60                   0.06384324          1192      491       101 4.863951e-14
+## anisomycin_HL60                   0.09790419          1192     2475       327 2.312553e-11
+## tetryzoline_HL60                  0.03366488          1192      159        44 4.993036e-11
+## mebendazole_HL60                  0.06041924          1192      528        98 6.663275e-11
+## methylergometrine_HL60            0.04436620          1192      291        63 3.825164e-10
+## lycorine_HL60                     0.09093994          1192     2023       268 2.411922e-09
+## podophyllotoxin_HL60              0.04175513          1192      280        59 4.108204e-09
+## colchicine_HL60                   0.03181818          1192      170        42 5.960591e-09
+## co-dergocrine mesilate_HL60       0.05239617          1192      455        82 1.062344e-08
+## puromycin_HL60                    0.05060858          1192      448        79 5.282895e-08
+## tretinoin_HL60                    0.03738318          1192      251        52 6.182212e-08
+## 15-delta prostaglandin J2_HL60    0.04560698          1192      367        68 6.583181e-08
+## geldanamycin_HL60                 0.03068862          1192      185        41 2.331048e-07
+## bromocriptine_HL60                0.02739726          1192      158        36 6.194257e-07
+## apigenin_HL60                     0.06292967          1192      818       119 1.601978e-06
+##                                    adj_Pval
+## alprostadil_HL60               5.936533e-26
+## dihydroergotamine_HL60         1.286338e-12
+## pergolide_HL60                 9.152569e-12
+## (-)-isoprenaline_HL60          3.783276e-11
+## Prestwick-983_HL60             9.688270e-11
+## nocodazole_HL60                1.691682e-10
+## anisomycin_HL60                8.043059e-08
+## tetryzoline_HL60               1.736578e-07
+## mebendazole_HL60               2.317487e-07
+## methylergometrine_HL60         1.330392e-06
+## lycorine_HL60                  8.388664e-06
+## podophyllotoxin_HL60           1.428833e-05
+## colchicine_HL60                2.073093e-05
+## co-dergocrine mesilate_HL60    3.694832e-05
+## puromycin_HL60                 1.837391e-04
+## tretinoin_HL60                 2.150173e-04
+## 15-delta prostaglandin J2_HL60 2.289630e-04
+## geldanamycin_HL60              8.107384e-04
+## bromocriptine_HL60             2.154363e-03
+## apigenin_HL60                  5.571679e-03
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="identify-deg-overlaps-with-sood-et-al--sood2015-pb">Identify DEG overlaps with Sood et al. [-@Sood2015-pb]</h2>
 
 <p>Sood et al. [-@Sood2015-pb] reported 150 age-related gene expression signatures. 
-The <code>intersectStats</code> function computes their intersects with each of the 3,318 
+The <code class="highlighter-rouge">intersectStats</code> function computes their intersects with each of the 3,318 
 drug-responsive DEG sets from CMAP. The result includes the Jaccard index as a simple 
 similarity metric for gene sets as well as the raw and adjusted p-values based on the 
 hypergeometric distribution expressing how likely it is to observe the observed intersect 
 sizes just by chance. The results for the 20 top scoring drugs are given below and the full
-data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code>degOL_PMID26343147.xls</code></a>.</p>
+data set is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/degOL_PMID26343147.xls"><code class="highlighter-rouge">degOL_PMID26343147.xls</code></a>.</p>
 
-<p><code>r
-PMID26343147 &lt;- read.delim("./data/PMID26343147_S1T1.xls", check.names=FALSE, comment="#")
-myAnnot &lt;- readRDS("./results/myAnnot.rds") 
-affyid &lt;- row.names(myAnnot[myAnnot[,"SYMBOL"] %in% PMID26343147[,"Gene Symbol"], ]) 
-degMA &lt;- readRDS("./results/degMA.rds") # Faster then read.delim()
-degMA &lt;- degMA[ , !is.na(colSums(degMA))] # Remove columns where DEG analysis was not possible
-degMAsub &lt;- degMA[affyid,]
-degOL_PMID26343147 &lt;- intersectStats(degMAgene, degMAsub)
-write.table(degOL_PMID26343147, file="./results/degOL_PMID26343147.xls", quote=FALSE, sep="\t", col.names = NA) 
-sum(degOL_PMID26343147[,1] &gt; 0) # Drugs with any overlap
-degOL_PMID26343147[1:20,] # Top 20 scoring drugs
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">PMID26343147</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26343147_S1T1.xls"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">)</span>
+<span class="n">myAnnot</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/myAnnot.rds"</span><span class="p">)</span> 
+<span class="n">geneid</span> <span class="o">&lt;-</span> <span class="n">as.character</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[</span><span class="n">rownames</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">)</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">as.character</span><span class="p">(</span><span class="n">PMID26343147</span><span class="p">[,</span><span class="m">1</span><span class="p">]),</span> <span class="s2">"ENTREZID"</span><span class="p">])</span>
+<span class="n">geneid</span> <span class="o">&lt;-</span> <span class="n">geneid</span><span class="p">[</span><span class="n">geneid</span><span class="o">!=</span><span class="s2">"NA"</span><span class="p">]</span>
+<span class="n">degMA</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degMA.rds"</span><span class="p">)</span> <span class="c1"># Faster then read.delim()
+</span><span class="n">degMA</span> <span class="o">&lt;-</span> <span class="n">degMA</span><span class="p">[</span> <span class="p">,</span> <span class="o">!</span><span class="n">is.na</span><span class="p">(</span><span class="n">colSums</span><span class="p">(</span><span class="n">degMA</span><span class="p">))]</span> <span class="c1"># Remove columns where DEG analysis was not possible
+</span><span class="n">degMAsub</span> <span class="o">&lt;-</span> <span class="n">degMA</span><span class="p">[</span><span class="n">geneid</span><span class="p">,]</span>
+<span class="n">degOL_PMID26343147</span> <span class="o">&lt;-</span> <span class="n">intersectStats</span><span class="p">(</span><span class="n">degMAgene</span><span class="p">,</span> <span class="n">degMAsub</span><span class="p">)</span>
+<span class="n">write.table</span><span class="p">(</span><span class="n">degOL_PMID26343147</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/degOL_PMID26343147.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
+<span class="n">sum</span><span class="p">(</span><span class="n">degOL_PMID26343147</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="c1"># Drugs with any overlap
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 223
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">degOL_PMID26343147</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span> <span class="c1"># Top 20 scoring drugs
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##                        Jaccard_Index longevity_DEG cmap_DEG Intersect        Pval adj_Pval
+## colecalciferol_MCF7      0.017857143            55        2         1 0.008821835        1
+## esculin_HL60             0.017857143            55        2         1 0.008821835        1
+## flecainide_MCF7          0.017857143            55        2         1 0.008821835        1
+## ribostamycin_MCF7        0.017857143            55        2         1 0.008821835        1
+## withaferin A_MCF7        0.016000000            55      199         4 0.011470972        1
+## dexamethasone_HL60       0.022222222            55       37         2 0.011573654        1
+## lobeline_HL60            0.007987220            55     1838        15 0.011600566        1
+## idoxuridine_MCF7         0.017543860            55        3         1 0.013204054        1
+## metronidazole_MCF7       0.017543860            55        3         1 0.013204054        1
+## sulpiride_MCF7           0.017543860            55        3         1 0.013204054        1
+## ampyrone_HL60            0.008880995            55     1081        10 0.018769135        1
+## chlortetracycline_HL60   0.008080808            55     1442        12 0.021597597        1
+## estropipate_MCF7         0.016949153            55        5         1 0.021911500        1
+## flunixin_PC3             0.016949153            55        5         1 0.021911500        1
+## sulfafurazole_HL60       0.018867925            55       53         2 0.022894704        1
+## (-)-MK-801_MCF7          0.016666667            55        6         1 0.026236889        1
+## carbarsone_PC3           0.016666667            55        6         1 0.026236889        1
+## famprofazone_HL60        0.016666667            55        6         1 0.026236889        1
+## guanethidine_HL60        0.016666667            55        6         1 0.026236889        1
+## cefalotin_MCF7           0.016393443            55        7         1 0.030543497        1
+</code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="drugs-affecting-known-longevity-genes">Drugs affecting known longevity genes</h2>
 
 <p>The following identifies CMAP drugs affecting the expression of the IGF1 or IGF1R genes.
-The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code>deg_IGF1.xls</code></a>.</p>
+The final result is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/deg_IGF1.xls"><code class="highlighter-rouge">deg_IGF1.xls</code></a>.</p>
 
-<p><code>r
-genesymbols &lt;- c("IGF1", "IGF1R")
-geneids &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
-names(geneids) &lt;- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
-degMAgene &lt;- readRDS("./results/degMAgene.rds") # Faster than read.delim()
-df &lt;- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
-for(i in seq_along(geneids)) df &lt;- cbind(df, as.numeric(degMAgene[geneids[i],]))
-colnames(df) &lt;- names(geneids)
-df &lt;- df[rowSums(df)&gt;0,]
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">genesymbols</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"IGF1"</span><span class="p">,</span> <span class="s2">"IGF1R"</span><span class="p">)</span>
+<span class="n">geneids</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">as.character</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[</span><span class="n">myAnnot</span><span class="o">$</span><span class="n">SYMBOL</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">genesymbols</span><span class="p">,</span><span class="s2">"ENTREZID"</span><span class="p">]))</span>
+<span class="n">names</span><span class="p">(</span><span class="n">geneids</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">as.character</span><span class="p">(</span><span class="n">myAnnot</span><span class="p">[</span><span class="n">myAnnot</span><span class="o">$</span><span class="n">SYMBOL</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">genesymbols</span><span class="p">,</span><span class="s2">"SYMBOL"</span><span class="p">]))</span>
+<span class="n">degList</span> <span class="o">&lt;-</span> <span class="n">readRDS</span><span class="p">(</span><span class="s2">"./results/degList.rds"</span><span class="p">)</span> 
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">row.names</span><span class="o">=</span><span class="n">colnames</span><span class="p">(</span><span class="n">degList</span><span class="o">$</span><span class="n">DEG</span><span class="p">),</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
+<span class="n">index</span> <span class="o">&lt;-</span> <span class="n">which</span><span class="p">(</span><span class="n">colSums</span><span class="p">(</span><span class="n">degList</span><span class="o">$</span><span class="n">DEG</span><span class="p">[</span><span class="n">geneids</span><span class="p">,])</span><span class="o">&gt;=</span> <span class="m">1</span><span class="p">)</span> 
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="n">seq_along</span><span class="p">(</span><span class="n">geneids</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">tmp</span> <span class="o">&lt;-</span> <span class="n">data.frame</span><span class="p">(</span><span class="n">DEG</span><span class="o">=</span><span class="n">degList</span><span class="o">$</span><span class="n">DEG</span><span class="p">[</span><span class="n">geneids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">index</span><span class="p">],</span> <span class="n">logFC</span><span class="o">=</span><span class="n">degList</span><span class="o">$</span><span class="n">logFC</span><span class="p">[</span><span class="n">geneids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">index</span><span class="p">],</span> <span class="n">FDR</span><span class="o">=</span><span class="n">degList</span><span class="o">$</span><span class="n">FDR</span><span class="p">[</span><span class="n">geneids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">index</span><span class="p">])</span>
+    <span class="n">colnames</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">paste0</span><span class="p">(</span><span class="n">names</span><span class="p">(</span><span class="n">geneids</span><span class="p">)[</span><span class="n">i</span><span class="p">],</span> <span class="s2">"_"</span><span class="p">,</span> <span class="n">colnames</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
+    <span class="n">df</span> <span class="o">&lt;-</span> <span class="n">cbind</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tmp</span><span class="p">[</span><span class="n">rownames</span><span class="p">(</span><span class="n">df</span><span class="p">),]</span> <span class="p">)</span>    
+<span class="p">}</span>
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="n">df</span><span class="p">[</span><span class="n">names</span><span class="p">(</span><span class="n">index</span><span class="p">),]</span>
+<span class="n">write.table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/deg_IGF1.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
+</code></pre>
+</div>
+
+<p>Now the final <code class="highlighter-rouge">data.frame</code> can be sorted by increasing mean FDR values.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">igfDF</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./results/deg_IGF1.xls"</span><span class="p">,</span> <span class="n">row.names</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+<span class="n">igfDF</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">rowMeans</span><span class="p">(</span><span class="n">igfDF</span><span class="p">[,</span><span class="n">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">6</span><span class="p">)])),][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##                                IGF1R_DEG IGF1R_logFC     IGF1R_FDR IGF1_DEG  IGF1_logFC   IGF1_FDR
+## camptothecin_MCF7                      1 -1.48180690  4.867357e-07        0  0.94295576 0.07821138
+## 0175029-0000_MCF7                      0 -0.62026588  1.193479e-01        1 -1.01210916 0.04295254
+## cicloheximide_HL60                     1 -1.29607754  2.054384e-02        0  1.67183429 0.16908728
+## emetine_HL60                           1 -1.23843896  3.085463e-03        0  1.03812083 0.26576009
+## digoxigenin_PC3                        0  0.54850849  2.488776e-01        1 -1.27142976 0.04219010
+## anisomycin_HL60                        1 -2.85399433  1.481347e-03        0  0.66701644 0.44025263
+## vorinostat_MCF7                        1 -1.50640830  3.143781e-17        0  0.37179771 0.45437384
+## irinotecan_MCF7                        1 -2.26588384  9.895790e-02        0 -1.05446828 0.41746319
+## tyrphostin AG-825_MCF7                 1 -1.03570748  3.440048e-02        0  1.57208567 0.51400841
+## trichostatin A_MCF7                    1 -1.27541131 6.943847e-127        0  0.07335895 0.55046789
+## baclofen_HL60                          1  1.14379132  8.226627e-02        0 -1.00641253 0.53322529
+## 8-azaguanine_PC3                       1 -1.04668136  7.466879e-02        0 -0.97679589 0.65221001
+## verteporfin_MCF7                       1 -1.11136304  1.226251e-03        0  0.64194152 0.78463681
+## piperlongumine_MCF7                    1 -1.03214332  1.088011e-02        0  0.53820854 0.78914488
+## verteporfin_HL60                       1 -1.17232840  4.923492e-02        0  1.09438523 0.75358370
+## cephaeline_HL60                        1 -1.13448661  1.479635e-02        0 -0.19882135 0.86619935
+## lycorine_HL60                          1 -1.93807396  1.390079e-03        0 -0.23062131 0.88748758
+## doxorubicin_MCF7                       1 -1.08389932  4.035039e-04        0  0.12613722 0.92452703
+## anisomycin_MCF7                        0  0.06265744  8.938603e-01        1 -1.55915713 0.04355888
+## 15-delta prostaglandin J2_MCF7         0  0.01396391  9.774076e-01        1  1.03626957 0.09233156
+</code></pre>
+</div>
+
+<!-- old version
+
+```r
+genesymbols <- c("IGF1", "IGF1R")
+geneids <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"ENTREZID"]))
+names(geneids) <- unique(as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"]))
+degMAgene <- readRDS("./results/degMA.rds") # Faster than read.delim()
+df <- data.frame(row.names=colnames(degMAgene), check.names=FALSE)
+for(i in seq_along(geneids)) df <- cbind(df, as.numeric(degMAgene[geneids[i],]))
+colnames(df) <- names(geneids)
+df <- df[rowSums(df)>0,]
 nrow(df) # Number of drugs affecting at least one of: IGF1 or IGF1R
-</code></p>
+```
 
-<p>The following computes the <code>limma</code> FDR values for the corresponding genes (here IGF1 and IGF1R) 
-and drug treatments.</p>
+```
+## [1] 20
+```
 
-<p><code>r
-affyids2 &lt;- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
-affyids &lt;- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"])
-names(affyids) &lt;- affyids2
-cmap &lt;- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
-comp_list &lt;- sampleList(cmap, myby="CMP_CELL")
-comp_list &lt;- comp_list[row.names(df)]
-degList &lt;- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
-pvalDF &lt;- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,"adj.P.Val"])))
-colnames(pvalDF) &lt;- paste0(colnames(pvalDF), "_FDR")
-df &lt;- cbind(df, pvalDF)
+The following computes the `limma` FDR values for the corresponding genes (here IGF1 and IGF1R) 
+and drug treatments.
+
+```r
+affyids2 <- row.names(myAnnot[myAnnot$SYMBOL %in% genesymbols,])
+affyids <- as.character(myAnnot[myAnnot$SYMBOL %in% genesymbols,"SYMBOL"])
+names(affyids) <- affyids2
+cmap <- read.delim("./data/cmap_instances_02.txt", check.names=FALSE) 
+comp_list <- sampleList(cmap, myby="CMP_CELL")
+comp_list <- comp_list[row.names(df)]
+degList <- runLimma(df=mas5df, comp_list, fdr=0.10, foldchange=1, verbose=FALSE, affyid=names(affyids))
+pvalDF <- sapply(unique(affyids), function(x) sapply(rownames(df), function(y) min(degList[[y]][affyids==x,"adj.P.Val"])))
+colnames(pvalDF) <- paste0(colnames(pvalDF), "_FDR")
+df <- cbind(df, pvalDF)
 write.table(df, file="./results/deg_IGF1.xls", quote=FALSE, sep="\t", col.names = NA) 
-</code></p>
+```
+-->
+<div align="right">[Back to Table of Contents]()</div>
 
-<p>Now the final <code>data.frame</code> can be sorted by increasing mean FDR values.</p>
+<h2 id="plot-structures-of-compounds">Plot structures of compounds</h2>
 
-<p><code>r
-igfDF &lt;- read.delim("./results/deg_IGF1.xls", row.names=1)
-igfDF[order(rowMeans(igfDF[,3:4])),][1:20,]
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ChemmineR</span><span class="p">)</span>
+<span class="n">mypath</span> <span class="o">&lt;-</span> <span class="n">system.file</span><span class="p">(</span><span class="s2">"extdata"</span><span class="p">,</span> <span class="s2">"longevitydrugs.sdf"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span>
+<span class="n">mypath</span> <span class="o">&lt;-</span> <span class="s2">"../inst/extdata/longevitydrugs.sdf"</span>
+<span class="n">sdfset</span> <span class="o">&lt;-</span> <span class="n">read.SDFset</span><span class="p">(</span><span class="n">mypath</span><span class="p">)</span>
+<span class="n">data</span><span class="p">(</span><span class="n">sdfsample</span><span class="p">)</span>
+<span class="n">sdfsample</span>
+</code></pre>
+</div>
 
+<div class="highlighter-rouge"><pre class="highlight"><code>## An instance of "SDFset" with 100 molecules
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">sdfsample</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">],</span> <span class="n">print</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p><img src="longevityTools_eDRUG_files/figure-html/plot_sdf-1.png" alt="" /><!-- --></p>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h1 id="connectivity-maps-enrichment-analysis">Connectivity maps enrichment analysis</h1>
@@ -1178,22 +1451,55 @@ down-regulated genes at the top and bottom of sorted (ranked) gene lists.</p>
 <p>The following uses the 1,497 age-related gene expression signatures from Peters et al. 
 [-@Peters2015-fc] as a query against the CMAP signatures. The results are sorted by the
 ES Distance and the top scoring 20 drugs are given below. The full result table is<br />
-written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code>drugcmap2.xls</code></a>.</p>
+written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/drugcmap2.xls"><code class="highlighter-rouge">drugcmap2.xls</code></a>.</p>
 
-<p><code>r
-library(DrugVsDisease)
-PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
-data(drugRL)
-PMID26490707sub &lt;- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(drugRL),]
-testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
-                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
-drugcmap &lt;- classifyprofile(data=testprofiles$ranklist, case="disease", signif.fdr=0.5, no.signif=20)
-drugcmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case="disease", 
-                            pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
-                            dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
-write.table(drugcmap2, file="./results/drugcmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
-drugcmap2[[1]][1:20,]
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">DrugVsDisease</span><span class="p">)</span>
+<span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
+<span class="n">data</span><span class="p">(</span><span class="n">drugRL</span><span class="p">)</span>
+<span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">PMID26490707</span><span class="p">[</span><span class="n">PMID26490707</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">]</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">drugRL</span><span class="p">),]</span>
+<span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">PMID26490707sub</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">Zscore</span><span class="p">,</span> <span class="n">decreasing</span><span class="o">=</span><span class="n">TRUE</span><span class="p">),]</span>
+<span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">rbind</span><span class="p">(</span><span class="n">head</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">,</span> <span class="m">100</span><span class="p">),</span> <span class="n">tail</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">,</span> <span class="m">100</span><span class="p">))</span> <span class="c1"># Subsets to top 200 DEGs 
+</span><span class="n">testprofiles</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">(</span><span class="n">ranklist</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">Zscore</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])),</span> 
+                     <span class="n">pvalues</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">P</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])))</span>
+<span class="n">drugcmap</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"disease"</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
+<span class="n">drugcmap2</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"disease"</span><span class="p">,</span> 
+                            <span class="n">pvalues</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">cytoout</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s2">"dynamic"</span><span class="p">,</span> 
+                            <span class="n">dynamic.fdr</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">adj</span><span class="o">=</span><span class="s2">"BH"</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">1000</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## Number of Significant results greater than 1000 Using top 1000 hits - consider using average linkage instead
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">write.table</span><span class="p">(</span><span class="n">drugcmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/drugcmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
+<span class="n">drugcmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##                              Drug ES Distance Cluster RPS
+## dipivefrine           dipivefrine       0.660      62   1
+## sulfathiazole       sulfathiazole       0.735      38   1
+## fludroxycortide   fludroxycortide       0.740      95   1
+## lobeline                 lobeline       0.740      38   1
+## naftifine               naftifine       0.740      42  -1
+## phenanthridinone phenanthridinone       0.750      99  -1
+## ethoxyquin             ethoxyquin       0.755      27   1
+## pentetrazol           pentetrazol       0.755      54   1
+## fulvestrant           fulvestrant       0.765      22   1
+## MS-275                     MS-275       0.770      84   1
+## sirolimus               sirolimus       0.770      98   1
+## physostigmine       physostigmine       0.775       1   1
+## thiethylperazine thiethylperazine       0.775       1   1
+## alvespimycin         alvespimycin       0.780      22   1
+## naltrexone             naltrexone       0.780      78   1
+## cimetidine             cimetidine       0.780      49   1
+## acebutolol             acebutolol       0.785      58   1
+## metolazone             metolazone       0.785      68   1
+## troleandomycin     troleandomycin       0.785      45   1
+## S-propranolol       S-propranolol       0.790      76   1
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -1201,21 +1507,52 @@ drugcmap2[[1]][1:20,]
 
 <p>The same query is performed against a reference set of disease expression signatures.
 The results are sorted by the ES Distance and the top scoring 20 drugs are given below. 
-The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code>diseasecmap2.xls</code></a>.</p>
+The full result table is written to a file named <a href="http://biocluster.ucr.edu/~tgirke/projects/longevity/cmap/results/diseasecmap2.xls"><code class="highlighter-rouge">diseasecmap2.xls</code></a>.</p>
 
-<p><code>r
-PMID26490707 &lt;- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
-data(diseaseRL)
-PMID26490707sub &lt;- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(diseaseRL),]
-testprofiles &lt;- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
-                     pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
-diseasecmap &lt;- classifyprofile(data=testprofiles$ranklist, case="drug", signif.fdr=0.5, no.signif=20)
-diseasecmap2 &lt;- classifyprofile(data=testprofiles$ranklist, case="drug", 
-                            pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
-                            dynamic.fdr=0.5, adj="BH", no.signif=100)
-write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
-diseasecmap2[[1]][1:20,]
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">PMID26490707</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/PMID26490707_S1.xls"</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">"#"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
+<span class="n">data</span><span class="p">(</span><span class="n">diseaseRL</span><span class="p">)</span>
+<span class="n">PMID26490707sub</span> <span class="o">&lt;-</span> <span class="n">PMID26490707</span><span class="p">[</span><span class="n">PMID26490707</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">]</span> <span class="o">%</span><span class="k">in</span><span class="o">%</span> <span class="n">rownames</span><span class="p">(</span><span class="n">diseaseRL</span><span class="p">),]</span>
+<span class="n">testprofiles</span> <span class="o">&lt;-</span> <span class="n">list</span><span class="p">(</span><span class="n">ranklist</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">Zscore</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])),</span> 
+                     <span class="n">pvalues</span><span class="o">=</span><span class="n">matrix</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="o">$</span><span class="n">P</span><span class="p">,</span> <span class="n">dimnames</span><span class="o">=</span><span class="n">list</span><span class="p">(</span><span class="n">PMID26490707sub</span><span class="p">[,</span><span class="s2">"NEW-Gene-ID"</span><span class="p">])))</span>
+<span class="n">diseasecmap</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> <span class="n">signif.fdr</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## Number of Significant results greater than 20 Using top 20 hits - consider using average linkage instead
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">diseasecmap2</span> <span class="o">&lt;-</span> <span class="n">classifyprofile</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">ranklist</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">"drug"</span><span class="p">,</span> 
+                            <span class="n">pvalues</span><span class="o">=</span><span class="n">testprofiles</span><span class="o">$</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">cytoout</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s2">"dynamic"</span><span class="p">,</span> 
+                            <span class="n">dynamic.fdr</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">adj</span><span class="o">=</span><span class="s2">"BH"</span><span class="p">,</span> <span class="n">no.signif</span><span class="o">=</span><span class="m">100</span><span class="p">)</span>
+<span class="n">write.table</span><span class="p">(</span><span class="n">diseasecmap2</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">"./results/diseasecmap2.xls"</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">,</span> <span class="n">col.names</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> 
+<span class="n">diseasecmap2</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,]</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##                                                     Disease ES Distance Cluster RPS
+## sarcoidosis                                     sarcoidosis   0.3630021       2   1
+## sepsis                                               sepsis   0.4779160       5  -1
+## aseptic-necrosis                           aseptic-necrosis   0.5624186       2   1
+## inflammatory-bowel-disease       inflammatory-bowel-disease   0.5738416       2   1
+## myelodysplastic-syndrome           myelodysplastic-syndrome   0.6118810       5  -1
+## acute-nonlymphocytic-leukemia acute-nonlymphocytic-leukemia   0.6428131       2   1
+## colorectal-cancer                         colorectal-cancer   0.6824003       3  -1
+## small-cell-lung-cancer               small-cell-lung-cancer   0.7086938       4  -1
+## periodontitis                                 periodontitis   0.7562997       1   1
+## soft-tissue-sarcoma                     soft-tissue-sarcoma   0.7610299       4  -1
+## schizophrenia                                 schizophrenia   0.7628188       6   1
+## multiple-sclerosis                       multiple-sclerosis   0.7704229       5  -1
+## juvenile-rheumatoid-arthritis juvenile-rheumatoid-arthritis   0.7825401       2   1
+## interstitial-cystitis                 interstitial-cystitis   0.7862240       3   1
+## osteoporosis                                   osteoporosis   0.7889821       5  -1
+## ulcerative-colitis                       ulcerative-colitis   0.7930566       3   1
+## parkinson-s-disease                     parkinson-s-disease   0.7952601       6   1
+## mania                                                 mania   0.8068711       6   1
+## prostate-cancer                             prostate-cancer   0.8263851       4  -1
+## bladder-cancer                               bladder-cancer   0.8314094       4  -1
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -1238,33 +1575,45 @@ diseasecmap2[[1]][1:20,]
 
 <h1 id="version-information">Version information</h1>
 
-<p><code>r
-sessionInfo()
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">sessionInfo</span><span class="p">()</span>
+</code></pre>
+</div>
 
-<p><code>
-## R version 3.2.3 (2015-12-10)
+<div class="highlighter-rouge"><pre class="highlight"><code>## R version 3.2.2 (2015-08-14)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 14.04.3 LTS
+## Running under: CentOS Linux 7 (Core)
 ## 
 ## locale:
-##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8       
-##  [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
-##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                  LC_ADDRESS=C              
-## [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## [1] C
 ## 
 ## attached base packages:
-## [1] stats     graphics  utils     datasets  grDevices methods   base     
+## [1] parallel  stats     graphics  utils     datasets  grDevices methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_2.0.0        longevityTools_1.0.3 BiocStyle_1.8.0     
+##  [1] DrugVsDisease_2.10.2    qvalue_2.2.2            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
+##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.5           
+##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     ChemmineR_2.22.3       
+## [13] reshape2_1.4.1          ggplot2_2.0.0           longevityTools_1.0.6    BiocStyle_1.8.0        
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.3      digest_0.6.9     plyr_1.8.3       grid_3.2.3       gtable_0.1.2    
-##  [6] formatR_1.2.1    magrittr_1.5     evaluate_0.8     scales_0.3.0     stringi_1.0-1   
-## [11] rmarkdown_0.9.2  tools_3.2.3      stringr_1.0.0    munsell_0.4.2    yaml_2.1.13     
-## [16] colorspace_1.2-6 htmltools_0.3    knitr_1.12
-</code></p>
+##  [1] SummarizedExperiment_1.0.2 oligo_1.34.2               splines_3.2.2             
+##  [4] colorspace_1.2-6           htmltools_0.3              stats4_3.2.2              
+##  [7] yaml_2.1.13                XML_3.98-1.3               DBI_0.3.1                 
+## [10] affyio_1.40.0              foreach_1.4.3              plyr_1.8.3                
+## [13] stringr_1.0.0              zlibbioc_1.16.0            Biostrings_2.38.1         
+## [16] munsell_0.4.3              gtable_0.1.2               codetools_0.2-14          
+## [19] evaluate_0.8               labeling_0.3               knitr_1.12.3              
+## [22] ff_2.2-13                  IRanges_2.4.3              BiocInstaller_1.20.1      
+## [25] GenomeInfoDb_1.6.3         AnnotationDbi_1.32.3       preprocessCore_1.32.0     
+## [28] Rcpp_0.12.3                scales_0.3.0               formatR_1.2.1             
+## [31] S4Vectors_0.8.7            XVector_0.10.0             affxparser_1.42.0         
+## [34] bit_1.1-12                 oligoClasses_1.32.0        rjson_0.2.15              
+## [37] digest_0.6.9               stringi_1.0-1              GenomicRanges_1.22.1      
+## [40] grid_3.2.2                 tools_3.2.2                bitops_1.0-6              
+## [43] magrittr_1.5               RCurl_1.95-4.7             RSQLite_1.0.0             
+## [46] rmarkdown_0.9.2            iterators_1.0.8
+</code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h1 id="references">References</h1>
@@ -1284,7 +1633,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: May 25, 2016 <br />
+ Site last generated: Oct 11, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

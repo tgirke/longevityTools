@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,8 +141,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,6 +468,121 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityTools</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
                     
 
                     
@@ -820,21 +913,21 @@ vignette can be found <a href="https://htmlpreview.github.io/?https://github.com
 
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
 
-<p><code>r
-source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
-biocLite("tgirke/longevityTools", build_vignettes=FALSE) # Installs package from GitHub
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s2">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span> <span class="c1"># Sources the biocLite.R installation script 
+</span><span class="n">biocLite</span><span class="p">(</span><span class="s2">"tgirke/longevityTools"</span><span class="p">,</span> <span class="n">build_vignettes</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="c1"># Installs package from GitHub
+</span></code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="loading-package-and-documentation">Loading package and documentation</h2>
 
-<p><code>r
-library("longevityTools") # Loads the package
-library(help="longevityTools") # Lists package info
-vignette("longevityTools") # Opens vignette
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Loads the package
+</span><span class="n">library</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Lists package info
+</span><span class="n">vignette</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Opens vignette
+</span></code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h1 id="setup-of-working-environment">Setup of working environment</h1>
@@ -842,23 +935,23 @@ vignette("longevityTools") # Opens vignette
 <h2 id="import-custom-functions">Import custom functions</h2>
 
 <p>Preliminary functions that are still under developement, or not fully tested and documented 
-can be imported with the <code>source</code> command from the <code>inst/extdata</code> directory of the package.</p>
+can be imported with the <code class="highlighter-rouge">source</code> command from the <code class="highlighter-rouge">inst/extdata</code> directory of the package.</p>
 
-<p><code>r
-fctpath &lt;- system.file("extdata", "longevityTools_eQTL_Fct.R", package="longevityTools")
-source(fctpath)
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">fctpath</span> <span class="o">&lt;-</span> <span class="n">system.file</span><span class="p">(</span><span class="s2">"extdata"</span><span class="p">,</span> <span class="s2">"longevityTools_eQTL_Fct.R"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span>
+<span class="n">source</span><span class="p">(</span><span class="n">fctpath</span><span class="p">)</span>
+</code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="create-expected-directory-structure">Create expected directory structure</h2>
 
 <p>The following creates the directory structure expected by this workflow. Input data
-will be stored in the <code>data</code> directory and results will be written to the <code>results</code> directory.
+will be stored in the <code class="highlighter-rouge">data</code> directory and results will be written to the <code class="highlighter-rouge">results</code> directory.
 All paths are given relative to the present working directory of the user’s R session.</p>
 
-<p><code>r
-dir.create("data"); dir.create("results") 
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">dir.create</span><span class="p">(</span><span class="s2">"data"</span><span class="p">);</span> <span class="n">dir.create</span><span class="p">(</span><span class="s2">"results"</span><span class="p">)</span> 
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -866,27 +959,26 @@ dir.create("data"); dir.create("results")
 <p>The eQTL data used in this vignette can be downloaded from the <a href="http://www.gtexportal.org/home/datasets">GTEx site</a>.
 Note, the following downloads a 1.3GB file, which will take some time.</p>
 
-<p><code>r
-download.file("http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz", "./GTEx_Analysis_V6_eQTLs.tar.gz")
-untar("GTEx_Analysis_V6_eQTLs.tar.gz")
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">download.file</span><span class="p">(</span><span class="s2">"http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz"</span><span class="p">,</span> <span class="s2">"./GTEx_Analysis_V6_eQTLs.tar.gz"</span><span class="p">)</span>
+<span class="n">untar</span><span class="p">(</span><span class="s2">"GTEx_Analysis_V6_eQTLs.tar.gz"</span><span class="p">)</span>
+</code></pre>
+</div>
 
 <h1 id="utilities">Utilities</h1>
-<p>The <em><code>geneGrep</code></em> function takes GTEx results and gene list as arguments,
+<p>The <em><code class="highlighter-rouge">geneGrep</code></em> function takes GTEx results and gene list as arguments,
 returns GTEx eSNP results for genes in gene list. Genes without significant
 eSNPs are removed from results. The following sample file <em>Thyroid_Analysis.snpgenes.TXNRD2</em> has been subsetted to include eSNPs for TXNRD2.</p>
 
-<p><code>r
-library(longevityTools)
-samplepath &lt;- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package="longevityTools") 
-dat &lt;- read.delim(samplepath)
-myGenes &lt;- c("TXNRD2")
-result &lt;- geneGrep(dat, myGenes)
-head(result[order(result$p_value),])
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">longevityTools</span><span class="p">)</span>
+<span class="n">samplepath</span> <span class="o">&lt;-</span> <span class="n">system.file</span><span class="p">(</span><span class="s2">"extdata"</span><span class="p">,</span> <span class="s2">"Thyroid_Analysis.snpgenes.TXNRD2"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> 
+<span class="n">dat</span> <span class="o">&lt;-</span> <span class="n">read.delim</span><span class="p">(</span><span class="n">samplepath</span><span class="p">)</span>
+<span class="n">myGenes</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="s2">"TXNRD2"</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">&lt;-</span> <span class="n">geneGrep</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">myGenes</span><span class="p">)</span>
+<span class="n">head</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">order</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">p_value</span><span class="p">),])</span>
+</code></pre>
+</div>
 
-<p><code>
-##                    snp       beta      p_value ref alt gene_name   nom_thresh snp_chrom  snp_pos
+<div class="highlighter-rouge"><pre class="highlight"><code>##                    snp       beta      p_value ref alt gene_name   nom_thresh snp_chrom  snp_pos
 ## 83 22_19867771_C_T_b37 -0.4596489 6.598661e-21   C   T    TXNRD2 1.215557e-05        22 19867771
 ## 86 22_19868678_T_C_b37 -0.4522136 1.109763e-20   T   C    TXNRD2 1.215557e-05        22 19868678
 ## 82 22_19867276_T_C_b37 -0.4527145 5.145122e-20   T   C    TXNRD2 1.215557e-05        22 19867276
@@ -900,49 +992,50 @@ head(result[order(result$p_value),])
 ## 80                    rs5993849                rs5993849
 ## 95                   rs12158214               rs12158214
 ## 91                    rs8141451                rs8141451
-</code></p>
+</code></pre>
+</div>
 
-<p><code>r
-#output results in PLINK format
-result2&lt;-result[,c("snp_id_1kg_project_phaseI_v3","p_value")]
-names(result2)&lt;-c("SNP","P")
-#write.table(result2,file="data/eSNP.assoc",quote=F,row.names=F)
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">#output results in PLINK format
+</span><span class="n">result2</span><span class="o">&lt;-</span><span class="n">result</span><span class="p">[,</span><span class="n">c</span><span class="p">(</span><span class="s2">"snp_id_1kg_project_phaseI_v3"</span><span class="p">,</span><span class="s2">"p_value"</span><span class="p">)]</span>
+<span class="n">names</span><span class="p">(</span><span class="n">result2</span><span class="p">)</span><span class="o">&lt;-</span><span class="n">c</span><span class="p">(</span><span class="s2">"SNP"</span><span class="p">,</span><span class="s2">"P"</span><span class="p">)</span>
+<span class="c1">#write.table(result2,file="data/eSNP.assoc",quote=F,row.names=F)
+</span></code></pre>
+</div>
 
 <p>There are 139 eSNPs.</p>
 
 <h1 id="snp-clumping-using-plink">SNP clumping using PLINK</h1>
 <p>GTEx V6 analysis results are based on genotypes imputed to 1000 Genomes (1KG) Phase I version 3. Thus, significant results could be LD-filtered using Phase I data. However, to make use of the larger sample size in later projects, 1KG Phase 3 genotypes will be used.</p>
 
-<p>```r
-#genotypes
-download.file(“ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz”, “./ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz”)
-untar(“ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz”)</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">#genotypes
+</span><span class="n">download.file</span><span class="p">(</span><span class="s2">"ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"</span><span class="p">,</span> <span class="s2">"./ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"</span><span class="p">)</span>
+<span class="n">untar</span><span class="p">(</span><span class="s2">"ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz"</span><span class="p">)</span>
 
-<h1 id="sample-ped-file">sample ped file</h1>
-<p>download.file(“ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v2.20130502.ALL.ped”, “./integrated_call_samples_v2.20130502.ALL.ped”)</p>
+<span class="c1">#sample ped file
+</span><span class="n">download.file</span><span class="p">(</span><span class="s2">"ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v2.20130502.ALL.ped"</span><span class="p">,</span> <span class="s2">"./integrated_call_samples_v2.20130502.ALL.ped"</span><span class="p">)</span>
 
-<h1 id="sample-super-population-file">sample super population file</h1>
-<p>download.file(“ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v3.20130502.ALL.panel”, “./integrated_call_samples_v3.20130502.ALL.panel”)</p>
+<span class="c1">#sample super population file
+</span><span class="n">download.file</span><span class="p">(</span><span class="s2">"ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/integrated_call_samples_v3.20130502.ALL.panel"</span><span class="p">,</span> <span class="s2">"./integrated_call_samples_v3.20130502.ALL.panel"</span><span class="p">)</span>
 
-<h1 id="identify-eur-unrelated-samples-from-1kg-phase-3">identify EUR unrelated samples from 1KG phase 3</h1>
-<p>ped2&lt;-read.table(“data/integrated_call_samples_v2.20130502.ALL.ped”, stringsAsFactors = F, header = T, sep=”\t”)
-ped3&lt;-read.table(“data/integrated_call_samples_v3.20130502.ALL.panel”, stringsAsFactors = F, header = T, sep=”\t”)</p>
+<span class="c1">#identify EUR unrelated samples from 1KG phase 3
+</span><span class="n">ped2</span><span class="o">&lt;-</span><span class="n">read.table</span><span class="p">(</span><span class="s2">"data/integrated_call_samples_v2.20130502.ALL.ped"</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="n">F</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">)</span>
+<span class="n">ped3</span><span class="o">&lt;-</span><span class="n">read.table</span><span class="p">(</span><span class="s2">"data/integrated_call_samples_v3.20130502.ALL.panel"</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="n">F</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">)</span>
 
-<p>samples1KG &lt;- filter_1KGsamples(“EUR”,ped2,ped3)
-samples1KG_ID &lt;- samples1KG[,”Individual.ID”,drop=F]
-write.table(samples1KG_ID,file=”data/samples1KG.txt”,quote=F,row.names=F,col.names=F)
-```</p>
+<span class="n">samples1KG</span> <span class="o">&lt;-</span> <span class="n">filter_1KGsamples</span><span class="p">(</span><span class="s2">"EUR"</span><span class="p">,</span><span class="n">ped2</span><span class="p">,</span><span class="n">ped3</span><span class="p">)</span>
+<span class="n">samples1KG_ID</span> <span class="o">&lt;-</span> <span class="n">samples1KG</span><span class="p">[,</span><span class="s2">"Individual.ID"</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="n">F</span><span class="p">]</span>
+<span class="n">write.table</span><span class="p">(</span><span class="n">samples1KG_ID</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">"data/samples1KG.txt"</span><span class="p">,</span><span class="n">quote</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">row.names</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">col.names</span><span class="o">=</span><span class="n">F</span><span class="p">)</span>
+</code></pre>
+</div>
 
 <p>Create region file to use with bcftools for LD.</p>
 
-<p><code>r
-regions&lt;-data.frame(chr="chr1",pos=0,pos_to=0,stringsAsFactors = F)
-regions$chr[1]&lt;-gsub("chr","",result$snp_chrom[1]) #1KG genotype files do not have chr
-regions$pos[1]&lt;-min(result$snp_pos)
-regions$pos_to[1]&lt;-max(result$snp_pos)
-write.table(regions,file="data/regions.txt",quote=F,row.names=F,col.names=F,sep="\t")
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">regions</span><span class="o">&lt;-</span><span class="n">data.frame</span><span class="p">(</span><span class="n">chr</span><span class="o">=</span><span class="s2">"chr1"</span><span class="p">,</span><span class="n">pos</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">pos_to</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="n">F</span><span class="p">)</span>
+<span class="n">regions</span><span class="o">$</span><span class="n">chr</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="o">&lt;-</span><span class="n">gsub</span><span class="p">(</span><span class="s2">"chr"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="n">result</span><span class="o">$</span><span class="n">snp_chrom</span><span class="p">[</span><span class="m">1</span><span class="p">])</span> <span class="c1">#1KG genotype files do not have chr
+</span><span class="n">regions</span><span class="o">$</span><span class="n">pos</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="o">&lt;-</span><span class="n">min</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">snp_pos</span><span class="p">)</span>
+<span class="n">regions</span><span class="o">$</span><span class="n">pos_to</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="o">&lt;-</span><span class="n">max</span><span class="p">(</span><span class="n">result</span><span class="o">$</span><span class="n">snp_pos</span><span class="p">)</span>
+<span class="n">write.table</span><span class="p">(</span><span class="n">regions</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">"data/regions.txt"</span><span class="p">,</span><span class="n">quote</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">row.names</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">col.names</span><span class="o">=</span><span class="n">F</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">"\t"</span><span class="p">)</span>
+</code></pre>
+</div>
 
 <p>Filter 1KG genotypes to only include EUR unrelated individuals and eQTL region.
 ```
@@ -954,20 +1047,20 @@ License Expat: The MIT/Expat license
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.</p>
 
-<p>```</p>
-
-<p><code>
-bcftools view -Ov -o results/1KGgeno.vcf -S data/samples1KG.txt -R data/regions.txt -v snps data/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+<div class="highlighter-rouge"><pre class="highlight"><code>
+</code></pre>
+</div>
+<p>bcftools view -Ov -o results/1KGgeno.vcf -S data/samples1KG.txt -R data/regions.txt -v snps data/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
 #without -v snps, multiple indels with same rsID were outputted, and plink would not read that in.
 #Quick solution, only include SNPs, not indels.
-</code></p>
+```</p>
 
 <p>Run PLINK clump command using default settings, but might want to change with different nominal significance thresholds.</p>
 
-<p>```
-plink -vcf results/1KGgeno.vcf –clump data/eSNP.assoc</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>plink -vcf results/1KGgeno.vcf --clump data/eSNP.assoc 
 
-<p>```</p>
+</code></pre>
+</div>
 
 <p>PLINK clump command identifies 8 independent eSNPs in the region.</p>
 
@@ -982,12 +1075,11 @@ plink -vcf results/1KGgeno.vcf –clump data/eSNP.assoc</p>
 
 <h1 id="version-information">Version information</h1>
 
-<p><code>r
-sessionInfo()
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">sessionInfo</span><span class="p">()</span>
+</code></pre>
+</div>
 
-<p><code>
-## R version 3.2.2 (2015-08-14)
+<div class="highlighter-rouge"><pre class="highlight"><code>## R version 3.2.2 (2015-08-14)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: CentOS Linux 7 (Core)
 ## 
@@ -1005,7 +1097,8 @@ sessionInfo()
 ##  [6] gtable_0.1.2     formatR_1.2.1    magrittr_1.5     evaluate_0.8     scales_0.3.0    
 ## [11] stringi_1.0-1    rmarkdown_0.9.2  tools_3.2.2      stringr_1.0.0    munsell_0.4.2   
 ## [16] yaml_2.1.13      colorspace_1.2-6 htmltools_0.3    knitr_1.12.3
-</code></p>
+</code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h1 id="references">References</h1>
@@ -1025,7 +1118,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: May 25, 2016 <br />
+ Site last generated: Oct 11, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

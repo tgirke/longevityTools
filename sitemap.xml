@@ -6,7 +6,7 @@
     <url>
       <loc>/404.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -21,7 +21,7 @@
     <url>
       <loc>/vignettes/02_Downloads/downloads.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -36,7 +36,7 @@
     <url>
       <loc>/vignettes/01_Overview/home.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -51,7 +51,7 @@
     <url>
       <loc>/mydoc/home.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -66,7 +66,7 @@
     <url>
       <loc>/</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -186,7 +186,7 @@
     <url>
       <loc>/vignettes/05_longevityTools_eDRUG/longevityTools_eDRUG.knit.html</loc>
       
-        <last_updated>2016-03-16T00:00:00-07:00</last_updated>
+        <last_updated>2016-10-11T00:00:00-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -201,7 +201,7 @@
     <url>
       <loc>/vignettes/05_longevityTools_eDRUG/longevityTools_eDRUG.utf8.html</loc>
       
-        <last_updated>2016-03-06T00:00:00-08:00</last_updated>
+        <last_updated>2016-10-11T00:00:00-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -259,24 +259,9 @@
   
     
     <url>
-      <loc>/vignettes/01_Overview/mydoc_current_projects.html</loc>
-      
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.3</priority>
-      
-    </url>
-    
-  
-    
-    <url>
       <loc>/mydoc/mydoc_current_projects.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -289,9 +274,9 @@
   
     
     <url>
-      <loc>/vignettes/02_Downloads/mydoc_downloads.html</loc>
+      <loc>/vignettes/01_Overview/mydoc_current_projects.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -306,7 +291,7 @@
     <url>
       <loc>/mydoc/mydoc_downloads.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -319,9 +304,9 @@
   
     
     <url>
-      <loc>/vignettes/07_Funding/mydoc_funding.html</loc>
+      <loc>/vignettes/02_Downloads/mydoc_downloads.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -336,7 +321,22 @@
     <url>
       <loc>/mydoc/mydoc_funding.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>/vignettes/07_Funding/mydoc_funding.html</loc>
+      
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -351,7 +351,7 @@
     <url>
       <loc>/vignettes/01_Overview/mydoc_getting_started.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -366,7 +366,7 @@
     <url>
       <loc>/mydoc/mydoc_getting_started.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -381,7 +381,7 @@
     <url>
       <loc>/mydoc/mydoc_internal_notes.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -396,7 +396,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs.Rmd_1.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -411,7 +411,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs.Rmd_2.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -426,7 +426,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs.Rmd_3.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -441,7 +441,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs.Rmd_4.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -456,7 +456,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs.Rmd_5.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -471,7 +471,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs.Rmd_6.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -486,7 +486,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs.Rmd_7.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -501,7 +501,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs_1.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -516,7 +516,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs_2.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -531,7 +531,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs_3.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -546,7 +546,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs_4.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -561,7 +561,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs_5.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -576,7 +576,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs_6.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -591,7 +591,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityDrugs_7.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -606,7 +606,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_1.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -621,7 +621,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_2.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -636,7 +636,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_3.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -651,7 +651,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_4.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -666,7 +666,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_5.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -681,7 +681,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_6.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -696,7 +696,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_7.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -711,7 +711,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_01.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -726,7 +726,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_02.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -741,7 +741,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_03.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -756,7 +756,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_04.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -771,7 +771,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_05.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -786,7 +786,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_06.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -801,7 +801,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_07.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -816,7 +816,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_08.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -831,7 +831,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_09.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -846,7 +846,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_10.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -861,7 +861,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_11.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -876,7 +876,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eDRUG_12.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -891,7 +891,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_01.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -906,7 +906,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_02.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -921,7 +921,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_03.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -936,7 +936,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_04.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -951,7 +951,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_05.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -966,7 +966,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_06.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -981,7 +981,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_07.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -996,7 +996,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_08.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1011,7 +1011,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_09.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1026,7 +1026,7 @@
     <url>
       <loc>/mydoc/mydoc_longevityTools_eQTL_10.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1041,7 +1041,7 @@
     <url>
       <loc>/vignettes/02_Downloads/mydoc_software.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1056,7 +1056,7 @@
     <url>
       <loc>/mydoc/mydoc_software.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1071,7 +1071,7 @@
     <url>
       <loc>/prince-file-list.txt</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1086,7 +1086,7 @@
     <url>
       <loc>/mydoc/search.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1101,7 +1101,7 @@
     <url>
       <loc>/search.json</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1116,7 +1116,7 @@
     <url>
       <loc>/sitemap.xml</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1131,7 +1131,7 @@
     <url>
       <loc>/title-checker.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1146,7 +1146,7 @@
     <url>
       <loc>/titlepage.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>
@@ -1161,7 +1161,7 @@
     <url>
       <loc>/tocpage.html</loc>
       
-        <last_updated>2016-05-25T17:09:44-07:00</last_updated>
+        <last_updated>2016-10-11T17:28:56-07:00</last_updated>
       
       
         <changefreq>monthly</changefreq>

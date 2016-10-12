@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,8 +141,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,6 +468,121 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityTools</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
                     
 
                     
@@ -794,9 +887,9 @@ website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHu
 is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
 vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools.html">here</a>.</p>
 
-<p>This overview tutorial provides general information about the <code>longevityTools</code> package.
+<p>This overview tutorial provides general information about the <code class="highlighter-rouge">longevityTools</code> package.
 This includes an introduction into the objects, data structures, methods and
-functions defined by <code>longevityTools</code>. The development of <code>longevityTools</code> is part of the 
+functions defined by <code class="highlighter-rouge">longevityTools</code>. The development of <code class="highlighter-rouge">longevityTools</code> is part of the 
 <a href="http://www.longevitygenomics.org/">Longevity Genomics</a> project. 
 The analysis workflows used by this project are documented in its companion vignettes listed below.</p>
 
@@ -806,44 +899,44 @@ The analysis workflows used by this project are documented in its companion vign
 
 <h2 id="installation">Installation</h2>
 
-<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code>longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code>longevityTools</code></em> package can be installed from the R console using the following <em><code>biocLite</code></em> install command.</p>
+<p>The R software for running <a href="https://github.com/tgirke/longevityTools"><em><code class="highlighter-rouge">longevityTools</code></em></a> can be downloaded from <a href="http://cran.at.r-project.org/"><em>CRAN</em></a>. The <em><code class="highlighter-rouge">longevityTools</code></em> package can be installed from the R console using the following <em><code class="highlighter-rouge">biocLite</code></em> install command.</p>
 
-<p><code>r
-source("http://bioconductor.org/biocLite.R") # Sources the biocLite.R installation script 
-biocLite("tgirke/longevityTools", build_vignettes=FALSE, dependencies=FALSE) # Installs package from GitHub
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s2">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span> <span class="c1"># Sources the biocLite.R installation script 
+</span><span class="n">biocLite</span><span class="p">(</span><span class="s2">"tgirke/longevityTools"</span><span class="p">,</span> <span class="n">build_vignettes</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span> <span class="c1"># Installs package from GitHub
+</span></code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="loading-package-and-documentation">Loading package and documentation</h2>
 
-<p><code>r
-library("longevityTools") # Loads the package
-library(help="longevityTools") # Lists package info
-vignette("longevityTools") # Opens vignette
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Loads the package
+</span><span class="n">library</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Lists package info
+</span><span class="n">vignette</span><span class="p">(</span><span class="s2">"longevityTools"</span><span class="p">)</span> <span class="c1"># Opens vignette
+</span></code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="github-workflow">GitHub workflow</h2>
 
-<p><code>sh
-git clone git@github.com:tgirke/longevityTools.git
-cd longevityTools
-git pull # Get updates from remote
-git branch # Check whether you are in the master branch 
-## do some work, commit/push changes to local and remote ##
-git commit -am "some edits"; git push -u origin master
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>git clone git@github.com:tgirke/longevityTools.git
+<span class="nb">cd </span>longevityTools
+git pull <span class="c"># Get updates from remote</span>
+git branch <span class="c"># Check whether you are in the master branch </span>
+<span class="c">## do some work, commit/push changes to local and remote ##</span>
+git commit -am <span class="s2">"some edits"</span>; git push -u origin master
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
 <h2 id="building-and-checking-package">Building and checking package</h2>
 
-<p><code>sh
-R CMD build longevityTools # Run from parent directory of longevityTools directory
+<div class="highlighter-rouge"><pre class="highlight"><code>R CMD build longevityTools <span class="c"># Run from parent directory of longevityTools directory</span>
 R CMD check longevityTools_1.0.3.tar.gz
-install.package("longevityTools_1.0.3.tar.gz", repos=NULL, type="source")
-</code></p>
+install.package<span class="o">(</span><span class="s2">"longevityTools_1.0.3.tar.gz"</span>, <span class="nv">repos</span><span class="o">=</span>NULL, <span class="nb">type</span><span class="o">=</span><span class="s2">"source"</span><span class="o">)</span>
+</code></pre>
+</div>
 
 <div align="right">[Back to Table of Contents]()</div>
 
@@ -873,12 +966,11 @@ install.package("longevityTools_1.0.3.tar.gz", repos=NULL, type="source")
 
 <h1 id="version-information">Version information</h1>
 
-<p><code>r
-sessionInfo()
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">sessionInfo</span><span class="p">()</span>
+</code></pre>
+</div>
 
-<p><code>
-## R version 3.2.3 (2015-12-10)
+<div class="highlighter-rouge"><pre class="highlight"><code>## R version 3.2.3 (2015-12-10)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 14.04.3 LTS
 ## 
@@ -899,7 +991,8 @@ sessionInfo()
 ##  [6] gtable_0.1.2     formatR_1.2.1    magrittr_1.5     evaluate_0.8     scales_0.3.0    
 ## [11] stringi_1.0-1    rmarkdown_0.9.2  tools_3.2.3      stringr_1.0.0    munsell_0.4.2   
 ## [16] yaml_2.1.13      colorspace_1.2-6 htmltools_0.3    knitr_1.12
-</code></p>
+</code></pre>
+</div>
 <div align="right">[Back to Table of Contents]()</div>
 
 <h1 id="references">References</h1>
@@ -919,7 +1012,7 @@ sessionInfo()
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
- Site last generated: May 25, 2016 <br />
+ Site last generated: Oct 11, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

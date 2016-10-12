@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,8 +141,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,6 +468,121 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityTools</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
                     
 
                     
@@ -759,9 +852,9 @@ $('#toc').on('click', 'a', function() {
 <p>Last update: 25 May, 2016</p>
 
 <p>Alternative formats of this vignette:
-<a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityDrugs/blob/master/vignettes/longevityDrugs.html"><code>Single-page .Rmd HTML</code></a>,
-<a href="https://raw.githubusercontent.com/tgirke/longevityDrugs/master/vignettes/longevityDrugs.Rmd"><code>.Rmd</code></a>,
-<a href="https://raw.githubusercontent.com/tgirke/longevityDrugs/master/vignettes/longevityDrugs.R"><code>.R</code></a></p>
+<a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityDrugs/blob/master/vignettes/longevityDrugs.html"><code class="highlighter-rouge">Single-page .Rmd HTML</code></a>,
+<a href="https://raw.githubusercontent.com/tgirke/longevityDrugs/master/vignettes/longevityDrugs.Rmd"><code class="highlighter-rouge">.Rmd</code></a>,
+<a href="https://raw.githubusercontent.com/tgirke/longevityDrugs/master/vignettes/longevityDrugs.R"><code class="highlighter-rouge">.R</code></a></p>
 
 <h2 id="introduction">Introduction</h2>
 <p>This vignette is part of the NIA funded Longevity Genomics project. For more information on this project please visit its 
@@ -769,7 +862,7 @@ website <a href="http://www.longevitygenomics.org/projects/">here</a>. The GitHu
 is available <a href="https://github.com/tgirke/longevityTools">here</a> and the most recent version of this 
 vignette can be found <a href="https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityDrugs.html">here</a>.</p>
 
-<p>The data package <code>longevityDrugs</code> contains molecular structures and annotation information
+<p>The data package <code class="highlighter-rouge">longevityDrugs</code> contains molecular structures and annotation information
 of longevity-associated drugs (LADs). An iterative process will be used to assemble, update and 
 curate this data set long-term (Backman et al., 2011; Cao et al., 2008). Most small molecules will be identified by integrating several
 large-scale community data sources such as data from drug databases (e.g.
@@ -794,7 +887,7 @@ with them structural, physicochemical or biological properties.</p>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Wed May 25 17:08:15 2016<br/> Site last generated: May 25, 2016 <br />
+<p>Page last updated:</span> Wed May 25 17:08:15 2016<br/> Site last generated: Oct 11, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

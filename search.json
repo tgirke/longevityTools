@@ -129,7 +129,7 @@
 
 
 {
-"title": "longevityToolseDRUG - Connecting Drug- and Age-related Gene Expression Signatures",
+"title": "_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures",
 "tags": "",
 "keywords": "",
 "url": "../vignettes/05_longevityTools_eDRUG/longevityTools_eDRUG.utf8.html",
@@ -176,7 +176,7 @@
 "title": "Current Projects",
 "tags": "",
 "keywords": "",
-"url": "../vignettes/01_Overview/mydoc_current_projects.html",
+"url": "../mydoc/mydoc_current_projects.html",
 "summary": ""
 },
 
@@ -187,18 +187,7 @@
 "title": "Current Projects",
 "tags": "",
 "keywords": "",
-"url": "../mydoc/mydoc_current_projects.html",
-"summary": ""
-},
-
-
-
-
-{
-"title": "Download of Analysis Results",
-"tags": "",
-"keywords": "",
-"url": "../vignettes/02_Downloads/mydoc_downloads.html",
+"url": "../vignettes/01_Overview/mydoc_current_projects.html",
 "summary": ""
 },
 
@@ -217,11 +206,11 @@
 
 
 {
-"title": "Funding",
+"title": "Download of Analysis Results",
 "tags": "",
 "keywords": "",
-"url": "../vignettes/07_Funding/mydoc_funding.html",
-"summary": "This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA)."
+"url": "../vignettes/02_Downloads/mydoc_downloads.html",
+"summary": ""
 },
 
 
@@ -232,6 +221,17 @@
 "tags": "",
 "keywords": "",
 "url": "../mydoc/mydoc_funding.html",
+"summary": "This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA)."
+},
+
+
+
+
+{
+"title": "Funding",
+"tags": "",
+"keywords": "",
+"url": "../vignettes/07_Funding/mydoc_funding.html",
 "summary": "This project is funded by NIH grant U24AG051129 awarded by the National Intitute on Aging (NIA)."
 },
 

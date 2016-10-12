@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,8 +141,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,6 +468,121 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityTools</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
                     
 
                     
@@ -756,17 +849,17 @@ $('#toc').on('click', 'a', function() {
 -->
 <h2 id="retrieve-compound-structures">Retrieve compound structures</h2>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">results &lt;- getAllCompoundIds(conn)
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">results &lt;- getAllCompoundIds(conn)
 sdfset &lt;- getCompounds(conn, results, keepOrder=TRUE)
 sdfset
 plot(sdfset[1:4], print=FALSE)
-as.data.frame(datablock2ma(datablock(sdfset)))[1:4,]</code></pre></div>
+as.data.frame(datablock2ma(datablock(sdfset)))[1:4,]</code></pre></figure>
 
 <h2 id="retrieve-compound-properties">Retrieve compound properties</h2>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">myfeat &lt;- listFeatures(conn)
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">myfeat &lt;- listFeatures(conn)
 feat &lt;- getCompoundFeatures(conn, results, myfeat)
-feat[1:4,]</code></pre></div>
+feat[1:4,]</code></pre></figure>
 
 
 
@@ -784,7 +877,7 @@ feat[1:4,]</code></pre></div>
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Wed May 25 17:04:12 2016<br/> Site last generated: May 25, 2016 <br />
+<p>Page last updated:</span> Wed May 25 17:04:12 2016<br/> Site last generated: Oct 11, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

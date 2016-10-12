@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,8 +141,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,6 +468,121 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityTools</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
                     
 
                     
@@ -761,15 +854,15 @@ or <a href="http://manuals.bioinformatics.ucr.edu/home/programming-in-r/vim-r">V
 and then execute the following commands (here for <a href="https://github.com/tgirke/longevityTools">longevityTools</a>) from the 
 R console:</p>
 
-<div class="highlight"><pre><code class="language-s" data-lang="s"><span class="n">source</span><span class="p">(</span><span class="s2">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-s" data-lang="s"><span class="n">source</span><span class="p">(</span><span class="s2">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span>
 <span class="n">biocLite</span><span class="p">(</span><span class="s2">"tgirke/longevityTools"</span><span class="p">,</span> <span class="n">build_vignettes</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
-<span class="n">library</span><span class="p">(</span><span class="n">longevityTools</span><span class="p">)</span></code></pre></div>
+<span class="n">library</span><span class="p">(</span><span class="n">longevityTools</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="finding-help">Finding help</h2>
 <p>Subsequently, the vignettes of the installed package can be opened in an
 internet browser, from within RStudio or one can access them with this command:</p>
 
-<div class="highlight"><pre><code class="language-s" data-lang="s"><span class="n">vignette</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-s" data-lang="s"><span class="n">vignette</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">"longevityTools"</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="run-workflows">Run workflows</h2>
 <p>Now, users want to follow the instructions given in the vignette (<em>e.g.</em>
@@ -780,10 +873,10 @@ should load the corresponding source file
 or <a href="https://raw.githubusercontent.com/tgirke/longevityTools/master/vignettes/longevityTools.Rmd">*.Rmd</a>)
 into their R working environment and then make use of built-in code sending or
 sourcing functionalities. In addition, an entire workflow can be re-run with the
-following command or by pushing the <code>built</code> button in RStudio, while the content in the corresponding vignette will be updated in real time. 
+following command or by pushing the <code class="highlighter-rouge">built</code> button in RStudio, while the content in the corresponding vignette will be updated in real time. 
 This includes all its text, code, tables, images and all results written to files.</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">rmarkdown</span><span class="o">::</span><span class="n">render</span><span class="p">(</span><span class="s1">'longevityTools.Rmd'</span><span class="p">);</span> <span class="n">Stangle</span><span class="p">(</span><span class="s2">"longevityTools.Rmd"</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">rmarkdown</span><span class="o">::</span><span class="n">render</span><span class="p">(</span><span class="s1">'longevityTools.Rmd'</span><span class="p">);</span> <span class="n">Stangle</span><span class="p">(</span><span class="s2">"longevityTools.Rmd"</span><span class="p">)</span></code></pre></figure>
 
 
 
@@ -801,7 +894,7 @@ This includes all its text, code, tables, images and all results written to file
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Thu Feb 11 21:16:00 2016<br/> Site last generated: May 25, 2016 <br />
+<p>Page last updated:</span> Thu Feb 11 21:16:00 2016<br/> Site last generated: Oct 11, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>

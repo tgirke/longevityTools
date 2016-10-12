@@ -79,16 +79,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
                 
                 
                 
@@ -151,8 +141,6 @@
                 <!-- special insertion -->
 
                
-                
-                
                 <!-- Send feedback function -->
 <script>
 function SendLinkByMail(href) {
@@ -245,16 +233,6 @@ window.location.href = uri;
 
 
         
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -490,6 +468,121 @@ window.location.href = uri;
                     
                     
                     <li><a href="../mydoc/mydoc_longevityTools_eQTL_10.html">10. References</a></li>
+                    
+
+                    
+
+                    
+                    
+                </ul>
+                
+                
+            
+            <li><a href="#">longevityTools</a>
+                <ul>
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_01.html">1. Introduction</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_02.html">2. Getting Started</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_03.html">3. Setup of working environment</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_04.html">4. Data downloads</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_05.html">5. Pre-processing of CEL files</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_06.html">6. DEG analysis with `limma`</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_07.html">7. Connectivity maps enrichment analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_08.html">8. Age-drug network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_09.html">9. Age-disease network analysis</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_10.html">10. Funding</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_11.html">11. Version information</a></li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li><a href="../mydoc/mydoc_longevityTools_eDRUG_12.html">12. References</a></li>
                     
 
                     
@@ -756,19 +849,19 @@ $('#toc').on('click', 'a', function() {
 -->
 <h2 id="retrieve-compound-structures">Retrieve compound structures</h2>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">results</span> <span class="o">&lt;-</span> <span class="n">getAllCompoundIds</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">results</span> <span class="o">&lt;-</span> <span class="n">getAllCompoundIds</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
 <span class="n">sdfset</span> <span class="o">&lt;-</span> <span class="n">getCompounds</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">keepOrder</span><span class="o">=</span><span class="n">TRUE</span><span class="p">)</span>
-<span class="n">sdfset</span></code></pre></div>
+<span class="n">sdfset</span></code></pre></figure>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">## An instance of "SDFset" with 1309 molecules</code></pre></div>
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">## An instance of "SDFset" with 1309 molecules</code></pre></figure>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">sdfset</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">],</span> <span class="n">print</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plot</span><span class="p">(</span><span class="n">sdfset</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">],</span> <span class="n">print</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span></code></pre></figure>
 
 <p><img src="longevityDrugs_files/query_structures-1.png" alt="" /></p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">as.data.frame</span><span class="p">(</span><span class="n">datablock2ma</span><span class="p">(</span><span class="n">datablock</span><span class="p">(</span><span class="n">sdfset</span><span class="p">)))[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,]</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">as.data.frame</span><span class="p">(</span><span class="n">datablock2ma</span><span class="p">(</span><span class="n">datablock</span><span class="p">(</span><span class="n">sdfset</span><span class="p">)))[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,]</span></code></pre></figure>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">##     instance_id batch_id        cmap_name INN1 concentration..M. duration..h. cell2   array3
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">##     instance_id batch_id        cmap_name INN1 concentration..M. duration..h. cell2   array3
 ## 201           1        1        metformin  INN          1.00e-05            6  MCF7 HG-U133A
 ## 202          21        2       phenformin  INN          1.00e-05            6  MCF7 HG-U133A
 ## 203          22        2 phenyl biguanide               1.00e-05            6  MCF7 HG-U133A
@@ -792,15 +885,15 @@ $('#toc').on('click', 'a', function() {
 ## 201              0       CN(C)C(=N)NC(=N)N
 ## 202              0 NC(=N)NC(=N)NCCc1ccccc1
 ## 203              0   NC(=N)NC(=N)Nc1ccccc1
-## 204              0         CCCC(CCC)C(=O)O</code></pre></div>
+## 204              0         CCCC(CCC)C(=O)O</code></pre></figure>
 
 <h2 id="retrieve-compound-properties">Retrieve compound properties</h2>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">myfeat</span> <span class="o">&lt;-</span> <span class="n">listFeatures</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">myfeat</span> <span class="o">&lt;-</span> <span class="n">listFeatures</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
 <span class="n">feat</span> <span class="o">&lt;-</span> <span class="n">getCompoundFeatures</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">myfeat</span><span class="p">)</span>
-<span class="n">feat</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,]</span></code></pre></div>
+<span class="n">feat</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,]</span></code></pre></figure>
 
-<div class="highlight"><pre><code class="language-txt" data-lang="txt">##   compound_id aromatic                  cansmi                cansmins  formula hba1 hba2 hbd
+<figure class="highlight"><pre><code class="language-txt" data-lang="txt">##   compound_id aromatic                  cansmi                cansmins  formula hba1 hba2 hbd
 ## 1         201        0       CN(C(=N)NC(=N)N)C       CN(C(=N)NC(=N)N)C  C4H11N5    5    5   4
 ## 2         202        1 N=C(NC(=N)N)NCCc1ccccc1 N=C(NC(=N)N)NCCc1ccccc1 C10H15N5    5    5   5
 ## 3         203        1   N=C(Nc1ccccc1)NC(=N)N   N=C(Nc1ccccc1)NC(=N)N  C8H11N5    5    5   5
@@ -819,7 +912,7 @@ $('#toc').on('click', 'a', function() {
 ## 1        metformin 88.99
 ## 2       phenformin 97.78
 ## 3 phenyl biguanide 97.78
-## 4    valproic acid 37.30</code></pre></div>
+## 4    valproic acid 37.30</code></pre></figure>
 
 
 
@@ -837,7 +930,7 @@ $('#toc').on('click', 'a', function() {
             <div class="row">
                 <div class="col-lg-12 footer">
                &copy;2016 UC Riverside. All rights reserved. <br />
-<p>Page last updated:</span> Wed May 25 17:08:15 2016<br/> Site last generated: May 25, 2016 <br />
+<p>Page last updated:</span> Wed May 25 17:08:15 2016<br/> Site last generated: Oct 11, 2016 <br />
 <p><img src="../common_images/company_logo.png/></p>
                 </div>
             </div>
