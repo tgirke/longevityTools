@@ -1,7 +1,7 @@
 ---
 title: Data downloads
 keywords: 
-last_updated: Wed Mar 16 12:35:34 2016
+last_updated: Tue Oct 11 17:26:57 2016
 ---
 
 ## Download data from Connectivity Map project site
@@ -23,7 +23,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 {% endhighlight %}
 
 
-## Overiew of CMAP data
+## Overview of CMAP data
 
 The experimental design of the CMAP project is defined in the file
 `cmap_instances_02.xls`.  Note, this file required some cleaning in LibreOffice

@@ -1,7 +1,7 @@
 ---
 title: "_longevityTools_: Connecting Drug- and Age-related Gene Expression Signatures" 
 author: "Authors: Thomas Girke, Danjuma Quarless, Tyler Backman, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans"
-date: "Last update: 16 March, 2016" 
+date: "Last update: 11 October, 2016" 
 package: "longevityTools 1.0.6"
 output:
   BiocStyle::html_document:
@@ -137,7 +137,7 @@ getCmapCEL(rerun=FALSE) # Download cmap CEL files. Note, this will take some tim
 
 <div align="right">[Back to Table of Contents]()</div>
 
-## Overiew of CMAP data
+## Overview of CMAP data
 
 The experimental design of the CMAP project is defined in the file
 `cmap_instances_02.xls`.  Note, this file required some cleaning in LibreOffice
@@ -650,16 +650,18 @@ library(DrugVsDisease)
 PMID26490707 <- read.delim("./data/PMID26490707_S1.xls", comment="#", check.names=FALSE)
 data(drugRL)
 PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(drugRL),]
+PMID26490707sub <- PMID26490707sub[order(PMID26490707sub$Zscore, decreasing=TRUE),]
+PMID26490707sub <- rbind(head(PMID26490707sub, 100), tail(PMID26490707sub, 100)) # Subsets to top 200 DEGs 
 testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
 drugcmap <- classifyprofile(data=testprofiles$ranklist, case="disease", signif.fdr=0.5, no.signif=20)
 drugcmap2 <- classifyprofile(data=testprofiles$ranklist, case="disease", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
-                            dynamic.fdr=0.5, signif.fdr=0.05, adj="BH", no.signif=100)
+                            dynamic.fdr=5, signif.fdr=5, adj="BH", no.signif=1000)
 ```
 
 ```
-## Number of Significant results greater than 100 Using top 100 hits - consider using average linkage instead
+## Number of Significant results greater than 1000 Using top 1000 hits - consider using average linkage instead
 ```
 
 ```r
@@ -669,26 +671,26 @@ drugcmap2[[1]][1:20,]
 
 ```
 ##                              Drug ES Distance Cluster RPS
-## mebendazole           mebendazole   0.8322685      62   1
-## cloperastine         cloperastine   0.8457056      98   1
-## fenoterol               fenoterol   0.8467810      62   1
-## (-)-isoprenaline (-)-isoprenaline   0.8476601      41   1
-## (+)-chelidonine   (+)-chelidonine   0.8510637       1   1
-## etacrynic_acid     etacrynic_acid   0.8514834     103   1
-## oxedrine                 oxedrine   0.8561747      62   1
-## suloctidil             suloctidil   0.8586264      93   1
-## noscapine               noscapine   0.8595356      70   1
-## trifluridine         trifluridine   0.8621584       4   1
-## trifluoperazine   trifluoperazine   0.8624640      98   1
-## etilefrine             etilefrine   0.8644660      40   1
-## remoxipride           remoxipride   0.8655620      76   1
-## etoposide               etoposide   0.8690638       4   1
-## ethoxyquin             ethoxyquin   0.8695707      27   1
-## albendazole           albendazole   0.8699840      93   1
-## scoulerine             scoulerine   0.8705162       1   1
-## bromopride             bromopride   0.8709264      91   1
-## milrinone               milrinone   0.8712986      83   1
-## terfenadine           terfenadine   0.8718878      93   1
+## dipivefrine           dipivefrine       0.660      62   1
+## sulfathiazole       sulfathiazole       0.735      38   1
+## fludroxycortide   fludroxycortide       0.740      95   1
+## lobeline                 lobeline       0.740      38   1
+## naftifine               naftifine       0.740      42  -1
+## phenanthridinone phenanthridinone       0.750      99  -1
+## ethoxyquin             ethoxyquin       0.755      27   1
+## pentetrazol           pentetrazol       0.755      54   1
+## fulvestrant           fulvestrant       0.765      22   1
+## MS-275                     MS-275       0.770      84   1
+## sirolimus               sirolimus       0.770      98   1
+## physostigmine       physostigmine       0.775       1   1
+## thiethylperazine thiethylperazine       0.775       1   1
+## alvespimycin         alvespimycin       0.780      22   1
+## naltrexone             naltrexone       0.780      78   1
+## cimetidine             cimetidine       0.780      49   1
+## acebutolol             acebutolol       0.785      58   1
+## metolazone             metolazone       0.785      68   1
+## troleandomycin     troleandomycin       0.785      45   1
+## S-propranolol       S-propranolol       0.790      76   1
 ```
 
 <div align="right">[Back to Table of Contents]()</div>
@@ -707,9 +709,16 @@ PMID26490707sub <- PMID26490707[PMID26490707[,"NEW-Gene-ID"] %in% rownames(disea
 testprofiles <- list(ranklist=matrix(PMID26490707sub$Zscore, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])), 
                      pvalues=matrix(PMID26490707sub$P, dimnames=list(PMID26490707sub[,"NEW-Gene-ID"])))
 diseasecmap <- classifyprofile(data=testprofiles$ranklist, case="drug", signif.fdr=0.5, no.signif=20)
+```
+
+```
+## Number of Significant results greater than 20 Using top 20 hits - consider using average linkage instead
+```
+
+```r
 diseasecmap2 <- classifyprofile(data=testprofiles$ranklist, case="drug", 
                             pvalues=testprofiles$pvalues, cytoout=FALSE, type="dynamic", 
-                            dynamic.fdr=0.5, adj="BH", no.signif=100)
+                            dynamic.fdr=5, adj="BH", no.signif=100)
 write.table(diseasecmap2, file="./results/diseasecmap2.xls", quote=FALSE, sep="\t", col.names = NA) 
 diseasecmap2[[1]][1:20,]
 ```
@@ -778,8 +787,8 @@ sessionInfo()
 ## other attached packages:
 ##  [1] DrugVsDisease_2.10.2    qvalue_2.2.2            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
 ##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.5           
-##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     reshape2_1.4.1         
-## [13] ggplot2_2.0.0           longevityTools_1.0.4    BiocStyle_1.8.0        
+##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     ChemmineR_2.22.3       
+## [13] reshape2_1.4.1          ggplot2_2.0.0           longevityTools_1.0.6    BiocStyle_1.8.0        
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] SummarizedExperiment_1.0.2 oligo_1.34.2               splines_3.2.2             
@@ -793,11 +802,11 @@ sessionInfo()
 ## [25] GenomeInfoDb_1.6.3         AnnotationDbi_1.32.3       preprocessCore_1.32.0     
 ## [28] Rcpp_0.12.3                scales_0.3.0               formatR_1.2.1             
 ## [31] S4Vectors_0.8.7            XVector_0.10.0             affxparser_1.42.0         
-## [34] bit_1.1-12                 oligoClasses_1.32.0        digest_0.6.9              
-## [37] stringi_1.0-1              GenomicRanges_1.22.1       grid_3.2.2                
-## [40] tools_3.2.2                bitops_1.0-6               magrittr_1.5              
-## [43] RCurl_1.95-4.7             RSQLite_1.0.0              rmarkdown_0.9.2           
-## [46] iterators_1.0.8
+## [34] bit_1.1-12                 oligoClasses_1.32.0        rjson_0.2.15              
+## [37] digest_0.6.9               stringi_1.0-1              GenomicRanges_1.22.1      
+## [40] grid_3.2.2                 tools_3.2.2                bitops_1.0-6              
+## [43] magrittr_1.5               RCurl_1.95-4.7             RSQLite_1.0.0             
+## [46] rmarkdown_0.9.2            iterators_1.0.8
 ```
 <div align="right">[Back to Table of Contents]()</div>
 

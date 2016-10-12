@@ -1,7 +1,7 @@
 ---
 title: Version information
 keywords: 
-last_updated: Wed Mar 16 12:35:34 2016
+last_updated: Tue Oct 11 17:26:57 2016
 ---
 
 
@@ -23,8 +23,8 @@ sessionInfo()
 ## other attached packages:
 ##  [1] DrugVsDisease_2.10.2    qvalue_2.2.2            cMap2data_1.6.0         DrugVsDiseasedata_1.6.0
 ##  [5] GEOquery_2.36.0         ArrayExpress_1.30.1     biomaRt_2.26.1          limma_3.26.5           
-##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     reshape2_1.4.1         
-## [13] ggplot2_2.0.0           longevityTools_1.0.4    BiocStyle_1.8.0        
+##  [9] affy_1.48.0             Biobase_2.30.0          BiocGenerics_0.16.1     ChemmineR_2.22.3       
+## [13] reshape2_1.4.1          ggplot2_2.0.0           longevityTools_1.0.6    BiocStyle_1.8.0        
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] SummarizedExperiment_1.0.2 oligo_1.34.2               splines_3.2.2             
@@ -38,10 +38,10 @@ sessionInfo()
 ## [25] GenomeInfoDb_1.6.3         AnnotationDbi_1.32.3       preprocessCore_1.32.0     
 ## [28] Rcpp_0.12.3                scales_0.3.0               formatR_1.2.1             
 ## [31] S4Vectors_0.8.7            XVector_0.10.0             affxparser_1.42.0         
-## [34] bit_1.1-12                 oligoClasses_1.32.0        digest_0.6.9              
-## [37] stringi_1.0-1              GenomicRanges_1.22.1       grid_3.2.2                
-## [40] tools_3.2.2                bitops_1.0-6               magrittr_1.5              
-## [43] RCurl_1.95-4.7             RSQLite_1.0.0              rmarkdown_0.9.2           
-## [46] iterators_1.0.8
+## [34] bit_1.1-12                 oligoClasses_1.32.0        rjson_0.2.15              
+## [37] digest_0.6.9               stringi_1.0-1              GenomicRanges_1.22.1      
+## [40] grid_3.2.2                 tools_3.2.2                bitops_1.0-6              
+## [43] magrittr_1.5               RCurl_1.95-4.7             RSQLite_1.0.0             
+## [46] rmarkdown_0.9.2            iterators_1.0.8
 {% endhighlight %}
 
