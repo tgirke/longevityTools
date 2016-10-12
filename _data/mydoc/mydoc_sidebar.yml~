@@ -373,7 +373,7 @@ entries:
       version: all
       output: web
 
-    - title: 4. Funding
+    - title: 4. Query database
       url: /mydoc/mydoc_longevityDrugs_4.html
       audience: writers, designers
       platform: all
@@ -381,7 +381,7 @@ entries:
       version: all
       output: web
 
-    - title: 5. Version information
+    - title: 5. Funding
       url: /mydoc/mydoc_longevityDrugs_5.html
       audience: writers, designers
       platform: all
@@ -389,8 +389,16 @@ entries:
       version: all
       output: web
 
-    - title: 6. References
+    - title: 6. Version information
       url: /mydoc/mydoc_longevityDrugs_6.html
+      audience: writers, designers
+      platform: all
+      product: all
+      version: all
+      output: web
+
+    - title: 7. References
+      url: /mydoc/mydoc_longevityDrugs_7.html
       audience: writers, designers
       platform: all
       product: all
