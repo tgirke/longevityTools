@@ -1,6 +1,6 @@
 ---
 title: "_longevityTools_: eQTL, eSNP and GWAS Analysis" 
-author: "Authors: Danjuma Quarless, Kuan-Fu Ding, Jamison McCorrison, Nik Schork, Dan Evans"
+author: "Author: Dan Evans"
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 package: "`r pkg_ver('longevityTools')`"
 output:
@@ -65,7 +65,7 @@ Hypothesis: eSNPs associated with younger expression profile are markers for you
 
 File sood-2015-fileS1.xls reports the expression direction relative to age for each probe from the 150 probe set. See Top 150 worksheet. A gene marked as 'down' in column 'Ratio of Y:O muscle' means that the expression of the gene is lower in young vs old muscle. 
 
-The goal is to generate an eSNP risk score constructed from eSNP alleles associated with increasing gene expression for genes that decrease with age and from eSNP alleles associated with decreasing gene expression for genes that increase with age. This eSNP risk score would represent an expression profile that more closely mimics the younger age profile rather than the older age profile.  
+The goal is to generate an eSNP risk score constructed from eSNP alleles associated with increasing gene expression for genes that more highly expressed in young tissue and from eSNP alleles associated with decreasing gene expression for genes that show decreased expression in young tissue. This eSNP risk score would represent an expression profile that more closely mimics the younger age profile rather than the older age profile.  
 
 For the 150 probes that map to genes, identify cis-eSNPs using GTEx preanalyzed results from whole blood. Preanalyzed GTEx results correct for multiple testing of SNPs for each gene. To identify independent cis-eSNPs for each gene, prune cis-eSNPs in LD using 1000G EUR population group genotypes. Once independent cis-eSNPs are identified, create a file listing the SNPs to be included in a risk score and which allele is associated with decreasing expression for genes that increase with age (upregulated gene) and which allele is associated with increasing expression for genes that decrease with age (downregulated gene). Upregulated and downregulated genes based on column 'Ratio of Y:O muscle' from Sood et al supplemental file.
 
@@ -99,7 +99,7 @@ vignette("longevityTools") # Opens vignette
 ## Import custom functions 
 
 Preliminary functions that are still under developement, or not fully tested and documented 
-can be imported with the `source` command from the `inst/extdata` directory of the package.
+can be imported with the `source` command from the `inst/extdata` directory of the package. Imported is the function alleleCheck().
 
 ```{r source_fct, eval=TRUE}
 fctpath <- system.file("extdata", "longevityTools_eQTL_Fct.R", package="longevityTools")
@@ -121,35 +121,155 @@ dir.create("data"); dir.create("results")
 
 # Sample data from GTEx
 The eQTL data used in this vignette can be downloaded from the [GTEx site](http://www.gtexportal.org/home/datasets).
-Note, the following downloads a 1.3GB file, which will take some time.
+Note, the following downloads a 782 MB file, which will take some time. Using patched V6 results.
 
 ```{r eQTL_download, eval=FALSE}
-download.file("http://www.gtexportal.org/static/datasets/gtex_analysis_v6/single_tissue_eqtl_data/GTEx_Analysis_V6_eQTLs.tar.gz", "./GTEx_Analysis_V6_eQTLs.tar.gz")
-untar("GTEx_Analysis_V6_eQTLs.tar.gz")
+download.file('http://www.gtexportal.org/static/datasets/gtex_analysis_v6p/single_tissue_eqtl_data/GTEx_Analysis_v6p_eQTL.tar','./GTEx_Analysis_v6p_eQTL.tar')
+untar("GTEx_Analysis_v6p_eQTL.tar")
 ```
 
-# Utilities
-The _`geneGrep`_ function takes GTEx results and gene list as arguments,
-returns GTEx eSNP results for genes in gene list. Genes without significant
-eSNPs are removed from results. The following sample file _Thyroid\_Analysis.snpgenes.TXNRD2_ has been subsetted to include eSNPs for TXNRD2.
-```{r geneGrep, eval=TRUE}
+# Data import
+Will begin with whole blood eSNPs, as the Sood paper reported predictive blood gene expression pattern.
+```{r data_input, eval=FALSE}
 library(longevityTools)
-samplepath <- system.file("extdata", "Thyroid_Analysis.snpgenes.TXNRD2", package="longevityTools") 
-dat <- read.delim(samplepath)
-myGenes <- c("TXNRD2")
-result <- geneGrep(dat, myGenes)
-head(result[order(result$p_value),])
-#output results in PLINK format
-result2<-result[,c("snp_id_1kg_project_phaseI_v3","p_value")]
-names(result2)<-c("SNP","P")
-#write.table(result2,file="data/eSNP.assoc",quote=F,row.names=F)
+library(data.table) #use devel version for fwrite()
+library(stringr)
+
+dat_effect<-fread("~/bigdata/GTEx/GTEx_Analysis_v6p_eQTL/Whole_Blood_Analysis.v6p.egenes.txt",colClasses=c(gene_chr="character",chr="character"))
+
+sood<-fread("~/U24/MR/GTEx/data/sood150.csv")
+sood<-sood[!duplicated(Gene_Symbol),]
+setnames(sood,"Y:0_muscle","young_old_muscle")
+query_genes<-sood[,Gene_Symbol]
+
+
+dat_effect[gene_name %in% query_genes,.N] #121 gene matches
+dat_effect<-merge(dat_effect,sood,by.x="gene_name",by.y="Gene_Symbol" )
+sum(duplicated(dat_effect[,gene_name])) 
+#some eSNPs are indels
+dat_effect[nchar(ref)==1 & nchar(alt)==1,.N]
+dat_effect[ , KGID:=paste(chr,snp_pos,sep=":") ]
+dat_effect[nchar(ref)>1 | nchar(alt)>1,.N]
+#make KGID for indels
+#dat_effect[nchar(ref)>1 | nchar(alt)>1 , KGID:=paste0(chr,":",snp_pos,"[b37]",ref,",",alt )  ]
+#remove indels since they don't merge with my 1KG data anyway
+dat_effect <- dat_effect[nchar(ref)==1 & nchar(alt)==1,]
+#convert up down to + and -
+setnames(dat_effect,c("alt","ref"),c("effect_allele","non_effect_allele"))
+dat_effect[young_old_muscle=="up",young_old_muscle:="1"]
+dat_effect[young_old_muscle=="down",young_old_muscle:="-1"]
+dat_effect[,young_old_muscle:=as.integer(young_old_muscle)]
+#orient effect alleles to direction of young expression
+dat_effect[ ,temp_effect_allele:=effect_allele ]
+dat_effect[ ,temp_non_effect_allele:=non_effect_allele ]
+#product is negative if slope and young expression direction are opposite
+dat_effect[(young_old_muscle*slope)<0 , effect_allele:=temp_non_effect_allele  ]
+dat_effect[(young_old_muscle*slope)<0 , non_effect_allele:=temp_effect_allele  ]
+
+dat_effect[ ,effect:=slope ]
+#dat_effect <- dat_effect[,.(KGID,gene_name,effect_allele,non_effect_allele,rs_id_dbSNP142_GRCh37p13,maf,slope,effect,pval_nominal,qval,young_old_muscle )]
+dat_effect <- dat_effect[,.(KGID,effect_allele,non_effect_allele,effect ) ]
+
+#try merging SNPs with my 1KG data. If Indels don't merge, I'll deal with them later.
+dat2<-fread("~/U24/GWAScohorts/MrOS/1KGinfo/SNP_info_all.txt",colClasses=c(b37_C_rs.id="character") )
+
+dat2<-dat2[SNPID %in% dat_effect[,KGID]  ,  ] #109 eSNPs in my imputed data
+dat2<-dat2[ ,.(SNPID,chr,position,coded_all,noncoded_all,AF_coded_all,HWE_pval,callrate,imputed,oevar_imp,SNPorder ) ]
+dat2<-merge(dat2,dat_effect,by.x="SNPID",by.y="KGID")
+dat2<-dat2[oevar_imp >= 0.4 , ] #95 eSNPs after poorly imputed SNPs removed
+dat2<-dat2[order(chr,SNPorder) ,]
+
+alleleCheck(dat2)
+#go ahead and switch coded and noncoded alleles now
+dat2[ ,coded_all_temp:=coded_all ]
+dat2[ ,noncoded_all_temp:=noncoded_all ]
+dat2[allele_switch==1, coded_all:=noncoded_all_temp]
+dat2[allele_switch==1, noncoded_all:=coded_all_temp]
+dat2[allele_switch==1, AF_coded_all:=1-AF_coded_all ]
+
+#output dat2 for reference
+fwrite(dat2,file="~/U24/MR/GTEx/data/soodSNPs.csv",na="NA")
+
+#extract SNPs from dosage file
+my_chr<-unique(dat2[,chr] )
+for(i in 1:length(my_chr)){
+  snp_annot<-dat2[chr==my_chr[i],] 
+  for(j in 1:snp_annot[,.N]) {
+    mySNPorder<-snp_annot[j,SNPorder ]
+    SNPline<-fread(paste0("~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr",my_chr[i],".plink.dose"),skip=mySNPorder-1,nrows=1,header=F)
+    if(i==1 & j==1  ){
+      dose_out<-SNPline
+    } else {
+      dose_out<-rbind(dose_out,SNPline)
+    }    
+  }
+}
+
+fwrite(dat2,file="~/U24/MR/GTEx/data/snp_info.csv",na="NA")
+fwrite(dose_out,file="~/U24/MR/GTEx/data/dose.txt",na="NA",sep="\t",col.names=F)
+
 
 ```
 
-There are `r nrow(result)` eSNPs.
+
+# Association analysis with final age and survival time
+```{r association, eval=FALSE}
+#read in dose file, flip dosage data as needed, multiply betas, sum across SNPs
+doseHeader<-scan("~/bigdata/U24/GWAScohorts/MrOS/vcf1KG/headerDosage.txt",sep="\t",what="character")
+doseHeader <- sapply(str_split(doseHeader,"_" ),function(x) x[1] ) 
+dose<-fread("~/U24/MR/GTEx/data/dose.txt",header=F,col.names=doseHeader)
+dose<-as.data.frame(dose)
+map<-fread("~/U24/MR/GTEx/data/snp_info.csv")
+identical(map[,SNPID],dose[[1]]) #SNP map in same order as dose file 
+#identify which rows contain SNPs that need to be flipped, then loop through those rows and flip dosage
+myrows<-which(map[,allele_switch]==1)
+for(i in myrows){
+  temp<-unlist(dose[i,4:4618])
+  temp<-2-temp
+  dose[i,4:4618]<-temp
+}
+#multiply beta by dosage for each snp
+#Not for GTEx, negative and positive will cancel
+#for(i in 1:length(map$effect)){
+#  effect1<-map$effect[i]
+#  dose[i,4:4618] <- effect1*unlist(dose[i,4:4618])
+#}
+#sum allele dosage per person
+IV <- sapply(dose[4:4618],sum ) #4615 length vector
+IV <- unname(IV)
+ID <- names(dose)[4:4618]
+IV_predictor<-data.table(ID=ID,IV=IV)
+
+#now merge to phenotype and covariates
+pheno<-fread("~/U24/MR/HDL/data/MrOSsurvivalPercentiles.csv")
+pheno<-merge(pheno,IV_predictor,by="ID")
+pheno[ ,dead90:=-9L ]
+pheno[control60dead==1 ,dead90:=0L ]
+pheno[cases90==1 ,dead90:=1L ]
+pheno[dead90==-9 ,dead90:=NA ] 
+L1<-glm(dead90 ~ IV + GIAGE1 + factor(SITE) + EV1 + EV2 + EV3 + EV4 ,data=pheno, family=binomial(link="logit"), maxit=50 , na.action=na.omit )
+summary(L1)
+
+pheno[ ,dead90:=-9L ]
+pheno[control60DA==1 ,dead90:=0L ]
+pheno[cases90==1 ,dead90:=1L ]
+pheno[dead90==-9 ,dead90:=NA ] 
+L1<-glm(dead90 ~ IV + GIAGE1 + EV1 + EV2 + EV3 + EV4 ,data=pheno, family=binomial(link="logit"), maxit=50  )
+summary(L1)
+
+#survival
+library(survival)
+pheno[DADEAD=="M:Not Applicable" ,DADEAD:=NA]
+pheno[DADEAD=="A:Missing" , DADEAD:="0"]
+pheno[,DADEAD:=as.integer(DADEAD)]
+L1 <- coxph(Surv(FUCDTIME,DADEAD) ~ IV + GIAGE1 + factor(SITE) + EV1 + EV2 + EV3 + EV4, data=pheno)
+summary(L1)
+
+
+```
 
 # SNP clumping using PLINK
-GTEx V6 analysis results are based on genotypes imputed to 1000 Genomes (1KG) Phase I version 3. Thus, significant results could be LD-filtered using Phase I data. However, to make use of the larger sample size in later projects, 1KG Phase 3 genotypes will be used.
+The *egene datasets have selected the most significant eSNP for each gene. However, all potential eSNPs for a gene are provided in a separate file. These results could potentially be mined for secondary independent eSNP associations for each gene. GTEx V6 analysis results are based on genotypes imputed to 1000 Genomes (1KG) Phase I version 3. Thus, significant results could be LD-filtered using Phase I data. One could make use of the larger sample size in later projects, such as 1KG Phase 3 or the Haplotype Reference Panel, but the SNP identifiers might differ from GTEx results, creating difficulties.
 
 ```{r 1KG_download_filter, eval=FALSE}
 #genotypes
