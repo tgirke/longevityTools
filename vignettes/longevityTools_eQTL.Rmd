@@ -139,9 +139,9 @@ dat_effect<-fread("~/bigdata/GTEx/GTEx_Analysis_v6p_eQTL/Whole_Blood_Analysis.v6
 
 sood<-fread("~/U24/MR/GTEx/data/sood150.csv")
 sood<-sood[!duplicated(Gene_Symbol),]
+sood <- sood[HU133_Probeset_ID!=Gene_Symbol , ]
 setnames(sood,"Y:0_muscle","young_old_muscle")
 query_genes<-sood[,Gene_Symbol]
-
 
 dat_effect[gene_name %in% query_genes,.N] #121 gene matches
 dat_effect<-merge(dat_effect,sood,by.x="gene_name",by.y="Gene_Symbol" )
@@ -154,6 +154,11 @@ dat_effect[nchar(ref)>1 | nchar(alt)>1,.N]
 #dat_effect[nchar(ref)>1 | nchar(alt)>1 , KGID:=paste0(chr,":",snp_pos,"[b37]",ref,",",alt )  ]
 #remove indels since they don't merge with my 1KG data anyway
 dat_effect <- dat_effect[nchar(ref)==1 & nchar(alt)==1,]
+#count non-sig eSNPs
+dat_effect[qval>0.05 ,.N] #78
+dat_effect[pval_nominal>pval_nominal_threshold,.N] #64
+dat_effect[pval_perm>0.05 ,.N] #74
+dat_effect[pval_perm>0.05 & pval_nominal<pval_nominal_threshold,.(pval_nominal,pval_nominal_threshold,pval_perm)]
 #convert up down to + and -
 setnames(dat_effect,c("alt","ref"),c("effect_allele","non_effect_allele"))
 dat_effect[young_old_muscle=="up",young_old_muscle:="1"]
@@ -167,7 +172,7 @@ dat_effect[(young_old_muscle*slope)<0 , effect_allele:=temp_non_effect_allele  ]
 dat_effect[(young_old_muscle*slope)<0 , non_effect_allele:=temp_effect_allele  ]
 
 dat_effect[ ,effect:=slope ]
-#dat_effect <- dat_effect[,.(KGID,gene_name,effect_allele,non_effect_allele,rs_id_dbSNP142_GRCh37p13,maf,slope,effect,pval_nominal,qval,young_old_muscle )]
+#dat_effect <- dat_effect[,.(KGID,gene_name,effect_allele,non_effect_allele,rs_id_dbSNP142_GRCh37p13,maf,slope,effect,pval_nominal,qval,pval_nominal_threshold,young_old_muscle )]
 dat_effect <- dat_effect[,.(KGID,effect_allele,non_effect_allele,effect ) ]
 
 #try merging SNPs with my 1KG data. If Indels don't merge, I'll deal with them later.
@@ -248,13 +253,6 @@ pheno[control60dead==1 ,dead90:=0L ]
 pheno[cases90==1 ,dead90:=1L ]
 pheno[dead90==-9 ,dead90:=NA ] 
 L1<-glm(dead90 ~ IV + GIAGE1 + factor(SITE) + EV1 + EV2 + EV3 + EV4 ,data=pheno, family=binomial(link="logit"), maxit=50 , na.action=na.omit )
-summary(L1)
-
-pheno[ ,dead90:=-9L ]
-pheno[control60DA==1 ,dead90:=0L ]
-pheno[cases90==1 ,dead90:=1L ]
-pheno[dead90==-9 ,dead90:=NA ] 
-L1<-glm(dead90 ~ IV + GIAGE1 + EV1 + EV2 + EV3 + EV4 ,data=pheno, family=binomial(link="logit"), maxit=50  )
 summary(L1)
 
 #survival
