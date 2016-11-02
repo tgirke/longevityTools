@@ -1,16 +1,19 @@
 ---
 title: "_longevityTools_: SNP data formatting" 
-author: "Authors: Dan Evans"
+author: "Author: Dan Evans"
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
-package: "`r pkg_ver('longevityTools')`"
 output:
-  BiocStyle::html_document:
+  html_document:
     toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
     toc_depth: 3
     fig_caption: yes
+    code_folding: show
+    number_sections: true
 
 fontsize: 14pt
-bibliography: bibtex.bib
 ---
 
 <!--
@@ -33,7 +36,7 @@ git commit -am "some edits"; git push -u origin master
 -->
 
 
-```{r style, echo = FALSE, results = 'asis'}
+```{r style, echo = FALSE, results = 'asis', message=FALSE, warning=FALSE}
 BiocStyle::markdown()
 options(width=100, max.print=1000)
 knitr::opts_chunk$set(
