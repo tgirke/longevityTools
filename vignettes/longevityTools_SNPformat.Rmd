@@ -596,6 +596,78 @@ fwrite(dat, file.path=paste0("~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr",myChr
 
 ```
 
+# Phenotype based on survival percentiles
+
+## SSA data
+Birth cohort and gender-specific survival percentiles from the US Social Security Administration are provided in Table 7 [here](http://www.ssa.gov/oact/NOTES/as120/TOC.html). The age at the Xth survival percentile is the youngest age at which lx <= (1-X)\*100,000. For the 90th survival percentile, lx <= 0.1\*100,000 = 10,000. 
+
+## Linear predictor for each year
+SSA data is given by decade. A linear predictor was used to impute age at each year. 
+```{r,eval=FALSE}
+
+dat<-read.csv("~/Documents/longevity/1KGlongevity/ages.csv",header=T,stringsAsFactors=F)
+dat$birthYear<-dat$birthYear - 1900
+
+myPredictor<-function(x){
+  lm1<-lm(x~birthYear,data=dat)
+  newdata<-with(dat,expand.grid(
+    birthYear = seq(min(birthYear),max(birthYear),by=1 ),
+    age = 0
+  ))
+  newdata$age <- round(predict(lm1,newdata))
+  return(newdata$age)
+}
+
+result<-sapply(dat[,2:9],myPredictor)
+myBirthYear = seq(min(dat$birthYear),max(dat$birthYear),by=1 )+1900
+result<-cbind(myBirthYear,result)
+write.csv(result,file="~/Documents/longevity/1KGlongevity/agesPredict.csv",quote=F,row.names=F)
+
+```
+
+## Apply percentiles to follow-up data
+
+```{r, eval=FALSE}
+
+efDat<-read.csv("M:/work/mrOS/dataPheno/endpoints/efaug15.csv",header=T,stringsAsFactors=F)
+V1dat<-read.csv("M:/work/mrOS/dataPheno/V1FEB14.csv",header=T,stringsAsFactors=F)
+V1dat<-V1dat[,c("ID","SITE","GIAGE1")]
+ageLUT<-read.csv("M:/work/longevity/chargeAging/1KGlongevity/AP/lifetables/agesPredict.csv",header=T,stringsAsFactors=F)
+fam<-read.table("M:/work/longevity/chargeAging/1KGlongevity/MrOS/data/chr21.plink.fam",header=F,stringsAsFactors = F)
+names(fam)<-c("FID","IID","father","mother","sex","pheno")
+
+dat<-merge(efDat,V1dat,by="ID")
+dat$EFDATE<-as.Date(dat$EFDATE, format="%m/%d/%Y")
+dat$cohort<-as.numeric(format(dat$EFDATE,"%Y")) - dat$GIAGE1
+
+dat$finalAge<-dat$GIAGE1 + dat$FUCYTIME
+
+#provides age cut-off based on birthyear cohort
+dat$male90cut<-ageLUT[match(dat$cohort,ageLUT$myBirthYear),"male90"]
+dat$male99cut<-ageLUT[match(dat$cohort,ageLUT$myBirthYear),"male99"]
+dat$male60cut<-ageLUT[match(dat$cohort,ageLUT$myBirthYear),"male60"]
+#no missings, meaning there were matches for all birth cohorts.
+
+dat$cases90<-0
+dat$cases90[dat$finalAge>=dat$male90cut]<-1
+
+dat$cases99<-0
+dat$cases99[dat$finalAge>=dat$male99cut]<-1
+
+dat$control60dead<-0
+dat$control60dead[dat$EFSTATUS==1 & dat$finalAge<=dat$male60cut] <-1
+
+dat$control60alive<-0
+dat$control60alive[dat$EFSTATUS!=1 & dat$finalAge<=dat$male60cut] <-1
+
+dat$control60DA<-0
+dat$control60DA[dat$finalAge<=dat$male60cut] <-1
+
+#output data for all MrOS subjects, even those without GWAS
+write.csv(dat,file="M:/work/longevity/chargeAging/1KGlongevity/MrOS/data/MrOSsurvivalPercentiles.csv",row.names=F,quote=F)
+
+```
+
 # Association analysis
 
 Run analysis using PLINK
