@@ -142,8 +142,11 @@ with(snpAnnot,sum(alle.A.b37_C != alle.A.b37_H & !is.na(alle.A.b37_C) & !is.na(a
 #Allele A differs between C and H manifests for 5,067 SNPs
 ```
 
-## QC starting
-Remove CNV and Indels, as UM imputation server requires biallelic variants.
+# SNP QC filtering
+
+## Remove CNV and Indels.
+
+UM imputation server requires biallelic variants.
 
 ```{r,eval=FALSE}
 
@@ -162,7 +165,9 @@ sum(is.na(snpAnnot$alleles_Rayner))
 
 ```
 
-Using posCmp function from LongevityTools to compare positions from our MrOS SNP annotation with Will Rayner's. Disagreements in chr or position in 7,433 of the 907,956 probes (.8%). Downstream steps rely on Imputation checking tool based on Will Rayner's annotation, so will use his chr and pos.
+## posCmp function 
+
+The posCmp function from LongevityTools compares positions from our MrOS SNP annotation with Will Rayner's. Disagreements in chr or position in 7,433 of the 907,956 probes (.8%). Downstream steps rely on Imputation checking tool based on Will Rayner's annotation, so will use his chr and pos.
 
 ```{r,eval=FALSE}
 myCompare<-posCmp(snpAnnot$position_b37_H,snpAnnot$pos_Rayner,snpAnnot$Chr_b37_H,snpAnnot$chr_Rayner)
@@ -175,7 +180,7 @@ head(snpAnnot[snpAnnot$chrDisagree==1 & snpAnnot$MACH_KEEP_b37_H==TRUE,c("b37_C_
 length(grep("^rs",snpAnnot$b37_C_rs.id[snpAnnot$MACH_KEEP_b37_H==TRUE],invert=TRUE)) #23,132 non-rs SNPs
 ```
 
-Remove SNPs not on autosomes or X based on Rayner info
+## Remove SNPs not on autosomes or X based on Rayner info
 
 ```{r,eval=FALSE}
 table(snpAnnot$Chr_b37_H)
@@ -184,6 +189,8 @@ sum(is.na(snpAnnot$chr_Rayner)) #0 missing
 snpAnnot<-snpAnnot[snpAnnot$chr_Rayner!="MT",]
 snpAnnot<-snpAnnot[snpAnnot$chr_Rayner!="Y",]
 ```
+
+## Split Rayner alleles.
 
 Rayner alleles are in a single variable. Split them out into two variables for easier manipulation. 
 
@@ -199,6 +206,8 @@ snpAnnot$Rayner_A<-substr(snpAnnot$alleles_Rayner,1,1)
 snpAnnot$Rayner_B<-substr(snpAnnot$alleles_Rayner,2,2)
 ```
 
+## strandCheck function
+
 Using strandCheck function from LongevityTools, mark SNPs from the MrOS SNP annotation file that have alleles on the minus strand (flipped). 2074 SNPs on minus strand. 
 
 ```{r,eval=FALSE}
@@ -208,7 +217,9 @@ snpAnnot<-cbind(snpAnnot,myFlip)
 sum(snpAnnot$flipped) #2074
 ```
 
-Using strandFlip function from LongevityTools, flip strand alleles are represented on for minus strand SNPs. After flipping minus strand SNPs, check the SNPs again to make sure none are flagged as being on the minus strand. None are flagged. 
+## strandFlip function
+
+Using strandFlip function from LongevityTools, flip strand alleles that are represented on the minus strand. After flipping minus strand SNPs, check the SNPs again to make sure none are flagged as being on the minus strand. None are flagged. 
 
 ```{r,eval=FALSE}
 myFlip<-strandFlip(snpAnnot$alle.A.b37_H,snpAnnot$alle.B.b37_H,snpAnnot$flipped)
@@ -224,7 +235,9 @@ with(snpAnnot,table(alleles_Rayner))
 table(with(snpAnnot,paste0(A1,B1)))
 ```
 
-Why are there more allele combos in A1+B1 vs alleles_Rayner? 
+## Allele possibilities
+
+Noticed there are more allele combos in A1+B1 vs alleles_Rayner. Why? 
 GC and TA are just rearranged. However, TC and TG are not in alleles_Rayner.
 TC and TG in A1+B1 are - strand on strand_Rayner. See below.
 
@@ -236,6 +249,8 @@ table(snpAnnot$strand_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="G"])
 table(snpAnnot$alleles_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="C"]) #AG
 table(snpAnnot$alleles_Rayner[snpAnnot$A1=="T" & snpAnnot$B1=="G"]) #AC
 ```
+
+## SNP QC filtering
 
 Remove SNPs with > 1 discordant call between duplicate samples, missing rate > 2.5%, autosomal HWE P-value < 10-6, MAF < 0.01. Output new SNP annotation file. 
 
@@ -271,6 +286,8 @@ snpAnnot<-snpAnnot[snpAnnot$maf>=0.01,]
 write.table(snpAnnot,file="//HOMER/MROS_SOF/plink2016/SNPs_related/SNP_ANNOT_DSE.txt",row.names=F,quote=F)
 ```
 
+## Chromosome-specific SNP annotation files
+
 Split SNP annotation file by chromosome to make ncdf extraction easier. 
 
 ```{r,eval=FALSE}
@@ -286,6 +303,8 @@ for (i in myChr){
 ```
 
 # Extract genotypes for each chromosome
+
+## NetCDF data access using ncdf4 package
 
 ```{r, eval=FALSE}
 
@@ -350,6 +369,10 @@ print(proc.time() - t1)
 
 ```
 
+# Pre-imputation checking of PLINK files
+
+## Rayner pre-imputation tool
+
 Then used Will Rayner's Imputation preparation and checking [tool](http://www.well.ox.ac.uk/~wrayner/tools/)
 
 Also checks AF concordance with 1000G EUR phase 3 data. Results below. 
@@ -397,13 +420,37 @@ Duplicates removed 21
 
 ```
 
-Generates plink scripts to flip strands and switch reference/other allele. 
+Will's tool generates plink scripts to flip strands and switch reference/other allele. 
 
+## Convert plink to sorted vcf
 
-A few steps to format the plink files for the UM imputation server.
+Convert PLINK files to sorted bgzipped vcf for the UM imputation server.
 
+```
+#!/bin/bash
+#PBS -t 1-22
+#PBS -l mem=15gb
+#PBS -l walltime=8:00:00
+#PBS -q batch
 
-Files back. Need to convert from vcf to dosage. 
+dataPath=~/bigdata/U24/GWAScohorts/MrOS/geno_vcf
+
+cd $dataPath
+
+module load plink
+module load vcftools
+
+plink --ped ${dataPath}/MrOS_chr${PBS_ARRAYID}.ped --map ${dataPath}/MrOS_chr${PBS_ARRAYID}.map --recode vcf --out ${dataPath}/MrOS_chr${PBS_ARRAYID}
+
+vcf-sort ${dataPath}/MrOS_chr${PBS_ARRAYID}.vcf | bgzip -c > ${dataPath}/MrOS_chr${PBS_ARRAYID}.vcf.gz
+
+```
+
+# Post-imputation formatting
+
+## Convert from vcf to dosage
+VCF files contain best guess genotypes, genotype probabilites, and allele dosages. I want dosages. 
+
 ```
 #!/bin/bash
 
@@ -420,13 +467,17 @@ cd $dataPath
 
 ```
 
-Tried loading in PLINK, but errors, reporting duplicate IDs. Turns out InDels have same SNPIDs as SNPs at same position because SNP ID is chr:pos. Strangely, I could not run this in parallel, had to do it serially. 
+## Duplicate InDels
+
+Tried loading in PLINK, but errors, reporting duplicate IDs. Turns out InDels have same SNPIDs as SNPs at same position because SNPID is chr:pos. To solve this, I pasted alleles to the SNP identifiers, which distinguishes InDels from SNPs. However, some InDel alleles were extremely long (>200 kb), so I subsetted the alleles to the shortest possible nucleotide length that uniquely identified each variant. 
 
 ```{r,eval=FALSE}
 #using data.table to modify plink files
 library(data.table,lib.loc="/rhome/devans/Rlibs")
 
-myChr<-18L
+chrIndex<-1:22
+pbs_arrayid <- as.integer(Sys.getenv("PBS_ARRAYID"))
+myChr<-chrIndex[pbs_arrayid]
 
 map<-fread(paste0("~/bigdata/U24/GWAScohorts/MrOS/vcf1KG/chr",myChr,".plink.map"))
 setnames(map, c("chr","SNP","gen","pos") )
@@ -453,7 +504,7 @@ if ( dat[nchar(SNP)>100, .N] != x){
 dat[, SNPtest := substr(SNP,1,100)   ]
 #SNPtest variable contains first 100 characters of SNP. I want to use this as the SNPID. 
 #By subsetting to first 100, could create duplicate IDs. Check if dups exist, and if so, include more BPs.
-#Only if there were dups in the 100 character subset, create new SNPtest with minimum number of BPs so there are no dups. 
+#Only if there were dups in the 100 character subset, create new SNPtest with minimum number of BPs until there are no dups. 
 if(dat[duplicated(SNPtest), .N] > 0){
   result<-sapply(seq(200,2000,by=100), function(x) {
     dat[, SNPtest := substr(SNP,1,x)   ]
@@ -473,8 +524,6 @@ setkey(map,SNPorder)
 map[ , SNPnew := dat[,SNPtest] ]
 #this also works, subset is a data.table, but is easily added
 #map[ , SNPnew := dat2[,.(SNPtest)] ]
-#approximate R's memory requirements
-sapply(seq(0.5,4,by=0.25 )  ,function(x){cbind(x,x*(13/0.7))} )
 
 map <- map[ ,.(chr,SNPnew,gen,pos) ]
 myNumCol <- ncol(dat)
@@ -502,10 +551,68 @@ cd $PBS_O_WORKDIR
 Rscript --vanilla ./uniqueSNPchr.R
 ```
 
+## Very long (>2 kb) duplicate InDels
 
+Even after that, there were InDel dups for 3 chromosomes: 6, 14, and 19. First InDel of the dups was retained.
 
+```{r, eval=FALSE}
+library(data.table,lib.loc="/rhome/devans/Rlibs")
 
+myChr<-6L
+#myChr<-14L
+#myChr<-19L
 
+map<-fread(paste0("~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr",myChr,".plink.map"))
+setnames(map, c("chr","SNP","gen","pos") )
+map[,SNPorder := 1:map[,.N] ]  
+
+#cbind info to map, remove duplicate from map. Then, use SNPorder to subset dose file.
+info<-fread(paste0("~/bigdata/U24/GWAScohorts/MrOS/vcf1KG/chr",myChr,".info") )
+names(info)[1] <- "SNPinfo"
+map2<-cbind(map,info)
+#identical(map2[,SNPorder], 1:902461)
+map2<-map2[!duplicated(SNP)]
+myRows<-map2[,c(SNPorder)] #rows with non-duplicated SNPIDs
+
+#myDup<-map2[duplicated(SNP),c(SNP) ]
+#map2[SNP %in% myDup ,which=TRUE] which argument returns the matching row numbers
+#map2[SNP %in% myDup ,]
+#myDup2<- base::strsplit(myDup,"[",fixed=TRUE )[[1]][1]
+
+doseHeader<-scan("~/bigdata/U24/GWAScohorts/MrOS/vcf1KG/headerDosage.txt",sep="\t",what="character")
+dat<-fread(paste0("~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr",myChr,".plink.dose"),header=F,col.names=doseHeader)
+
+dat<-dat[myRows]
+
+fwrite(map2, file.path=paste0("~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr",myChr,".plink.Info.map"),sep="\t",col.names=FALSE, verbose=TRUE  )
+
+map2 <- map2[ ,.(chr,SNP,gen,pos) ]
+
+fwrite(map2, file.path=paste0("~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr",myChr,".plink.map"),sep="\t",col.names=FALSE, verbose=TRUE )
+fwrite(dat, file.path=paste0("~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr",myChr,".plink.dose"),sep="\t",col.names=FALSE, verbose=TRUE )
+
+```
+
+# Association analysis
+
+Run analysis using PLINK
+
+```
+#!/bin/bash
+
+#PBS -t 1-22
+#PBS -l mem=14gb
+#PBS -l walltime=10:00:00
+#PBS -j oe
+
+module load plink
+
+cd ~/bigdata/U24/CHARGElongevity/dead90/scripts
+plink --memory 10000 --pheno ../data/dead90.txt --covar ../data/dead90cov.txt --allow-no-sex --fam ~/bigdata/U24/GWAScohorts/MrOS/vcf1KG/chr${PBS_ARRAYID}.plink.fam --map ~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr${PBS_ARRAYID}.plink.map --dosage ~/bigdata/U24/GWAScohorts/MrOS/plink1KG/chr${PBS_ARRAYID}.plink.dose.gz Zout noheader format=1 --out ../results/dead90chr${PBS_ARRAYID}
+ 
+module unload plink
+
+```
 
 
 
