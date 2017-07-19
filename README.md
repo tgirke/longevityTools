@@ -10,6 +10,7 @@ R package defining the analysis routines used by the [Longevity Genomics](http:/
 * [longevityDrugs](https://github.com/tgirke/longevityDrugs): structures, properties and annotations of small molecules associated with longevity
 * [longevityFeatures](https://github.com/tgirke/longevityFeatures): genes, proteins and other features associated with longevity and aging
 * [SNPformat](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_SNPformat.html): SNP genotype data formatting
+* [PrediXcan](https://htmlpreview.github.io/?https://github.com/tgirke/longevityTools/blob/master/vignettes/longevityTools_Sood_prediXcan.html): Applying PrediXcan to longevity.
 
 #### Installation 
 
