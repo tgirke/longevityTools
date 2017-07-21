@@ -239,7 +239,7 @@ div.tocify {
 
 <h1 class="title toc-ignore"><em>longevityTools</em>: PrediXcan analysis of TOMM40 and Sood genes</h1>
 <h4 class="author"><em>Author: Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 19 July, 2017</em></h4>
+<h4 class="date"><em>Last update: 20 July, 2017</em></h4>
 
 </div>
 
@@ -313,9 +313,9 @@ map &lt;- merge(map,map_gtex,by=&quot;SNPID2&quot;,all.x=T)
 #create MAF
 map[,MAF:=AF_coded_all]
 map[AF_coded_all&gt;0.5,MAF:=1-AF_coded_all  ]
-#use plink's original SNPID if rsID is missing
+#use minimac's original SNPID if rsID is missing
 map[is.na(rsID) ,rsID:=SNPID ]
-#replace imputation accuracy NA for 1
+#replace imputation accuracy NA with 1
 map[is.na(oevar_imp),oevar_imp:=1]
 
 #select cols
@@ -334,70 +334,86 @@ fwrite(map, file=paste0(&quot;~/bigdata/predixcan/data/input/MrOS/map_files/&quo
 <p>Ran successfully. Generated predicted expression in EBV-transformed lymphocytes to follow-up TOMM40 result.</p>
 </div>
 </div>
-<div id="tomm40" class="section level1">
-<h1><span class="header-section-number">4</span> TOMM40</h1>
+<div id="candidate-genes-tomm40-and-apoe" class="section level1">
+<h1><span class="header-section-number">4</span> Candidate genes TOMM40 and ApoE</h1>
 <div id="loading-libraries" class="section level2">
 <h2><span class="header-section-number">4.1</span> Loading libraries</h2>
 <pre class="r"><code>library(data.table)
 library(stringr)
 library(biomaRt)</code></pre>
 </div>
-<div id="read-in-predixcan-output.-check-if-tomm40-is-present." class="section level2">
-<h2><span class="header-section-number">4.2</span> Read in PrediXcan output. Check if TOMM40 is present.</h2>
+<div id="read-in-predixcan-output." class="section level2">
+<h2><span class="header-section-number">4.2</span> Read in PrediXcan output.</h2>
+<p>PrediXcan uses gencode v19 gene annotation as documented <a href="https://www.gtexportal.org/home/datasets">here</a>. Gencode annotation format described <a href="https://www.gencodegenes.org/data_format.html">here</a>. Footnotes b and c in section B.1. state that Gencode gene IDs are suffixed with .X which refers to version number. The suffixes are stripped off in the code below to enable Gene ID matching with Ensembl gene IDs.</p>
 <pre class="r"><code>pred &lt;- fread(&quot;~/bigdata/predixcan/output/MrOS/Cells_EBV-transformed_lymphocytes_predicted_expression.txt&quot;)</code></pre>
 <pre><code>## 
 Read 0.0% of 4615 rows
 Read 4615 rows and 3761 (of 3761) columns from 0.236 GB file in 00:00:12</code></pre>
-<pre class="r"><code>#Gene names suffixed with .X where is X is number. Prevents lookup. Remove suffix.
+<pre class="r"><code>setnames(pred,&quot;FID&quot;,&quot;ID&quot;)
+
+#Remove .X suffix from gencode gene IDs in column names.
 pred_genes&lt;-strsplit(names(pred),&quot;.&quot;,fixed=TRUE)
 pred_genes&lt;-sapply(pred_genes, function(x) x[1])
+setnames(pred,pred_genes)</code></pre>
+<p>Check if TOMM40 and ApoE are in prediXcan output. Use BioMart to retrieve Ensemble gene IDs.</p>
+<pre class="r"><code>ensembl &lt;- useEnsembl(biomart=&quot;ensembl&quot;, dataset=&quot;hsapiens_gene_ensembl&quot;,GRCh=37)
+attributes = listAttributes(ensembl)
+filters = listFilters(ensembl)
 
-query_genes &lt;- &quot;ENSG00000130204&quot;
+candidate_genes &lt;- getBM(attributes=c(&quot;external_gene_name&quot;,&quot;ensembl_gene_id&quot;),
+        filters = &quot;external_gene_name&quot;,
+    values = c(&quot;TOMM40&quot;,&quot;APOE&quot;),
+    mart=ensembl )
+
+query_genes &lt;- candidate_genes$ensembl_gene_id
 pred_query &lt;- pred_genes %in% query_genes
 sum(pred_query)</code></pre>
 <pre><code>## [1] 1</code></pre>
-<pre class="r"><code>pred_genes &lt;- pred_genes[pred_query]
-pred_genes</code></pre>
-<pre><code>## [1] &quot;ENSG00000130204&quot;</code></pre>
-<pre class="r"><code>myindex&lt;-c(1:2,which(pred_query))
+<pre class="r"><code>#subset by index number. Could also index by names. 
+#index 1 is the ID. 
+myindex&lt;-c(1,which(pred_query))
 
 pred2&lt;-pred[,myindex, with=FALSE]</code></pre>
-<p>Ensembl gene IDs with suffix.</p>
 </div>
-<div id="merge-with-phenotype-data" class="section level2">
-<h2><span class="header-section-number">4.3</span> Merge with phenotype data</h2>
-<pre class="r"><code>pheno &lt;- fread(&quot;~/bigdata/U24/CHARGElongevity/DA90/data/deadAlive90.txt&quot;)
-splitID&lt;-str_split(pheno$FID, &quot;_&quot;)
-pheno$ID &lt;- sapply( splitID, function(x) x[1] ) 
-
-pheno[deadAlive90==-9,deadAlive90:=NA ]
-pheno[deadAlive90==1,deadAlive90:=0]
-pheno[deadAlive90==2,deadAlive90:=1]
-table(pheno$deadAlive90)</code></pre>
-<pre><code>## 
-##   0   1 
-## 687 946</code></pre>
-<pre class="r"><code>pheno&lt;-merge(pheno,pred2,by.x=&quot;ID&quot;,by.y=&quot;FID&quot;)</code></pre>
+<div id="merge-phenotype-data" class="section level2">
+<h2><span class="header-section-number">4.3</span> Merge phenotype data</h2>
+<pre class="r"><code>mypaths&lt;-c(&quot;~/bigdata/U24/CHARGElongevity/DA99/data/deadAlive99.txt&quot;,&quot;~/bigdata/U24/CHARGElongevity/DA90/data/deadAlive90.txt&quot;)
+for(i in 1:length(mypaths)){
+  temp &lt;- fread(mypaths[i])
+  splitID&lt;-str_split(temp$FID, &quot;_&quot;)
+  temp$ID &lt;- sapply( splitID, function(x) x[1] ) 
+  if(i==1){
+    temp[,DA99:=ifelse(deadAlive99==-9,NA,ifelse(deadAlive99==1,0,1))   ]
+    temp&lt;-temp[,.(ID,DA99)]
+    pheno&lt;-temp
+  } else {
+    temp[,DA90:=ifelse(deadAlive90==-9,NA,ifelse(deadAlive90==1,0,1))   ]
+    temp&lt;-temp[,.(ID,DA90)]
+    pheno&lt;-merge(pheno,temp,by=&quot;ID&quot;)
+  }
+}</code></pre>
 </div>
 <div id="association-with-longevity" class="section level2">
 <h2><span class="header-section-number">4.4</span> Association with longevity</h2>
 <p>Predicted TOMM40 expression not significantly associated with longevity in MrOS.</p>
-<pre class="r"><code>L1 &lt;- glm(deadAlive90~ENSG00000130204.8, data=pheno, family=binomial(link=&quot;logit&quot;),na.action=na.omit)
+<pre class="r"><code>#merge phenotype with predicted gene expression
+regress_dat&lt;-merge(pheno,pred2,by=&quot;ID&quot;)
 
+L1 &lt;- glm(DA90~ENSG00000130204, data=regress_dat, family=binomial(link=&quot;logit&quot;),na.action=na.omit)
 summary(L1)</code></pre>
 <pre><code>## 
 ## Call:
-## glm(formula = deadAlive90 ~ ENSG00000130204.8, family = binomial(link = &quot;logit&quot;), 
-##     data = pheno, na.action = na.omit)
+## glm(formula = DA90 ~ ENSG00000130204, family = binomial(link = &quot;logit&quot;), 
+##     data = regress_dat, na.action = na.omit)
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
 ## -1.385  -1.295   1.023   1.064   1.096  
 ## 
 ## Coefficients:
-##                   Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)         0.4764     0.1230   3.875 0.000107 ***
-## ENSG00000130204.8  -0.3137     0.2244  -1.398 0.162126    
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)       0.4764     0.1230   3.875 0.000107 ***
+## ENSG00000130204  -0.3137     0.2244  -1.398 0.162126    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -409,6 +425,32 @@ summary(L1)</code></pre>
 ## AIC: 2224.6
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>L1 &lt;- glm(DA99~ENSG00000130204, data=regress_dat, family=binomial(link=&quot;logit&quot;),na.action=na.omit)
+summary(L1)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = DA99 ~ ENSG00000130204, family = binomial(link = &quot;logit&quot;), 
+##     data = regress_dat, na.action = na.omit)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.4629  -0.3947  -0.3382  -0.3360   2.4522  
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)      -2.1801     0.3266  -6.675 2.47e-11 ***
+## ENSG00000130204  -1.0005     0.6344  -1.577    0.115    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 354.75  on 734  degrees of freedom
+## Residual deviance: 352.33  on 733  degrees of freedom
+##   (3880 observations deleted due to missingness)
+## AIC: 356.33
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <div id="next-steps" class="section level2">
 <h2><span class="header-section-number">4.5</span> Next steps</h2>
@@ -417,34 +459,242 @@ summary(L1)</code></pre>
 </div>
 <div id="sood-genes" class="section level1">
 <h1><span class="header-section-number">5</span> Sood genes</h1>
-<pre class="r"><code>ensembl &lt;- useEnsembl(biomart=&quot;ensembl&quot;, dataset=&quot;hsapiens_gene_ensembl&quot;,GRCh=37)
-attributes = listAttributes(ensembl)
-filters = listFilters(ensembl)
-
-
-sood&lt;-fread(&quot;~/U24/MR/GTEx/data/sood150.csv&quot;)
+<pre class="r"><code>sood&lt;-fread(&quot;~/U24/MR/GTEx/data/sood150.csv&quot;)
 sood&lt;-sood[!duplicated(Gene_Symbol),]
-sood &lt;- sood[HU133_Probeset_ID!=Gene_Symbol , ]
+sood &lt;- sood[HU133_Probeset_ID!=Gene_Symbol , ] #remove rows where probe ID used as gene symbol
 setnames(sood,&quot;Y:0_muscle&quot;,&quot;young_old_muscle&quot;)
-query_genes&lt;-sood[,Gene_Symbol]
 query_probes&lt;-sood[,HU133_Probeset_ID]
 
 
-sood_genes &lt;- getBM(attributes=c(&quot;affy_hg_u133_plus_2&quot;,&quot;ensembl_gene_id&quot;,&quot;ensembl_transcript_id&quot;),
+sood_genes &lt;- getBM(attributes=c(&quot;affy_hg_u133_plus_2&quot;,&quot;ensembl_gene_id&quot;,&quot;external_gene_name&quot;),
         filters = &quot;affy_hg_u133_plus_2&quot;,
     values = query_probes,
     mart=ensembl )
 
+query_genes&lt;-merge(sood,sood_genes,by.x=&quot;HU133_Probeset_ID&quot;,by.y=&quot;affy_hg_u133_plus_2&quot;)
+query_genes&lt;-query_genes[!duplicated(ensembl_gene_id)]
 
-query_genes &lt;- unique(sood_genes$ensembl_gene_id)
-pred_query &lt;- pred_genes %in% query_genes
-sum(pred_query)
-pred_genes &lt;- pred_genes[pred_query]
+genes_up&lt;-query_genes[young_old_muscle==&quot;up&quot;,ensembl_gene_id]
+genes_down&lt;-query_genes[young_old_muscle==&quot;down&quot;,ensembl_gene_id]
 
-sood_genes &lt;- getBM(attributes=c(&quot;ensembl_gene_id&quot;,&quot;external_gene_name&quot;),
-    filters = &quot;ensembl_gene_id&quot;,
-    values = pred_genes,
-    mart=ensembl )</code></pre>
+
+create_ranks&lt;-function(x,direction=&quot;-&quot;){
+  samp_order&lt;-seq_along(x)
+  my_dat&lt;-data.table(expression=x,sample_order=samp_order)
+  #sort expression according to direction arg
+  #expression matching direction towards top of data.table
+  if(direction==&quot;-&quot;){
+    my_dat&lt;-my_dat[ order(expression) ]
+  } else if(direction==&quot;+&quot;){
+    my_dat &lt;- my_dat[ order(-expression) ]
+  } else print('Direction must be &quot;+&quot; or &quot;-&quot;')
+  #create rank after expression 
+  #top sorted rows get highest ranking
+  my_dat[,myrank:=rev(seq_along(expression))]
+  #re-order by original order
+  my_dat&lt;-my_dat[order(sample_order)]
+  return(my_dat[,myrank ])
+}
+
+gene_list&lt;-pred_genes[pred_genes %in% genes_down ]
+pred2&lt;-pred[,c(&quot;ID&quot;,gene_list),with=FALSE]
+if(length(gene_list)&gt;0) {
+  pred2[,2:ncol(pred2)] &lt;- lapply(pred2[,2:ncol(pred2)],create_ranks,direction=&quot;-&quot;  )
+}
+
+gene_list&lt;-pred_genes[pred_genes %in% genes_up ]
+pred3&lt;-pred[,c(&quot;ID&quot;,gene_list),with=FALSE]
+if(length(gene_list)&gt;0) {
+  pred3[,2:ncol(pred3)] &lt;- lapply(pred3[,2:ncol(pred3)],create_ranks,direction=&quot;+&quot;  )
+}
+
+pred4&lt;-merge(pred2,pred3,by=&quot;ID&quot;)
+pred4[,score:=apply(pred4[,2:ncol(pred4)],1,median ) ]
+pred4[,score:=scale(score,center=TRUE,scale=TRUE)]</code></pre>
+<div id="association-with-longevity-1" class="section level2">
+<h2><span class="header-section-number">5.1</span> Association with longevity</h2>
+<pre class="r"><code>#merge phenotype with predicted gene expression
+regress_dat&lt;-merge(pheno,pred4,by=&quot;ID&quot;)
+
+L1 &lt;- glm(DA90~score, data=regress_dat, family=binomial(link=&quot;logit&quot;),na.action=na.omit)
+summary(L1)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = DA90 ~ score, family = binomial(link = &quot;logit&quot;), 
+##     data = regress_dat, na.action = na.omit)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.388  -1.308   1.018   1.048   1.106  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.32142    0.05017   6.406 1.49e-10 ***
+## score       -0.05976    0.05121  -1.167    0.243    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2222.6  on 1632  degrees of freedom
+## Residual deviance: 2221.2  on 1631  degrees of freedom
+##   (2982 observations deleted due to missingness)
+## AIC: 2225.2
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>exp(cbind(OR = coef(L1), confint(L1)))</code></pre>
+<pre><code>##                    OR     2.5 %   97.5 %
+## (Intercept) 1.3790782 1.2502235 1.522005
+## score       0.9419948 0.8518887 1.041392</code></pre>
+<pre class="r"><code>L1 &lt;- glm(DA99~score, data=regress_dat, family=binomial(link=&quot;logit&quot;),na.action=na.omit)
+summary(L1)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = DA99 ~ score, family = binomial(link = &quot;logit&quot;), 
+##     data = regress_dat, na.action = na.omit)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.4616  -0.3851  -0.3617  -0.3403   2.4835  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -2.6653     0.1501 -17.754   &lt;2e-16 ***
+## score        -0.1773     0.1604  -1.105    0.269    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 354.75  on 734  degrees of freedom
+## Residual deviance: 353.52  on 733  degrees of freedom
+##   (3880 observations deleted due to missingness)
+## AIC: 357.52
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>exp(cbind(OR = coef(L1), confint(L1)))</code></pre>
+<pre><code>##                     OR      2.5 %     97.5 %
+## (Intercept) 0.06957788 0.05115042 0.09226345
+## score       0.83755326 0.61012426 1.14562360</code></pre>
+</div>
+</div>
+<div id="peters-genes" class="section level1">
+<h1><span class="header-section-number">6</span> Peters genes</h1>
+<pre class="r"><code>peters&lt;-fread(&quot;~/U24/MR/GTEx/data/johnson-2015-SD1.csv&quot;)
+peters&lt;-peters[!duplicated(GeneSymbol),]
+query_probes&lt;-peters[,EntrezID]
+
+peters_genes &lt;- getBM(attributes=c(&quot;entrezgene&quot;,&quot;ensembl_gene_id&quot;,&quot;external_gene_name&quot;),
+        filters = &quot;entrezgene&quot;,
+    values = query_probes,
+    mart=ensembl )
+
+query_genes&lt;-merge(peters,peters_genes,by.x=&quot;EntrezID&quot;,by.y=&quot;entrezgene&quot;)
+query_genes&lt;-query_genes[!duplicated(ensembl_gene_id)]
+query_genes&lt;-query_genes[!duplicated(EntrezID)]
+
+genes_up&lt;-query_genes[META_Direction==&quot;+&quot;,ensembl_gene_id]
+genes_down&lt;-query_genes[META_Direction==&quot;-&quot;,ensembl_gene_id]
+
+
+create_ranks&lt;-function(x,direction=&quot;-&quot;){
+  samp_order&lt;-seq_along(x)
+  my_dat&lt;-data.table(expression=x,sample_order=samp_order)
+  #sort expression according to direction arg
+  #expression matching direction towards top of data.table
+  if(direction==&quot;-&quot;){
+    my_dat&lt;-my_dat[ order(expression) ]
+  } else if(direction==&quot;+&quot;){
+    my_dat &lt;- my_dat[ order(-expression) ]
+  } else print('Direction must be &quot;+&quot; or &quot;-&quot;')
+  #create rank after expression 
+  #top sorted rows get highest ranking
+  my_dat[,myrank:=rev(seq_along(expression))]
+  #re-order by original order
+  my_dat&lt;-my_dat[order(sample_order)]
+  return(my_dat[,myrank ])
+}
+
+gene_list&lt;-pred_genes[pred_genes %in% genes_down ]
+pred2&lt;-pred[,c(&quot;ID&quot;,gene_list),with=FALSE]
+if(length(gene_list)&gt;0) {
+  pred2[,2:ncol(pred2)] &lt;- lapply(pred2[,2:ncol(pred2)],create_ranks,direction=&quot;-&quot;  )
+}
+
+gene_list&lt;-pred_genes[pred_genes %in% genes_up ]
+pred3&lt;-pred[,c(&quot;ID&quot;,gene_list),with=FALSE]
+if(length(gene_list)&gt;0) {
+  pred3[,2:ncol(pred3)] &lt;- lapply(pred3[,2:ncol(pred3)],create_ranks,direction=&quot;+&quot;  )
+}
+
+pred4&lt;-merge(pred2,pred3,by=&quot;ID&quot;)
+pred4[,score:=apply(pred4[,2:ncol(pred4)],1,median ) ]
+pred4[,score:=scale(score,center=TRUE,scale=TRUE)]</code></pre>
+<div id="association-with-longevity-2" class="section level2">
+<h2><span class="header-section-number">6.1</span> Association with longevity</h2>
+<pre class="r"><code>#merge phenotype with predicted gene expression
+regress_dat&lt;-merge(pheno,pred4,by=&quot;ID&quot;)
+
+L1 &lt;- glm(DA90~score, data=regress_dat, family=binomial(link=&quot;logit&quot;),na.action=na.omit)
+summary(L1)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = DA90 ~ score, family = binomial(link = &quot;logit&quot;), 
+##     data = regress_dat, na.action = na.omit)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.372  -1.310   1.022   1.048   1.107  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.31950    0.05014   6.372 1.87e-10 ***
+## score       -0.05340    0.05045  -1.058     0.29    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2222.6  on 1632  degrees of freedom
+## Residual deviance: 2221.4  on 1631  degrees of freedom
+##   (2982 observations deleted due to missingness)
+## AIC: 2225.4
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<pre class="r"><code>exp(cbind(OR = coef(L1), confint(L1)))</code></pre>
+<pre><code>##                    OR     2.5 %   97.5 %
+## (Intercept) 1.3764356 1.2478864 1.519002
+## score       0.9480038 0.8586261 1.046508</code></pre>
+<pre class="r"><code>L1 &lt;- glm(DA99~score, data=regress_dat, family=binomial(link=&quot;logit&quot;),na.action=na.omit)
+summary(L1)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = DA99 ~ score, family = binomial(link = &quot;logit&quot;), 
+##     data = regress_dat, na.action = na.omit)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.4816  -0.3946  -0.3618  -0.3222   2.5376  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -2.6877     0.1531 -17.559   &lt;2e-16 ***
+## score        -0.2490     0.1524  -1.634    0.102    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 354.75  on 734  degrees of freedom
+## Residual deviance: 352.01  on 733  degrees of freedom
+##   (3880 observations deleted due to missingness)
+## AIC: 356.01
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>exp(cbind(OR = coef(L1), confint(L1)))</code></pre>
+<pre><code>##                     OR      2.5 %     97.5 %
+## (Intercept) 0.06803912 0.04966805 0.09065839
+## score       0.77957355 0.57488523 1.04638250</code></pre>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 3.4.0 (2017-04-21)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
@@ -465,13 +715,15 @@ sood_genes &lt;- getBM(attributes=c(&quot;ensembl_gene_id&quot;,&quot;external_g
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_0.12.11         AnnotationDbi_1.38.1 knitr_1.16           magrittr_1.5        
-##  [5] IRanges_2.10.2       BiocGenerics_0.22.0  bit_1.1-12           rlang_0.1.1         
-##  [9] blob_1.1.0           tools_3.4.0          parallel_3.4.0       Biobase_2.36.2      
-## [13] DBI_0.7              htmltools_0.3.6      yaml_2.1.14          bit64_0.9-7         
-## [17] rprojroot_1.2        digest_0.6.12        tibble_1.3.3         codetools_0.2-15    
-## [21] S4Vectors_0.14.3     bitops_1.0-6         RCurl_1.95-4.8       memoise_1.1.0       
-## [25] evaluate_0.10.1      RSQLite_2.0          rmarkdown_1.6        stringi_1.1.5       
-## [29] compiler_3.4.0       backports_1.1.0      stats4_3.4.0         XML_3.98-1.9</code></pre>
+##  [5] MASS_7.3-47          IRanges_2.10.2       BiocGenerics_0.22.0  bit_1.1-12          
+##  [9] rlang_0.1.1          blob_1.1.0           tools_3.4.0          parallel_3.4.0      
+## [13] Biobase_2.36.2       DBI_0.7              htmltools_0.3.6      yaml_2.1.14         
+## [17] bit64_0.9-7          rprojroot_1.2        digest_0.6.12        tibble_1.3.3        
+## [21] codetools_0.2-15     S4Vectors_0.14.3     bitops_1.0-6         RCurl_1.95-4.8      
+## [25] memoise_1.1.0        evaluate_0.10.1      RSQLite_2.0          rmarkdown_1.6       
+## [29] stringi_1.1.5        compiler_3.4.0       backports_1.1.0      stats4_3.4.0        
+## [33] XML_3.98-1.9</code></pre>
+</div>
 </div>
 
 
