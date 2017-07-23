@@ -239,7 +239,7 @@ div.tocify {
 
 <h1 class="title toc-ignore"><em>longevityTools</em>: PrediXcan analysis of TOMM40 and Sood genes</h1>
 <h4 class="author"><em>Author: Dan Evans</em></h4>
-<h4 class="date"><em>Last update: 20 July, 2017</em></h4>
+<h4 class="date"><em>Last update: 23 July, 2017</em></h4>
 
 </div>
 
@@ -391,7 +391,12 @@ for(i in 1:length(mypaths)){
     temp&lt;-temp[,.(ID,DA90)]
     pheno&lt;-merge(pheno,temp,by=&quot;ID&quot;)
   }
-}</code></pre>
+}
+
+
+phenoCont&lt;-fread(&quot;~/bigdata/U24/MR/data/baseline.csv&quot;)
+phenoCont&lt;-phenoCont[,.(MROSID,SHORTMS,CYSTC,IL6,GRIPR,U6PACE,AGE)]
+setnames(phenoCont,&quot;MROSID&quot;,&quot;ID&quot;)</code></pre>
 </div>
 <div id="association-with-longevity" class="section level2">
 <h2><span class="header-section-number">4.4</span> Association with longevity</h2>
@@ -451,6 +456,24 @@ summary(L1)</code></pre>
 ## AIC: 356.33
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
+<pre class="r"><code>regress_dat_cont &lt;- merge(phenoCont,pred2,by=&quot;ID&quot;)
+
+myfit &lt;- function(outcome){
+  lm1&lt;-lm(outcome~ENSG00000130204,data=regress_dat_cont)
+  beta&lt;-summary(lm1)$coefficients[2,1]
+  se&lt;-summary(lm1)$coefficients[2,2]
+  p&lt;-summary(lm1)$coefficients[2,4]
+  return(c(beta,se,p))
+  }
+
+res1&lt;-t(sapply(regress_dat_cont[,2:6],myfit  ))
+res1</code></pre>
+<pre><code>##                  [,1]       [,2]       [,3]
+## SHORTMS -0.2277036934 0.12258207 0.06329507
+## CYSTC    0.0003359967 0.03477737 0.99229303
+## IL6     -0.4050960495 0.30677362 0.18707811
+## GRIPR    0.1152991677 0.54847363 0.83350681
+## U6PACE   0.0021635570 0.01566732 0.89017244</code></pre>
 </div>
 <div id="next-steps" class="section level2">
 <h2><span class="header-section-number">4.5</span> Next steps</h2>
@@ -576,6 +599,23 @@ summary(L1)</code></pre>
 <pre><code>##                     OR      2.5 %     97.5 %
 ## (Intercept) 0.06957788 0.05115042 0.09226345
 ## score       0.83755326 0.61012426 1.14562360</code></pre>
+<pre class="r"><code>regress_dat_cont &lt;- merge(phenoCont,pred4,by=&quot;ID&quot;)
+
+myfit &lt;- function(outcome){
+  lm1&lt;-lm(outcome~score,data=regress_dat_cont)
+  beta&lt;-summary(lm1)$coefficients[2,1]
+  se&lt;-summary(lm1)$coefficients[2,2]
+  p&lt;-summary(lm1)$coefficients[2,4]
+  return(c(beta,se,p))
+}
+res1&lt;-t(sapply(regress_dat_cont[,2:6],myfit  ))
+res1</code></pre>
+<pre><code>##                  [,1]        [,2]       [,3]
+## SHORTMS  0.0501401957 0.027003141 0.06339932
+## CYSTC    0.0053596027 0.007805835 0.49245441
+## IL6      0.0690491141 0.067435054 0.30620330
+## GRIPR   -0.1576099396 0.120948598 0.19260186
+## U6PACE   0.0004370034 0.003451915 0.89926461</code></pre>
 </div>
 </div>
 <div id="peters-genes" class="section level1">
@@ -695,6 +735,23 @@ summary(L1)</code></pre>
 <pre><code>##                     OR      2.5 %     97.5 %
 ## (Intercept) 0.06803912 0.04966805 0.09065839
 ## score       0.77957355 0.57488523 1.04638250</code></pre>
+<pre class="r"><code>regress_dat_cont &lt;- merge(phenoCont,pred4,by=&quot;ID&quot;)
+
+myfit &lt;- function(outcome){
+  lm1&lt;-lm(outcome~score,data=regress_dat_cont)
+  beta&lt;-summary(lm1)$coefficients[2,1]
+  se&lt;-summary(lm1)$coefficients[2,2]
+  p&lt;-summary(lm1)$coefficients[2,4]
+  return(c(beta,se,p))
+}
+res1&lt;-t(sapply(regress_dat_cont[,2:6],myfit  ))
+res1</code></pre>
+<pre><code>##                 [,1]        [,2]         [,3]
+## SHORTMS  0.004915557 0.027012909 0.8556137514
+## CYSTC    0.007035319 0.007624042 0.3563018289
+## IL6     -0.015915052 0.066063048 0.8096944605
+## GRIPR   -0.431652691 0.120310227 0.0003369728
+## U6PACE   0.009528690 0.003447653 0.0057356277</code></pre>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 3.4.0 (2017-04-21)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
